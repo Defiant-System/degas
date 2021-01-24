@@ -1,4 +1,4 @@
-import * as THREE from '../../build/three.module.js';
+import * as THREE from './three.module.js';
 
 import { Config } from './Config.js';
 import { Loader } from './Loader.js';

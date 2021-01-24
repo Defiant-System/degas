@@ -1,13 +1,13 @@
-import * as THREE from '../../build/three.module.js';
+import * as THREE from './three.module.js';
 
-import { TGALoader } from '../../examples/jsm/loaders/TGALoader.js';
+import { TGALoader } from './jsm/loaders/TGALoader.js';
 
 import { AddObjectCommand } from './commands/AddObjectCommand.js';
 import { SetSceneCommand } from './commands/SetSceneCommand.js';
 
 import { LoaderUtils } from './LoaderUtils.js';
 
-import { JSZip } from '../../examples/jsm/libs/jszip.module.min.js';
+import { JSZip } from './jsm/libs/jszip.module.min.js';
 
 function Loader( editor ) {
 
@@ -85,7 +85,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { Rhino3dmLoader } = await import( '../../examples/jsm/loaders/3DMLoader.js' );
+					var { Rhino3dmLoader } = await import( './jsm/loaders/3DMLoader.js' );
 
 					var loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -104,7 +104,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					var { TDSLoader } = await import( '../../examples/jsm/loaders/TDSLoader.js' );
+					var { TDSLoader } = await import( './jsm/loaders/TDSLoader.js' );
 
 					var loader = new TDSLoader();
 					var object = loader.parse( event.target.result );
@@ -120,7 +120,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					var { ThreeMFLoader } = await import( '../../examples/jsm/loaders/3MFLoader.js' );
+					var { ThreeMFLoader } = await import( './jsm/loaders/3MFLoader.js' );
 
 					var loader = new ThreeMFLoader();
 					var object = loader.parse( event.target.result );
@@ -136,7 +136,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					var { AMFLoader } = await import( '../../examples/jsm/loaders/AMFLoader.js' );
+					var { AMFLoader } = await import( './jsm/loaders/AMFLoader.js' );
 
 					var loader = new AMFLoader();
 					var amfobject = loader.parse( event.target.result );
@@ -154,7 +154,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { ColladaLoader } = await import( '../../examples/jsm/loaders/ColladaLoader.js' );
+					var { ColladaLoader } = await import( './jsm/loaders/ColladaLoader.js' );
 
 					var loader = new ColladaLoader( manager );
 					var collada = loader.parse( contents );
@@ -174,7 +174,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { DRACOLoader } = await import( '../../examples/jsm/loaders/DRACOLoader.js' );
+					var { DRACOLoader } = await import( './jsm/loaders/DRACOLoader.js' );
 
 					var loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -215,7 +215,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { FBXLoader } = await import( '../../examples/jsm/loaders/FBXLoader.js' );
+					var { FBXLoader } = await import( './jsm/loaders/FBXLoader.js' );
 
 					var loader = new FBXLoader( manager );
 					var object = loader.parse( contents );
@@ -233,8 +233,8 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { DRACOLoader } = await import( '../../examples/jsm/loaders/DRACOLoader.js' );
-					var { GLTFLoader } = await import( '../../examples/jsm/loaders/GLTFLoader.js' );
+					var { DRACOLoader } = await import( './jsm/loaders/DRACOLoader.js' );
+					var { GLTFLoader } = await import( './jsm/loaders/GLTFLoader.js' );
 
 					var dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -270,8 +270,8 @@ function Loader( editor ) {
 
 					} else {
 
-						var { DRACOLoader } = await import( '../../examples/jsm/loaders/DRACOLoader.js' );
-						var { GLTFLoader } = await import( '../../examples/jsm/loaders/GLTFLoader.js' );
+						var { DRACOLoader } = await import( './jsm/loaders/DRACOLoader.js' );
+						var { GLTFLoader } = await import( './jsm/loaders/GLTFLoader.js' );
 
 						var dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -357,7 +357,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					var { KMZLoader } = await import( '../../examples/jsm/loaders/KMZLoader.js' );
+					var { KMZLoader } = await import( './jsm/loaders/KMZLoader.js' );
 
 					var loader = new KMZLoader();
 					var collada = loader.parse( event.target.result );
@@ -377,7 +377,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { MD2Loader } = await import( '../../examples/jsm/loaders/MD2Loader.js' );
+					var { MD2Loader } = await import( './jsm/loaders/MD2Loader.js' );
 
 					var geometry = new MD2Loader().parse( contents );
 					var material = new THREE.MeshStandardMaterial( {
@@ -403,7 +403,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { OBJLoader } = await import( '../../examples/jsm/loaders/OBJLoader.js' );
+					var { OBJLoader } = await import( './jsm/loaders/OBJLoader.js' );
 
 					var object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -421,7 +421,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { PLYLoader } = await import( '../../examples/jsm/loaders/PLYLoader.js' );
+					var { PLYLoader } = await import( './jsm/loaders/PLYLoader.js' );
 
 					var geometry = new PLYLoader().parse( contents );
 					var material = new THREE.MeshStandardMaterial();
@@ -442,7 +442,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { STLLoader } = await import( '../../examples/jsm/loaders/STLLoader.js' );
+					var { STLLoader } = await import( './jsm/loaders/STLLoader.js' );
 
 					var geometry = new STLLoader().parse( contents );
 					var material = new THREE.MeshStandardMaterial();
@@ -472,7 +472,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { SVGLoader } = await import( '../../examples/jsm/loaders/SVGLoader.js' );
+					var { SVGLoader } = await import( './jsm/loaders/SVGLoader.js' );
 
 					var loader = new SVGLoader();
 					var paths = loader.parse( contents ).paths;
@@ -520,7 +520,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { VOXLoader, VOXMesh } = await import( '../../examples/jsm/loaders/VOXLoader.js' );
+					var { VOXLoader, VOXMesh } = await import( './jsm/loaders/VOXLoader.js' );
 
 					var chunks = new VOXLoader().parse( contents );
 
@@ -549,7 +549,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { VTKLoader } = await import( '../../examples/jsm/loaders/VTKLoader.js' );
+					var { VTKLoader } = await import( './jsm/loaders/VTKLoader.js' );
 
 					var geometry = new VTKLoader().parse( contents );
 					var material = new THREE.MeshStandardMaterial();
@@ -570,7 +570,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { VRMLLoader } = await import( '../../examples/jsm/loaders/VRMLLoader.js' );
+					var { VRMLLoader } = await import( './jsm/loaders/VRMLLoader.js' );
 
 					var result = new VRMLLoader().parse( contents );
 
@@ -587,7 +587,7 @@ function Loader( editor ) {
 
 					var contents = event.target.result;
 
-					var { XYZLoader } = await import( '../../examples/jsm/loaders/XYZLoader.js' );
+					var { XYZLoader } = await import( './jsm/loaders/XYZLoader.js' );
 
 					var geometry = new XYZLoader().parse( contents );
 
@@ -703,8 +703,8 @@ function Loader( editor ) {
 
 		if ( zip.files[ 'model.obj' ] && zip.files[ 'materials.mtl' ] ) {
 
-			var { MTLLoader } = await import( '../../examples/jsm/loaders/MTLLoader.js' );
-			var { OBJLoader } = await import( '../../examples/jsm/loaders/OBJLoader.js' );
+			var { MTLLoader } = await import( './jsm/loaders/MTLLoader.js' );
+			var { OBJLoader } = await import( './jsm/loaders/OBJLoader.js' );
 
 			var materials = new MTLLoader().parse( zip.file( 'materials.mtl' ).asText() );
 			var object = new OBJLoader().setMaterials( materials ).parse( zip.file( 'model.obj' ).asText() );
@@ -740,7 +740,7 @@ function Loader( editor ) {
 
 				case 'fbx':
 
-					var { FBXLoader } = await import( '../../examples/jsm/loaders/FBXLoader.js' );
+					var { FBXLoader } = await import( './jsm/loaders/FBXLoader.js' );
 
 					var loader = new FBXLoader( manager );
 					var object = loader.parse( file.asArrayBuffer() );
@@ -751,8 +751,8 @@ function Loader( editor ) {
 
 				case 'glb':
 
-					var { DRACOLoader } = await import( '../../examples/jsm/loaders/DRACOLoader.js' );
-					var { GLTFLoader } = await import( '../../examples/jsm/loaders/GLTFLoader.js' );
+					var { DRACOLoader } = await import( './jsm/loaders/DRACOLoader.js' );
+					var { GLTFLoader } = await import( './jsm/loaders/GLTFLoader.js' );
 
 					var dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -773,8 +773,8 @@ function Loader( editor ) {
 
 				case 'gltf':
 
-					var { DRACOLoader } = await import( '../../examples/jsm/loaders/DRACOLoader.js' );
-					var { GLTFLoader } = await import( '../../examples/jsm/loaders/GLTFLoader.js' );
+					var { DRACOLoader } = await import( './jsm/loaders/DRACOLoader.js' );
+					var { GLTFLoader } = await import( './jsm/loaders/GLTFLoader.js' );
 
 					var dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );

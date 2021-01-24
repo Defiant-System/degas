@@ -1,4 +1,7 @@
 <Application>
+	<Build>
+		<task action="skip1" source="src/js/bundle.js" destination="public/js/bundle.js"/>
+	</Build>
 	<Head>
 		<meta name="id" value="degas"/>
 		<meta name="title" value="Degas" version="1.0"/>
