@@ -1,0 +1,16 @@
+<CaptionToolBar>
+	<Group width="37%" class="tools-left">
+		<Options>
+			<Tool name="Left"/>
+			<Tool name="Middle"/>
+			<Tool name="Right"/>
+		</Options>
+	</Group>
+	<Group>
+		
+	</Group>
+	<Group width="21%" class="tools-right">
+		<Tool name="Sidebar"/>
+		<Tool symbol="icon-cog" />
+	</Group>
+</CaptionToolBar>
