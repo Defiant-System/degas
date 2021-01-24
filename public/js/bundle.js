@@ -51929,6 +51929,4865 @@ var THREE = /*#__PURE__*/Object.freeze({
 	sRGBEncoding: sRGBEncoding
 });
 
+var TransformControls = function ( camera, domElement ) {
+
+	if ( domElement === undefined ) {
+
+		console.warn( 'THREE.TransformControls: The second parameter "domElement" is now mandatory.' );
+		domElement = document;
+
+	}
+
+	Object3D.call( this );
+
+	this.visible = false;
+	this.domElement = domElement;
+
+	var _gizmo = new TransformControlsGizmo();
+	this.add( _gizmo );
+
+	var _plane = new TransformControlsPlane();
+	this.add( _plane );
+
+	var scope = this;
+
+	// Define properties with getters/setter
+	// Setting the defined property will automatically trigger change event
+	// Defined properties are passed down to gizmo and plane
+
+	defineProperty( 'camera', camera );
+	defineProperty( 'object', undefined );
+	defineProperty( 'enabled', true );
+	defineProperty( 'axis', null );
+	defineProperty( 'mode', 'translate' );
+	defineProperty( 'translationSnap', null );
+	defineProperty( 'rotationSnap', null );
+	defineProperty( 'scaleSnap', null );
+	defineProperty( 'space', 'world' );
+	defineProperty( 'size', 1 );
+	defineProperty( 'dragging', false );
+	defineProperty( 'showX', true );
+	defineProperty( 'showY', true );
+	defineProperty( 'showZ', true );
+
+	var changeEvent = { type: 'change' };
+	var mouseDownEvent = { type: 'mouseDown' };
+	var mouseUpEvent = { type: 'mouseUp', mode: scope.mode };
+	var objectChangeEvent = { type: 'objectChange' };
+
+	// Reusable utility variables
+
+	var raycaster = new Raycaster();
+
+	function intersectObjectWithRay( object, raycaster, includeInvisible ) {
+
+		var allIntersections = raycaster.intersectObject( object, true );
+
+		for ( var i = 0; i < allIntersections.length; i ++ ) {
+
+			if ( allIntersections[ i ].object.visible || includeInvisible ) {
+
+				return allIntersections[ i ];
+
+			}
+
+		}
+
+		return false;
+
+	}
+
+	var _tempVector = new Vector3();
+	var _tempVector2 = new Vector3();
+	var _tempQuaternion = new Quaternion();
+	var _unit = {
+		X: new Vector3( 1, 0, 0 ),
+		Y: new Vector3( 0, 1, 0 ),
+		Z: new Vector3( 0, 0, 1 )
+	};
+
+	var pointStart = new Vector3();
+	var pointEnd = new Vector3();
+	var offset = new Vector3();
+	var rotationAxis = new Vector3();
+	var startNorm = new Vector3();
+	var endNorm = new Vector3();
+	var rotationAngle = 0;
+
+	var cameraPosition = new Vector3();
+	var cameraQuaternion = new Quaternion();
+	var cameraScale = new Vector3();
+
+	var parentPosition = new Vector3();
+	var parentQuaternion = new Quaternion();
+	var parentQuaternionInv = new Quaternion();
+	var parentScale = new Vector3();
+
+	var worldPositionStart = new Vector3();
+	var worldQuaternionStart = new Quaternion();
+	var worldScaleStart = new Vector3();
+
+	var worldPosition = new Vector3();
+	var worldQuaternion = new Quaternion();
+	var worldQuaternionInv = new Quaternion();
+	var worldScale = new Vector3();
+
+	var eye = new Vector3();
+
+	var positionStart = new Vector3();
+	var quaternionStart = new Quaternion();
+	var scaleStart = new Vector3();
+
+	// TODO: remove properties unused in plane and gizmo
+
+	defineProperty( 'worldPosition', worldPosition );
+	defineProperty( 'worldPositionStart', worldPositionStart );
+	defineProperty( 'worldQuaternion', worldQuaternion );
+	defineProperty( 'worldQuaternionStart', worldQuaternionStart );
+	defineProperty( 'cameraPosition', cameraPosition );
+	defineProperty( 'cameraQuaternion', cameraQuaternion );
+	defineProperty( 'pointStart', pointStart );
+	defineProperty( 'pointEnd', pointEnd );
+	defineProperty( 'rotationAxis', rotationAxis );
+	defineProperty( 'rotationAngle', rotationAngle );
+	defineProperty( 'eye', eye );
+
+	{
+
+		domElement.addEventListener( 'pointerdown', onPointerDown, false );
+		domElement.addEventListener( 'pointermove', onPointerHover, false );
+		scope.domElement.ownerDocument.addEventListener( 'pointerup', onPointerUp, false );
+
+	}
+
+	this.dispose = function () {
+
+		domElement.removeEventListener( 'pointerdown', onPointerDown );
+		domElement.removeEventListener( 'pointermove', onPointerHover );
+		scope.domElement.ownerDocument.removeEventListener( 'pointermove', onPointerMove );
+		scope.domElement.ownerDocument.removeEventListener( 'pointerup', onPointerUp );
+
+		this.traverse( function ( child ) {
+
+			if ( child.geometry ) child.geometry.dispose();
+			if ( child.material ) child.material.dispose();
+
+		} );
+
+	};
+
+	// Set current object
+	this.attach = function ( object ) {
+
+		this.object = object;
+		this.visible = true;
+
+		return this;
+
+	};
+
+	// Detatch from object
+	this.detach = function () {
+
+		this.object = undefined;
+		this.visible = false;
+		this.axis = null;
+
+		return this;
+
+	};
+
+	// Defined getter, setter and store for a property
+	function defineProperty( propName, defaultValue ) {
+
+		var propValue = defaultValue;
+
+		Object.defineProperty( scope, propName, {
+
+			get: function () {
+
+				return propValue !== undefined ? propValue : defaultValue;
+
+			},
+
+			set: function ( value ) {
+
+				if ( propValue !== value ) {
+
+					propValue = value;
+					_plane[ propName ] = value;
+					_gizmo[ propName ] = value;
+
+					scope.dispatchEvent( { type: propName + '-changed', value: value } );
+					scope.dispatchEvent( changeEvent );
+
+				}
+
+			}
+
+		} );
+
+		scope[ propName ] = defaultValue;
+		_plane[ propName ] = defaultValue;
+		_gizmo[ propName ] = defaultValue;
+
+	}
+
+	// updateMatrixWorld  updates key transformation variables
+	this.updateMatrixWorld = function () {
+
+		if ( this.object !== undefined ) {
+
+			this.object.updateMatrixWorld();
+
+			if ( this.object.parent === null ) {
+
+				console.error( 'TransformControls: The attached 3D object must be a part of the scene graph.' );
+
+			} else {
+
+				this.object.parent.matrixWorld.decompose( parentPosition, parentQuaternion, parentScale );
+
+			}
+
+			this.object.matrixWorld.decompose( worldPosition, worldQuaternion, worldScale );
+
+			parentQuaternionInv.copy( parentQuaternion ).invert();
+			worldQuaternionInv.copy( worldQuaternion ).invert();
+
+		}
+
+		this.camera.updateMatrixWorld();
+		this.camera.matrixWorld.decompose( cameraPosition, cameraQuaternion, cameraScale );
+
+		eye.copy( cameraPosition ).sub( worldPosition ).normalize();
+
+		Object3D.prototype.updateMatrixWorld.call( this );
+
+	};
+
+	this.pointerHover = function ( pointer ) {
+
+		if ( this.object === undefined || this.dragging === true ) return;
+
+		raycaster.setFromCamera( pointer, this.camera );
+
+		var intersect = intersectObjectWithRay( _gizmo.picker[ this.mode ], raycaster );
+
+		if ( intersect ) {
+
+			this.axis = intersect.object.name;
+
+		} else {
+
+			this.axis = null;
+
+		}
+
+	};
+
+	this.pointerDown = function ( pointer ) {
+
+		if ( this.object === undefined || this.dragging === true || pointer.button !== 0 ) return;
+
+		if ( this.axis !== null ) {
+
+			raycaster.setFromCamera( pointer, this.camera );
+
+			var planeIntersect = intersectObjectWithRay( _plane, raycaster, true );
+
+			if ( planeIntersect ) {
+
+				var space = this.space;
+
+				if ( this.mode === 'scale' ) {
+
+					space = 'local';
+
+				} else if ( this.axis === 'E' || this.axis === 'XYZE' || this.axis === 'XYZ' ) {
+
+					space = 'world';
+
+				}
+
+				if ( space === 'local' && this.mode === 'rotate' ) {
+
+					var snap = this.rotationSnap;
+
+					if ( this.axis === 'X' && snap ) this.object.rotation.x = Math.round( this.object.rotation.x / snap ) * snap;
+					if ( this.axis === 'Y' && snap ) this.object.rotation.y = Math.round( this.object.rotation.y / snap ) * snap;
+					if ( this.axis === 'Z' && snap ) this.object.rotation.z = Math.round( this.object.rotation.z / snap ) * snap;
+
+				}
+
+				this.object.updateMatrixWorld();
+				this.object.parent.updateMatrixWorld();
+
+				positionStart.copy( this.object.position );
+				quaternionStart.copy( this.object.quaternion );
+				scaleStart.copy( this.object.scale );
+
+				this.object.matrixWorld.decompose( worldPositionStart, worldQuaternionStart, worldScaleStart );
+
+				pointStart.copy( planeIntersect.point ).sub( worldPositionStart );
+
+			}
+
+			this.dragging = true;
+			mouseDownEvent.mode = this.mode;
+			this.dispatchEvent( mouseDownEvent );
+
+		}
+
+	};
+
+	this.pointerMove = function ( pointer ) {
+
+		var axis = this.axis;
+		var mode = this.mode;
+		var object = this.object;
+		var space = this.space;
+
+		if ( mode === 'scale' ) {
+
+			space = 'local';
+
+		} else if ( axis === 'E' || axis === 'XYZE' || axis === 'XYZ' ) {
+
+			space = 'world';
+
+		}
+
+		if ( object === undefined || axis === null || this.dragging === false || pointer.button !== - 1 ) return;
+
+		raycaster.setFromCamera( pointer, this.camera );
+
+		var planeIntersect = intersectObjectWithRay( _plane, raycaster, true );
+
+		if ( ! planeIntersect ) return;
+
+		pointEnd.copy( planeIntersect.point ).sub( worldPositionStart );
+
+		if ( mode === 'translate' ) {
+
+			// Apply translate
+
+			offset.copy( pointEnd ).sub( pointStart );
+
+			if ( space === 'local' && axis !== 'XYZ' ) {
+
+				offset.applyQuaternion( worldQuaternionInv );
+
+			}
+
+			if ( axis.indexOf( 'X' ) === - 1 ) offset.x = 0;
+			if ( axis.indexOf( 'Y' ) === - 1 ) offset.y = 0;
+			if ( axis.indexOf( 'Z' ) === - 1 ) offset.z = 0;
+
+			if ( space === 'local' && axis !== 'XYZ' ) {
+
+				offset.applyQuaternion( quaternionStart ).divide( parentScale );
+
+			} else {
+
+				offset.applyQuaternion( parentQuaternionInv ).divide( parentScale );
+
+			}
+
+			object.position.copy( offset ).add( positionStart );
+
+			// Apply translation snap
+
+			if ( this.translationSnap ) {
+
+				if ( space === 'local' ) {
+
+					object.position.applyQuaternion( _tempQuaternion.copy( quaternionStart ).invert() );
+
+					if ( axis.search( 'X' ) !== - 1 ) {
+
+						object.position.x = Math.round( object.position.x / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					if ( axis.search( 'Y' ) !== - 1 ) {
+
+						object.position.y = Math.round( object.position.y / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					if ( axis.search( 'Z' ) !== - 1 ) {
+
+						object.position.z = Math.round( object.position.z / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					object.position.applyQuaternion( quaternionStart );
+
+				}
+
+				if ( space === 'world' ) {
+
+					if ( object.parent ) {
+
+						object.position.add( _tempVector.setFromMatrixPosition( object.parent.matrixWorld ) );
+
+					}
+
+					if ( axis.search( 'X' ) !== - 1 ) {
+
+						object.position.x = Math.round( object.position.x / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					if ( axis.search( 'Y' ) !== - 1 ) {
+
+						object.position.y = Math.round( object.position.y / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					if ( axis.search( 'Z' ) !== - 1 ) {
+
+						object.position.z = Math.round( object.position.z / this.translationSnap ) * this.translationSnap;
+
+					}
+
+					if ( object.parent ) {
+
+						object.position.sub( _tempVector.setFromMatrixPosition( object.parent.matrixWorld ) );
+
+					}
+
+				}
+
+			}
+
+		} else if ( mode === 'scale' ) {
+
+			if ( axis.search( 'XYZ' ) !== - 1 ) {
+
+				var d = pointEnd.length() / pointStart.length();
+
+				if ( pointEnd.dot( pointStart ) < 0 ) d *= - 1;
+
+				_tempVector2.set( d, d, d );
+
+			} else {
+
+				_tempVector.copy( pointStart );
+				_tempVector2.copy( pointEnd );
+
+				_tempVector.applyQuaternion( worldQuaternionInv );
+				_tempVector2.applyQuaternion( worldQuaternionInv );
+
+				_tempVector2.divide( _tempVector );
+
+				if ( axis.search( 'X' ) === - 1 ) {
+
+					_tempVector2.x = 1;
+
+				}
+
+				if ( axis.search( 'Y' ) === - 1 ) {
+
+					_tempVector2.y = 1;
+
+				}
+
+				if ( axis.search( 'Z' ) === - 1 ) {
+
+					_tempVector2.z = 1;
+
+				}
+
+			}
+
+			// Apply scale
+
+			object.scale.copy( scaleStart ).multiply( _tempVector2 );
+
+			if ( this.scaleSnap ) {
+
+				if ( axis.search( 'X' ) !== - 1 ) {
+
+					object.scale.x = Math.round( object.scale.x / this.scaleSnap ) * this.scaleSnap || this.scaleSnap;
+
+				}
+
+				if ( axis.search( 'Y' ) !== - 1 ) {
+
+					object.scale.y = Math.round( object.scale.y / this.scaleSnap ) * this.scaleSnap || this.scaleSnap;
+
+				}
+
+				if ( axis.search( 'Z' ) !== - 1 ) {
+
+					object.scale.z = Math.round( object.scale.z / this.scaleSnap ) * this.scaleSnap || this.scaleSnap;
+
+				}
+
+			}
+
+		} else if ( mode === 'rotate' ) {
+
+			offset.copy( pointEnd ).sub( pointStart );
+
+			var ROTATION_SPEED = 20 / worldPosition.distanceTo( _tempVector.setFromMatrixPosition( this.camera.matrixWorld ) );
+
+			if ( axis === 'E' ) {
+
+				rotationAxis.copy( eye );
+				rotationAngle = pointEnd.angleTo( pointStart );
+
+				startNorm.copy( pointStart ).normalize();
+				endNorm.copy( pointEnd ).normalize();
+
+				rotationAngle *= ( endNorm.cross( startNorm ).dot( eye ) < 0 ? 1 : - 1 );
+
+			} else if ( axis === 'XYZE' ) {
+
+				rotationAxis.copy( offset ).cross( eye ).normalize();
+				rotationAngle = offset.dot( _tempVector.copy( rotationAxis ).cross( this.eye ) ) * ROTATION_SPEED;
+
+			} else if ( axis === 'X' || axis === 'Y' || axis === 'Z' ) {
+
+				rotationAxis.copy( _unit[ axis ] );
+
+				_tempVector.copy( _unit[ axis ] );
+
+				if ( space === 'local' ) {
+
+					_tempVector.applyQuaternion( worldQuaternion );
+
+				}
+
+				rotationAngle = offset.dot( _tempVector.cross( eye ).normalize() ) * ROTATION_SPEED;
+
+			}
+
+			// Apply rotation snap
+
+			if ( this.rotationSnap ) rotationAngle = Math.round( rotationAngle / this.rotationSnap ) * this.rotationSnap;
+
+			this.rotationAngle = rotationAngle;
+
+			// Apply rotate
+			if ( space === 'local' && axis !== 'E' && axis !== 'XYZE' ) {
+
+				object.quaternion.copy( quaternionStart );
+				object.quaternion.multiply( _tempQuaternion.setFromAxisAngle( rotationAxis, rotationAngle ) ).normalize();
+
+			} else {
+
+				rotationAxis.applyQuaternion( parentQuaternionInv );
+				object.quaternion.copy( _tempQuaternion.setFromAxisAngle( rotationAxis, rotationAngle ) );
+				object.quaternion.multiply( quaternionStart ).normalize();
+
+			}
+
+		}
+
+		this.dispatchEvent( changeEvent );
+		this.dispatchEvent( objectChangeEvent );
+
+	};
+
+	this.pointerUp = function ( pointer ) {
+
+		if ( pointer.button !== 0 ) return;
+
+		if ( this.dragging && ( this.axis !== null ) ) {
+
+			mouseUpEvent.mode = this.mode;
+			this.dispatchEvent( mouseUpEvent );
+
+		}
+
+		this.dragging = false;
+		this.axis = null;
+
+	};
+
+	// normalize mouse / touch pointer and remap {x,y} to view space.
+
+	function getPointer( event ) {
+
+		if ( scope.domElement.ownerDocument.pointerLockElement ) {
+
+			return {
+				x: 0,
+				y: 0,
+				button: event.button
+			};
+
+		} else {
+
+			var pointer = event.changedTouches ? event.changedTouches[ 0 ] : event;
+
+			var rect = domElement.getBoundingClientRect();
+
+			return {
+				x: ( pointer.clientX - rect.left ) / rect.width * 2 - 1,
+				y: - ( pointer.clientY - rect.top ) / rect.height * 2 + 1,
+				button: event.button
+			};
+
+		}
+
+	}
+
+	// mouse / touch event handlers
+
+	function onPointerHover( event ) {
+
+		if ( ! scope.enabled ) return;
+
+		switch ( event.pointerType ) {
+
+			case 'mouse':
+			case 'pen':
+				scope.pointerHover( getPointer( event ) );
+				break;
+
+		}
+
+	}
+
+	function onPointerDown( event ) {
+
+		if ( ! scope.enabled ) return;
+
+		scope.domElement.style.touchAction = 'none'; // disable touch scroll
+		scope.domElement.ownerDocument.addEventListener( 'pointermove', onPointerMove, false );
+
+		scope.pointerHover( getPointer( event ) );
+		scope.pointerDown( getPointer( event ) );
+
+	}
+
+	function onPointerMove( event ) {
+
+		if ( ! scope.enabled ) return;
+
+		scope.pointerMove( getPointer( event ) );
+
+	}
+
+	function onPointerUp( event ) {
+
+		if ( ! scope.enabled ) return;
+
+		scope.domElement.style.touchAction = '';
+		scope.domElement.ownerDocument.removeEventListener( 'pointermove', onPointerMove, false );
+
+		scope.pointerUp( getPointer( event ) );
+
+	}
+
+	// TODO: deprecate
+
+	this.getMode = function () {
+
+		return scope.mode;
+
+	};
+
+	this.setMode = function ( mode ) {
+
+		scope.mode = mode;
+
+	};
+
+	this.setTranslationSnap = function ( translationSnap ) {
+
+		scope.translationSnap = translationSnap;
+
+	};
+
+	this.setRotationSnap = function ( rotationSnap ) {
+
+		scope.rotationSnap = rotationSnap;
+
+	};
+
+	this.setScaleSnap = function ( scaleSnap ) {
+
+		scope.scaleSnap = scaleSnap;
+
+	};
+
+	this.setSize = function ( size ) {
+
+		scope.size = size;
+
+	};
+
+	this.setSpace = function ( space ) {
+
+		scope.space = space;
+
+	};
+
+	this.update = function () {
+
+		console.warn( 'THREE.TransformControls: update function has no more functionality and therefore has been deprecated.' );
+
+	};
+
+};
+
+TransformControls.prototype = Object.assign( Object.create( Object3D.prototype ), {
+
+	constructor: TransformControls,
+
+	isTransformControls: true
+
+} );
+
+
+var TransformControlsGizmo = function () {
+
+	'use strict';
+
+	Object3D.call( this );
+
+	this.type = 'TransformControlsGizmo';
+
+	// shared materials
+
+	var gizmoMaterial = new MeshBasicMaterial( {
+		depthTest: false,
+		depthWrite: false,
+		transparent: true,
+		side: DoubleSide,
+		fog: false,
+		toneMapped: false
+	} );
+
+	var gizmoLineMaterial = new LineBasicMaterial( {
+		depthTest: false,
+		depthWrite: false,
+		transparent: true,
+		linewidth: 1,
+		fog: false,
+		toneMapped: false
+	} );
+
+	// Make unique material for each axis/color
+
+	var matInvisible = gizmoMaterial.clone();
+	matInvisible.opacity = 0.15;
+
+	var matHelper = gizmoMaterial.clone();
+	matHelper.opacity = 0.33;
+
+	var matRed = gizmoMaterial.clone();
+	matRed.color.set( 0xff0000 );
+
+	var matGreen = gizmoMaterial.clone();
+	matGreen.color.set( 0x00ff00 );
+
+	var matBlue = gizmoMaterial.clone();
+	matBlue.color.set( 0x0000ff );
+
+	var matWhiteTransparent = gizmoMaterial.clone();
+	matWhiteTransparent.opacity = 0.25;
+
+	var matYellowTransparent = matWhiteTransparent.clone();
+	matYellowTransparent.color.set( 0xffff00 );
+
+	var matCyanTransparent = matWhiteTransparent.clone();
+	matCyanTransparent.color.set( 0x00ffff );
+
+	var matMagentaTransparent = matWhiteTransparent.clone();
+	matMagentaTransparent.color.set( 0xff00ff );
+
+	var matYellow = gizmoMaterial.clone();
+	matYellow.color.set( 0xffff00 );
+
+	var matLineRed = gizmoLineMaterial.clone();
+	matLineRed.color.set( 0xff0000 );
+
+	var matLineGreen = gizmoLineMaterial.clone();
+	matLineGreen.color.set( 0x00ff00 );
+
+	var matLineBlue = gizmoLineMaterial.clone();
+	matLineBlue.color.set( 0x0000ff );
+
+	var matLineCyan = gizmoLineMaterial.clone();
+	matLineCyan.color.set( 0x00ffff );
+
+	var matLineMagenta = gizmoLineMaterial.clone();
+	matLineMagenta.color.set( 0xff00ff );
+
+	var matLineYellow = gizmoLineMaterial.clone();
+	matLineYellow.color.set( 0xffff00 );
+
+	var matLineGray = gizmoLineMaterial.clone();
+	matLineGray.color.set( 0x787878 );
+
+	var matLineYellowTransparent = matLineYellow.clone();
+	matLineYellowTransparent.opacity = 0.25;
+
+	// reusable geometry
+
+	var arrowGeometry = new CylinderBufferGeometry( 0, 0.05, 0.2, 12, 1, false );
+
+	var scaleHandleGeometry = new BoxBufferGeometry( 0.125, 0.125, 0.125 );
+
+	var lineGeometry = new BufferGeometry();
+	lineGeometry.setAttribute( 'position', new Float32BufferAttribute( [ 0, 0, 0,	1, 0, 0 ], 3 ) );
+
+	var CircleGeometry = function ( radius, arc ) {
+
+		var geometry = new BufferGeometry( );
+		var vertices = [];
+
+		for ( var i = 0; i <= 64 * arc; ++ i ) {
+
+			vertices.push( 0, Math.cos( i / 32 * Math.PI ) * radius, Math.sin( i / 32 * Math.PI ) * radius );
+
+		}
+
+		geometry.setAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) );
+
+		return geometry;
+
+	};
+
+	// Special geometry for transform helper. If scaled with position vector it spans from [0,0,0] to position
+
+	var TranslateHelperGeometry = function () {
+
+		var geometry = new BufferGeometry();
+
+		geometry.setAttribute( 'position', new Float32BufferAttribute( [ 0, 0, 0, 1, 1, 1 ], 3 ) );
+
+		return geometry;
+
+	};
+
+	// Gizmo definitions - custom hierarchy definitions for setupGizmo() function
+
+	var gizmoTranslate = {
+		X: [
+			[ new Mesh( arrowGeometry, matRed ), [ 1, 0, 0 ], [ 0, 0, - Math.PI / 2 ], null, 'fwd' ],
+			[ new Mesh( arrowGeometry, matRed ), [ 1, 0, 0 ], [ 0, 0, Math.PI / 2 ], null, 'bwd' ],
+			[ new Line( lineGeometry, matLineRed ) ]
+		],
+		Y: [
+			[ new Mesh( arrowGeometry, matGreen ), [ 0, 1, 0 ], null, null, 'fwd' ],
+			[ new Mesh( arrowGeometry, matGreen ), [ 0, 1, 0 ], [ Math.PI, 0, 0 ], null, 'bwd' ],
+			[ new Line( lineGeometry, matLineGreen ), null, [ 0, 0, Math.PI / 2 ]]
+		],
+		Z: [
+			[ new Mesh( arrowGeometry, matBlue ), [ 0, 0, 1 ], [ Math.PI / 2, 0, 0 ], null, 'fwd' ],
+			[ new Mesh( arrowGeometry, matBlue ), [ 0, 0, 1 ], [ - Math.PI / 2, 0, 0 ], null, 'bwd' ],
+			[ new Line( lineGeometry, matLineBlue ), null, [ 0, - Math.PI / 2, 0 ]]
+		],
+		XYZ: [
+			[ new Mesh( new OctahedronBufferGeometry( 0.1, 0 ), matWhiteTransparent.clone() ), [ 0, 0, 0 ], [ 0, 0, 0 ]]
+		],
+		XY: [
+			[ new Mesh( new PlaneBufferGeometry( 0.295, 0.295 ), matYellowTransparent.clone() ), [ 0.15, 0.15, 0 ]],
+			[ new Line( lineGeometry, matLineYellow ), [ 0.18, 0.3, 0 ], null, [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineYellow ), [ 0.3, 0.18, 0 ], [ 0, 0, Math.PI / 2 ], [ 0.125, 1, 1 ]]
+		],
+		YZ: [
+			[ new Mesh( new PlaneBufferGeometry( 0.295, 0.295 ), matCyanTransparent.clone() ), [ 0, 0.15, 0.15 ], [ 0, Math.PI / 2, 0 ]],
+			[ new Line( lineGeometry, matLineCyan ), [ 0, 0.18, 0.3 ], [ 0, 0, Math.PI / 2 ], [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineCyan ), [ 0, 0.3, 0.18 ], [ 0, - Math.PI / 2, 0 ], [ 0.125, 1, 1 ]]
+		],
+		XZ: [
+			[ new Mesh( new PlaneBufferGeometry( 0.295, 0.295 ), matMagentaTransparent.clone() ), [ 0.15, 0, 0.15 ], [ - Math.PI / 2, 0, 0 ]],
+			[ new Line( lineGeometry, matLineMagenta ), [ 0.18, 0, 0.3 ], null, [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineMagenta ), [ 0.3, 0, 0.18 ], [ 0, - Math.PI / 2, 0 ], [ 0.125, 1, 1 ]]
+		]
+	};
+
+	var pickerTranslate = {
+		X: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), matInvisible ), [ 0.6, 0, 0 ], [ 0, 0, - Math.PI / 2 ]]
+		],
+		Y: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), matInvisible ), [ 0, 0.6, 0 ]]
+		],
+		Z: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 1, 4, 1, false ), matInvisible ), [ 0, 0, 0.6 ], [ Math.PI / 2, 0, 0 ]]
+		],
+		XYZ: [
+			[ new Mesh( new OctahedronBufferGeometry( 0.2, 0 ), matInvisible ) ]
+		],
+		XY: [
+			[ new Mesh( new PlaneBufferGeometry( 0.4, 0.4 ), matInvisible ), [ 0.2, 0.2, 0 ]]
+		],
+		YZ: [
+			[ new Mesh( new PlaneBufferGeometry( 0.4, 0.4 ), matInvisible ), [ 0, 0.2, 0.2 ], [ 0, Math.PI / 2, 0 ]]
+		],
+		XZ: [
+			[ new Mesh( new PlaneBufferGeometry( 0.4, 0.4 ), matInvisible ), [ 0.2, 0, 0.2 ], [ - Math.PI / 2, 0, 0 ]]
+		]
+	};
+
+	var helperTranslate = {
+		START: [
+			[ new Mesh( new OctahedronBufferGeometry( 0.01, 2 ), matHelper ), null, null, null, 'helper' ]
+		],
+		END: [
+			[ new Mesh( new OctahedronBufferGeometry( 0.01, 2 ), matHelper ), null, null, null, 'helper' ]
+		],
+		DELTA: [
+			[ new Line( TranslateHelperGeometry(), matHelper ), null, null, null, 'helper' ]
+		],
+		X: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ - 1e3, 0, 0 ], null, [ 1e6, 1, 1 ], 'helper' ]
+		],
+		Y: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ 0, - 1e3, 0 ], [ 0, 0, Math.PI / 2 ], [ 1e6, 1, 1 ], 'helper' ]
+		],
+		Z: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ 0, 0, - 1e3 ], [ 0, - Math.PI / 2, 0 ], [ 1e6, 1, 1 ], 'helper' ]
+		]
+	};
+
+	var gizmoRotate = {
+		X: [
+			[ new Line( CircleGeometry( 1, 0.5 ), matLineRed ) ],
+			[ new Mesh( new OctahedronBufferGeometry( 0.04, 0 ), matRed ), [ 0, 0, 0.99 ], null, [ 1, 3, 1 ]],
+		],
+		Y: [
+			[ new Line( CircleGeometry( 1, 0.5 ), matLineGreen ), null, [ 0, 0, - Math.PI / 2 ]],
+			[ new Mesh( new OctahedronBufferGeometry( 0.04, 0 ), matGreen ), [ 0, 0, 0.99 ], null, [ 3, 1, 1 ]],
+		],
+		Z: [
+			[ new Line( CircleGeometry( 1, 0.5 ), matLineBlue ), null, [ 0, Math.PI / 2, 0 ]],
+			[ new Mesh( new OctahedronBufferGeometry( 0.04, 0 ), matBlue ), [ 0.99, 0, 0 ], null, [ 1, 3, 1 ]],
+		],
+		E: [
+			[ new Line( CircleGeometry( 1.25, 1 ), matLineYellowTransparent ), null, [ 0, Math.PI / 2, 0 ]],
+			[ new Mesh( new CylinderBufferGeometry( 0.03, 0, 0.15, 4, 1, false ), matLineYellowTransparent ), [ 1.17, 0, 0 ], [ 0, 0, - Math.PI / 2 ], [ 1, 1, 0.001 ]],
+			[ new Mesh( new CylinderBufferGeometry( 0.03, 0, 0.15, 4, 1, false ), matLineYellowTransparent ), [ - 1.17, 0, 0 ], [ 0, 0, Math.PI / 2 ], [ 1, 1, 0.001 ]],
+			[ new Mesh( new CylinderBufferGeometry( 0.03, 0, 0.15, 4, 1, false ), matLineYellowTransparent ), [ 0, - 1.17, 0 ], [ Math.PI, 0, 0 ], [ 1, 1, 0.001 ]],
+			[ new Mesh( new CylinderBufferGeometry( 0.03, 0, 0.15, 4, 1, false ), matLineYellowTransparent ), [ 0, 1.17, 0 ], [ 0, 0, 0 ], [ 1, 1, 0.001 ]],
+		],
+		XYZE: [
+			[ new Line( CircleGeometry( 1, 1 ), matLineGray ), null, [ 0, Math.PI / 2, 0 ]]
+		]
+	};
+
+	var helperRotate = {
+		AXIS: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ - 1e3, 0, 0 ], null, [ 1e6, 1, 1 ], 'helper' ]
+		]
+	};
+
+	var pickerRotate = {
+		X: [
+			[ new Mesh( new TorusBufferGeometry( 1, 0.1, 4, 24 ), matInvisible ), [ 0, 0, 0 ], [ 0, - Math.PI / 2, - Math.PI / 2 ]],
+		],
+		Y: [
+			[ new Mesh( new TorusBufferGeometry( 1, 0.1, 4, 24 ), matInvisible ), [ 0, 0, 0 ], [ Math.PI / 2, 0, 0 ]],
+		],
+		Z: [
+			[ new Mesh( new TorusBufferGeometry( 1, 0.1, 4, 24 ), matInvisible ), [ 0, 0, 0 ], [ 0, 0, - Math.PI / 2 ]],
+		],
+		E: [
+			[ new Mesh( new TorusBufferGeometry( 1.25, 0.1, 2, 24 ), matInvisible ) ]
+		],
+		XYZE: [
+			[ new Mesh( new SphereBufferGeometry( 0.7, 10, 8 ), matInvisible ) ]
+		]
+	};
+
+	var gizmoScale = {
+		X: [
+			[ new Mesh( scaleHandleGeometry, matRed ), [ 0.8, 0, 0 ], [ 0, 0, - Math.PI / 2 ]],
+			[ new Line( lineGeometry, matLineRed ), null, null, [ 0.8, 1, 1 ]]
+		],
+		Y: [
+			[ new Mesh( scaleHandleGeometry, matGreen ), [ 0, 0.8, 0 ]],
+			[ new Line( lineGeometry, matLineGreen ), null, [ 0, 0, Math.PI / 2 ], [ 0.8, 1, 1 ]]
+		],
+		Z: [
+			[ new Mesh( scaleHandleGeometry, matBlue ), [ 0, 0, 0.8 ], [ Math.PI / 2, 0, 0 ]],
+			[ new Line( lineGeometry, matLineBlue ), null, [ 0, - Math.PI / 2, 0 ], [ 0.8, 1, 1 ]]
+		],
+		XY: [
+			[ new Mesh( scaleHandleGeometry, matYellowTransparent ), [ 0.85, 0.85, 0 ], null, [ 2, 2, 0.2 ]],
+			[ new Line( lineGeometry, matLineYellow ), [ 0.855, 0.98, 0 ], null, [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineYellow ), [ 0.98, 0.855, 0 ], [ 0, 0, Math.PI / 2 ], [ 0.125, 1, 1 ]]
+		],
+		YZ: [
+			[ new Mesh( scaleHandleGeometry, matCyanTransparent ), [ 0, 0.85, 0.85 ], null, [ 0.2, 2, 2 ]],
+			[ new Line( lineGeometry, matLineCyan ), [ 0, 0.855, 0.98 ], [ 0, 0, Math.PI / 2 ], [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineCyan ), [ 0, 0.98, 0.855 ], [ 0, - Math.PI / 2, 0 ], [ 0.125, 1, 1 ]]
+		],
+		XZ: [
+			[ new Mesh( scaleHandleGeometry, matMagentaTransparent ), [ 0.85, 0, 0.85 ], null, [ 2, 0.2, 2 ]],
+			[ new Line( lineGeometry, matLineMagenta ), [ 0.855, 0, 0.98 ], null, [ 0.125, 1, 1 ]],
+			[ new Line( lineGeometry, matLineMagenta ), [ 0.98, 0, 0.855 ], [ 0, - Math.PI / 2, 0 ], [ 0.125, 1, 1 ]]
+		],
+		XYZX: [
+			[ new Mesh( new BoxBufferGeometry( 0.125, 0.125, 0.125 ), matWhiteTransparent.clone() ), [ 1.1, 0, 0 ]],
+		],
+		XYZY: [
+			[ new Mesh( new BoxBufferGeometry( 0.125, 0.125, 0.125 ), matWhiteTransparent.clone() ), [ 0, 1.1, 0 ]],
+		],
+		XYZZ: [
+			[ new Mesh( new BoxBufferGeometry( 0.125, 0.125, 0.125 ), matWhiteTransparent.clone() ), [ 0, 0, 1.1 ]],
+		]
+	};
+
+	var pickerScale = {
+		X: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 0.8, 4, 1, false ), matInvisible ), [ 0.5, 0, 0 ], [ 0, 0, - Math.PI / 2 ]]
+		],
+		Y: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 0.8, 4, 1, false ), matInvisible ), [ 0, 0.5, 0 ]]
+		],
+		Z: [
+			[ new Mesh( new CylinderBufferGeometry( 0.2, 0, 0.8, 4, 1, false ), matInvisible ), [ 0, 0, 0.5 ], [ Math.PI / 2, 0, 0 ]]
+		],
+		XY: [
+			[ new Mesh( scaleHandleGeometry, matInvisible ), [ 0.85, 0.85, 0 ], null, [ 3, 3, 0.2 ]],
+		],
+		YZ: [
+			[ new Mesh( scaleHandleGeometry, matInvisible ), [ 0, 0.85, 0.85 ], null, [ 0.2, 3, 3 ]],
+		],
+		XZ: [
+			[ new Mesh( scaleHandleGeometry, matInvisible ), [ 0.85, 0, 0.85 ], null, [ 3, 0.2, 3 ]],
+		],
+		XYZX: [
+			[ new Mesh( new BoxBufferGeometry( 0.2, 0.2, 0.2 ), matInvisible ), [ 1.1, 0, 0 ]],
+		],
+		XYZY: [
+			[ new Mesh( new BoxBufferGeometry( 0.2, 0.2, 0.2 ), matInvisible ), [ 0, 1.1, 0 ]],
+		],
+		XYZZ: [
+			[ new Mesh( new BoxBufferGeometry( 0.2, 0.2, 0.2 ), matInvisible ), [ 0, 0, 1.1 ]],
+		]
+	};
+
+	var helperScale = {
+		X: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ - 1e3, 0, 0 ], null, [ 1e6, 1, 1 ], 'helper' ]
+		],
+		Y: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ 0, - 1e3, 0 ], [ 0, 0, Math.PI / 2 ], [ 1e6, 1, 1 ], 'helper' ]
+		],
+		Z: [
+			[ new Line( lineGeometry, matHelper.clone() ), [ 0, 0, - 1e3 ], [ 0, - Math.PI / 2, 0 ], [ 1e6, 1, 1 ], 'helper' ]
+		]
+	};
+
+	// Creates an Object3D with gizmos described in custom hierarchy definition.
+
+	var setupGizmo = function ( gizmoMap ) {
+
+		var gizmo = new Object3D();
+
+		for ( var name in gizmoMap ) {
+
+			for ( var i = gizmoMap[ name ].length; i --; ) {
+
+				var object = gizmoMap[ name ][ i ][ 0 ].clone();
+				var position = gizmoMap[ name ][ i ][ 1 ];
+				var rotation = gizmoMap[ name ][ i ][ 2 ];
+				var scale = gizmoMap[ name ][ i ][ 3 ];
+				var tag = gizmoMap[ name ][ i ][ 4 ];
+
+				// name and tag properties are essential for picking and updating logic.
+				object.name = name;
+				object.tag = tag;
+
+				if ( position ) {
+
+					object.position.set( position[ 0 ], position[ 1 ], position[ 2 ] );
+
+				}
+
+				if ( rotation ) {
+
+					object.rotation.set( rotation[ 0 ], rotation[ 1 ], rotation[ 2 ] );
+
+				}
+
+				if ( scale ) {
+
+					object.scale.set( scale[ 0 ], scale[ 1 ], scale[ 2 ] );
+
+				}
+
+				object.updateMatrix();
+
+				var tempGeometry = object.geometry.clone();
+				tempGeometry.applyMatrix4( object.matrix );
+				object.geometry = tempGeometry;
+				object.renderOrder = Infinity;
+
+				object.position.set( 0, 0, 0 );
+				object.rotation.set( 0, 0, 0 );
+				object.scale.set( 1, 1, 1 );
+
+				gizmo.add( object );
+
+			}
+
+		}
+
+		return gizmo;
+
+	};
+
+	// Reusable utility variables
+
+	var tempVector = new Vector3( 0, 0, 0 );
+	var tempEuler = new Euler();
+	var alignVector = new Vector3( 0, 1, 0 );
+	var zeroVector = new Vector3( 0, 0, 0 );
+	var lookAtMatrix = new Matrix4();
+	var tempQuaternion = new Quaternion();
+	var tempQuaternion2 = new Quaternion();
+	var identityQuaternion = new Quaternion();
+
+	var unitX = new Vector3( 1, 0, 0 );
+	var unitY = new Vector3( 0, 1, 0 );
+	var unitZ = new Vector3( 0, 0, 1 );
+
+	// Gizmo creation
+
+	this.gizmo = {};
+	this.picker = {};
+	this.helper = {};
+
+	this.add( this.gizmo[ 'translate' ] = setupGizmo( gizmoTranslate ) );
+	this.add( this.gizmo[ 'rotate' ] = setupGizmo( gizmoRotate ) );
+	this.add( this.gizmo[ 'scale' ] = setupGizmo( gizmoScale ) );
+	this.add( this.picker[ 'translate' ] = setupGizmo( pickerTranslate ) );
+	this.add( this.picker[ 'rotate' ] = setupGizmo( pickerRotate ) );
+	this.add( this.picker[ 'scale' ] = setupGizmo( pickerScale ) );
+	this.add( this.helper[ 'translate' ] = setupGizmo( helperTranslate ) );
+	this.add( this.helper[ 'rotate' ] = setupGizmo( helperRotate ) );
+	this.add( this.helper[ 'scale' ] = setupGizmo( helperScale ) );
+
+	// Pickers should be hidden always
+
+	this.picker[ 'translate' ].visible = false;
+	this.picker[ 'rotate' ].visible = false;
+	this.picker[ 'scale' ].visible = false;
+
+	// updateMatrixWorld will update transformations and appearance of individual handles
+
+	this.updateMatrixWorld = function () {
+
+		var space = this.space;
+
+		if ( this.mode === 'scale' ) space = 'local'; // scale always oriented to local rotation
+
+		var quaternion = space === 'local' ? this.worldQuaternion : identityQuaternion;
+
+		// Show only gizmos for current transform mode
+
+		this.gizmo[ 'translate' ].visible = this.mode === 'translate';
+		this.gizmo[ 'rotate' ].visible = this.mode === 'rotate';
+		this.gizmo[ 'scale' ].visible = this.mode === 'scale';
+
+		this.helper[ 'translate' ].visible = this.mode === 'translate';
+		this.helper[ 'rotate' ].visible = this.mode === 'rotate';
+		this.helper[ 'scale' ].visible = this.mode === 'scale';
+
+
+		var handles = [];
+		handles = handles.concat( this.picker[ this.mode ].children );
+		handles = handles.concat( this.gizmo[ this.mode ].children );
+		handles = handles.concat( this.helper[ this.mode ].children );
+
+		for ( var i = 0; i < handles.length; i ++ ) {
+
+			var handle = handles[ i ];
+
+			// hide aligned to camera
+
+			handle.visible = true;
+			handle.rotation.set( 0, 0, 0 );
+			handle.position.copy( this.worldPosition );
+
+			var factor;
+
+			if ( this.camera.isOrthographicCamera ) {
+
+				factor = ( this.camera.top - this.camera.bottom ) / this.camera.zoom;
+
+			} else {
+
+				factor = this.worldPosition.distanceTo( this.cameraPosition ) * Math.min( 1.9 * Math.tan( Math.PI * this.camera.fov / 360 ) / this.camera.zoom, 7 );
+
+			}
+
+			handle.scale.set( 1, 1, 1 ).multiplyScalar( factor * this.size / 7 );
+
+			// TODO: simplify helpers and consider decoupling from gizmo
+
+			if ( handle.tag === 'helper' ) {
+
+				handle.visible = false;
+
+				if ( handle.name === 'AXIS' ) {
+
+					handle.position.copy( this.worldPositionStart );
+					handle.visible = !! this.axis;
+
+					if ( this.axis === 'X' ) {
+
+						tempQuaternion.setFromEuler( tempEuler.set( 0, 0, 0 ) );
+						handle.quaternion.copy( quaternion ).multiply( tempQuaternion );
+
+						if ( Math.abs( alignVector.copy( unitX ).applyQuaternion( quaternion ).dot( this.eye ) ) > 0.9 ) {
+
+							handle.visible = false;
+
+						}
+
+					}
+
+					if ( this.axis === 'Y' ) {
+
+						tempQuaternion.setFromEuler( tempEuler.set( 0, 0, Math.PI / 2 ) );
+						handle.quaternion.copy( quaternion ).multiply( tempQuaternion );
+
+						if ( Math.abs( alignVector.copy( unitY ).applyQuaternion( quaternion ).dot( this.eye ) ) > 0.9 ) {
+
+							handle.visible = false;
+
+						}
+
+					}
+
+					if ( this.axis === 'Z' ) {
+
+						tempQuaternion.setFromEuler( tempEuler.set( 0, Math.PI / 2, 0 ) );
+						handle.quaternion.copy( quaternion ).multiply( tempQuaternion );
+
+						if ( Math.abs( alignVector.copy( unitZ ).applyQuaternion( quaternion ).dot( this.eye ) ) > 0.9 ) {
+
+							handle.visible = false;
+
+						}
+
+					}
+
+					if ( this.axis === 'XYZE' ) {
+
+						tempQuaternion.setFromEuler( tempEuler.set( 0, Math.PI / 2, 0 ) );
+						alignVector.copy( this.rotationAxis );
+						handle.quaternion.setFromRotationMatrix( lookAtMatrix.lookAt( zeroVector, alignVector, unitY ) );
+						handle.quaternion.multiply( tempQuaternion );
+						handle.visible = this.dragging;
+
+					}
+
+					if ( this.axis === 'E' ) {
+
+						handle.visible = false;
+
+					}
+
+
+				} else if ( handle.name === 'START' ) {
+
+					handle.position.copy( this.worldPositionStart );
+					handle.visible = this.dragging;
+
+				} else if ( handle.name === 'END' ) {
+
+					handle.position.copy( this.worldPosition );
+					handle.visible = this.dragging;
+
+				} else if ( handle.name === 'DELTA' ) {
+
+					handle.position.copy( this.worldPositionStart );
+					handle.quaternion.copy( this.worldQuaternionStart );
+					tempVector.set( 1e-10, 1e-10, 1e-10 ).add( this.worldPositionStart ).sub( this.worldPosition ).multiplyScalar( - 1 );
+					tempVector.applyQuaternion( this.worldQuaternionStart.clone().invert() );
+					handle.scale.copy( tempVector );
+					handle.visible = this.dragging;
+
+				} else {
+
+					handle.quaternion.copy( quaternion );
+
+					if ( this.dragging ) {
+
+						handle.position.copy( this.worldPositionStart );
+
+					} else {
+
+						handle.position.copy( this.worldPosition );
+
+					}
+
+					if ( this.axis ) {
+
+						handle.visible = this.axis.search( handle.name ) !== - 1;
+
+					}
+
+				}
+
+				// If updating helper, skip rest of the loop
+				continue;
+
+			}
+
+			// Align handles to current local or world rotation
+
+			handle.quaternion.copy( quaternion );
+
+			if ( this.mode === 'translate' || this.mode === 'scale' ) {
+
+				// Hide translate and scale axis facing the camera
+
+				var AXIS_HIDE_TRESHOLD = 0.99;
+				var PLANE_HIDE_TRESHOLD = 0.2;
+				var AXIS_FLIP_TRESHOLD = 0.0;
+
+
+				if ( handle.name === 'X' || handle.name === 'XYZX' ) {
+
+					if ( Math.abs( alignVector.copy( unitX ).applyQuaternion( quaternion ).dot( this.eye ) ) > AXIS_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name === 'Y' || handle.name === 'XYZY' ) {
+
+					if ( Math.abs( alignVector.copy( unitY ).applyQuaternion( quaternion ).dot( this.eye ) ) > AXIS_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name === 'Z' || handle.name === 'XYZZ' ) {
+
+					if ( Math.abs( alignVector.copy( unitZ ).applyQuaternion( quaternion ).dot( this.eye ) ) > AXIS_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name === 'XY' ) {
+
+					if ( Math.abs( alignVector.copy( unitZ ).applyQuaternion( quaternion ).dot( this.eye ) ) < PLANE_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name === 'YZ' ) {
+
+					if ( Math.abs( alignVector.copy( unitX ).applyQuaternion( quaternion ).dot( this.eye ) ) < PLANE_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name === 'XZ' ) {
+
+					if ( Math.abs( alignVector.copy( unitY ).applyQuaternion( quaternion ).dot( this.eye ) ) < PLANE_HIDE_TRESHOLD ) {
+
+						handle.scale.set( 1e-10, 1e-10, 1e-10 );
+						handle.visible = false;
+
+					}
+
+				}
+
+				// Flip translate and scale axis ocluded behind another axis
+
+				if ( handle.name.search( 'X' ) !== - 1 ) {
+
+					if ( alignVector.copy( unitX ).applyQuaternion( quaternion ).dot( this.eye ) < AXIS_FLIP_TRESHOLD ) {
+
+						if ( handle.tag === 'fwd' ) {
+
+							handle.visible = false;
+
+						} else {
+
+							handle.scale.x *= - 1;
+
+						}
+
+					} else if ( handle.tag === 'bwd' ) {
+
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name.search( 'Y' ) !== - 1 ) {
+
+					if ( alignVector.copy( unitY ).applyQuaternion( quaternion ).dot( this.eye ) < AXIS_FLIP_TRESHOLD ) {
+
+						if ( handle.tag === 'fwd' ) {
+
+							handle.visible = false;
+
+						} else {
+
+							handle.scale.y *= - 1;
+
+						}
+
+					} else if ( handle.tag === 'bwd' ) {
+
+						handle.visible = false;
+
+					}
+
+				}
+
+				if ( handle.name.search( 'Z' ) !== - 1 ) {
+
+					if ( alignVector.copy( unitZ ).applyQuaternion( quaternion ).dot( this.eye ) < AXIS_FLIP_TRESHOLD ) {
+
+						if ( handle.tag === 'fwd' ) {
+
+							handle.visible = false;
+
+						} else {
+
+							handle.scale.z *= - 1;
+
+						}
+
+					} else if ( handle.tag === 'bwd' ) {
+
+						handle.visible = false;
+
+					}
+
+				}
+
+			} else if ( this.mode === 'rotate' ) {
+
+				// Align handles to current local or world rotation
+
+				tempQuaternion2.copy( quaternion );
+				alignVector.copy( this.eye ).applyQuaternion( tempQuaternion.copy( quaternion ).invert() );
+
+				if ( handle.name.search( 'E' ) !== - 1 ) {
+
+					handle.quaternion.setFromRotationMatrix( lookAtMatrix.lookAt( this.eye, zeroVector, unitY ) );
+
+				}
+
+				if ( handle.name === 'X' ) {
+
+					tempQuaternion.setFromAxisAngle( unitX, Math.atan2( - alignVector.y, alignVector.z ) );
+					tempQuaternion.multiplyQuaternions( tempQuaternion2, tempQuaternion );
+					handle.quaternion.copy( tempQuaternion );
+
+				}
+
+				if ( handle.name === 'Y' ) {
+
+					tempQuaternion.setFromAxisAngle( unitY, Math.atan2( alignVector.x, alignVector.z ) );
+					tempQuaternion.multiplyQuaternions( tempQuaternion2, tempQuaternion );
+					handle.quaternion.copy( tempQuaternion );
+
+				}
+
+				if ( handle.name === 'Z' ) {
+
+					tempQuaternion.setFromAxisAngle( unitZ, Math.atan2( alignVector.y, alignVector.x ) );
+					tempQuaternion.multiplyQuaternions( tempQuaternion2, tempQuaternion );
+					handle.quaternion.copy( tempQuaternion );
+
+				}
+
+			}
+
+			// Hide disabled axes
+			handle.visible = handle.visible && ( handle.name.indexOf( 'X' ) === - 1 || this.showX );
+			handle.visible = handle.visible && ( handle.name.indexOf( 'Y' ) === - 1 || this.showY );
+			handle.visible = handle.visible && ( handle.name.indexOf( 'Z' ) === - 1 || this.showZ );
+			handle.visible = handle.visible && ( handle.name.indexOf( 'E' ) === - 1 || ( this.showX && this.showY && this.showZ ) );
+
+			// highlight selected axis
+
+			handle.material._opacity = handle.material._opacity || handle.material.opacity;
+			handle.material._color = handle.material._color || handle.material.color.clone();
+
+			handle.material.color.copy( handle.material._color );
+			handle.material.opacity = handle.material._opacity;
+
+			if ( ! this.enabled ) {
+
+				handle.material.opacity *= 0.5;
+				handle.material.color.lerp( new Color( 1, 1, 1 ), 0.5 );
+
+			} else if ( this.axis ) {
+
+				if ( handle.name === this.axis ) {
+
+					handle.material.opacity = 1.0;
+					handle.material.color.lerp( new Color( 1, 1, 1 ), 0.5 );
+
+				} else if ( this.axis.split( '' ).some( function ( a ) {
+
+					return handle.name === a;
+
+				} ) ) {
+
+					handle.material.opacity = 1.0;
+					handle.material.color.lerp( new Color( 1, 1, 1 ), 0.5 );
+
+				} else {
+
+					handle.material.opacity *= 0.25;
+					handle.material.color.lerp( new Color( 1, 1, 1 ), 0.5 );
+
+				}
+
+			}
+
+		}
+
+		Object3D.prototype.updateMatrixWorld.call( this );
+
+	};
+
+};
+
+TransformControlsGizmo.prototype = Object.assign( Object.create( Object3D.prototype ), {
+
+	constructor: TransformControlsGizmo,
+
+	isTransformControlsGizmo: true
+
+} );
+
+
+var TransformControlsPlane = function () {
+
+	'use strict';
+
+	Mesh.call( this,
+		new PlaneBufferGeometry( 100000, 100000, 2, 2 ),
+		new MeshBasicMaterial( { visible: false, wireframe: true, side: DoubleSide, transparent: true, opacity: 0.1, toneMapped: false } )
+	);
+
+	this.type = 'TransformControlsPlane';
+
+	var unitX = new Vector3( 1, 0, 0 );
+	var unitY = new Vector3( 0, 1, 0 );
+	var unitZ = new Vector3( 0, 0, 1 );
+
+	var tempVector = new Vector3();
+	var dirVector = new Vector3();
+	var alignVector = new Vector3();
+	var tempMatrix = new Matrix4();
+	var identityQuaternion = new Quaternion();
+
+	this.updateMatrixWorld = function () {
+
+		var space = this.space;
+
+		this.position.copy( this.worldPosition );
+
+		if ( this.mode === 'scale' ) space = 'local'; // scale always oriented to local rotation
+
+		unitX.set( 1, 0, 0 ).applyQuaternion( space === 'local' ? this.worldQuaternion : identityQuaternion );
+		unitY.set( 0, 1, 0 ).applyQuaternion( space === 'local' ? this.worldQuaternion : identityQuaternion );
+		unitZ.set( 0, 0, 1 ).applyQuaternion( space === 'local' ? this.worldQuaternion : identityQuaternion );
+
+		// Align the plane for current transform mode, axis and space.
+
+		alignVector.copy( unitY );
+
+		switch ( this.mode ) {
+
+			case 'translate':
+			case 'scale':
+				switch ( this.axis ) {
+
+					case 'X':
+						alignVector.copy( this.eye ).cross( unitX );
+						dirVector.copy( unitX ).cross( alignVector );
+						break;
+					case 'Y':
+						alignVector.copy( this.eye ).cross( unitY );
+						dirVector.copy( unitY ).cross( alignVector );
+						break;
+					case 'Z':
+						alignVector.copy( this.eye ).cross( unitZ );
+						dirVector.copy( unitZ ).cross( alignVector );
+						break;
+					case 'XY':
+						dirVector.copy( unitZ );
+						break;
+					case 'YZ':
+						dirVector.copy( unitX );
+						break;
+					case 'XZ':
+						alignVector.copy( unitZ );
+						dirVector.copy( unitY );
+						break;
+					case 'XYZ':
+					case 'E':
+						dirVector.set( 0, 0, 0 );
+						break;
+
+				}
+
+				break;
+			case 'rotate':
+			default:
+				// special case for rotate
+				dirVector.set( 0, 0, 0 );
+
+		}
+
+		if ( dirVector.length() === 0 ) {
+
+			// If in rotate mode, make the plane parallel to camera
+			this.quaternion.copy( this.cameraQuaternion );
+
+		} else {
+
+			tempMatrix.lookAt( tempVector.set( 0, 0, 0 ), dirVector, alignVector );
+
+			this.quaternion.setFromRotationMatrix( tempMatrix );
+
+		}
+
+		Object3D.prototype.updateMatrixWorld.call( this );
+
+	};
+
+};
+
+TransformControlsPlane.prototype = Object.assign( Object.create( Mesh.prototype ), {
+
+	constructor: TransformControlsPlane,
+
+	isTransformControlsPlane: true
+
+} );
+
+function UIElement( dom ) {
+
+	this.dom = dom;
+
+}
+
+UIElement.prototype = {
+
+	add: function () {
+
+		for ( var i = 0; i < arguments.length; i ++ ) {
+
+			var argument = arguments[ i ];
+
+			if ( argument instanceof UIElement ) {
+
+				this.dom.appendChild( argument.dom );
+
+			} else {
+
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
+
+			}
+
+		}
+
+		return this;
+
+	},
+
+	remove: function () {
+
+		for ( var i = 0; i < arguments.length; i ++ ) {
+
+			var argument = arguments[ i ];
+
+			if ( argument instanceof UIElement ) {
+
+				this.dom.removeChild( argument.dom );
+
+			} else {
+
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
+
+			}
+
+		}
+
+		return this;
+
+	},
+
+	clear: function () {
+
+		while ( this.dom.children.length ) {
+
+			this.dom.removeChild( this.dom.lastChild );
+
+		}
+
+	},
+
+	setId: function ( id ) {
+
+		this.dom.id = id;
+
+		return this;
+
+	},
+
+	getId: function () {
+
+		return this.dom.id;
+
+	},
+
+	setClass: function ( name ) {
+
+		this.dom.className = name;
+
+		return this;
+
+	},
+
+	addClass: function ( name ) {
+
+		this.dom.classList.add( name );
+
+		return this;
+
+	},
+
+	removeClass: function ( name ) {
+
+		this.dom.classList.remove( name );
+
+		return this;
+
+	},
+
+	setStyle: function ( style, array ) {
+
+		for ( var i = 0; i < array.length; i ++ ) {
+
+			this.dom.style[ style ] = array[ i ];
+
+		}
+
+		return this;
+
+	},
+
+	setDisabled: function ( value ) {
+
+		this.dom.disabled = value;
+
+		return this;
+
+	},
+
+	setTextContent: function ( value ) {
+
+		this.dom.textContent = value;
+
+		return this;
+
+	}
+
+};
+
+// properties
+
+var properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
+	'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'color',
+	'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
+
+properties.forEach( function ( property ) {
+
+	var method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
+
+	UIElement.prototype[ method ] = function () {
+
+		this.setStyle( property, arguments );
+
+		return this;
+
+	};
+
+} );
+
+// events
+
+var events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input' ];
+
+events.forEach( function ( event ) {
+
+	var method = 'on' + event;
+
+	UIElement.prototype[ method ] = function ( callback ) {
+
+		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ), false );
+
+		return this;
+
+	};
+
+} );
+
+// UISpan
+
+function UISpan() {
+
+	UIElement.call( this );
+
+	this.dom = document.createElement( 'span' );
+
+	return this;
+
+}
+
+UISpan.prototype = Object.create( UIElement.prototype );
+UISpan.prototype.constructor = UISpan;
+
+// UIDiv
+
+function UIDiv() {
+
+	UIElement.call( this );
+
+	this.dom = document.createElement( 'div' );
+
+	return this;
+
+}
+
+UIDiv.prototype = Object.create( UIElement.prototype );
+UIDiv.prototype.constructor = UIDiv;
+
+// UIRow
+
+function UIRow() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+	dom.className = 'Row';
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UIRow.prototype = Object.create( UIElement.prototype );
+UIRow.prototype.constructor = UIRow;
+
+// UIPanel
+
+function UIPanel() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+	dom.className = 'Panel';
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UIPanel.prototype = Object.create( UIElement.prototype );
+UIPanel.prototype.constructor = UIPanel;
+
+// UIText
+
+function UIText( text ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'span' );
+	dom.className = 'Text';
+	dom.style.cursor = 'default';
+	dom.style.display = 'inline-block';
+	dom.style.verticalAlign = 'middle';
+
+	this.dom = dom;
+	this.setValue( text );
+
+	return this;
+
+}
+
+UIText.prototype = Object.create( UIElement.prototype );
+UIText.prototype.constructor = UIText;
+
+UIText.prototype.getValue = function () {
+
+	return this.dom.textContent;
+
+};
+
+UIText.prototype.setValue = function ( value ) {
+
+	if ( value !== undefined ) {
+
+		this.dom.textContent = value;
+
+	}
+
+	return this;
+
+};
+
+
+// UIInput
+
+function UIInput( text ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'input' );
+	dom.className = 'Input';
+	dom.style.padding = '2px';
+	dom.style.border = '1px solid transparent';
+
+	dom.addEventListener( 'keydown', function ( event ) {
+
+		event.stopPropagation();
+
+	}, false );
+
+	this.dom = dom;
+	this.setValue( text );
+
+	return this;
+
+}
+
+UIInput.prototype = Object.create( UIElement.prototype );
+UIInput.prototype.constructor = UIInput;
+
+UIInput.prototype.getValue = function () {
+
+	return this.dom.value;
+
+};
+
+UIInput.prototype.setValue = function ( value ) {
+
+	this.dom.value = value;
+
+	return this;
+
+};
+
+
+// UITextArea
+
+function UITextArea() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'textarea' );
+	dom.className = 'TextArea';
+	dom.style.padding = '2px';
+	dom.spellcheck = false;
+
+	dom.addEventListener( 'keydown', function ( event ) {
+
+		event.stopPropagation();
+
+		if ( event.keyCode === 9 ) {
+
+			event.preventDefault();
+
+			var cursor = dom.selectionStart;
+
+			dom.value = dom.value.substring( 0, cursor ) + '\t' + dom.value.substring( cursor );
+			dom.selectionStart = cursor + 1;
+			dom.selectionEnd = dom.selectionStart;
+
+		}
+
+	}, false );
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UITextArea.prototype = Object.create( UIElement.prototype );
+UITextArea.prototype.constructor = UITextArea;
+
+UITextArea.prototype.getValue = function () {
+
+	return this.dom.value;
+
+};
+
+UITextArea.prototype.setValue = function ( value ) {
+
+	this.dom.value = value;
+
+	return this;
+
+};
+
+
+// UISelect
+
+function UISelect() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'select' );
+	dom.className = 'Select';
+	dom.style.padding = '2px';
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UISelect.prototype = Object.create( UIElement.prototype );
+UISelect.prototype.constructor = UISelect;
+
+UISelect.prototype.setMultiple = function ( boolean ) {
+
+	this.dom.multiple = boolean;
+
+	return this;
+
+};
+
+UISelect.prototype.setOptions = function ( options ) {
+
+	var selected = this.dom.value;
+
+	while ( this.dom.children.length > 0 ) {
+
+		this.dom.removeChild( this.dom.firstChild );
+
+	}
+
+	for ( var key in options ) {
+
+		var option = document.createElement( 'option' );
+		option.value = key;
+		option.innerHTML = options[ key ];
+		this.dom.appendChild( option );
+
+	}
+
+	this.dom.value = selected;
+
+	return this;
+
+};
+
+UISelect.prototype.getValue = function () {
+
+	return this.dom.value;
+
+};
+
+UISelect.prototype.setValue = function ( value ) {
+
+	value = String( value );
+
+	if ( this.dom.value !== value ) {
+
+		this.dom.value = value;
+
+	}
+
+	return this;
+
+};
+
+// UICheckbox
+
+function UICheckbox( boolean ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'input' );
+	dom.className = 'Checkbox';
+	dom.type = 'checkbox';
+
+	this.dom = dom;
+	this.setValue( boolean );
+
+	return this;
+
+}
+
+UICheckbox.prototype = Object.create( UIElement.prototype );
+UICheckbox.prototype.constructor = UICheckbox;
+
+UICheckbox.prototype.getValue = function () {
+
+	return this.dom.checked;
+
+};
+
+UICheckbox.prototype.setValue = function ( value ) {
+
+	if ( value !== undefined ) {
+
+		this.dom.checked = value;
+
+	}
+
+	return this;
+
+};
+
+
+// UIColor
+
+function UIColor() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'input' );
+	dom.className = 'Color';
+	dom.style.width = '32px';
+	dom.style.height = '16px';
+	dom.style.border = '0px';
+	dom.style.padding = '2px';
+	dom.style.backgroundColor = 'transparent';
+
+	try {
+
+		dom.type = 'color';
+		dom.value = '#ffffff';
+
+	} catch ( exception ) {}
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UIColor.prototype = Object.create( UIElement.prototype );
+UIColor.prototype.constructor = UIColor;
+
+UIColor.prototype.getValue = function () {
+
+	return this.dom.value;
+
+};
+
+UIColor.prototype.getHexValue = function () {
+
+	return parseInt( this.dom.value.substr( 1 ), 16 );
+
+};
+
+UIColor.prototype.setValue = function ( value ) {
+
+	this.dom.value = value;
+
+	return this;
+
+};
+
+UIColor.prototype.setHexValue = function ( hex ) {
+
+	this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
+
+	return this;
+
+};
+
+
+// UINumber
+
+function UINumber( number ) {
+
+	UIElement.call( this );
+
+	var scope = this;
+
+	var dom = document.createElement( 'input' );
+	dom.style.cursor = 'ns-resize';
+	dom.className = 'Number';
+	dom.value = '0.00';
+
+	this.value = 0;
+
+	this.min = - Infinity;
+	this.max = Infinity;
+
+	this.precision = 2;
+	this.step = 1;
+	this.unit = '';
+	this.nudge = 0.01;
+
+	this.dom = dom;
+
+	this.setValue( number );
+
+	var changeEvent = document.createEvent( 'HTMLEvents' );
+	changeEvent.initEvent( 'change', true, true );
+
+	var distance = 0;
+	var onMouseDownValue = 0;
+
+	var pointer = [ 0, 0 ];
+	var prevPointer = [ 0, 0 ];
+
+	function onMouseDown( event ) {
+
+		event.preventDefault();
+
+		distance = 0;
+
+		onMouseDownValue = scope.value;
+
+		prevPointer = [ event.clientX, event.clientY ];
+
+		document.addEventListener( 'mousemove', onMouseMove, false );
+		document.addEventListener( 'mouseup', onMouseUp, false );
+
+	}
+
+	function onMouseMove( event ) {
+
+		var currentValue = scope.value;
+
+		pointer = [ event.clientX, event.clientY ];
+
+		distance += ( pointer[ 0 ] - prevPointer[ 0 ] ) - ( pointer[ 1 ] - prevPointer[ 1 ] );
+
+		var value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+		value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+		if ( currentValue !== value ) {
+
+			scope.setValue( value );
+			dom.dispatchEvent( changeEvent );
+
+		}
+
+		prevPointer = [ event.clientX, event.clientY ];
+
+	}
+
+	function onMouseUp() {
+
+		document.removeEventListener( 'mousemove', onMouseMove, false );
+		document.removeEventListener( 'mouseup', onMouseUp, false );
+
+		if ( Math.abs( distance ) < 2 ) {
+
+			dom.focus();
+			dom.select();
+
+		}
+
+	}
+
+	function onTouchStart( event ) {
+
+		if ( event.touches.length === 1 ) {
+
+			distance = 0;
+
+			onMouseDownValue = scope.value;
+
+			prevPointer = [ event.touches[ 0 ].pageX, event.touches[ 0 ].pageY ];
+
+			document.addEventListener( 'touchmove', onTouchMove, false );
+			document.addEventListener( 'touchend', onTouchEnd, false );
+
+		}
+
+	}
+
+	function onTouchMove( event ) {
+
+		var currentValue = scope.value;
+
+		pointer = [ event.touches[ 0 ].pageX, event.touches[ 0 ].pageY ];
+
+		distance += ( pointer[ 0 ] - prevPointer[ 0 ] ) - ( pointer[ 1 ] - prevPointer[ 1 ] );
+
+		var value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+		value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+		if ( currentValue !== value ) {
+
+			scope.setValue( value );
+			dom.dispatchEvent( changeEvent );
+
+		}
+
+		prevPointer = [ event.touches[ 0 ].pageX, event.touches[ 0 ].pageY ];
+
+	}
+
+	function onTouchEnd( event ) {
+
+		if ( event.touches.length === 0 ) {
+
+			document.removeEventListener( 'touchmove', onTouchMove, false );
+			document.removeEventListener( 'touchend', onTouchEnd, false );
+
+		}
+
+	}
+
+	function onChange() {
+
+		scope.setValue( dom.value );
+
+	}
+
+	function onFocus() {
+
+		dom.style.backgroundColor = '';
+		dom.style.cursor = '';
+
+	}
+
+	function onBlur() {
+
+		dom.style.backgroundColor = 'transparent';
+		dom.style.cursor = 'ns-resize';
+
+	}
+
+	function onKeyDown( event ) {
+
+		event.stopPropagation();
+
+		switch ( event.keyCode ) {
+
+			case 13: // enter
+				dom.blur();
+				break;
+
+			case 38: // up
+				event.preventDefault();
+				scope.setValue( scope.getValue() + scope.nudge );
+				dom.dispatchEvent( changeEvent );
+				break;
+
+			case 40: // down
+				event.preventDefault();
+				scope.setValue( scope.getValue() - scope.nudge );
+				dom.dispatchEvent( changeEvent );
+				break;
+
+		}
+
+	}
+
+	onBlur();
+
+	dom.addEventListener( 'keydown', onKeyDown, false );
+	dom.addEventListener( 'mousedown', onMouseDown, false );
+	dom.addEventListener( 'touchstart', onTouchStart, false );
+	dom.addEventListener( 'change', onChange, false );
+	dom.addEventListener( 'focus', onFocus, false );
+	dom.addEventListener( 'blur', onBlur, false );
+
+	return this;
+
+}
+
+UINumber.prototype = Object.create( UIElement.prototype );
+UINumber.prototype.constructor = UINumber;
+
+UINumber.prototype.getValue = function () {
+
+	return this.value;
+
+};
+
+UINumber.prototype.setValue = function ( value ) {
+
+	if ( value !== undefined ) {
+
+		value = parseFloat( value );
+
+		if ( value < this.min ) value = this.min;
+		if ( value > this.max ) value = this.max;
+
+		this.value = value;
+		this.dom.value = value.toFixed( this.precision );
+
+		if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
+
+	}
+
+	return this;
+
+};
+
+UINumber.prototype.setPrecision = function ( precision ) {
+
+	this.precision = precision;
+
+	return this;
+
+};
+
+UINumber.prototype.setStep = function ( step ) {
+
+	this.step = step;
+
+	return this;
+
+};
+
+UINumber.prototype.setNudge = function ( nudge ) {
+
+	this.nudge = nudge;
+
+	return this;
+
+};
+
+UINumber.prototype.setRange = function ( min, max ) {
+
+	this.min = min;
+	this.max = max;
+
+	return this;
+
+};
+
+UINumber.prototype.setUnit = function ( unit ) {
+
+	this.unit = unit;
+
+	return this;
+
+};
+
+// UIInteger
+
+function UIInteger( number ) {
+
+	UIElement.call( this );
+
+	var scope = this;
+
+	var dom = document.createElement( 'input' );
+	dom.style.cursor = 'ns-resize';
+	dom.className = 'Number';
+	dom.value = '0';
+
+	this.value = 0;
+
+	this.min = - Infinity;
+	this.max = Infinity;
+
+	this.step = 1;
+	this.nudge = 1;
+
+	this.dom = dom;
+
+	this.setValue( number );
+
+	var changeEvent = document.createEvent( 'HTMLEvents' );
+	changeEvent.initEvent( 'change', true, true );
+
+	var distance = 0;
+	var onMouseDownValue = 0;
+
+	var pointer = [ 0, 0 ];
+	var prevPointer = [ 0, 0 ];
+
+	function onMouseDown( event ) {
+
+		event.preventDefault();
+
+		distance = 0;
+
+		onMouseDownValue = scope.value;
+
+		prevPointer = [ event.clientX, event.clientY ];
+
+		document.addEventListener( 'mousemove', onMouseMove, false );
+		document.addEventListener( 'mouseup', onMouseUp, false );
+
+	}
+
+	function onMouseMove( event ) {
+
+		var currentValue = scope.value;
+
+		pointer = [ event.clientX, event.clientY ];
+
+		distance += ( pointer[ 0 ] - prevPointer[ 0 ] ) - ( pointer[ 1 ] - prevPointer[ 1 ] );
+
+		var value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+		value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
+
+		if ( currentValue !== value ) {
+
+			scope.setValue( value );
+			dom.dispatchEvent( changeEvent );
+
+		}
+
+		prevPointer = [ event.clientX, event.clientY ];
+
+	}
+
+	function onMouseUp() {
+
+		document.removeEventListener( 'mousemove', onMouseMove, false );
+		document.removeEventListener( 'mouseup', onMouseUp, false );
+
+		if ( Math.abs( distance ) < 2 ) {
+
+			dom.focus();
+			dom.select();
+
+		}
+
+	}
+
+	function onChange() {
+
+		scope.setValue( dom.value );
+
+	}
+
+	function onFocus() {
+
+		dom.style.backgroundColor = '';
+		dom.style.cursor = '';
+
+	}
+
+	function onBlur() {
+
+		dom.style.backgroundColor = 'transparent';
+		dom.style.cursor = 'ns-resize';
+
+	}
+
+	function onKeyDown( event ) {
+
+		event.stopPropagation();
+
+		switch ( event.keyCode ) {
+
+			case 13: // enter
+				dom.blur();
+				break;
+
+			case 38: // up
+				event.preventDefault();
+				scope.setValue( scope.getValue() + scope.nudge );
+				dom.dispatchEvent( changeEvent );
+				break;
+
+			case 40: // down
+				event.preventDefault();
+				scope.setValue( scope.getValue() - scope.nudge );
+				dom.dispatchEvent( changeEvent );
+				break;
+
+		}
+
+	}
+
+	onBlur();
+
+	dom.addEventListener( 'keydown', onKeyDown, false );
+	dom.addEventListener( 'mousedown', onMouseDown, false );
+	dom.addEventListener( 'change', onChange, false );
+	dom.addEventListener( 'focus', onFocus, false );
+	dom.addEventListener( 'blur', onBlur, false );
+
+	return this;
+
+}
+
+UIInteger.prototype = Object.create( UIElement.prototype );
+UIInteger.prototype.constructor = UIInteger;
+
+UIInteger.prototype.getValue = function () {
+
+	return this.value;
+
+};
+
+UIInteger.prototype.setValue = function ( value ) {
+
+	if ( value !== undefined ) {
+
+		value = parseInt( value );
+
+		this.value = value;
+		this.dom.value = value;
+
+	}
+
+	return this;
+
+};
+
+UIInteger.prototype.setStep = function ( step ) {
+
+	this.step = parseInt( step );
+
+	return this;
+
+};
+
+UIInteger.prototype.setNudge = function ( nudge ) {
+
+	this.nudge = nudge;
+
+	return this;
+
+};
+
+UIInteger.prototype.setRange = function ( min, max ) {
+
+	this.min = min;
+	this.max = max;
+
+	return this;
+
+};
+
+
+// UIBreak
+
+function UIBreak() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'br' );
+	dom.className = 'Break';
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UIBreak.prototype = Object.create( UIElement.prototype );
+UIBreak.prototype.constructor = UIBreak;
+
+
+// UIHorizontalRule
+
+function UIHorizontalRule() {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'hr' );
+	dom.className = 'HorizontalRule';
+
+	this.dom = dom;
+
+	return this;
+
+}
+
+UIHorizontalRule.prototype = Object.create( UIElement.prototype );
+UIHorizontalRule.prototype.constructor = UIHorizontalRule;
+
+
+// UIButton
+
+function UIButton( value ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'button' );
+	dom.className = 'Button';
+
+	this.dom = dom;
+	this.dom.textContent = value;
+
+	return this;
+
+}
+
+UIButton.prototype = Object.create( UIElement.prototype );
+UIButton.prototype.constructor = UIButton;
+
+UIButton.prototype.setLabel = function ( value ) {
+
+	this.dom.textContent = value;
+
+	return this;
+
+};
+
+
+// UITabbedPanel
+
+function UITabbedPanel( ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+
+	this.dom = dom;
+
+	this.setClass( 'TabbedPanel' );
+
+	this.tabs = [];
+	this.panels = [];
+
+	this.tabsDiv = new UIDiv();
+	this.tabsDiv.setClass( 'Tabs' );
+
+	this.panelsDiv = new UIDiv();
+	this.panelsDiv.setClass( 'Panels' );
+
+	this.add( this.tabsDiv );
+	this.add( this.panelsDiv );
+
+	this.selected = '';
+
+	return this;
+
+}
+
+UITabbedPanel.prototype = Object.create( UIElement.prototype );
+UITabbedPanel.prototype.constructor = UITabbedPanel;
+
+UITabbedPanel.prototype.select = function ( id ) {
+
+	var tab;
+	var panel;
+	var scope = this;
+
+	// Deselect current selection
+	if ( this.selected && this.selected.length ) {
+
+		tab = this.tabs.find( function ( item ) {
+
+			return item.dom.id === scope.selected;
+
+		} );
+		panel = this.panels.find( function ( item ) {
+
+			return item.dom.id === scope.selected;
+
+		} );
+
+		if ( tab ) {
+
+			tab.removeClass( 'selected' );
+
+		}
+
+		if ( panel ) {
+
+			panel.setDisplay( 'none' );
+
+		}
+
+	}
+
+	tab = this.tabs.find( function ( item ) {
+
+		return item.dom.id === id;
+
+	} );
+	panel = this.panels.find( function ( item ) {
+
+		return item.dom.id === id;
+
+	} );
+
+	if ( tab ) {
+
+		tab.addClass( 'selected' );
+
+	}
+
+	if ( panel ) {
+
+		panel.setDisplay( '' );
+
+	}
+
+	this.selected = id;
+
+	return this;
+
+};
+
+UITabbedPanel.prototype.addTab = function ( id, label, items ) {
+
+	var tab = new UITabbedPanel.Tab( label, this );
+	tab.setId( id );
+	this.tabs.push( tab );
+	this.tabsDiv.add( tab );
+
+	var panel = new UIDiv();
+	panel.setId( id );
+	panel.add( items );
+	panel.setDisplay( 'none' );
+	this.panels.push( panel );
+	this.panelsDiv.add( panel );
+
+	this.select( id );
+
+};
+
+UITabbedPanel.Tab = function ( text, parent ) {
+
+	UIText.call( this, text );
+	this.parent = parent;
+
+	this.setClass( 'Tab' );
+
+	var scope = this;
+
+	this.dom.addEventListener( 'click', function () {
+
+		scope.parent.select( scope.dom.id );
+
+	} );
+
+	return this;
+
+};
+
+UITabbedPanel.Tab.prototype = Object.create( UIText.prototype );
+UITabbedPanel.Tab.prototype.constructor = UITabbedPanel.Tab;
+
+// UIListbox
+function UIListbox( ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+	dom.className = 'Listbox';
+	dom.tabIndex = 0;
+
+	this.dom = dom;
+	this.items = [];
+	this.listitems = [];
+	this.selectedIndex = 0;
+	this.selectedValue = null;
+
+	return this;
+
+}
+
+UIListbox.prototype = Object.create( UIElement.prototype );
+UIListbox.prototype.constructor = UIListbox;
+
+UIListbox.prototype.setItems = function ( items ) {
+
+	if ( Array.isArray( items ) ) {
+
+		this.items = items;
+
+	}
+
+	this.render();
+
+};
+
+UIListbox.prototype.render = function ( ) {
+
+	while ( this.listitems.length ) {
+
+		var item = this.listitems[ 0 ];
+
+		item.dom.remove();
+
+		this.listitems.splice( 0, 1 );
+
+	}
+
+	for ( var i = 0; i < this.items.length; i ++ ) {
+
+		var item = this.items[ i ];
+
+		var listitem = new UIListbox.ListboxItem( this );
+		listitem.setId( item.id || `Listbox-${i}` );
+		listitem.setTextContent( item.name || item.type );
+		this.add( listitem );
+
+	}
+
+};
+
+// Assuming user passes valid list items
+UIListbox.prototype.add = function () {
+
+	var items = Array.from( arguments );
+
+	this.listitems = this.listitems.concat( items );
+
+	UIElement.prototype.add.apply( this, items );
+
+};
+
+UIListbox.prototype.selectIndex = function ( index ) {
+
+	if ( index >= 0 && index < this.items.length ) {
+
+		this.setValue( this.listitems[ index ].getId() );
+
+	}
+
+	this.selectedIndex = index;
+
+};
+
+UIListbox.prototype.getValue = function () {
+
+	return this.selectedValue;
+
+};
+
+UIListbox.prototype.setValue = function ( value ) {
+
+	for ( var i = 0; i < this.listitems.length; i ++ ) {
+
+		var element = this.listitems[ i ];
+
+		if ( element.getId() === value ) {
+
+			element.addClass( 'active' );
+
+		} else {
+
+			element.removeClass( 'active' );
+
+		}
+
+	}
+
+	this.selectedValue = value;
+
+	var changeEvent = document.createEvent( 'HTMLEvents' );
+	changeEvent.initEvent( 'change', true, true );
+	this.dom.dispatchEvent( changeEvent );
+
+};
+
+// Listbox Item
+UIListbox.ListboxItem = function ( parent ) {
+
+	UIElement.call( this );
+
+	var dom = document.createElement( 'div' );
+	dom.className = 'ListboxItem';
+
+	this.parent = parent;
+	this.dom = dom;
+
+	var scope = this;
+
+	function onClick() {
+
+		if ( scope.parent ) {
+
+			scope.parent.setValue( scope.getId( ) );
+
+		}
+
+	}
+
+	dom.addEventListener( 'click', onClick, false );
+
+	return this;
+
+};
+
+UIListbox.ListboxItem.prototype = Object.create( UIElement.prototype );
+UIListbox.ListboxItem.prototype.constructor = UIListbox.ListboxItem;
+
+function EditorControls( object, domElement ) {
+
+	// API
+
+	this.enabled = true;
+	this.center = new Vector3();
+	this.panSpeed = 0.002;
+	this.zoomSpeed = 0.1;
+	this.rotationSpeed = 0.005;
+
+	// internals
+
+	var scope = this;
+	var vector = new Vector3();
+	var delta = new Vector3();
+	var box = new Box3();
+
+	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
+	var state = STATE.NONE;
+
+	var center = this.center;
+	var normalMatrix = new Matrix3();
+	var pointer = new Vector2();
+	var pointerOld = new Vector2();
+	var spherical = new Spherical();
+	var sphere = new Sphere();
+
+	// events
+
+	var changeEvent = { type: 'change' };
+
+	this.focus = function ( target ) {
+
+		var distance;
+
+		box.setFromObject( target );
+
+		if ( box.isEmpty() === false ) {
+
+			box.getCenter( center );
+			distance = box.getBoundingSphere( sphere ).radius;
+
+		} else {
+
+			// Focusing on an Group, AmbientLight, etc
+
+			center.setFromMatrixPosition( target.matrixWorld );
+			distance = 0.1;
+
+		}
+
+		delta.set( 0, 0, 1 );
+		delta.applyQuaternion( object.quaternion );
+		delta.multiplyScalar( distance * 4 );
+
+		object.position.copy( center ).add( delta );
+
+		scope.dispatchEvent( changeEvent );
+
+	};
+
+	this.pan = function ( delta ) {
+
+		var distance = object.position.distanceTo( center );
+
+		delta.multiplyScalar( distance * scope.panSpeed );
+		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+
+		object.position.add( delta );
+		center.add( delta );
+
+		scope.dispatchEvent( changeEvent );
+
+	};
+
+	this.zoom = function ( delta ) {
+
+		var distance = object.position.distanceTo( center );
+
+		delta.multiplyScalar( distance * scope.zoomSpeed );
+
+		if ( delta.length() > distance ) return;
+
+		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
+
+		object.position.add( delta );
+
+		scope.dispatchEvent( changeEvent );
+
+	};
+
+	this.rotate = function ( delta ) {
+
+		vector.copy( object.position ).sub( center );
+
+		spherical.setFromVector3( vector );
+
+		spherical.theta += delta.x * scope.rotationSpeed;
+		spherical.phi += delta.y * scope.rotationSpeed;
+
+		spherical.makeSafe();
+
+		vector.setFromSpherical( spherical );
+
+		object.position.copy( center ).add( vector );
+
+		object.lookAt( center );
+
+		scope.dispatchEvent( changeEvent );
+
+	};
+
+	//
+
+	function onPointerDown( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		switch ( event.pointerType ) {
+
+			case 'mouse':
+				onMouseDown( event );
+				break;
+
+			// TODO touch
+
+		}
+
+		domElement.ownerDocument.addEventListener( 'pointermove', onPointerMove, false );
+		domElement.ownerDocument.addEventListener( 'pointerup', onPointerUp, false );
+
+	}
+
+	function onPointerMove( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		switch ( event.pointerType ) {
+
+			case 'mouse':
+				onMouseMove( event );
+				break;
+
+			// TODO touch
+
+		}
+
+	}
+
+	function onPointerUp( event ) {
+
+		switch ( event.pointerType ) {
+
+			case 'mouse':
+				onMouseUp();
+				break;
+
+			// TODO touch
+
+		}
+
+		domElement.ownerDocument.removeEventListener( 'pointermove', onPointerMove, false );
+		domElement.ownerDocument.removeEventListener( 'pointerup', onPointerUp, false );
+
+	}
+
+	// mouse
+
+	function onMouseDown( event ) {
+
+		if ( event.button === 0 ) {
+
+			state = STATE.ROTATE;
+
+		} else if ( event.button === 1 ) {
+
+			state = STATE.ZOOM;
+
+		} else if ( event.button === 2 ) {
+
+			state = STATE.PAN;
+
+		}
+
+		pointerOld.set( event.clientX, event.clientY );
+
+	}
+
+	function onMouseMove( event ) {
+
+		pointer.set( event.clientX, event.clientY );
+
+		var movementX = pointer.x - pointerOld.x;
+		var movementY = pointer.y - pointerOld.y;
+
+		if ( state === STATE.ROTATE ) {
+
+			scope.rotate( delta.set( - movementX, - movementY, 0 ) );
+
+		} else if ( state === STATE.ZOOM ) {
+
+			scope.zoom( delta.set( 0, 0, movementY ) );
+
+		} else if ( state === STATE.PAN ) {
+
+			scope.pan( delta.set( - movementX, movementY, 0 ) );
+
+		}
+
+		pointerOld.set( event.clientX, event.clientY );
+
+	}
+
+	function onMouseUp() {
+
+		state = STATE.NONE;
+
+	}
+
+	function onMouseWheel( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		event.preventDefault();
+
+		// Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
+		scope.zoom( delta.set( 0, 0, event.deltaY > 0 ? 1 : - 1 ) );
+
+	}
+
+	function contextmenu( event ) {
+
+		event.preventDefault();
+
+	}
+
+	this.dispose = function () {
+
+		domElement.removeEventListener( 'contextmenu', contextmenu, false );
+		domElement.removeEventListener( 'dblclick', onMouseUp, false );
+		domElement.removeEventListener( 'wheel', onMouseWheel, false );
+
+		domElement.removeEventListener( 'pointerdown', onPointerDown, false );
+
+		domElement.removeEventListener( 'touchstart', touchStart, false );
+		domElement.removeEventListener( 'touchmove', touchMove, false );
+
+	};
+
+	domElement.addEventListener( 'contextmenu', contextmenu, false );
+	domElement.addEventListener( 'dblclick', onMouseUp, false );
+	domElement.addEventListener( 'wheel', onMouseWheel, false );
+
+	domElement.addEventListener( 'pointerdown', onPointerDown, false );
+
+	// touch
+
+	var touches = [ new Vector3(), new Vector3(), new Vector3() ];
+	var prevTouches = [ new Vector3(), new Vector3(), new Vector3() ];
+
+	var prevDistance = null;
+
+	function touchStart( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		switch ( event.touches.length ) {
+
+			case 1:
+				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				touches[ 1 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				break;
+
+			case 2:
+				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				touches[ 1 ].set( event.touches[ 1 ].pageX, event.touches[ 1 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				prevDistance = touches[ 0 ].distanceTo( touches[ 1 ] );
+				break;
+
+		}
+
+		prevTouches[ 0 ].copy( touches[ 0 ] );
+		prevTouches[ 1 ].copy( touches[ 1 ] );
+
+	}
+
+
+	function touchMove( event ) {
+
+		if ( scope.enabled === false ) return;
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		function getClosest( touch, touches ) {
+
+			var closest = touches[ 0 ];
+
+			for ( var i in touches ) {
+
+				if ( closest.distanceTo( touch ) > touches[ i ].distanceTo( touch ) ) closest = touches[ i ];
+
+			}
+
+			return closest;
+
+		}
+
+		switch ( event.touches.length ) {
+
+			case 1:
+				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				touches[ 1 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				scope.rotate( touches[ 0 ].sub( getClosest( touches[ 0 ], prevTouches ) ).multiplyScalar( - 1 ) );
+				break;
+
+			case 2:
+				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				touches[ 1 ].set( event.touches[ 1 ].pageX, event.touches[ 1 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
+				var distance = touches[ 0 ].distanceTo( touches[ 1 ] );
+				scope.zoom( delta.set( 0, 0, prevDistance - distance ) );
+				prevDistance = distance;
+
+
+				var offset0 = touches[ 0 ].clone().sub( getClosest( touches[ 0 ], prevTouches ) );
+				var offset1 = touches[ 1 ].clone().sub( getClosest( touches[ 1 ], prevTouches ) );
+				offset0.x = - offset0.x;
+				offset1.x = - offset1.x;
+
+				scope.pan( offset0.add( offset1 ) );
+
+				break;
+
+		}
+
+		prevTouches[ 0 ].copy( touches[ 0 ] );
+		prevTouches[ 1 ].copy( touches[ 1 ] );
+
+	}
+
+	domElement.addEventListener( 'touchstart', touchStart, false );
+	domElement.addEventListener( 'touchmove', touchMove, false );
+
+}
+
+EditorControls.prototype = Object.create( EventDispatcher.prototype );
+EditorControls.prototype.constructor = EditorControls;
+
+function ViewportCamera( editor ) {
+
+	var signals = editor.signals;
+
+	//
+
+	var cameraSelect = new UISelect();
+	cameraSelect.setPosition( 'absolute' );
+	cameraSelect.setRight( '10px' );
+	cameraSelect.setTop( '10px' );
+	cameraSelect.onChange( function () {
+
+		editor.setViewportCamera( this.getValue() );
+
+	} );
+
+	signals.cameraAdded.add( update );
+	signals.cameraRemoved.add( update );
+
+	update();
+
+	//
+
+	function update() {
+
+		var options = {};
+
+		var cameras = editor.cameras;
+
+		for ( var key in cameras ) {
+
+			var camera = cameras[ key ];
+			options[ camera.uuid ] = camera.name;
+
+		}
+
+		cameraSelect.setOptions( options );
+		cameraSelect.setValue( editor.viewportCamera.uuid );
+
+	}
+
+	return cameraSelect;
+
+}
+
+function ViewportInfo( editor ) {
+
+	var signals = editor.signals;
+	var strings = editor.strings;
+
+	var container = new UIPanel();
+	container.setId( 'info' );
+	container.setPosition( 'absolute' );
+	container.setLeft( '10px' );
+	container.setBottom( '10px' );
+	container.setFontSize( '12px' );
+	container.setColor( '#fff' );
+
+	var objectsText = new UIText( '0' ).setMarginLeft( '6px' );
+	var verticesText = new UIText( '0' ).setMarginLeft( '6px' );
+	var trianglesText = new UIText( '0' ).setMarginLeft( '6px' );
+	var frametimeText = new UIText( '0' ).setMarginLeft( '6px' );
+
+	container.add( new UIText( strings.getKey( 'viewport/info/objects' ) ).setTextTransform( 'lowercase' ) );
+	container.add( objectsText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/vertices' ) ).setTextTransform( 'lowercase' ) );
+	container.add( verticesText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/triangles' ) ).setTextTransform( 'lowercase' ) );
+	container.add( trianglesText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/frametime' ) ).setTextTransform( 'lowercase' ) );
+	container.add( frametimeText, new UIBreak() );
+
+	signals.objectAdded.add( update );
+	signals.objectRemoved.add( update );
+	signals.geometryChanged.add( update );
+
+	//
+
+	function update() {
+
+		var scene = editor.scene;
+
+		var objects = 0, vertices = 0, triangles = 0;
+
+		for ( var i = 0, l = scene.children.length; i < l; i ++ ) {
+
+			var object = scene.children[ i ];
+
+			object.traverseVisible( function ( object ) {
+
+				objects ++;
+
+				if ( object.isMesh ) {
+
+					var geometry = object.geometry;
+
+					if ( geometry.isGeometry ) {
+
+						vertices += geometry.vertices.length;
+						triangles += geometry.faces.length;
+
+					} else if ( geometry.isBufferGeometry ) {
+
+						vertices += geometry.attributes.position.count;
+
+						if ( geometry.index !== null ) {
+
+							triangles += geometry.index.count / 3;
+
+						} else {
+
+							triangles += geometry.attributes.position.count / 3;
+
+						}
+
+					}
+
+				}
+
+			} );
+
+		}
+
+		objectsText.setValue( objects.format() );
+		verticesText.setValue( vertices.format() );
+		trianglesText.setValue( triangles.format() );
+
+	}
+
+	signals.sceneRendered.add( updateFrametime );
+
+	function updateFrametime( frametime ) {
+
+		frametimeText.setValue( Number( frametime ).toFixed( 2 ) + " ms" );
+
+	}
+
+	return container;
+
+}
+
+function ViewHelper( editorCamera, container ) {
+
+	Object3D.call( this );
+
+	this.animating = false;
+	this.controls = null;
+
+	var panel = new UIPanel();
+	panel.setId( 'viewHelper' );
+	panel.setPosition( 'absolute' );
+	panel.setRight( '0px' );
+	panel.setBottom( '0px' );
+	panel.setHeight( '128px' );
+	panel.setWidth( '128px' );
+
+	var scope = this;
+
+	panel.dom.addEventListener( 'mouseup', function ( event ) {
+
+		event.stopPropagation();
+
+		scope.handleClick( event );
+
+	} );
+
+	panel.dom.addEventListener( 'mousedown', function ( event ) {
+
+		event.stopPropagation();
+
+	} );
+
+	container.add( panel );
+
+	var color1 = new Color( '#ff3653' );
+	var color2 = new Color( '#8adb00' );
+	var color3 = new Color( '#2c8fff' );
+
+	var interactiveObjects = [];
+	var raycaster = new Raycaster();
+	var mouse = new Vector2();
+	var dummy = new Object3D();
+
+	var camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
+	camera.position.set( 0, 0, 2 );
+
+	var geometry = new BoxBufferGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
+
+	var xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
+	var yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
+	var zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
+
+	yAxis.rotation.z = Math.PI / 2;
+	zAxis.rotation.y = - Math.PI / 2;
+
+	this.add( xAxis );
+	this.add( zAxis );
+	this.add( yAxis );
+
+	var posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
+	posXAxisHelper.userData.type = 'posX';
+	var posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
+	posYAxisHelper.userData.type = 'posY';
+	var posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
+	posZAxisHelper.userData.type = 'posZ';
+	var negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
+	negXAxisHelper.userData.type = 'negX';
+	var negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
+	negYAxisHelper.userData.type = 'negY';
+	var negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
+	negZAxisHelper.userData.type = 'negZ';
+
+	posXAxisHelper.position.x = 1;
+	posYAxisHelper.position.y = 1;
+	posZAxisHelper.position.z = 1;
+	negXAxisHelper.position.x = - 1;
+	negXAxisHelper.scale.setScalar( 0.8 );
+	negYAxisHelper.position.y = - 1;
+	negYAxisHelper.scale.setScalar( 0.8 );
+	negZAxisHelper.position.z = - 1;
+	negZAxisHelper.scale.setScalar( 0.8 );
+
+	this.add( posXAxisHelper );
+	this.add( posYAxisHelper );
+	this.add( posZAxisHelper );
+	this.add( negXAxisHelper );
+	this.add( negYAxisHelper );
+	this.add( negZAxisHelper );
+
+	interactiveObjects.push( posXAxisHelper );
+	interactiveObjects.push( posYAxisHelper );
+	interactiveObjects.push( posZAxisHelper );
+	interactiveObjects.push( negXAxisHelper );
+	interactiveObjects.push( negYAxisHelper );
+	interactiveObjects.push( negZAxisHelper );
+
+	var point = new Vector3();
+	var dim = 128;
+	var turnRate = 2 * Math.PI; // turn rate in angles per second
+
+	this.render = function ( renderer ) {
+
+		this.quaternion.copy( editorCamera.quaternion ).invert();
+		this.updateMatrixWorld();
+
+		point.set( 0, 0, 1 );
+		point.applyQuaternion( editorCamera.quaternion );
+
+		if ( point.x >= 0 ) {
+
+			posXAxisHelper.material.opacity = 1;
+			negXAxisHelper.material.opacity = 0.5;
+
+		} else {
+
+			posXAxisHelper.material.opacity = 0.5;
+			negXAxisHelper.material.opacity = 1;
+
+		}
+
+		if ( point.y >= 0 ) {
+
+			posYAxisHelper.material.opacity = 1;
+			negYAxisHelper.material.opacity = 0.5;
+
+		} else {
+
+			posYAxisHelper.material.opacity = 0.5;
+			negYAxisHelper.material.opacity = 1;
+
+		}
+
+		if ( point.z >= 0 ) {
+
+			posZAxisHelper.material.opacity = 1;
+			negZAxisHelper.material.opacity = 0.5;
+
+		} else {
+
+			posZAxisHelper.material.opacity = 0.5;
+			negZAxisHelper.material.opacity = 1;
+
+		}
+
+		//
+
+		var x = container.dom.offsetWidth - dim;
+
+		renderer.clearDepth();
+		renderer.setViewport( x, 0, dim, dim );
+		renderer.render( this, camera );
+
+	};
+
+	var targetPosition = new Vector3();
+	var targetQuaternion = new Quaternion();
+
+	var q1 = new Quaternion();
+	var q2 = new Quaternion();
+	var radius = 0;
+
+	this.handleClick = function ( event ) {
+
+		if ( this.animating === true ) return false;
+
+		var rect = container.dom.getBoundingClientRect();
+		var offsetX = rect.left + ( container.dom.offsetWidth - dim );
+		var offsetY = rect.top + ( container.dom.offsetHeight - dim );
+		mouse.x = ( ( event.clientX - offsetX ) / ( rect.width - offsetX ) ) * 2 - 1;
+		mouse.y = - ( ( event.clientY - offsetY ) / ( rect.bottom - offsetY ) ) * 2 + 1;
+
+		raycaster.setFromCamera( mouse, camera );
+
+		var intersects = raycaster.intersectObjects( interactiveObjects );
+
+		if ( intersects.length > 0 ) {
+
+			var intersection = intersects[ 0 ];
+			var object = intersection.object;
+
+			prepareAnimationData( object, this.controls.center );
+
+			this.animating = true;
+
+			return true;
+
+		} else {
+
+			return false;
+
+		}
+
+	};
+
+	this.update = function ( delta ) {
+
+		var step = delta * turnRate;
+		var focusPoint = this.controls.center;
+
+		// animate position by doing a slerp and then scaling the position on the unit sphere
+
+		q1.rotateTowards( q2, step );
+		editorCamera.position.set( 0, 0, 1 ).applyQuaternion( q1 ).multiplyScalar( radius ).add( focusPoint );
+
+		// animate orientation
+
+		editorCamera.quaternion.rotateTowards( targetQuaternion, step );
+
+		if ( q1.angleTo( q2 ) === 0 ) {
+
+			this.animating = false;
+
+		}
+
+	};
+
+	function prepareAnimationData( object, focusPoint ) {
+
+		switch ( object.userData.type ) {
+
+			case 'posX':
+				targetPosition.set( 1, 0, 0 );
+				targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
+				break;
+
+			case 'posY':
+				targetPosition.set( 0, 1, 0 );
+				targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
+				break;
+
+			case 'posZ':
+				targetPosition.set( 0, 0, 1 );
+				targetQuaternion.setFromEuler( new Euler() );
+				break;
+
+			case 'negX':
+				targetPosition.set( - 1, 0, 0 );
+				targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
+				break;
+
+			case 'negY':
+				targetPosition.set( 0, - 1, 0 );
+				targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
+				break;
+
+			case 'negZ':
+				targetPosition.set( 0, 0, - 1 );
+				targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
+				break;
+
+			default:
+				console.error( 'ViewHelper: Invalid axis.' );
+
+		}
+
+		//
+
+		radius = editorCamera.position.distanceTo( focusPoint );
+		targetPosition.multiplyScalar( radius ).add( focusPoint );
+
+		dummy.position.copy( focusPoint );
+
+		dummy.lookAt( editorCamera.position );
+		q1.copy( dummy.quaternion );
+
+		dummy.lookAt( targetPosition );
+		q2.copy( dummy.quaternion );
+
+	}
+
+	function getAxisMaterial( color ) {
+
+		return new MeshBasicMaterial( { color: color, toneMapped: false } );
+
+	}
+
+	function getSpriteMaterial( color, text = null ) {
+
+		var canvas = document.createElement( 'canvas' );
+		canvas.width = 64;
+		canvas.height = 64;
+
+		var context = canvas.getContext( '2d' );
+		context.beginPath();
+		context.arc( 32, 32, 16, 0, 2 * Math.PI );
+		context.closePath();
+		context.fillStyle = color.getStyle();
+		context.fill();
+
+		if ( text !== null ) {
+
+			context.font = '24px Arial';
+			context.textAlign = 'center';
+			context.fillStyle = '#000000';
+			context.fillText( text, 32, 41 );
+
+		}
+
+		var texture = new CanvasTexture( canvas );
+
+		return new SpriteMaterial( { map: texture, toneMapped: false } );
+
+	}
+
+}
+
+ViewHelper.prototype = Object.assign( Object.create( Object3D.prototype ), {
+
+	constructor: ViewHelper,
+
+	isViewHelper: true
+
+} );
+
+/**
+ * @param editor pointer to main editor object used to initialize
+ *        each command object with a reference to the editor
+ * @constructor
+ */
+
+function Command( editor ) {
+
+	this.id = - 1;
+	this.inMemory = false;
+	this.updatable = false;
+	this.type = '';
+	this.name = '';
+	this.editor = editor;
+
+}
+
+Command.prototype.toJSON = function () {
+
+	var output = {};
+	output.type = this.type;
+	output.id = this.id;
+	output.name = this.name;
+	return output;
+
+};
+
+Command.prototype.fromJSON = function ( json ) {
+
+	this.inMemory = true;
+	this.type = json.type;
+	this.id = json.id;
+	this.name = json.name;
+
+};
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newPosition THREE.Vector3
+ * @param optionalOldPosition THREE.Vector3
+ * @constructor
+ */
+function SetPositionCommand( editor, object, newPosition, optionalOldPosition ) {
+
+	Command.call( this, editor );
+
+	this.type = 'SetPositionCommand';
+	this.name = 'Set Position';
+	this.updatable = true;
+
+	this.object = object;
+
+	if ( object !== undefined && newPosition !== undefined ) {
+
+		this.oldPosition = object.position.clone();
+		this.newPosition = newPosition.clone();
+
+	}
+
+	if ( optionalOldPosition !== undefined ) {
+
+		this.oldPosition = optionalOldPosition.clone();
+
+	}
+
+}
+
+SetPositionCommand.prototype = {
+
+	execute: function () {
+
+		this.object.position.copy( this.newPosition );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	undo: function () {
+
+		this.object.position.copy( this.oldPosition );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	update: function ( command ) {
+
+		this.newPosition.copy( command.newPosition );
+
+	},
+
+	toJSON: function () {
+
+		var output = Command.prototype.toJSON.call( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldPosition = this.oldPosition.toArray();
+		output.newPosition = this.newPosition.toArray();
+
+		return output;
+
+	},
+
+	fromJSON: function ( json ) {
+
+		Command.prototype.fromJSON.call( this, json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldPosition = new Vector3().fromArray( json.oldPosition );
+		this.newPosition = new Vector3().fromArray( json.newPosition );
+
+	}
+
+};
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newRotation THREE.Euler
+ * @param optionalOldRotation THREE.Euler
+ * @constructor
+ */
+function SetRotationCommand( editor, object, newRotation, optionalOldRotation ) {
+
+	Command.call( this, editor );
+
+	this.type = 'SetRotationCommand';
+	this.name = 'Set Rotation';
+	this.updatable = true;
+
+	this.object = object;
+
+	if ( object !== undefined && newRotation !== undefined ) {
+
+		this.oldRotation = object.rotation.clone();
+		this.newRotation = newRotation.clone();
+
+	}
+
+	if ( optionalOldRotation !== undefined ) {
+
+		this.oldRotation = optionalOldRotation.clone();
+
+	}
+
+}
+
+SetRotationCommand.prototype = {
+
+	execute: function () {
+
+		this.object.rotation.copy( this.newRotation );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	undo: function () {
+
+		this.object.rotation.copy( this.oldRotation );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	update: function ( command ) {
+
+		this.newRotation.copy( command.newRotation );
+
+	},
+
+	toJSON: function () {
+
+		var output = Command.prototype.toJSON.call( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldRotation = this.oldRotation.toArray();
+		output.newRotation = this.newRotation.toArray();
+
+		return output;
+
+	},
+
+	fromJSON: function ( json ) {
+
+		Command.prototype.fromJSON.call( this, json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldRotation = new Euler().fromArray( json.oldRotation );
+		this.newRotation = new Euler().fromArray( json.newRotation );
+
+	}
+
+};
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newScale THREE.Vector3
+ * @param optionalOldScale THREE.Vector3
+ * @constructor
+ */
+function SetScaleCommand( editor, object, newScale, optionalOldScale ) {
+
+	Command.call( this, editor );
+
+	this.type = 'SetScaleCommand';
+	this.name = 'Set Scale';
+	this.updatable = true;
+
+	this.object = object;
+
+	if ( object !== undefined && newScale !== undefined ) {
+
+		this.oldScale = object.scale.clone();
+		this.newScale = newScale.clone();
+
+	}
+
+	if ( optionalOldScale !== undefined ) {
+
+		this.oldScale = optionalOldScale.clone();
+
+	}
+
+}
+
+SetScaleCommand.prototype = {
+
+	execute: function () {
+
+		this.object.scale.copy( this.newScale );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	undo: function () {
+
+		this.object.scale.copy( this.oldScale );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	},
+
+	update: function ( command ) {
+
+		this.newScale.copy( command.newScale );
+
+	},
+
+	toJSON: function () {
+
+		var output = Command.prototype.toJSON.call( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldScale = this.oldScale.toArray();
+		output.newScale = this.newScale.toArray();
+
+		return output;
+
+	},
+
+	fromJSON: function ( json ) {
+
+		Command.prototype.fromJSON.call( this, json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldScale = new Vector3().fromArray( json.oldScale );
+		this.newScale = new Vector3().fromArray( json.newScale );
+
+	}
+
+};
+
+function Viewport( editor ) {
+
+	var signals = editor.signals;
+
+	var container = new UIPanel();
+	container.setId( 'viewport' );
+	container.setPosition( 'absolute' );
+
+	container.add( new ViewportCamera( editor ) );
+	container.add( new ViewportInfo( editor ) );
+
+	//
+
+	var renderer = null;
+	var pmremGenerator = null;
+	var pmremTexture = null;
+
+	var camera = editor.camera;
+	var scene = editor.scene;
+	var sceneHelpers = editor.sceneHelpers;
+	var showSceneHelpers = true;
+
+	var objects = [];
+
+	// helpers
+
+	var grid = new GridHelper( 30, 30, 0x444444, 0x888888 );
+	var viewHelper = new ViewHelper( camera, container );
+
+	//
+
+	var box = new Box3();
+
+	var selectionBox = new BoxHelper();
+	selectionBox.material.depthTest = false;
+	selectionBox.material.transparent = true;
+	selectionBox.visible = false;
+	sceneHelpers.add( selectionBox );
+
+	var objectPositionOnDown = null;
+	var objectRotationOnDown = null;
+	var objectScaleOnDown = null;
+
+	var transformControls = new TransformControls( camera, container.dom );
+	transformControls.addEventListener( 'change', function () {
+
+		var object = transformControls.object;
+
+		if ( object !== undefined ) {
+
+			selectionBox.setFromObject( object );
+
+			var helper = editor.helpers[ object.id ];
+
+			if ( helper !== undefined && helper.isSkeletonHelper !== true ) {
+
+				helper.update();
+
+			}
+
+			signals.refreshSidebarObject3D.dispatch( object );
+
+		}
+
+		render();
+
+	} );
+	transformControls.addEventListener( 'mouseDown', function () {
+
+		var object = transformControls.object;
+
+		objectPositionOnDown = object.position.clone();
+		objectRotationOnDown = object.rotation.clone();
+		objectScaleOnDown = object.scale.clone();
+
+		controls.enabled = false;
+
+	} );
+	transformControls.addEventListener( 'mouseUp', function () {
+
+		var object = transformControls.object;
+
+		if ( object !== undefined ) {
+
+			switch ( transformControls.getMode() ) {
+
+				case 'translate':
+
+					if ( ! objectPositionOnDown.equals( object.position ) ) {
+
+						editor.execute( new SetPositionCommand( editor, object, object.position, objectPositionOnDown ) );
+
+					}
+
+					break;
+
+				case 'rotate':
+
+					if ( ! objectRotationOnDown.equals( object.rotation ) ) {
+
+						editor.execute( new SetRotationCommand( editor, object, object.rotation, objectRotationOnDown ) );
+
+					}
+
+					break;
+
+				case 'scale':
+
+					if ( ! objectScaleOnDown.equals( object.scale ) ) {
+
+						editor.execute( new SetScaleCommand( editor, object, object.scale, objectScaleOnDown ) );
+
+					}
+
+					break;
+
+			}
+
+		}
+
+		controls.enabled = true;
+
+	} );
+
+	sceneHelpers.add( transformControls );
+
+	// object picking
+
+	var raycaster = new Raycaster();
+	var mouse = new Vector2();
+
+	// events
+
+	function updateAspectRatio() {
+
+		camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
+		camera.updateProjectionMatrix();
+
+	}
+
+	function getIntersects( point, objects ) {
+
+		mouse.set( ( point.x * 2 ) - 1, - ( point.y * 2 ) + 1 );
+
+		raycaster.setFromCamera( mouse, camera );
+
+		return raycaster.intersectObjects( objects );
+
+	}
+
+	var onDownPosition = new Vector2();
+	var onUpPosition = new Vector2();
+	var onDoubleClickPosition = new Vector2();
+
+	function getMousePosition( dom, x, y ) {
+
+		var rect = dom.getBoundingClientRect();
+		return [ ( x - rect.left ) / rect.width, ( y - rect.top ) / rect.height ];
+
+	}
+
+	function handleClick() {
+
+		if ( onDownPosition.distanceTo( onUpPosition ) === 0 ) {
+
+			var intersects = getIntersects( onUpPosition, objects );
+
+			if ( intersects.length > 0 ) {
+
+				var object = intersects[ 0 ].object;
+
+				if ( object.userData.object !== undefined ) {
+
+					// helper
+
+					editor.select( object.userData.object );
+
+				} else {
+
+					editor.select( object );
+
+				}
+
+			} else {
+
+				editor.select( null );
+
+			}
+
+			render();
+
+		}
+
+	}
+
+	function onMouseDown( event ) {
+
+		// event.preventDefault();
+
+		var array = getMousePosition( container.dom, event.clientX, event.clientY );
+		onDownPosition.fromArray( array );
+
+		document.addEventListener( 'mouseup', onMouseUp, false );
+
+	}
+
+	function onMouseUp( event ) {
+
+		var array = getMousePosition( container.dom, event.clientX, event.clientY );
+		onUpPosition.fromArray( array );
+
+		handleClick();
+
+		document.removeEventListener( 'mouseup', onMouseUp, false );
+
+	}
+
+	function onTouchStart( event ) {
+
+		var touch = event.changedTouches[ 0 ];
+
+		var array = getMousePosition( container.dom, touch.clientX, touch.clientY );
+		onDownPosition.fromArray( array );
+
+		document.addEventListener( 'touchend', onTouchEnd, false );
+
+	}
+
+	function onTouchEnd( event ) {
+
+		var touch = event.changedTouches[ 0 ];
+
+		var array = getMousePosition( container.dom, touch.clientX, touch.clientY );
+		onUpPosition.fromArray( array );
+
+		handleClick();
+
+		document.removeEventListener( 'touchend', onTouchEnd, false );
+
+	}
+
+	function onDoubleClick( event ) {
+
+		var array = getMousePosition( container.dom, event.clientX, event.clientY );
+		onDoubleClickPosition.fromArray( array );
+
+		var intersects = getIntersects( onDoubleClickPosition, objects );
+
+		if ( intersects.length > 0 ) {
+
+			var intersect = intersects[ 0 ];
+
+			signals.objectFocused.dispatch( intersect.object );
+
+		}
+
+	}
+
+	container.dom.addEventListener( 'mousedown', onMouseDown, false );
+	container.dom.addEventListener( 'touchstart', onTouchStart, false );
+	container.dom.addEventListener( 'dblclick', onDoubleClick, false );
+
+	// controls need to be added *after* main logic,
+	// otherwise controls.enabled doesn't work.
+
+	var controls = new EditorControls( camera, container.dom );
+	controls.addEventListener( 'change', function () {
+
+		signals.cameraChanged.dispatch( camera );
+		signals.refreshSidebarObject3D.dispatch( camera );
+
+	} );
+	viewHelper.controls = controls;
+
+	// signals
+
+	signals.editorCleared.add( function () {
+
+		controls.center.set( 0, 0, 0 );
+		render();
+
+	} );
+
+	signals.transformModeChanged.add( function ( mode ) {
+
+		transformControls.setMode( mode );
+
+	} );
+
+	signals.snapChanged.add( function ( dist ) {
+
+		transformControls.setTranslationSnap( dist );
+
+	} );
+
+	signals.spaceChanged.add( function ( space ) {
+
+		transformControls.setSpace( space );
+
+	} );
+
+	signals.rendererUpdated.add( function () {
+
+		scene.traverse( function ( child ) {
+
+			if ( child.material !== undefined ) {
+
+				child.material.needsUpdate = true;
+
+			}
+
+		} );
+
+		render();
+
+	} );
+
+	signals.rendererChanged.add( function ( newRenderer ) {
+
+		if ( renderer !== null ) {
+
+			renderer.dispose();
+			pmremGenerator.dispose();
+			pmremTexture = null;
+
+			container.dom.removeChild( renderer.domElement );
+
+		}
+
+		renderer = newRenderer;
+
+		renderer.setClearColor( 0xaaaaaa );
+
+		if ( window.matchMedia ) {
+
+			var mediaQuery = window.matchMedia( '(prefers-color-scheme: dark)' );
+			mediaQuery.addListener( function ( event ) {
+
+				renderer.setClearColor( event.matches ? 0x333333 : 0xaaaaaa );
+				updateGridColors( grid, event.matches ? [ 0x888888, 0x222222 ] : [ 0x282828, 0x888888 ] );
+
+				render();
+
+			} );
+
+			// renderer.setClearColor( mediaQuery.matches ? 0x333333 : 0xaaaaaa );
+			// updateGridColors( grid, mediaQuery.matches ? [ 0x888888, 0x222222 ] : [ 0x282828, 0x888888 ] );
+			renderer.setClearColor( 0x333333 );
+			updateGridColors( grid, [ 0x888888, 0x222222 ] );
+
+		}
+
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
+
+		pmremGenerator = new PMREMGenerator( renderer );
+		pmremGenerator.compileEquirectangularShader();
+
+		container.dom.appendChild( renderer.domElement );
+
+		render();
+
+	} );
+
+	signals.sceneGraphChanged.add( function () {
+
+		render();
+
+	} );
+
+	signals.cameraChanged.add( function () {
+
+		render();
+
+	} );
+
+	signals.objectSelected.add( function ( object ) {
+
+		selectionBox.visible = false;
+		transformControls.detach();
+
+		if ( object !== null && object !== scene && object !== camera ) {
+
+			box.setFromObject( object );
+
+			if ( box.isEmpty() === false ) {
+
+				selectionBox.setFromObject( object );
+				selectionBox.visible = true;
+
+			}
+
+			transformControls.attach( object );
+
+		}
+
+		render();
+
+	} );
+
+	signals.objectFocused.add( function ( object ) {
+
+		controls.focus( object );
+
+	} );
+
+	signals.geometryChanged.add( function ( object ) {
+
+		if ( object !== undefined ) {
+
+			selectionBox.setFromObject( object );
+
+		}
+
+		render();
+
+	} );
+
+	signals.objectAdded.add( function ( object ) {
+
+		object.traverse( function ( child ) {
+
+			objects.push( child );
+
+		} );
+
+	} );
+
+	signals.objectChanged.add( function ( object ) {
+
+		if ( editor.selected === object ) {
+
+			selectionBox.setFromObject( object );
+
+		}
+
+		if ( object.isPerspectiveCamera ) {
+
+			object.updateProjectionMatrix();
+
+		}
+
+		if ( editor.helpers[ object.id ] !== undefined ) {
+
+			editor.helpers[ object.id ].update();
+
+		}
+
+		render();
+
+	} );
+
+	signals.objectRemoved.add( function ( object ) {
+
+		controls.enabled = true; // see #14180
+		if ( object === transformControls.object ) {
+
+			transformControls.detach();
+
+		}
+
+		object.traverse( function ( child ) {
+
+			objects.splice( objects.indexOf( child ), 1 );
+
+		} );
+
+	} );
+
+	signals.helperAdded.add( function ( object ) {
+
+		var picker = object.getObjectByName( 'picker' );
+
+		if ( picker !== undefined ) {
+
+			objects.push( picker );
+
+		}
+
+	} );
+
+	signals.helperRemoved.add( function ( object ) {
+
+		var picker = object.getObjectByName( 'picker' );
+
+		if ( picker !== undefined ) {
+
+			objects.splice( objects.indexOf( picker ), 1 );
+
+		}
+
+	} );
+
+	signals.materialChanged.add( function () {
+
+		render();
+
+	} );
+
+	signals.animationStopped.add( function () {
+
+		render();
+
+	} );
+
+	// background
+
+	signals.sceneBackgroundChanged.add( function ( backgroundType, backgroundColor, backgroundTexture, backgroundEquirectangularTexture, environmentType ) {
+
+		pmremTexture = null;
+
+		switch ( backgroundType ) {
+
+			case 'None':
+
+				scene.background = null;
+
+				break;
+
+			case 'Color':
+
+				scene.background = new Color( backgroundColor );
+
+				break;
+
+			case 'Texture':
+
+				if ( backgroundTexture ) {
+
+					scene.background = backgroundTexture;
+
+				}
+
+				break;
+
+			case 'Equirectangular':
+
+				if ( backgroundEquirectangularTexture ) {
+
+					pmremTexture = pmremGenerator.fromEquirectangular( backgroundEquirectangularTexture ).texture;
+
+					var renderTarget = new WebGLCubeRenderTarget( 512 );
+					renderTarget.fromEquirectangularTexture( renderer, backgroundEquirectangularTexture );
+					renderTarget.toJSON = function () { return null }; // TODO Remove hack
+
+					scene.background = renderTarget;
+
+				}
+
+				break;
+
+		}
+
+		if ( environmentType === 'Background' ) {
+
+			scene.environment = pmremTexture;
+
+		}
+
+		render();
+
+	} );
+
+	// environment
+
+	signals.sceneEnvironmentChanged.add( function ( environmentType ) {
+
+		switch ( environmentType ) {
+
+			case 'None':
+				scene.environment = null;
+				break;
+			case 'Background':
+				scene.environment = pmremTexture;
+				break;
+
+		}
+
+		render();
+
+	} );
+
+	// fog
+
+	signals.sceneFogChanged.add( function ( fogType, fogColor, fogNear, fogFar, fogDensity ) {
+
+		switch ( fogType ) {
+
+			case 'None':
+				scene.fog = null;
+				break;
+			case 'Fog':
+				scene.fog = new Fog( fogColor, fogNear, fogFar );
+				break;
+			case 'FogExp2':
+				scene.fog = new FogExp2( fogColor, fogDensity );
+				break;
+
+		}
+
+		render();
+
+	} );
+
+	signals.sceneFogSettingsChanged.add( function ( fogType, fogColor, fogNear, fogFar, fogDensity ) {
+
+		switch ( fogType ) {
+
+			case 'Fog':
+				scene.fog.color.setHex( fogColor );
+				scene.fog.near = fogNear;
+				scene.fog.far = fogFar;
+				break;
+			case 'FogExp2':
+				scene.fog.color.setHex( fogColor );
+				scene.fog.density = fogDensity;
+				break;
+
+		}
+
+		render();
+
+	} );
+
+	signals.viewportCameraChanged.add( function () {
+
+		var viewportCamera = editor.viewportCamera;
+
+		if ( viewportCamera.isPerspectiveCamera ) {
+
+			viewportCamera.aspect = editor.camera.aspect;
+			viewportCamera.projectionMatrix.copy( editor.camera.projectionMatrix );
+
+		} else if ( viewportCamera.isOrthographicCamera ) {
+
+			// TODO
+
+		}
+
+		// disable EditorControls when setting a user camera
+
+		controls.enabled = ( viewportCamera === editor.camera );
+
+		render();
+
+	} );
+
+	//
+
+	signals.windowResize.add( function () {
+
+		updateAspectRatio();
+
+		renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
+
+		render();
+
+	} );
+
+	signals.showGridChanged.add( function ( showGrid ) {
+
+		grid.visible = showGrid;
+		render();
+
+	} );
+
+	signals.showHelpersChanged.add( function ( showHelpers ) {
+
+		showSceneHelpers = showHelpers;
+		transformControls.enabled = showHelpers;
+
+		render();
+
+	} );
+
+	signals.cameraResetted.add( updateAspectRatio );
+
+	// animations
+
+	var clock = new Clock(); // only used for animations
+
+	function animate() {
+
+		requestAnimationFrame( animate );
+
+		var mixer = editor.mixer;
+		var delta = clock.getDelta();
+
+		var needsUpdate = false;
+
+		if ( mixer.stats.actions.inUse > 0 ) {
+
+			mixer.update( delta );
+			needsUpdate = true;
+
+		}
+
+		if ( viewHelper.animating === true ) {
+
+			viewHelper.update( delta );
+			needsUpdate = true;
+
+		}
+
+		if ( needsUpdate === true ) render();
+
+	}
+
+	requestAnimationFrame( animate );
+
+	//
+
+	var startTime = 0;
+	var endTime = 0;
+
+	function render() {
+
+		startTime = performance.now();
+
+		// Adding/removing grid to scene so materials with depthWrite false
+		// don't render under the grid.
+
+		scene.add( grid );
+		renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
+		renderer.render( scene, editor.viewportCamera );
+		scene.remove( grid );
+
+		if ( camera === editor.viewportCamera ) {
+
+			renderer.autoClear = false;
+			if ( showSceneHelpers === true ) renderer.render( sceneHelpers, camera );
+			viewHelper.render( renderer );
+			renderer.autoClear = true;
+
+		}
+
+		endTime = performance.now();
+		editor.signals.sceneRendered.dispatch( endTime - startTime );
+
+	}
+
+	return container;
+
+}
+
+function updateGridColors( grid, colors ) {
+
+	const color1 = new Color( colors[ 0 ] );
+	const color2 = new Color( colors[ 1 ] );
+
+	const attribute = grid.geometry.attributes.color;
+	const array = attribute.array;
+
+	for ( var i = 0; i < array.length; i += 12 ) {
+
+		const color = ( i % ( 12 * 5 ) === 0 ) ? color1 : color2;
+
+		for ( var j = 0; j < 12; j += 3 ) {
+
+			color.toArray( array, i + j );
+
+		}
+
+	}
+
+	attribute.needsUpdate = true;
+
+}
+
 module.exports = {
 	THREE,
+	Viewport,
 };

@@ -1,7 +1,7 @@
 
 import { Command } from '../Command.js';
 
-import * as THREE from '../../../build/three.module.js';
+import * as THREE from '../three.module.js';
 
 /**
  * @param editor Editor
