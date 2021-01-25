@@ -11,7 +11,7 @@ _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set( 0, 5, 10 );
 _DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
 
-function Editor() {
+function Editor( signals ) {
 
 	var Signal = signals.Signal;
 
