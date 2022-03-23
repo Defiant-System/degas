@@ -1,4 +1,6 @@
 
+@import "blankView";
+
 content {
 	background: #333;
 	position: absolute;
@@ -7,6 +9,28 @@ content {
 	right: 0;
 	bottom: 0;
 	color: #fff;
+
+	&.show-blank-view {
+		background: transparent;
+
+		.blank-view { display: block; }
+		.workspace { display: none; }
+	}
+
+	[class*="icon-"],
+	[class^="icon-"] {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		width: 17px;
+		height: 17px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		
+		&.icon-folder-open { background-image: url(~/icons/icon-folder-open.png); }
+		&.icon-clipboard   { background-image: url(~/icons/icon-clipboard.png); }
+	}
 }
 
 .Panel {

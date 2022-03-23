@@ -1,0 +1,11 @@
+<Data>
+	<Samples>
+		<i name="sample-1.obj" path="~/samples/sample-1.obj" preview="~/img/sample-1.jpg"/>
+		<i name="sample-2.flb" path="~/samples/sample-2.flb" preview="~/img/sample-2.jpg"/>
+		<i name="sample-3.obj" path="~/samples/sample-3.obj" preview="~/img/sample-3.jpg"/>
+	</Samples>
+	<Recents>
+		<i name="basketball.png" filepath="/fs/Desktop/images/basketball.png"/>
+		<i name="coast.jpg" filepath="/fs/Desktop/coast.jpg"/>
+	</Recents>
+</Data>
