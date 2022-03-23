@@ -33,9 +33,12 @@
 <xsl:template name="sample-list">
 	<xsl:for-each select="./Samples/*">
 		<div class="sample">
-			<!-- <xsl:attribute name="style">background-image: url(<xsl:value-of select="@path"/>);</xsl:attribute> -->
+			<xsl:attribute name="style">background-image: url(<xsl:value-of select="@preview"/>);</xsl:attribute>
 			<xsl:attribute name="data-url"><xsl:value-of select="@path"/></xsl:attribute>
-			<span class="name"><xsl:value-of select="@name"/></span>
+			<span class="name"><xsl:call-template name="substring-after-last">
+				<xsl:with-param name="string" select="@path" />
+				<xsl:with-param name="delimiter" select="'/'" />
+			</xsl:call-template></span>
 		</div>
 	</xsl:for-each>
 </xsl:template>
@@ -44,13 +47,28 @@
 <xsl:template name="recent-list">
 	<xsl:for-each select="./Recents/*">
 		<div class="recent-file">
-			<xsl:attribute name="data-file"><xsl:value-of select="@filepath"/></xsl:attribute>
-			<span class="thumbnail">
-				<xsl:attribute name="style">background-image: url(<xsl:value-of select="@filepath"/>);</xsl:attribute>
-			</span>
-			<span class="name"><xsl:value-of select="@name"/></span>
+			<xsl:attribute name="data-file"><xsl:value-of select="@path"/></xsl:attribute>
+			<span class="name"><xsl:call-template name="substring-after-last">
+				<xsl:with-param name="string" select="@path" />
+				<xsl:with-param name="delimiter" select="'/'" />
+			</xsl:call-template></span>
 		</div>
 	</xsl:for-each>
+</xsl:template>
+
+
+<xsl:template name="substring-after-last">
+	<xsl:param name="string" />
+	<xsl:param name="delimiter" />
+	<xsl:choose>
+		<xsl:when test="contains($string, $delimiter)">
+			<xsl:call-template name="substring-after-last">
+				<xsl:with-param name="string" select="substring-after($string, $delimiter)" />
+				<xsl:with-param name="delimiter" select="$delimiter" />
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise><xsl:value-of select="$string" /></xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 
