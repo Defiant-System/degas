@@ -29,7 +29,7 @@ let signals = window.signals,
 function customInit() {
 	editor = new Editor( signals );
 	viewport = new Viewport( editor );
-	degas.content[0].appendChild( viewport.dom );
+	APP.els.content[0].appendChild( viewport.dom );
 
 
 	var config = editor.config;

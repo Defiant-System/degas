@@ -13,7 +13,6 @@ const degas = {
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 
-		// customInit();
 	},
 	dispatch(event) {
 		let Self = degas,
@@ -24,15 +23,29 @@ const degas = {
 				// reset app by default - show initial view
 				Self.dispatch({ type: "reset-app" });
 				break;
+			case "open.file":
+				event.open({ responseType: "blob" })
+					.then(file => Self.dispatch({ type: "prepare-file", file }));
+				break;
 			// custom events
+			case "prepare-file":
+				if (!event.isSample) {
+					// add file to "recent" list
+					Self.blankView.dispatch({ ...event, type: "add-recent-file" });
+				}
+				// set up workspace
+				Self.dispatch({ ...event, type: "setup-workspace" });
+				break;
 			case "setup-workspace":
 				// hide blank view
 				Self.els.content.removeClass("show-blank-view");
+
+				customInit();
 				break;
 			case "open-file":
 				window.dialog.open({
 					obj: item => Self.dispatch(item),
-					fld: item => Self.dispatch(item),
+					fbx: item => Self.dispatch(item),
 				});
 				break;
 			case "close-file":
@@ -56,5 +69,7 @@ const degas = {
 	blankView: @import "modules/blankView.js",
 	workspace: @import "modules/workspace.js",
 };
+
+const APP = degas;
 
 window.exports = degas;
