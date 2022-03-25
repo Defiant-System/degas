@@ -1,5 +1,5 @@
 
-@import "./threejs/libs/signals.min.js";
+@import "./threejs/editor/js/libs/signals.min.js";
 
 
 // import libs
@@ -19,6 +19,7 @@ const {
 	UINumber,
 	UIBoolean,
 } = await window.fetch("~/js/bundle.js");
+
 
 let signals = window.signals,
 	currentRenderer,
@@ -88,6 +89,6 @@ function customInit() {
 	currentRenderer.toneMapping = parseFloat( toneMappingSelect.getValue() );
 	currentRenderer.toneMappingExposure = toneMappingExposure.getValue();
 
-	editor.signals.rendererChanged.dispatch( currentRenderer );
+	// editor.signals.rendererChanged.dispatch( currentRenderer );
 
 }
