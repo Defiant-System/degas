@@ -13,6 +13,9 @@
 		
 		// append panel
 		this.els.workspace.append(viewport.dom);
+		this.els.rendererCvs = this.els.workspace.append(renderer.domElement),
+		
+		this.dispatch({ type: "resize-renderer" });
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -20,8 +23,11 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
-			case "some-event":
-				// TODO
+			case "resize-renderer":
+				Self.els.rendererCvs.attr({
+					width: Self.els.workspace.prop("offsetWidth"),
+					height: Self.els.workspace.prop("offsetHeight"),
+				});
 				break;
 		}
 	}

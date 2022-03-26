@@ -19,6 +19,12 @@ const {
 let editor,
 	viewport;
 
+
+let renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio ); // TODO: Use player.setPixelRatio()
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+
 let _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set( 0, 5, 10 );
@@ -64,6 +70,8 @@ const degas = {
 			case "setup-workspace":
 				// hide blank view
 				Self.els.content.removeClass("show-blank-view");
+				// resize renderer canvas
+				Self.workspace.dispatch({ type: "resize-renderer" });
 				break;
 			case "open-file":
 				window.dialog.open({
