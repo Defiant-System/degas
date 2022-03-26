@@ -3,7 +3,16 @@
 
 {
 	init() {
+		this.els = {
+			workspace: window.find(".workspace"),
+		};
+
+		// create editor + viewport
+		editor = new Editor();
+		viewport = new Viewport(editor);
 		
+		// append panel
+		this.els.workspace.append(viewport.dom);
 	},
 	dispatch(event) {
 		let APP = degas,

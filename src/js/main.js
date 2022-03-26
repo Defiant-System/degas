@@ -1,5 +1,29 @@
 
-@import "modules/customInit.js";
+@import "./classes/editor.js";
+@import "./classes/viewport.js";
+@import "./classes/vr.js";
+
+// import libs
+const {
+	THREE,
+
+	Loader,
+	ViewHelper,
+	TransformControls,
+	EditorControls,
+
+	UIPanel,
+} = await window.fetch("~/js/bundle.js");
+
+
+let editor,
+	viewport;
+
+let _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
+_DEFAULT_CAMERA.name = 'Camera';
+_DEFAULT_CAMERA.position.set( 0, 5, 10 );
+_DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
+
 
 
 const degas = {
@@ -40,8 +64,6 @@ const degas = {
 			case "setup-workspace":
 				// hide blank view
 				Self.els.content.removeClass("show-blank-view");
-
-				customInit();
 				break;
 			case "open-file":
 				window.dialog.open({
