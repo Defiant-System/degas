@@ -70757,6 +70757,9 @@ module.exports = {
 	Editor,
 	Viewport,
 	
+	Loader,
+	ViewHelper,
+
 	UIPanel,
 	UIRow,
 	UIInput,
