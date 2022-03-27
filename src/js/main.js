@@ -78,7 +78,7 @@ const degas = {
 				break;
 			case "trigger-viewport-render":
 				editor.scene.add( viewport.grid );
-				renderer.setClearColor( 0xaaaaaa );
+				renderer.setClearColor( 0x333333 );
 				renderer.setViewport( 0, 0, viewport.container.dom.offsetWidth, viewport.container.dom.offsetHeight );
 				renderer.render( editor.scene, editor.camera );
 				editor.scene.remove( viewport.grid );

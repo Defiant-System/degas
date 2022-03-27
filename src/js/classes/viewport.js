@@ -4,7 +4,7 @@ class Viewport {
 	constructor(editor) {
 		const container = new UIPanel();
 		this.container = container;
-		
+
 		container.setId( 'viewport' );
 		container.setPosition( 'absolute' );
 
@@ -21,13 +21,13 @@ class Viewport {
 		const grid = new THREE.Group();
 		this.grid = grid;
 
-		const grid1 = new THREE.GridHelper( 30, 30, 0x888888 );
-		grid1.material.color.setHex( 0x888888 );
+		const grid1 = new THREE.GridHelper( 30, 30, 0x0d0d0d );
+		grid1.material.color.setHex( 0x0d0d0d );
 		grid1.material.vertexColors = false;
 		grid.add( grid1 );
 
-		const grid2 = new THREE.GridHelper( 30, 6, 0x222222 );
-		grid2.material.color.setHex( 0x222222 );
+		const grid2 = new THREE.GridHelper( 30, 6, 0x171717 );
+		grid2.material.color.setHex( 0x171717 );
 		grid2.material.depthFunc = THREE.AlwaysDepth;
 		grid2.material.vertexColors = false;
 		grid.add( grid2 );
