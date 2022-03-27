@@ -11,17 +11,16 @@ const {
 	ViewHelper,
 	TransformControls,
 	EditorControls,
+	Config,
 
 	UIPanel,
 } = await window.fetch("~/js/bundle.js");
 
 
 let editor,
-	viewport;
-
-
-let renderer = new THREE.WebGLRenderer( { antialias: true } );
-renderer.setPixelRatio( window.devicePixelRatio ); // TODO: Use player.setPixelRatio()
+	viewport,
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.outputEncoding = THREE.sRGBEncoding;
 
 
@@ -44,6 +43,10 @@ const degas = {
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 
+		// temp
+		// setTimeout(() => {
+		// 	this.workspace.dispatch({ type: "add-object", arg: "cylinder" });
+		// }, 700);
 	},
 	dispatch(event) {
 		let Self = degas,
@@ -89,6 +92,11 @@ const degas = {
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");
 				break;
+			// proxy event
+			case "add-mesh":
+			case "add-light":
+			case "add-camera":
+				return Self.workspace.dispatch(event);
 			default:
 				if (event.el) {
 					let pEl = event.el.parents(`div[data-area]`);

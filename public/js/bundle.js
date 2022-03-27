@@ -70761,6 +70761,7 @@ module.exports = {
 	ViewHelper,
 	TransformControls,
 	EditorControls,
+	Config,
 
 	UIPanel,
 	UIRow,

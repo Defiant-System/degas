@@ -50,43 +50,21 @@ content {
 	    left: 0;
 	    right: 0;
 	    bottom: 0;
+	}
 
-		// #toolbar {
-		// 	left: 10px;
-		// 	top: 42px;
-		// 	width: 32px;
-		// 	background: #eee;
-		// 	color: #aaa;
-		// 	text-align: center;
-		// }
+	#viewHelper {
+		&:hover:before {
+			background: rgba(255,255,255,.125);
+		}
 
-		// #info {
-		// 	top: auto;
-		// 	right: auto;
-		// 	left: 10px;
-		// 	bottom: 10px;
-		// 	font-size: 12px;
-		// 	color: rgb(255, 255, 255);
-		// }
-
-		// #viewHelper {
-		// 	top: auto;
-		// 	left: auto;
-		// 	height: 128px;
-		// 	width: 128px;
-		// }
-
-		// select {
-		//     color: #666;
-		//     background-color: #ddd;
-		//     border: 0px;
-		//     text-transform: uppercase;
-		//     cursor: pointer;
-		//     outline: none;
-		// 	padding: 2px;
-		//     position: absolute;
-		//     right: 10px;
-		//     top: 10px;
-		// }
+		&:before {
+			content: "";
+			position: absolute;
+			top: 19px;
+			left: 19px;
+			right: 19px;
+			bottom: 19px;
+			border-radius: 50%;
+		}
 	}
 }

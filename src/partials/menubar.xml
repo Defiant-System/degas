@@ -4,6 +4,36 @@
 		<Menu type="divider"/>
 		<Menu name="Quit Degas" shell="win -c"/>
 	</Menu>
+	<Menu name="Add">
+		<Menu name="Mesh">
+			<Menu name="Box" click="add-mesh" arg="box"/>
+			<Menu name="Circle" click="add-mesh" arg="circle"/>
+			<Menu name="Cylinder" click="add-mesh" arg="cylinder"/>
+			<Menu name="Dodecahedron" click="add-mesh" arg="dodecahedron"/>
+			<Menu name="Icosahedron" click="add-mesh" arg="icosahedron"/>
+			<Menu name="Lathe" click="add-mesh" arg="lathe"/>
+			<Menu name="Octahedron" click="add-mesh" arg="octahedron"/>
+			<Menu name="Plane" click="add-mesh" arg="plane"/>
+			<Menu name="Ring" click="add-mesh" arg="ring"/>
+			<Menu name="Sphere" click="add-mesh" arg="sphere"/>
+			<Menu name="Sprite" click="add-mesh" arg="sprite"/>
+			<Menu name="Tetrahedron" click="add-mesh" arg="tetrahedron"/>
+			<Menu name="Torus" click="add-mesh" arg="torus"/>
+			<Menu name="Torusknot" click="add-mesh" arg="torusknot"/>
+			<Menu name="Tube" click="add-mesh" arg="tube"/>
+		</Menu>
+		<Menu name="Light">
+			<Menu name="AmbientLight" click="add-light" arg="ambientlight"/>
+			<Menu name="DirectionalLight" click="add-light" arg="directionallight"/>
+			<Menu name="HemisphereLight" click="add-light" arg="hemispherelight"/>
+			<Menu name="PointLight" click="add-light" arg="pointlight"/>
+			<Menu name="SpotLight" click="add-light" arg="spotlight"/>
+		</Menu>
+		<Menu name="Camera">
+			<Menu name="OrthographicCamera" click="add-camera" arg="orthographiccamera"/>
+			<Menu name="PerspectiveCamera" click="add-camera" arg="perspectivecamera"/>
+		</Menu>
+	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
 		<Menu type="divider"/>

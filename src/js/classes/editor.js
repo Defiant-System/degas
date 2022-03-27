@@ -2,6 +2,7 @@
 class Editor {
 	
 	constructor() {
+		this.config = new Config();
 		this.loader = new Loader( this );
 		this.camera = _DEFAULT_CAMERA.clone();
 
