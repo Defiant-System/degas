@@ -15,14 +15,7 @@
 		this.els.workspace.append(viewport.container.dom);
 		this.els.rendererCvs = this.els.workspace.append(renderer.domElement),
 		
-		this.dispatch({ type: "resize-renderer" });
-
-		setTimeout(() => {
-			editor.scene.add( viewport.grid );
-			renderer.setViewport( 0, 0, viewport.container.dom.offsetWidth, viewport.container.dom.offsetHeight );
-			renderer.render( editor.scene, editor.camera );
-			editor.scene.remove( viewport.grid );
-		}, 300);
+		this.dispatch({ type: "resize-workspace" });
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -30,11 +23,12 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
-			case "resize-renderer":
+			case "resize-workspace":
 				Self.els.rendererCvs.attr({
 					width: Self.els.workspace.prop("offsetWidth"),
 					height: Self.els.workspace.prop("offsetHeight"),
 				});
+				APP.dispatch({ type: "trigger-viewport-render" });
 				break;
 		}
 	}

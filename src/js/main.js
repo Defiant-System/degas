@@ -54,6 +54,9 @@ const degas = {
 				// reset app by default - show initial view
 				Self.dispatch({ type: "reset-app" });
 				break;
+			case "window.resize":
+				Self.workspace.dispatch({ type: "resize-workspace" });
+				break;
 			case "open.file":
 				event.open({ responseType: "blob" })
 					.then(file => Self.dispatch({ type: "prepare-file", file }));
@@ -71,9 +74,14 @@ const degas = {
 				// hide blank view
 				Self.els.content.removeClass("show-blank-view");
 				// resize renderer canvas
-				Self.workspace.dispatch({ type: "resize-renderer" });
-
-				// viewport.controls.trigger("change");
+				Self.workspace.dispatch({ type: "resize-workspace" });
+				break;
+			case "trigger-viewport-render":
+				editor.scene.add( viewport.grid );
+				renderer.setClearColor( 0xaaaaaa );
+				renderer.setViewport( 0, 0, viewport.container.dom.offsetWidth, viewport.container.dom.offsetHeight );
+				renderer.render( editor.scene, editor.camera );
+				editor.scene.remove( viewport.grid );
 				break;
 			case "open-file":
 				window.dialog.open({
