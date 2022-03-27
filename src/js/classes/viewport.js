@@ -3,11 +3,12 @@ class Viewport {
 	
 	constructor(editor) {
 		const container = new UIPanel();
+		this.container = container;
+		
 		container.setId( 'viewport' );
 		container.setPosition( 'absolute' );
 
 		//
-		let renderer = null;
 		let pmremGenerator = null;
 
 		const camera = editor.camera;
@@ -18,6 +19,7 @@ class Viewport {
 		const objects = [];
 		// helpers
 		const grid = new THREE.Group();
+		this.grid = grid;
 
 		const grid1 = new THREE.GridHelper( 30, 30, 0x888888 );
 		grid1.material.color.setHex( 0x888888 );
@@ -182,7 +184,10 @@ class Viewport {
 		// controls need to be added *after* main logic,
 		// otherwise controls.enabled doesn't work.
 		const controls = new EditorControls( camera, container.dom );
+		controls.center.set( 0, 0, 0 );
+		
 		controls.addEventListener( 'change', function () {
+			render();
 		} );
 		
 		viewHelper.controls = controls;
@@ -226,8 +231,6 @@ class Viewport {
 			}
 			endTime = performance.now();
 		}
-
-		return container;
 	}
 
 }

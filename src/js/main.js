@@ -72,6 +72,8 @@ const degas = {
 				Self.els.content.removeClass("show-blank-view");
 				// resize renderer canvas
 				Self.workspace.dispatch({ type: "resize-renderer" });
+
+				// viewport.controls.trigger("change");
 				break;
 			case "open-file":
 				window.dialog.open({
