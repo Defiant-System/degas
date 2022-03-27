@@ -36,6 +36,9 @@ class Viewport {
 		const vr = new VR( editor );
 		const box = new THREE.Box3();
 
+		this.viewHelper = viewHelper;
+		this.vr = vr;
+
 		const selectionBox = new THREE.Box3Helper( box );
 		selectionBox.material.depthTest = false;
 		selectionBox.material.transparent = true;
@@ -220,6 +223,7 @@ class Viewport {
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
 			scene.add( grid );
+			renderer.setClearColor( 0x333333 );
 			renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
 			renderer.render( scene, editor.viewportCamera );
 			scene.remove( grid );
@@ -227,10 +231,13 @@ class Viewport {
 				renderer.autoClear = false;
 				if ( showSceneHelpers === true ) renderer.render( sceneHelpers, camera );
 				if ( vr.currentSession === null ) viewHelper.render( renderer );
+				// if ( vr.currentSession === null ) console.log(vr.currentSession);
 				renderer.autoClear = true;
 			}
 			endTime = performance.now();
 		}
+
+		this.render = render;
 	}
 
 }

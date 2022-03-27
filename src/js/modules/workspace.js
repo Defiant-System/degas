@@ -28,7 +28,8 @@
 					width: Self.els.workspace.prop("offsetWidth"),
 					height: Self.els.workspace.prop("offsetHeight"),
 				});
-				APP.dispatch({ type: "trigger-viewport-render" });
+				
+				viewport.render();
 				break;
 		}
 	}

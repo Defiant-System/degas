@@ -1,16 +1,21 @@
 <CaptionToolBar>
 	<Group width="37%" class="tools-left">
 		<Options>
-			<Tool name="Left" state="disabled"/>
-			<Tool name="Middle" state="disabled"/>
-			<Tool name="Right" state="disabled"/>
+			<Tool symbol="icon-tool-move"/>
+			<Tool symbol="icon-tool-rotate"/>
+			<Tool symbol="icon-tool-scale"/>
+		</Options>
+
+		<Options>
+			<Tool symbol="icon-zoom"/>
+			<Tool symbol="icon-pan"/>
 		</Options>
 	</Group>
 	<Group>
 		
 	</Group>
 	<Group width="21%" class="tools-right">
-		<Tool name="Sidebar" state="disabled"/>
 		<Tool symbol="icon-cog" />
+		<Tool symbol="icon-sidebar" />
 	</Group>
 </CaptionToolBar>
