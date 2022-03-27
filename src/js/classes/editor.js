@@ -252,6 +252,8 @@ class Editor {
 		}
 		this.selected = object;
 		this.config.setKey( 'selected', uuid );
+
+		viewport.selectObject(object);
 	}
 
 	selectById( id ) {

@@ -45,6 +45,11 @@ class Viewport {
 		selectionBox.visible = false;
 		sceneHelpers.add( selectionBox );
 
+		this.selectObject = function(object) {
+			box.setFromObject( object, true );
+			selectionBox.visible = true;
+		};
+
 		let objectPositionOnDown = null;
 		let objectRotationOnDown = null;
 		let objectScaleOnDown = null;
