@@ -29,8 +29,8 @@
 					width: Self.els.workspace.prop("offsetWidth"),
 					height: Self.els.workspace.prop("offsetHeight"),
 				});
-				
-				viewport.render();
+				// resize viewport
+				viewport.resize();
 				break;
 			case "add-mesh":
 				object = Self.getMesh(event.arg);
@@ -50,7 +50,7 @@
 		}
 	},
 	getLight(type) {
-		let intensity = 1,
+		let intensity = .5,
 			distance = 0,
 			color = 0xffffff,
 			light;

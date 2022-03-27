@@ -237,6 +237,14 @@ class Viewport {
 			endTime = performance.now();
 		}
 
+		function resize() {
+			updateAspectRatio();
+			renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
+			render();
+		}
+
+		// export methods
+		this.resize = resize;
 		this.render = render;
 	}
 
