@@ -10,6 +10,8 @@ class Editor {
 		this.scene.name = 'Scene';
 		this.sceneHelpers = new THREE.Scene();
 
+		this.materialsRefCounter = new Map(); // tracks how often is a material used by a 3D object
+
 		this.object = {};
 		this.geometries = {};
 		this.materials = {};

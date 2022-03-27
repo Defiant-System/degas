@@ -44,9 +44,10 @@ const degas = {
 			.map(i => this[i].init(this));
 
 		// temp
-		// setTimeout(() => {
-		// 	this.workspace.dispatch({ type: "add-object", arg: "cylinder" });
-		// }, 700);
+		setTimeout(() => {
+			this.dispatch({ type: "add-mesh", arg: "torusknot" });
+			this.dispatch({ type: "add-light", arg: "directionallight" });
+		}, 700);
 	},
 	dispatch(event) {
 		let Self = degas,
