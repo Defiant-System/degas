@@ -32,6 +32,9 @@
 				// resize viewport
 				viewport.resize();
 				break;
+			case "set-transform-control-mode":
+				viewport.transformControlsSetMode(event.arg);
+				return true;
 			case "add-mesh":
 				object = Self.getMesh(event.arg);
 				editor.addObject( object );

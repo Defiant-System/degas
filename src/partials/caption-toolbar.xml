@@ -1,9 +1,9 @@
 <CaptionToolBar>
 	<Group width="37%" class="tools-left">
 		<Options>
-			<Tool symbol="icon-tool-move"/>
-			<Tool symbol="icon-tool-rotate"/>
-			<Tool symbol="icon-tool-scale"/>
+			<Tool symbol="icon-tool-move" click="set-transform-control-mode" arg="translate"/>
+			<Tool symbol="icon-tool-rotate" click="set-transform-control-mode" arg="rotate"/>
+			<Tool symbol="icon-tool-scale" click="set-transform-control-mode" arg="scale"/>
 		</Options>
 
 		<Options>

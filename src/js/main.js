@@ -1,4 +1,5 @@
 
+@import "./classes/history.js";
 @import "./classes/editor.js";
 @import "./classes/viewport.js";
 @import "./classes/vr.js";
@@ -7,9 +8,14 @@
 const {
 	THREE,
 
+	Strings,
+	Storage,
 	Loader,
 	ViewHelper,
 	TransformControls,
+	SetPositionCommand,
+	SetRotationCommand,
+	SetScaleCommand,
 	EditorControls,
 	Config,
 
@@ -97,6 +103,7 @@ const degas = {
 			case "add-mesh":
 			case "add-light":
 			case "add-camera":
+			case "set-transform-control-mode":
 				return Self.workspace.dispatch(event);
 			default:
 				if (event.el) {

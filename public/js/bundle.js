@@ -56762,7 +56762,7 @@ class SetPositionCommand extends Command {
 
 		this.object.position.copy( this.newPosition );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -56770,7 +56770,7 @@ class SetPositionCommand extends Command {
 
 		this.object.position.copy( this.oldPosition );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -56842,7 +56842,7 @@ class SetRotationCommand extends Command {
 
 		this.object.rotation.copy( this.newRotation );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -56850,7 +56850,7 @@ class SetRotationCommand extends Command {
 
 		this.object.rotation.copy( this.oldRotation );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -56922,7 +56922,7 @@ class SetScaleCommand extends Command {
 
 		this.object.scale.copy( this.newScale );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -56930,7 +56930,7 @@ class SetScaleCommand extends Command {
 
 		this.object.scale.copy( this.oldScale );
 		this.object.updateMatrixWorld( true );
-		this.editor.signals.objectChanged.dispatch( this.object );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
@@ -70754,25 +70754,16 @@ function renderToCanvas( texture ) {
 
 module.exports = {
 	THREE,
-	Editor,
-	Viewport,
 	
 	Loader,
 	ViewHelper,
 	TransformControls,
+	SetPositionCommand,
+	SetRotationCommand,
+	SetScaleCommand,
 	EditorControls,
 	Config,
 
 	UIPanel,
-	UIRow,
-	UIInput,
-	UICheckbox,
-	UIText,
-	UIListbox,
-	UISpan,
-	UIButton,
-	UISelect,
-	UINumber,
-	UIBoolean,
 };
 

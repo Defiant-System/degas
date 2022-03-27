@@ -3,7 +3,6 @@ class Viewport {
 	
 	constructor(editor) {
 		const container = new UIPanel();
-		this.container = container;
 
 		container.setId( 'viewport' );
 		container.setPosition( 'absolute' );
@@ -19,8 +18,7 @@ class Viewport {
 		const objects = [];
 		// helpers
 		const grid = new THREE.Group();
-		this.grid = grid;
-
+		
 		const grid1 = new THREE.GridHelper( 30, 30, 0x0d0d0d );
 		grid1.material.color.setHex( 0x0d0d0d );
 		grid1.material.vertexColors = false;
@@ -36,8 +34,8 @@ class Viewport {
 		const vr = new VR( editor );
 		const box = new THREE.Box3();
 
-		this.viewHelper = viewHelper;
-		this.vr = vr;
+		// this.viewHelper = viewHelper;
+		// this.vr = vr;
 
 		const selectionBox = new THREE.Box3Helper( box );
 		selectionBox.material.depthTest = false;
@@ -45,17 +43,13 @@ class Viewport {
 		selectionBox.visible = false;
 		sceneHelpers.add( selectionBox );
 
-		this.selectObject = function(object) {
-			box.setFromObject( object, true );
-			selectionBox.visible = true;
-		};
-
 		let objectPositionOnDown = null;
 		let objectRotationOnDown = null;
 		let objectScaleOnDown = null;
 
 		//
 		const transformControls = new TransformControls( camera, container.dom );
+
 		transformControls.addEventListener( 'change', function () {
 			const object = transformControls.object;
 			if ( object !== undefined ) {
@@ -248,9 +242,31 @@ class Viewport {
 			render();
 		}
 
-		// export methods
+		// public properties / methods
 		this.resize = resize;
 		this.render = render;
+		this.container = container;
+		this.grid = grid;
+
+		this.selectObject = function(object) {
+			selectionBox.visible = false;
+			transformControls.detach();
+
+			if ( object !== null && object !== scene && object !== camera ) {
+				box.setFromObject( object, true );
+				if ( box.isEmpty() === false ) {
+					selectionBox.visible = true;
+				}
+				transformControls.attach( object );
+			}
+			render();
+		};
+
+		this.transformControlsSetMode = function(mode) {
+			transformControls.visible = true;
+			transformControls.setMode( mode );
+		};
+
 	}
 
 }

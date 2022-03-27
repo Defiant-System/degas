@@ -3,6 +3,10 @@ class Editor {
 	
 	constructor() {
 		this.config = new Config();
+		this.history = new History( this );
+		// this.storage = new Storage();
+		// this.strings = new Strings( this.config );
+
 		this.loader = new Loader( this );
 		this.camera = _DEFAULT_CAMERA.clone();
 
