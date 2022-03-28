@@ -6,6 +6,9 @@ class Viewport {
 
 		container.setId( 'viewport' );
 		container.setPosition( 'absolute' );
+		//
+		let viewInfo = new ViewportInfo( editor );
+		container.add( viewInfo.container );
 
 		//
 		let pmremGenerator = null;
@@ -244,6 +247,7 @@ class Viewport {
 		// public properties / methods
 		this.resize = resize;
 		this.render = render;
+		this.viewInfo = viewInfo;
 		this.container = container;
 		this.grid = grid;
 

@@ -2,6 +2,8 @@
 @import "./classes/Editor.js";
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.VR.js";
+@import "./classes/Viewport.ViewportInfo.js";
+@import "./classes/Strings.js";
 
 // import libs
 const {
@@ -16,6 +18,8 @@ const {
 	EditorControls,
 	Config,
 	UIPanel,
+	UIDiv,
+	UIText,
 } = await window.fetch("~/js/bundle.js");
 
 

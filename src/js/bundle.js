@@ -6,7 +6,7 @@ import { ViewHelper } from './modules/threejs/editor/js/Viewport.ViewHelper.js';
 import { ViewportInfo } from './modules/threejs/editor/js/Viewport.Info.js';
 import { TransformControls } from './modules/threejs/examples/jsm/controls/TransformControls.js';
 import { EditorControls } from './modules/threejs/editor/js/EditorControls.js';
-import { UIPanel } from './modules/threejs/editor/js/libs/ui.js';
+import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
 
 import { Config } from './classes/Config.js';
@@ -29,4 +29,6 @@ module.exports = {
 	EditorControls,
 	Config,
 	UIPanel,
+	UIDiv,
+	UIText,
 };

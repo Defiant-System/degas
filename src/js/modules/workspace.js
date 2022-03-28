@@ -39,12 +39,14 @@
 				object = Self.getMesh(event.arg);
 				editor.addObject( object );
 				editor.select( object );
+				viewport.viewInfo.update();
 				viewport.render();
 				break;
 			case "add-light":
 				object = Self.getLight(event.arg);
 				editor.addObject( object );
 				editor.select( object );
+				viewport.viewInfo.update();
 				viewport.render();
 				break;
 			case "add-camera":

@@ -17,7 +17,7 @@ const degas = {
 		setTimeout(() => {
 			this.dispatch({ type: "add-light", arg: "directionallight" });
 			this.dispatch({ type: "add-mesh", arg: "torusknot" });
-		}, 700);
+		}, 200);
 	},
 	dispatch(event) {
 		let Self = degas,
