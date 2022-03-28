@@ -144,6 +144,7 @@ class Viewport {
 			}
 		}
 		
+		/*
 		function onMouseDown( event ) {
 			// event.preventDefault();
 			const array = getMousePosition( container.dom, event.clientX, event.clientY );
@@ -158,21 +159,6 @@ class Viewport {
 			document.removeEventListener( 'mouseup', onMouseUp );
 		}
 		
-		function onTouchStart( event ) {
-			const touch = event.changedTouches[ 0 ];
-			const array = getMousePosition( container.dom, touch.clientX, touch.clientY );
-			onDownPosition.fromArray( array );
-			document.addEventListener( 'touchend', onTouchEnd );
-		}
-		
-		function onTouchEnd( event ) {
-			const touch = event.changedTouches[ 0 ];
-			const array = getMousePosition( container.dom, touch.clientX, touch.clientY );
-			onUpPosition.fromArray( array );
-			handleClick();
-			document.removeEventListener( 'touchend', onTouchEnd );
-		}
-		
 		function onDoubleClick( event ) {
 			const array = getMousePosition( container.dom, event.clientX, event.clientY );
 			onDoubleClickPosition.fromArray( array );
@@ -183,8 +169,8 @@ class Viewport {
 		}
 		
 		container.dom.addEventListener( 'mousedown', onMouseDown );
-		container.dom.addEventListener( 'touchstart', onTouchStart );
 		container.dom.addEventListener( 'dblclick', onDoubleClick );
+		*/
 		
 		// controls need to be added *after* main logic,
 		// otherwise controls.enabled doesn't work.
@@ -198,24 +184,24 @@ class Viewport {
 		viewHelper.controls = controls;
 
 		// animations
-		const clock = new THREE.Clock(); // only used for animations
-		function animate() {
-			const mixer = editor.mixer;
-			const delta = clock.getDelta();
-			let needsUpdate = false;
-			if ( mixer.stats.actions.inUse > 0 ) {
-				mixer.update( delta );
-				needsUpdate = true;
-			}
-			if ( viewHelper.animating === true ) {
-				viewHelper.update( delta );
-				needsUpdate = true;
-			}
-			if ( vr.currentSession !== null ) {
-				needsUpdate = true;
-			}
-			if ( needsUpdate === true ) render();
-		}
+		// const clock = new THREE.Clock(); // only used for animations
+		// function animate() {
+		// 	const mixer = editor.mixer;
+		// 	const delta = clock.getDelta();
+		// 	let needsUpdate = false;
+		// 	if ( mixer.stats.actions.inUse > 0 ) {
+		// 		mixer.update( delta );
+		// 		needsUpdate = true;
+		// 	}
+		// 	if ( viewHelper.animating === true ) {
+		// 		viewHelper.update( delta );
+		// 		needsUpdate = true;
+		// 	}
+		// 	if ( vr.currentSession !== null ) {
+		// 		needsUpdate = true;
+		// 	}
+		// 	if ( needsUpdate === true ) render();
+		// }
 
 		//
 		let startTime = 0;

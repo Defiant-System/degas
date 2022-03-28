@@ -67,6 +67,7 @@ const degas = {
 			case "add-mesh":
 			case "add-light":
 			case "add-camera":
+			case "set-view-shade":
 			case "set-transform-control-mode":
 				return Self.workspace.dispatch(event);
 			default:

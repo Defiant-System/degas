@@ -32,6 +32,9 @@
 				// resize viewport
 				viewport.resize();
 				break;
+			case "set-view-shade":
+				console.log(event);
+				return true;
 			case "set-transform-control-mode":
 				viewport.transformControlsSetMode(event.arg);
 				return true;
