@@ -15,7 +15,6 @@ class Viewport {
 		const sceneHelpers = editor.sceneHelpers;
 		let showSceneHelpers = true;
 
-		const objects = [];
 		// helpers
 		const grid = new THREE.Group();
 		
@@ -125,7 +124,7 @@ class Viewport {
 		
 		function handleClick() {
 			if ( onDownPosition.distanceTo( onUpPosition ) === 0 ) {
-				const intersects = getIntersects( onUpPosition, objects );
+				const intersects = getIntersects( onUpPosition, scene.children );
 				if ( intersects.length > 0 ) {
 					const object = intersects[ 0 ].object;
 					if ( object.userData.object !== undefined ) {
@@ -173,7 +172,7 @@ class Viewport {
 		function onDoubleClick( event ) {
 			const array = getMousePosition( container.dom, event.clientX, event.clientY );
 			onDoubleClickPosition.fromArray( array );
-			const intersects = getIntersects( onDoubleClickPosition, objects );
+			const intersects = getIntersects( onDoubleClickPosition, scene.children );
 			if ( intersects.length > 0 ) {
 				const intersect = intersects[ 0 ];
 			}
