@@ -51162,83 +51162,6 @@ var THREE = /*#__PURE__*/Object.freeze({
 	sRGBEncoding: sRGBEncoding
 });
 
-function Config() {
-
-	const name = 'threejs-editor';
-
-	const storage = {
-		'language': 'en',
-
-		'autosave': true,
-
-		'project/title': '',
-		'project/editable': false,
-		'project/vr': false,
-
-		'project/renderer/antialias': true,
-		'project/renderer/shadows': true,
-		'project/renderer/shadowType': 1, // PCF
-		'project/renderer/physicallyCorrectLights': false,
-		'project/renderer/toneMapping': 0, // NoToneMapping
-		'project/renderer/toneMappingExposure': 1,
-
-		'settings/history': false,
-
-		'settings/shortcuts/translate': 'w',
-		'settings/shortcuts/rotate': 'e',
-		'settings/shortcuts/scale': 'r',
-		'settings/shortcuts/undo': 'z',
-		'settings/shortcuts/focus': 'f'
-	};
-
-	if ( window.localStorage[ name ] === undefined ) {
-
-		window.localStorage[ name ] = JSON.stringify( storage );
-
-	} else {
-
-		const data = JSON.parse( window.localStorage[ name ] );
-
-		for ( const key in data ) {
-
-			storage[ key ] = data[ key ];
-
-		}
-
-	}
-
-	return {
-
-		getKey: function ( key ) {
-
-			return storage[ key ];
-
-		},
-
-		setKey: function () { // key, value, key, value ...
-
-			for ( let i = 0, l = arguments.length; i < l; i += 2 ) {
-
-				storage[ arguments[ i ] ] = arguments[ i + 1 ];
-
-			}
-
-			window.localStorage[ name ] = JSON.stringify( storage );
-
-			console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Saved config to LocalStorage.' );
-
-		},
-
-		clear: function () {
-
-			delete window.localStorage[ name ];
-
-		}
-
-	};
-
-}
-
 class TGALoader extends DataTextureLoader {
 
 	constructor( manager ) {
@@ -54755,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-f0bac678.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-2475a469.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54778,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-1c4392b8.js' );
+					const { TDSLoader } = await import( './TDSLoader-43d4e739.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54798,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-4d2bfe15.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-2c49e3eb.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54818,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-7a239431.js' );
+					const { AMFLoader } = await import( './AMFLoader-41b82ce1.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54840,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-9e31d60b.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-c669d7b0.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54864,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-f4d8bf4b.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-e3310ec0.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54909,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-45dc02b7.js' );
+					const { FBXLoader } = await import( './FBXLoader-ef0d9332.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54931,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-f4d8bf4b.js' );
-					const { GLTFLoader } = await Promise.resolve().then(function () { return GLTFLoader$1; });
+					const { DRACOLoader } = await import( './DRACOLoader-e3310ec0.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-18a7da27.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54972,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-f4d8bf4b.js' );
-						const { GLTFLoader } = await Promise.resolve().then(function () { return GLTFLoader$1; });
+						const { DRACOLoader } = await import( './DRACOLoader-e3310ec0.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-18a7da27.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55061,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-a16ff8c2.js' );
+					const { IFCLoader } = await import( './IFCLoader-42cb7102.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55084,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-4dec452c.js' );
+					const { KMZLoader } = await import( './KMZLoader-60a3963e.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55107,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-9408a673.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-0be65d7a.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55136,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-f44ddc98.js' );
+					const { MD2Loader } = await import( './MD2Loader-b0c41a98.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55163,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-847f03e2.js' );
+					const { OBJLoader } = await import( './OBJLoader-064c96d4.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55185,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-f7b8cfc0.js' );
+					const { PLYLoader } = await import( './PLYLoader-1e442cae.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55224,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-a61fff09.js' );
+					const { STLLoader } = await import( './STLLoader-d695238e.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55258,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-395f5439.js' );
+					const { SVGLoader } = await import( './SVGLoader-668442b8.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55310,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-031b36f0.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-ebefe953.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55343,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-c14171d8.js' );
+					const { VTKLoader } = await import( './VTKLoader-fa2c7c6b.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55368,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-b2777ecb.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-b8b8e016.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55389,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-e964d6d6.js' );
+					const { XYZLoader } = await import( './XYZLoader-0da10840.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55519,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-a0b2c460.js' );
-			const { OBJLoader } = await import( './OBJLoader-847f03e2.js' );
+			const { MTLLoader } = await import( './MTLLoader-653b2883.js' );
+			const { OBJLoader } = await import( './OBJLoader-064c96d4.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55560,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-45dc02b7.js' );
+					const { FBXLoader } = await import( './FBXLoader-ef0d9332.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55575,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-f4d8bf4b.js' );
-					const { GLTFLoader } = await Promise.resolve().then(function () { return GLTFLoader$1; });
+					const { DRACOLoader } = await import( './DRACOLoader-e3310ec0.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-18a7da27.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55601,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-f4d8bf4b.js' );
-					const { GLTFLoader } = await Promise.resolve().then(function () { return GLTFLoader$1; });
+					const { DRACOLoader } = await import( './DRACOLoader-e3310ec0.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-18a7da27.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55665,3546 +55588,1699 @@ function Loader( editor ) {
 
 }
 
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param script javascript object
- * @constructor
- */
-class AddScriptCommand extends Command {
+class UIElement {
 
-	constructor( editor, object, script ) {
+	constructor( dom ) {
 
-		super( editor );
+		this.dom = dom;
 
-		this.type = 'AddScriptCommand';
-		this.name = 'Add Script';
-
-		this.object = object;
-		this.script = script;
-
-	}
-
-	execute() {
-
-		if ( this.editor.scripts[ this.object.uuid ] === undefined ) {
-
-			this.editor.scripts[ this.object.uuid ] = [];
-
-		}
-
-		this.editor.scripts[ this.object.uuid ].push( this.script );
-
-		this.editor.signals.scriptAdded.dispatch( this.script );
-
-	}
-
-	undo() {
-
-		if ( this.editor.scripts[ this.object.uuid ] === undefined ) return;
-
-		const index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
-
-		if ( index !== - 1 ) {
-
-			this.editor.scripts[ this.object.uuid ].splice( index, 1 );
-
-		}
-
-		this.editor.signals.scriptRemoved.dispatch( this.script );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.script = this.script;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.script = json.script;
-		this.object = this.editor.objectByUuid( json.objectUuid );
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newParent THREE.Object3D
- * @param newBefore THREE.Object3D
- * @constructor
- */
-class MoveObjectCommand extends Command {
-
-	constructor( editor, object, newParent, newBefore ) {
-
-		super( editor );
-
-		this.type = 'MoveObjectCommand';
-		this.name = 'Move Object';
-
-		this.object = object;
-		this.oldParent = ( object !== undefined ) ? object.parent : undefined;
-		this.oldIndex = ( this.oldParent !== undefined ) ? this.oldParent.children.indexOf( this.object ) : undefined;
-		this.newParent = newParent;
-
-		if ( newBefore !== undefined ) {
-
-			this.newIndex = ( newParent !== undefined ) ? newParent.children.indexOf( newBefore ) : undefined;
-
-		} else {
-
-			this.newIndex = ( newParent !== undefined ) ? newParent.children.length : undefined;
-
-		}
-
-		if ( this.oldParent === this.newParent && this.newIndex > this.oldIndex ) {
-
-			this.newIndex --;
-
-		}
-
-		this.newBefore = newBefore;
-
-	}
-
-	execute() {
-
-		this.oldParent.remove( this.object );
-
-		const children = this.newParent.children;
-		children.splice( this.newIndex, 0, this.object );
-		this.object.parent = this.newParent;
-
-		this.object.dispatchEvent( { type: 'added' } );
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	undo() {
-
-		this.newParent.remove( this.object );
-
-		const children = this.oldParent.children;
-		children.splice( this.oldIndex, 0, this.object );
-		this.object.parent = this.oldParent;
-
-		this.object.dispatchEvent( { type: 'added' } );
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.newParentUuid = this.newParent.uuid;
-		output.oldParentUuid = this.oldParent.uuid;
-		output.newIndex = this.newIndex;
-		output.oldIndex = this.oldIndex;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.oldParent = this.editor.objectByUuid( json.oldParentUuid );
-		if ( this.oldParent === undefined ) {
-
-			this.oldParent = this.editor.scene;
-
-		}
-
-		this.newParent = this.editor.objectByUuid( json.newParentUuid );
-
-		if ( this.newParent === undefined ) {
-
-			this.newParent = this.editor.scene;
-
-		}
-
-		this.newIndex = json.newIndex;
-		this.oldIndex = json.oldIndex;
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param cmdArray array containing command objects
- * @constructor
- */
-class MultiCmdsCommand extends Command {
-
-	constructor( editor, cmdArray ) {
-
-		super( editor );
-
-		this.type = 'MultiCmdsCommand';
-		this.name = 'Multiple Changes';
-
-		this.cmdArray = ( cmdArray !== undefined ) ? cmdArray : [];
-
-	}
-
-	execute() {
-
-		this.editor.signals.sceneGraphChanged.active = false;
-
-		for ( let i = 0; i < this.cmdArray.length; i ++ ) {
-
-			this.cmdArray[ i ].execute();
-
-		}
-
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	undo() {
-
-		this.editor.signals.sceneGraphChanged.active = false;
-
-		for ( let i = this.cmdArray.length - 1; i >= 0; i -- ) {
-
-			this.cmdArray[ i ].undo();
-
-		}
-
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		const cmds = [];
-		for ( let i = 0; i < this.cmdArray.length; i ++ ) {
-
-			cmds.push( this.cmdArray[ i ].toJSON() );
-
-		}
-
-		output.cmds = cmds;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		const cmds = json.cmds;
-		for ( let i = 0; i < cmds.length; i ++ ) {
-
-			const cmd = new window[ cmds[ i ].type ]();	// creates a new object of type "json.type"
-			cmd.fromJSON( cmds[ i ] );
-			this.cmdArray.push( cmd );
-
-		}
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @constructor
- */
-class RemoveObjectCommand extends Command {
-
-	constructor( editor, object ) {
-
-		super( editor );
-
-		this.type = 'RemoveObjectCommand';
-		this.name = 'Remove Object';
-
-		this.object = object;
-		this.parent = ( object !== undefined ) ? object.parent : undefined;
-		if ( this.parent !== undefined ) {
-
-			this.index = this.parent.children.indexOf( this.object );
-
-		}
-
-	}
-
-	execute() {
-
-		this.editor.removeObject( this.object );
-		this.editor.deselect();
-
-	}
-
-	undo() {
-
-		this.editor.addObject( this.object, this.parent, this.index );
-		this.editor.select( this.object );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.object = this.object.toJSON();
-		output.index = this.index;
-		output.parentUuid = this.parent.uuid;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.parent = this.editor.objectByUuid( json.parentUuid );
-		if ( this.parent === undefined ) {
-
-			this.parent = this.editor.scene;
-
-		}
-
-		this.index = json.index;
-
-		this.object = this.editor.objectByUuid( json.object.object.uuid );
-
-		if ( this.object === undefined ) {
-
-			const loader = new ObjectLoader();
-			this.object = loader.parse( json.object );
-
-		}
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param script javascript object
- * @constructor
- */
-class RemoveScriptCommand extends Command {
-
-	constructor( editor, object, script ) {
-
-		super( editor );
-
-		this.type = 'RemoveScriptCommand';
-		this.name = 'Remove Script';
-
-		this.object = object;
-		this.script = script;
-		if ( this.object && this.script ) {
-
-			this.index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
-
-		}
-
-	}
-
-	execute() {
-
-		if ( this.editor.scripts[ this.object.uuid ] === undefined ) return;
-
-		if ( this.index !== - 1 ) {
-
-			this.editor.scripts[ this.object.uuid ].splice( this.index, 1 );
-
-		}
-
-		this.editor.signals.scriptRemoved.dispatch( this.script );
-
-	}
-
-	undo() {
-
-		if ( this.editor.scripts[ this.object.uuid ] === undefined ) {
-
-			this.editor.scripts[ this.object.uuid ] = [];
-
-		}
-
-		this.editor.scripts[ this.object.uuid ].splice( this.index, 0, this.script );
-
-		this.editor.signals.scriptAdded.dispatch( this.script );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.script = this.script;
-		output.index = this.index;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.script = json.script;
-		this.index = json.index;
-		this.object = this.editor.objectByUuid( json.objectUuid );
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue integer representing a hex color value
- * @constructor
- */
-class SetColorCommand extends Command {
-
-	constructor( editor, object, attributeName, newValue ) {
-
-		super( editor );
-
-		this.type = 'SetColorCommand';
-		this.name = `Set ${attributeName}`;
-		this.updatable = true;
-
-		this.object = object;
-		this.attributeName = attributeName;
-		this.oldValue = ( object !== undefined ) ? this.object[ this.attributeName ].getHex() : undefined;
-		this.newValue = newValue;
-
-	}
-
-	execute() {
-
-		this.object[ this.attributeName ].setHex( this.newValue );
-		this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	undo() {
-
-		this.object[ this.attributeName ].setHex( this.oldValue );
-		this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	update( cmd ) {
-
-		this.newValue = cmd.newValue;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newGeometry THREE.Geometry
- * @constructor
- */
-
-class SetGeometryCommand extends Command {
-
-	constructor( editor, object, newGeometry ) {
-
-		super( editor );
-
-		this.type = 'SetGeometryCommand';
-		this.name = 'Set Geometry';
-		this.updatable = true;
-
-		this.object = object;
-		this.oldGeometry = ( object !== undefined ) ? object.geometry : undefined;
-		this.newGeometry = newGeometry;
-
-	}
-
-	execute() {
-
-		this.object.geometry.dispose();
-		this.object.geometry = this.newGeometry;
-		this.object.geometry.computeBoundingSphere();
-
-		this.editor.signals.geometryChanged.dispatch( this.object );
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	undo() {
-
-		this.object.geometry.dispose();
-		this.object.geometry = this.oldGeometry;
-		this.object.geometry.computeBoundingSphere();
-
-		this.editor.signals.geometryChanged.dispatch( this.object );
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	update( cmd ) {
-
-		this.newGeometry = cmd.newGeometry;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.oldGeometry = this.object.geometry.toJSON();
-		output.newGeometry = this.newGeometry.toJSON();
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-
-		this.oldGeometry = parseGeometry( json.oldGeometry );
-		this.newGeometry = parseGeometry( json.newGeometry );
-
-		function parseGeometry( data ) {
-
-			const loader = new ObjectLoader();
-			return loader.parseGeometries( [ data ] )[ data.uuid ];
-
-		}
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue number, string, boolean or object
- * @constructor
- */
-class SetGeometryValueCommand extends Command {
-
-	constructor( editor, object, attributeName, newValue ) {
-
-		super( editor );
-
-		this.type = 'SetGeometryValueCommand';
-		this.name = `Set Geometry.${attributeName}`;
-
-		this.object = object;
-		this.attributeName = attributeName;
-		this.oldValue = ( object !== undefined ) ? object.geometry[ attributeName ] : undefined;
-		this.newValue = newValue;
-
-	}
-
-	execute() {
-
-		this.object.geometry[ this.attributeName ] = this.newValue;
-		this.editor.signals.objectChanged.dispatch( this.object );
-		this.editor.signals.geometryChanged.dispatch();
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	undo() {
-
-		this.object.geometry[ this.attributeName ] = this.oldValue;
-		this.editor.signals.objectChanged.dispatch( this.object );
-		this.editor.signals.geometryChanged.dispatch();
-		this.editor.signals.sceneGraphChanged.dispatch();
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue integer representing a hex color value
- * @constructor
- */
-class SetMaterialColorCommand extends Command {
-
-	constructor( editor, object, attributeName, newValue, materialSlot ) {
-
-		super( editor );
-
-		this.type = 'SetMaterialColorCommand';
-		this.name = `Set Material.${attributeName}`;
-		this.updatable = true;
-
-		this.object = object;
-		this.material = ( this.object !== undefined ) ? this.editor.getObjectMaterial( object, materialSlot ) : undefined;
-
-		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ].getHex() : undefined;
-		this.newValue = newValue;
-
-		this.attributeName = attributeName;
-
-	}
-
-	execute() {
-
-		this.material[ this.attributeName ].setHex( this.newValue );
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	undo() {
-
-		this.material[ this.attributeName ].setHex( this.oldValue );
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	update( cmd ) {
-
-		this.newValue = cmd.newValue;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newMaterial THREE.Material
- * @constructor
- */
-class SetMaterialCommand extends Command {
-
-	constructor( editor, object, newMaterial, materialSlot ) {
-
-		super( editor );
-
-		this.type = 'SetMaterialCommand';
-		this.name = 'New Material';
-
-		this.object = object;
-		this.materialSlot = materialSlot;
-
-		this.oldMaterial = this.editor.getObjectMaterial( object, materialSlot );
-		this.newMaterial = newMaterial;
-
-	}
-
-	execute() {
-
-		this.editor.setObjectMaterial( this.object, this.materialSlot, this.newMaterial );
-		this.editor.signals.materialChanged.dispatch( this.newMaterial );
-
-	}
-
-	undo() {
-
-		this.editor.setObjectMaterial( this.object, this.materialSlot, this.oldMaterial );
-		this.editor.signals.materialChanged.dispatch( this.oldMaterial );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.oldMaterial = this.oldMaterial.toJSON();
-		output.newMaterial = this.newMaterial.toJSON();
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.oldMaterial = parseMaterial( json.oldMaterial );
-		this.newMaterial = parseMaterial( json.newMaterial );
-
-		function parseMaterial( json ) {
-
-			const loader = new ObjectLoader();
-			const images = loader.parseImages( json.images );
-			const textures = loader.parseTextures( json.textures, images );
-			const materials = loader.parseMaterials( [ json ], textures );
-			return materials[ json.uuid ];
-
-		}
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param mapName string
- * @param newMap THREE.Texture
- * @constructor
- */
-class SetMaterialMapCommand extends Command {
-
-	constructor( editor, object, mapName, newMap, materialSlot ) {
-
-		super( editor );
-
-		this.type = 'SetMaterialMapCommand';
-		this.name = `Set Material.${mapName}`;
-
-		this.object = object;
-		this.material = this.editor.getObjectMaterial( object, materialSlot );
-
-		this.oldMap = ( object !== undefined ) ? this.material[ mapName ] : undefined;
-		this.newMap = newMap;
-
-		this.mapName = mapName;
-
-	}
-
-	execute() {
-
-		if ( this.oldMap !== null && this.oldMap !== undefined ) this.oldMap.dispose();
-
-		this.material[ this.mapName ] = this.newMap;
-		this.material.needsUpdate = true;
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	undo() {
-
-		this.material[ this.mapName ] = this.oldMap;
-		this.material.needsUpdate = true;
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.mapName = this.mapName;
-		output.newMap = serializeMap( this.newMap );
-		output.oldMap = serializeMap( this.oldMap );
-
-		return output;
-
-		// serializes a map (THREE.Texture)
-
-		function serializeMap( map ) {
-
-			if ( map === null || map === undefined ) return null;
-
-			const meta = {
-				geometries: {},
-				materials: {},
-				textures: {},
-				images: {}
-			};
-
-			const json = map.toJSON( meta );
-			const images = extractFromCache( meta.images );
-			if ( images.length > 0 ) json.images = images;
-			json.sourceFile = map.sourceFile;
-
-			return json;
-
-		}
-
-		// Note: The function 'extractFromCache' is copied from Object3D.toJSON()
-
-		// extract data from the cache hash
-		// remove metadata on each item
-		// and return as array
-		function extractFromCache( cache ) {
-
-			const values = [];
-			for ( const key in cache ) {
-
-				const data = cache[ key ];
-				delete data.metadata;
-				values.push( data );
-
-			}
-
-			return values;
-
-		}
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.mapName = json.mapName;
-		this.oldMap = parseTexture( json.oldMap );
-		this.newMap = parseTexture( json.newMap );
-
-		function parseTexture( json ) {
-
-			let map = null;
-			if ( json !== null ) {
-
-				const loader = new ObjectLoader();
-				const images = loader.parseImages( json.images );
-				const textures = loader.parseTextures( [ json ], images );
-				map = textures[ json.uuid ];
-				map.sourceFile = json.sourceFile;
-
-			}
-
-			return map;
-
-		}
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param attributeName string
- * @param newValue number, string, boolean or object
- * @constructor
- */
-class SetMaterialValueCommand extends Command {
-
-	constructor( editor, object, attributeName, newValue, materialSlot ) {
-
-		super( editor );
-
-		this.type = 'SetMaterialValueCommand';
-		this.name = `Set Material.${attributeName}`;
-		this.updatable = true;
-
-		this.object = object;
-		this.material = this.editor.getObjectMaterial( object, materialSlot );
-
-		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ] : undefined;
-		this.newValue = newValue;
-
-		this.attributeName = attributeName;
-
-	}
-
-	execute() {
-
-		this.material[ this.attributeName ] = this.newValue;
-		this.material.needsUpdate = true;
-
-		this.editor.signals.objectChanged.dispatch( this.object );
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	undo() {
-
-		this.material[ this.attributeName ] = this.oldValue;
-		this.material.needsUpdate = true;
-
-		this.editor.signals.objectChanged.dispatch( this.object );
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	update( cmd ) {
-
-		this.newValue = cmd.newValue;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-		this.object = this.editor.objectByUuid( json.objectUuid );
-
-	}
-
-}
-
-class SetMaterialVectorCommand extends Command {
-
-	constructor( editor, object, attributeName, newValue, materialSlot ) {
-
-		super( editor );
-
-		this.type = 'SetMaterialColorCommand';
-		this.name = `Set Material.${attributeName}`;
-		this.updatable = true;
-
-		this.object = object;
-		this.material = this.editor.getObjectMaterial( object, materialSlot );
-
-		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ].toArray() : undefined;
-		this.newValue = newValue;
-
-		this.attributeName = attributeName;
-
-	}
-
-	execute() {
-
-		this.material[ this.attributeName ].fromArray( this.newValue );
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	undo() {
-
-		this.material[ this.attributeName ].fromArray( this.oldValue );
-
-		this.editor.signals.materialChanged.dispatch( this.material );
-
-	}
-
-	update( cmd ) {
-
-		this.newValue = cmd.newValue;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.attributeName = json.attributeName;
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newPosition THREE.Vector3
- * @param optionalOldPosition THREE.Vector3
- * @constructor
- */
-class SetPositionCommand extends Command {
-
-	constructor( editor, object, newPosition, optionalOldPosition ) {
-
-		super( editor );
-
-		this.type = 'SetPositionCommand';
-		this.name = 'Set Position';
-		this.updatable = true;
-
-		this.object = object;
-
-		if ( object !== undefined && newPosition !== undefined ) {
-
-			this.oldPosition = object.position.clone();
-			this.newPosition = newPosition.clone();
-
-		}
-
-		if ( optionalOldPosition !== undefined ) {
-
-			this.oldPosition = optionalOldPosition.clone();
-
-		}
-
-	}
-
-	execute() {
-
-		this.object.position.copy( this.newPosition );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	undo() {
-
-		this.object.position.copy( this.oldPosition );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	update( command ) {
-
-		this.newPosition.copy( command.newPosition );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.oldPosition = this.oldPosition.toArray();
-		output.newPosition = this.newPosition.toArray();
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.oldPosition = new Vector3().fromArray( json.oldPosition );
-		this.newPosition = new Vector3().fromArray( json.newPosition );
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newRotation THREE.Euler
- * @param optionalOldRotation THREE.Euler
- * @constructor
- */
-class SetRotationCommand extends Command {
-
-	constructor( editor, object, newRotation, optionalOldRotation ) {
-
-		super( editor );
-
-		this.type = 'SetRotationCommand';
-		this.name = 'Set Rotation';
-		this.updatable = true;
-
-		this.object = object;
-
-		if ( object !== undefined && newRotation !== undefined ) {
-
-			this.oldRotation = object.rotation.clone();
-			this.newRotation = newRotation.clone();
-
-		}
-
-		if ( optionalOldRotation !== undefined ) {
-
-			this.oldRotation = optionalOldRotation.clone();
-
-		}
-
-	}
-
-	execute() {
-
-		this.object.rotation.copy( this.newRotation );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	undo() {
-
-		this.object.rotation.copy( this.oldRotation );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	update( command ) {
-
-		this.newRotation.copy( command.newRotation );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.oldRotation = this.oldRotation.toArray();
-		output.newRotation = this.newRotation.toArray();
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.oldRotation = new Euler().fromArray( json.oldRotation );
-		this.newRotation = new Euler().fromArray( json.newRotation );
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param newScale THREE.Vector3
- * @param optionalOldScale THREE.Vector3
- * @constructor
- */
-class SetScaleCommand extends Command {
-
-	constructor( editor, object, newScale, optionalOldScale ) {
-
-		super( editor );
-
-		this.type = 'SetScaleCommand';
-		this.name = 'Set Scale';
-		this.updatable = true;
-
-		this.object = object;
-
-		if ( object !== undefined && newScale !== undefined ) {
-
-			this.oldScale = object.scale.clone();
-			this.newScale = newScale.clone();
-
-		}
-
-		if ( optionalOldScale !== undefined ) {
-
-			this.oldScale = optionalOldScale.clone();
-
-		}
-
-	}
-
-	execute() {
-
-		this.object.scale.copy( this.newScale );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	undo() {
-
-		this.object.scale.copy( this.oldScale );
-		this.object.updateMatrixWorld( true );
-		// this.editor.signals.objectChanged.dispatch( this.object );
-
-	}
-
-	update( command ) {
-
-		this.newScale.copy( command.newScale );
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.oldScale = this.oldScale.toArray();
-		output.newScale = this.newScale.toArray();
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.oldScale = new Vector3().fromArray( json.oldScale );
-		this.newScale = new Vector3().fromArray( json.newScale );
-
-	}
-
-}
-
-/**
- * @param editor Editor
- * @param object THREE.Object3D
- * @param script javascript object
- * @param attributeName string
- * @param newValue string, object
- * @constructor
- */
-class SetScriptValueCommand extends Command {
-
-	constructor( editor, object, script, attributeName, newValue ) {
-
-		super( editor );
-
-		this.type = 'SetScriptValueCommand';
-		this.name = `Set Script.${attributeName}`;
-		this.updatable = true;
-
-		this.object = object;
-		this.script = script;
-
-		this.attributeName = attributeName;
-		this.oldValue = ( script !== undefined ) ? script[ this.attributeName ] : undefined;
-		this.newValue = newValue;
-
-	}
-
-	execute() {
-
-		this.script[ this.attributeName ] = this.newValue;
-
-		this.editor.signals.scriptChanged.dispatch();
-
-	}
-
-	undo() {
-
-		this.script[ this.attributeName ] = this.oldValue;
-
-		this.editor.signals.scriptChanged.dispatch();
-
-	}
-
-	update( cmd ) {
-
-		this.newValue = cmd.newValue;
-
-	}
-
-	toJSON() {
-
-		const output = super.toJSON( this );
-
-		output.objectUuid = this.object.uuid;
-		output.index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
-		output.attributeName = this.attributeName;
-		output.oldValue = this.oldValue;
-		output.newValue = this.newValue;
-
-		return output;
-
-	}
-
-	fromJSON( json ) {
-
-		super.fromJSON( json );
-
-		this.oldValue = json.oldValue;
-		this.newValue = json.newValue;
-		this.attributeName = json.attributeName;
-		this.object = this.editor.objectByUuid( json.objectUuid );
-		this.script = this.editor.scripts[ json.objectUuid ][ json.index ];
-
 	}
-
-}
-
-var Commands = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	AddObjectCommand: AddObjectCommand,
-	AddScriptCommand: AddScriptCommand,
-	MoveObjectCommand: MoveObjectCommand,
-	MultiCmdsCommand: MultiCmdsCommand,
-	RemoveObjectCommand: RemoveObjectCommand,
-	RemoveScriptCommand: RemoveScriptCommand,
-	SetColorCommand: SetColorCommand,
-	SetGeometryCommand: SetGeometryCommand,
-	SetGeometryValueCommand: SetGeometryValueCommand,
-	SetMaterialColorCommand: SetMaterialColorCommand,
-	SetMaterialCommand: SetMaterialCommand,
-	SetMaterialMapCommand: SetMaterialMapCommand,
-	SetMaterialValueCommand: SetMaterialValueCommand,
-	SetMaterialVectorCommand: SetMaterialVectorCommand,
-	SetPositionCommand: SetPositionCommand,
-	SetRotationCommand: SetRotationCommand,
-	SetScaleCommand: SetScaleCommand,
-	SetSceneCommand: SetSceneCommand,
-	SetScriptValueCommand: SetScriptValueCommand,
-	SetUuidCommand: SetUuidCommand,
-	SetValueCommand: SetValueCommand
-});
-
-function History( editor ) {
-
-	this.editor = editor;
-	this.undos = [];
-	this.redos = [];
-	this.lastCmdTime = new Date();
-	this.idCounter = 0;
-
-	this.historyDisabled = false;
-	this.config = editor.config;
-
-	// signals
-
-	const scope = this;
-
-	this.editor.signals.startPlayer.add( function () {
-
-		scope.historyDisabled = true;
-
-	} );
-
-	this.editor.signals.stopPlayer.add( function () {
-
-		scope.historyDisabled = false;
-
-	} );
-
-}
-
-History.prototype = {
-
-	execute: function ( cmd, optionalName ) {
-
-		const lastCmd = this.undos[ this.undos.length - 1 ];
-		const timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
-
-		const isUpdatableCmd = lastCmd &&
-			lastCmd.updatable &&
-			cmd.updatable &&
-			lastCmd.object === cmd.object &&
-			lastCmd.type === cmd.type &&
-			lastCmd.script === cmd.script &&
-			lastCmd.attributeName === cmd.attributeName;
-
-		if ( isUpdatableCmd && cmd.type === 'SetScriptValueCommand' ) {
-
-			// When the cmd.type is "SetScriptValueCommand" the timeDifference is ignored
-
-			lastCmd.update( cmd );
-			cmd = lastCmd;
-
-		} else if ( isUpdatableCmd && timeDifference < 500 ) {
-
-			lastCmd.update( cmd );
-			cmd = lastCmd;
-
-		} else {
-
-			// the command is not updatable and is added as a new part of the history
-
-			this.undos.push( cmd );
-			cmd.id = ++ this.idCounter;
-
-		}
-
-		cmd.name = ( optionalName !== undefined ) ? optionalName : cmd.name;
-		cmd.execute();
-		cmd.inMemory = true;
-
-		if ( this.config.getKey( 'settings/history' ) ) {
-
-			cmd.json = cmd.toJSON();	// serialize the cmd immediately after execution and append the json to the cmd
-
-		}
-
-		this.lastCmdTime = new Date();
-
-		// clearing all the redo-commands
-
-		this.redos = [];
-		this.editor.signals.historyChanged.dispatch( cmd );
-
-	},
-
-	undo: function () {
-
-		if ( this.historyDisabled ) {
 
-			alert( 'Undo/Redo disabled while scene is playing.' );
-			return;
+	add() {
 
-		}
+		for ( let i = 0; i < arguments.length; i ++ ) {
 
-		let cmd = undefined;
+			const argument = arguments[ i ];
 
-		if ( this.undos.length > 0 ) {
+			if ( argument instanceof UIElement ) {
 
-			cmd = this.undos.pop();
+				this.dom.appendChild( argument.dom );
 
-			if ( cmd.inMemory === false ) {
+			} else {
 
-				cmd.fromJSON( cmd.json );
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
 
 			}
 
 		}
 
-		if ( cmd !== undefined ) {
-
-			cmd.undo();
-			this.redos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
-
-		}
-
-		return cmd;
-
-	},
-
-	redo: function () {
-
-		if ( this.historyDisabled ) {
-
-			alert( 'Undo/Redo disabled while scene is playing.' );
-			return;
-
-		}
-
-		let cmd = undefined;
-
-		if ( this.redos.length > 0 ) {
-
-			cmd = this.redos.pop();
-
-			if ( cmd.inMemory === false ) {
-
-				cmd.fromJSON( cmd.json );
-
-			}
-
-		}
-
-		if ( cmd !== undefined ) {
-
-			cmd.execute();
-			this.undos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
-
-		}
-
-		return cmd;
-
-	},
-
-	toJSON: function () {
-
-		const history = {};
-		history.undos = [];
-		history.redos = [];
-
-		if ( ! this.config.getKey( 'settings/history' ) ) {
-
-			return history;
-
-		}
-
-		// Append Undos to History
-
-		for ( let i = 0; i < this.undos.length; i ++ ) {
-
-			if ( this.undos[ i ].hasOwnProperty( 'json' ) ) {
-
-				history.undos.push( this.undos[ i ].json );
-
-			}
-
-		}
-
-		// Append Redos to History
-
-		for ( let i = 0; i < this.redos.length; i ++ ) {
-
-			if ( this.redos[ i ].hasOwnProperty( 'json' ) ) {
-
-				history.redos.push( this.redos[ i ].json );
-
-			}
-
-		}
-
-		return history;
-
-	},
-
-	fromJSON: function ( json ) {
-
-		if ( json === undefined ) return;
-
-		for ( let i = 0; i < json.undos.length; i ++ ) {
-
-			const cmdJSON = json.undos[ i ];
-			const cmd = new Commands[ cmdJSON.type ]( this.editor ); // creates a new object of type "json.type"
-			cmd.json = cmdJSON;
-			cmd.id = cmdJSON.id;
-			cmd.name = cmdJSON.name;
-			this.undos.push( cmd );
-			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
-
-		}
-
-		for ( let i = 0; i < json.redos.length; i ++ ) {
-
-			const cmdJSON = json.redos[ i ];
-			const cmd = new Commands[ cmdJSON.type ]( this.editor ); // creates a new object of type "json.type"
-			cmd.json = cmdJSON;
-			cmd.id = cmdJSON.id;
-			cmd.name = cmdJSON.name;
-			this.redos.push( cmd );
-			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
-
-		}
-
-		// Select the last executed undo-command
-		this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
-
-	},
-
-	clear: function () {
-
-		this.undos = [];
-		this.redos = [];
-		this.idCounter = 0;
-
-		this.editor.signals.historyChanged.dispatch();
-
-	},
-
-	goToState: function ( id ) {
-
-		if ( this.historyDisabled ) {
-
-			alert( 'Undo/Redo disabled while scene is playing.' );
-			return;
-
-		}
-
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
-
-		let cmd = this.undos.length > 0 ? this.undos[ this.undos.length - 1 ] : undefined;	// next cmd to pop
-
-		if ( cmd === undefined || id > cmd.id ) {
-
-			cmd = this.redo();
-			while ( cmd !== undefined && id > cmd.id ) {
-
-				cmd = this.redo();
-
-			}
-
-		} else {
-
-			while ( true ) {
-
-				cmd = this.undos[ this.undos.length - 1 ];	// next cmd to pop
-
-				if ( cmd === undefined || id === cmd.id ) break;
-
-				this.undo();
-
-			}
-
-		}
-
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
-
-		this.editor.signals.sceneGraphChanged.dispatch();
-		this.editor.signals.historyChanged.dispatch( cmd );
-
-	},
-
-	enableSerialization: function ( id ) {
-
-		/**
-		 * because there might be commands in this.undos and this.redos
-		 * which have not been serialized with .toJSON() we go back
-		 * to the oldest command and redo one command after the other
-		 * while also calling .toJSON() on them.
-		 */
-
-		this.goToState( - 1 );
-
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
-
-		let cmd = this.redo();
-		while ( cmd !== undefined ) {
-
-			if ( ! cmd.hasOwnProperty( 'json' ) ) {
-
-				cmd.json = cmd.toJSON();
-
-			}
-
-			cmd = this.redo();
-
-		}
-
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
-
-		this.goToState( id );
+		return this;
 
 	}
 
-};
+	remove() {
 
-function Strings( config ) {
+		for ( let i = 0; i < arguments.length; i ++ ) {
 
-	const language = config.getKey( 'language' );
+			const argument = arguments[ i ];
 
-	const values = {
+			if ( argument instanceof UIElement ) {
 
-		en: {
+				this.dom.removeChild( argument.dom );
 
-			'menubar/file': 'File',
-			'menubar/file/new': 'New',
-			'menubar/file/import': 'Import',
-			'menubar/file/export/geometry': 'Export Geometry',
-			'menubar/file/export/object': 'Export Object',
-			'menubar/file/export/scene': 'Export Scene',
-			'menubar/file/export/dae': 'Export DAE',
-			'menubar/file/export/drc': 'Export DRC',
-			'menubar/file/export/glb': 'Export GLB',
-			'menubar/file/export/gltf': 'Export GLTF',
-			'menubar/file/export/obj': 'Export OBJ',
-			'menubar/file/export/ply': 'Export PLY',
-			'menubar/file/export/ply_binary': 'Export PLY (Binary)',
-			'menubar/file/export/stl': 'Export STL',
-			'menubar/file/export/stl_binary': 'Export STL (Binary)',
-			'menubar/file/export/usdz': 'Export USDZ',
-			'menubar/file/publish': 'Publish',
+			} else {
 
-			'menubar/edit': 'Edit',
-			'menubar/edit/undo': 'Undo (Ctrl+Z)',
-			'menubar/edit/redo': 'Redo (Ctrl+Shift+Z)',
-			'menubar/edit/clear_history': 'Clear History',
-			'menubar/edit/center': 'Center',
-			'menubar/edit/clone': 'Clone',
-			'menubar/edit/delete': 'Delete (Del)',
-			'menubar/edit/fixcolormaps': 'Fix Color Maps',
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
 
-			'menubar/add': 'Add',
-			'menubar/add/group': 'Group',
-			'menubar/add/plane': 'Plane',
-			'menubar/add/box': 'Box',
-			'menubar/add/circle': 'Circle',
-			'menubar/add/cylinder': 'Cylinder',
-			'menubar/add/ring': 'Ring',
-			'menubar/add/sphere': 'Sphere',
-			'menubar/add/dodecahedron': 'Dodecahedron',
-			'menubar/add/icosahedron': 'Icosahedron',
-			'menubar/add/octahedron': 'Octahedron',
-			'menubar/add/tetrahedron': 'Tetrahedron',
-			'menubar/add/torus': 'Torus',
-			'menubar/add/tube': 'Tube',
-			'menubar/add/torusknot': 'TorusKnot',
-			'menubar/add/lathe': 'Lathe',
-			'menubar/add/sprite': 'Sprite',
-			'menubar/add/pointlight': 'PointLight',
-			'menubar/add/spotlight': 'SpotLight',
-			'menubar/add/directionallight': 'DirectionalLight',
-			'menubar/add/hemispherelight': 'HemisphereLight',
-			'menubar/add/ambientlight': 'AmbientLight',
-			'menubar/add/perspectivecamera': 'PerspectiveCamera',
-			'menubar/add/orthographiccamera': 'OrthographicCamera',
-
-			'menubar/status/autosave': 'autosave',
-
-			'menubar/play': 'Play',
-			'menubar/play/stop': 'Stop',
-			'menubar/play/play': 'Play',
-
-			'menubar/examples': 'Examples',
-			'menubar/examples/Arkanoid': 'Arkanoid',
-			'menubar/examples/Camera': 'Camera',
-			'menubar/examples/Particles': 'Particles',
-			'menubar/examples/Pong': 'Pong',
-			'menubar/examples/Shaders': 'Shaders',
-
-			'menubar/view': 'View',
-			'menubar/view/fullscreen': 'Fullscreen',
-
-			'menubar/help': 'Help',
-			'menubar/help/source_code': 'Source Code',
-			'menubar/help/icons': 'Icon Pack',
-			'menubar/help/about': 'About',
-			'menubar/help/manual': 'Manual',
-
-			'sidebar/animations': 'Animations',
-			'sidebar/animations/play': 'Play',
-			'sidebar/animations/stop': 'Stop',
-			'sidebar/animations/timescale': 'Time Scale',
-
-			'sidebar/scene': 'Scene',
-			'sidebar/scene/background': 'Background',
-			'sidebar/scene/environment': 'Environment',
-			'sidebar/scene/fog': 'Fog',
-
-			'sidebar/properties/object': 'Object',
-			'sidebar/properties/geometry': 'Geometry',
-			'sidebar/properties/material': 'Material',
-			'sidebar/properties/script': 'Script',
-
-			'sidebar/object/type': 'Type',
-			'sidebar/object/new': 'New',
-			'sidebar/object/uuid': 'UUID',
-			'sidebar/object/name': 'Name',
-			'sidebar/object/position': 'Position',
-			'sidebar/object/rotation': 'Rotation',
-			'sidebar/object/scale': 'Scale',
-			'sidebar/object/fov': 'Fov',
-			'sidebar/object/left': 'Left',
-			'sidebar/object/right': 'Right',
-			'sidebar/object/top': 'Top',
-			'sidebar/object/bottom': 'Bottom',
-			'sidebar/object/near': 'Near',
-			'sidebar/object/far': 'Far',
-			'sidebar/object/intensity': 'Intensity',
-			'sidebar/object/color': 'Color',
-			'sidebar/object/groundcolor': 'Ground Color',
-			'sidebar/object/distance': 'Distance',
-			'sidebar/object/angle': 'Angle',
-			'sidebar/object/penumbra': 'Penumbra',
-			'sidebar/object/decay': 'Decay',
-			'sidebar/object/shadow': 'Shadow',
-			'sidebar/object/shadowBias': 'Shadow Bias',
-			'sidebar/object/shadowNormalBias': 'Shadow Normal Bias',
-			'sidebar/object/shadowRadius': 'Shadow Radius',
-			'sidebar/object/cast': 'cast',
-			'sidebar/object/receive': 'receive',
-			'sidebar/object/visible': 'Visible',
-			'sidebar/object/frustumcull': 'Frustum Cull',
-			'sidebar/object/renderorder': 'Render Order',
-			'sidebar/object/userdata': 'User data',
-
-			'sidebar/geometry/type': 'Type',
-			'sidebar/geometry/new': 'New',
-			'sidebar/geometry/uuid': 'UUID',
-			'sidebar/geometry/name': 'Name',
-			'sidebar/geometry/bounds': 'Bounds',
-			'sidebar/geometry/show_vertex_normals': 'Show Vertex Normals',
-
-			'sidebar/geometry/box_geometry/width': 'Width',
-			'sidebar/geometry/box_geometry/height': 'Height',
-			'sidebar/geometry/box_geometry/depth': 'Depth',
-			'sidebar/geometry/box_geometry/widthseg': 'Width Seg',
-			'sidebar/geometry/box_geometry/heightseg': 'Height Seg',
-			'sidebar/geometry/box_geometry/depthseg': 'Depth Seg',
-
-			'sidebar/geometry/buffer_geometry/attributes': 'Attributes',
-			'sidebar/geometry/buffer_geometry/index': 'index',
-
-			'sidebar/geometry/circle_geometry/radius': 'Radius',
-			'sidebar/geometry/circle_geometry/segments': 'Segments',
-			'sidebar/geometry/circle_geometry/thetastart': 'Theta start',
-			'sidebar/geometry/circle_geometry/thetalength': 'Theta length',
-
-			'sidebar/geometry/cylinder_geometry/radiustop': 'Radius top',
-			'sidebar/geometry/cylinder_geometry/radiusbottom': 'Radius bottom',
-			'sidebar/geometry/cylinder_geometry/height': 'Height',
-			'sidebar/geometry/cylinder_geometry/radialsegments': 'Radial segments',
-			'sidebar/geometry/cylinder_geometry/heightsegments': 'Height segments',
-			'sidebar/geometry/cylinder_geometry/openended': 'Open ended',
-
-			'sidebar/geometry/extrude_geometry/curveSegments': 'Curve Segments',
-			'sidebar/geometry/extrude_geometry/steps': 'Steps',
-			'sidebar/geometry/extrude_geometry/depth': 'Depth',
-			'sidebar/geometry/extrude_geometry/bevelEnabled': 'Bevel?',
-			'sidebar/geometry/extrude_geometry/bevelThickness': 'Thickness',
-			'sidebar/geometry/extrude_geometry/bevelSize': 'Size',
-			'sidebar/geometry/extrude_geometry/bevelOffset': 'Offset',
-			'sidebar/geometry/extrude_geometry/bevelSegments': 'Segments',
-			'sidebar/geometry/extrude_geometry/shape': 'Convert to Shape',
-
-			'sidebar/geometry/dodecahedron_geometry/radius': 'Radius',
-			'sidebar/geometry/dodecahedron_geometry/detail': 'Detail',
-
-			'sidebar/geometry/icosahedron_geometry/radius': 'Radius',
-			'sidebar/geometry/icosahedron_geometry/detail': 'Detail',
-
-			'sidebar/geometry/octahedron_geometry/radius': 'Radius',
-			'sidebar/geometry/octahedron_geometry/detail': 'Detail',
-
-			'sidebar/geometry/tetrahedron_geometry/radius': 'Radius',
-			'sidebar/geometry/tetrahedron_geometry/detail': 'Detail',
-
-			'sidebar/geometry/lathe_geometry/segments': 'Segments',
-			'sidebar/geometry/lathe_geometry/phistart': 'Phi start (°)',
-			'sidebar/geometry/lathe_geometry/philength': 'Phi length (°)',
-			'sidebar/geometry/lathe_geometry/points': 'Points',
-
-			'sidebar/geometry/plane_geometry/width': 'Width',
-			'sidebar/geometry/plane_geometry/height': 'Height',
-			'sidebar/geometry/plane_geometry/widthsegments': 'Width segments',
-			'sidebar/geometry/plane_geometry/heightsegments': 'Height segments',
-
-			'sidebar/geometry/ring_geometry/innerRadius': 'Inner radius',
-			'sidebar/geometry/ring_geometry/outerRadius': 'Outer radius',
-			'sidebar/geometry/ring_geometry/thetaSegments': 'Theta segments',
-			'sidebar/geometry/ring_geometry/phiSegments': 'Phi segments',
-			'sidebar/geometry/ring_geometry/thetastart': 'Theta start',
-			'sidebar/geometry/ring_geometry/thetalength': 'Theta length',
-
-			'sidebar/geometry/shape_geometry/curveSegments': 'Curve Segments',
-			'sidebar/geometry/shape_geometry/extrude': 'Extrude',
-
-			'sidebar/geometry/sphere_geometry/radius': 'Radius',
-			'sidebar/geometry/sphere_geometry/widthsegments': 'Width segments',
-			'sidebar/geometry/sphere_geometry/heightsegments': 'Height segments',
-			'sidebar/geometry/sphere_geometry/phistart': 'Phi start',
-			'sidebar/geometry/sphere_geometry/philength': 'Phi length',
-			'sidebar/geometry/sphere_geometry/thetastart': 'Theta start',
-			'sidebar/geometry/sphere_geometry/thetalength': 'Theta length',
-
-			'sidebar/geometry/torus_geometry/radius': 'Radius',
-			'sidebar/geometry/torus_geometry/tube': 'Tube',
-			'sidebar/geometry/torus_geometry/radialsegments': 'Radial segments',
-			'sidebar/geometry/torus_geometry/tubularsegments': 'Tubular segments',
-			'sidebar/geometry/torus_geometry/arc': 'Arc',
-
-			'sidebar/geometry/torusKnot_geometry/radius': 'Radius',
-			'sidebar/geometry/torusKnot_geometry/tube': 'Tube',
-			'sidebar/geometry/torusKnot_geometry/tubularsegments': 'Tubular segments',
-			'sidebar/geometry/torusKnot_geometry/radialsegments': 'Radial segments',
-			'sidebar/geometry/torusKnot_geometry/p': 'P',
-			'sidebar/geometry/torusKnot_geometry/q': 'Q',
-
-			'sidebar/geometry/tube_geometry/path': 'Path',
-			'sidebar/geometry/tube_geometry/radius': 'Radius',
-			'sidebar/geometry/tube_geometry/tube': 'Tube',
-			'sidebar/geometry/tube_geometry/tubularsegments': 'Tubular segments',
-			'sidebar/geometry/tube_geometry/radialsegments': 'Radial segments',
-			'sidebar/geometry/tube_geometry/closed': 'Closed',
-			'sidebar/geometry/tube_geometry/curvetype': 'Curve Type',
-			'sidebar/geometry/tube_geometry/tension': 'Tension',
-
-			'sidebar/material/new': 'New',
-			'sidebar/material/copy': 'Copy',
-			'sidebar/material/paste': 'Paste',
-			'sidebar/material/slot': 'Slot',
-			'sidebar/material/type': 'Type',
-			'sidebar/material/uuid': 'UUID',
-			'sidebar/material/name': 'Name',
-			'sidebar/material/program': 'Program',
-			'sidebar/material/info': 'Info',
-			'sidebar/material/vertex': 'Vert',
-			'sidebar/material/fragment': 'Frag',
-			'sidebar/material/color': 'Color',
-			'sidebar/material/depthPacking': 'Depth Packing',
-			'sidebar/material/roughness': 'Roughness',
-			'sidebar/material/metalness': 'Metalness',
-			'sidebar/material/reflectivity': 'Reflectivity',
-			'sidebar/material/emissive': 'Emissive',
-			'sidebar/material/specular': 'Specular',
-			'sidebar/material/shininess': 'Shininess',
-			'sidebar/material/clearcoat': 'Clearcoat',
-			'sidebar/material/clearcoatroughness': 'Clearcoat Roughness',
-			'sidebar/material/transmission': 'Transmission',
-			'sidebar/material/attenuationDistance': 'Attenuation Distance',
-			'sidebar/material/attenuationColor': 'Attenuation Color',
-			'sidebar/material/thickness': 'Thickness',
-			'sidebar/material/vertexcolors': 'Vertex Colors',
-			'sidebar/material/matcap': 'Matcap',
-			'sidebar/material/map': 'Map',
-			'sidebar/material/alphamap': 'Alpha Map',
-			'sidebar/material/bumpmap': 'Bump Map',
-			'sidebar/material/normalmap': 'Normal Map',
-			'sidebar/material/clearcoatnormalmap': 'Clearcoat Normal Map',
-			'sidebar/material/displacementmap': 'Displace Map',
-			'sidebar/material/roughnessmap': 'Rough. Map',
-			'sidebar/material/metalnessmap': 'Metal. Map',
-			'sidebar/material/specularmap': 'Specular Map',
-			'sidebar/material/envmap': 'Env Map',
-			'sidebar/material/lightmap': 'Light Map',
-			'sidebar/material/aomap': 'AO Map',
-			'sidebar/material/emissivemap': 'Emissive Map',
-			'sidebar/material/gradientmap': 'Gradient Map',
-			'sidebar/material/side': 'Side',
-			'sidebar/material/size': 'Size',
-			'sidebar/material/sizeAttenuation': 'Size Attenuation',
-			'sidebar/material/flatShading': 'Flat Shading',
-			'sidebar/material/blending': 'Blending',
-			'sidebar/material/opacity': 'Opacity',
-			'sidebar/material/transparent': 'Transparent',
-			'sidebar/material/alphatest': 'Alpha Test',
-			'sidebar/material/depthtest': 'Depth Test',
-			'sidebar/material/depthwrite': 'Depth Write',
-			'sidebar/material/wireframe': 'Wireframe',
-
-			'sidebar/script': 'Script',
-			'sidebar/script/new': 'New',
-			'sidebar/script/edit': 'Edit',
-			'sidebar/script/remove': 'Remove',
-
-			'sidebar/project': 'Project',
-			'sidebar/project/title': 'Title',
-			'sidebar/project/editable': 'Editable',
-			'sidebar/project/vr': 'VR',
-			'sidebar/project/renderer': 'Renderer',
-			'sidebar/project/antialias': 'Antialias',
-			'sidebar/project/shadows': 'Shadows',
-			'sidebar/project/physicallyCorrectLights': 'Physical lights',
-			'sidebar/project/toneMapping': 'Tone mapping',
-			'sidebar/project/materials': 'Materials',
-			'sidebar/project/Assign': 'Assign',
-
-			'sidebar/project/video': 'Video',
-			'sidebar/project/resolution': 'Resolution',
-			'sidebar/project/duration': 'Duration',
-			'sidebar/project/render': 'Render',
-
-			'sidebar/settings': 'Settings',
-			'sidebar/settings/language': 'Language',
-
-			'sidebar/settings/shortcuts': 'Shortcuts',
-			'sidebar/settings/shortcuts/translate': 'Translate',
-			'sidebar/settings/shortcuts/rotate': 'Rotate',
-			'sidebar/settings/shortcuts/scale': 'Scale',
-			'sidebar/settings/shortcuts/undo': 'Undo',
-			'sidebar/settings/shortcuts/focus': 'Focus',
-
-			'sidebar/settings/viewport': 'Viewport',
-			'sidebar/settings/viewport/grid': 'Grid',
-			'sidebar/settings/viewport/helpers': 'Helpers',
-
-			'sidebar/history': 'History',
-			'sidebar/history/persistent': 'persistent',
-
-			'toolbar/translate': 'Translate',
-			'toolbar/rotate': 'Rotate',
-			'toolbar/scale': 'Scale',
-			'toolbar/local': 'Local',
-
-			'viewport/info/objects': 'Objects',
-			'viewport/info/vertices': 'Vertices',
-			'viewport/info/triangles': 'Triangles',
-			'viewport/info/frametime': 'Frametime'
-
-		},
-
-		fr: {
-
-			'menubar/file': 'Fichier',
-			'menubar/file/new': 'Nouveau',
-			'menubar/file/import': 'Importer',
-			'menubar/file/export/geometry': 'Exporter Geometrie',
-			'menubar/file/export/object': 'Exporter Objet',
-			'menubar/file/export/scene': 'Exporter Scene',
-			'menubar/file/export/dae': 'Exporter DAE',
-			'menubar/file/export/drc': 'Exporter DRC',
-			'menubar/file/export/glb': 'Exporter GLB',
-			'menubar/file/export/gltf': 'Exporter GLTF',
-			'menubar/file/export/obj': 'Exporter OBJ',
-			'menubar/file/export/ply': 'Exporer PLY',
-			'menubar/file/export/ply_binary': 'Exporter PLY (Binaire)',
-			'menubar/file/export/stl': 'Exporter STL',
-			'menubar/file/export/stl_binary': 'Exporter STL (Binaire)',
-			'menubar/file/export/usdz': 'Exporter USDZ',
-			'menubar/file/publish': 'Publier',
-
-			'menubar/edit': 'Edition',
-			'menubar/edit/undo': 'Annuler (Ctrl+Z)',
-			'menubar/edit/redo': 'Refaire (Ctrl+Shift+Z)',
-			'menubar/edit/clear_history': 'Supprimer Historique',
-			'menubar/edit/center': 'Center',
-			'menubar/edit/clone': 'Cloner',
-			'menubar/edit/delete': 'Supprimer (Supp)',
-			'menubar/edit/fixcolormaps': 'Correction des couleurs',
-
-			'menubar/add': 'Ajouter',
-			'menubar/add/group': 'Groupe',
-			'menubar/add/plane': 'Plan',
-			'menubar/add/box': 'Cube',
-			'menubar/add/circle': 'Cercle',
-			'menubar/add/cylinder': 'Cylindre',
-			'menubar/add/ring': 'Bague',
-			'menubar/add/sphere': 'Sphère',
-			'menubar/add/dodecahedron': 'Dodécaèdre',
-			'menubar/add/icosahedron': 'Icosaèdre',
-			'menubar/add/octahedron': 'Octaèdre',
-			'menubar/add/tetrahedron': 'Tétraèdre',
-			'menubar/add/torus': 'Torus',
-			'menubar/add/tube': 'Tube',
-			'menubar/add/torusknot': 'Noeud Torus',
-			'menubar/add/lathe': 'Tour',
-			'menubar/add/sprite': 'Sprite',
-			'menubar/add/pointlight': 'Lumière ponctuelle',
-			'menubar/add/spotlight': 'Projecteur',
-			'menubar/add/directionallight': 'Lumière directionnelle',
-			'menubar/add/hemispherelight': 'Lumière hémisphérique',
-			'menubar/add/ambientlight': 'Lumière ambiante',
-			'menubar/add/perspectivecamera': 'Caméra perspective',
-			'menubar/add/orthographiccamera': 'Caméra orthographique',
-
-			'menubar/status/autosave': 'enregistrement automatique',
-
-			'menubar/play': 'Jouer',
-			'menubar/play/stop': 'Arrêter',
-			'menubar/play/play': 'Jouer',
-
-			'menubar/examples': 'Exemples',
-			'menubar/examples/Arkanoid': 'Arkanoid',
-			'menubar/examples/Camera': 'Camera',
-			'menubar/examples/Particles': 'Particles',
-			'menubar/examples/Pong': 'Pong',
-			'menubar/examples/Shaders': 'Shaders',
-
-			'menubar/view': 'View',
-			'menubar/view/fullscreen': 'Fullscreen',
-
-			'menubar/help': 'Aide',
-			'menubar/help/source_code': 'Code Source',
-			'menubar/help/icons': 'Icon Pack',
-			'menubar/help/about': 'A propos',
-			'menubar/help/manual': 'Manual',
-
-			'sidebar/animations': 'Animations',
-			'sidebar/animations/play': 'Play',
-			'sidebar/animations/stop': 'Stop',
-			'sidebar/animations/timescale': 'Time Scale',
-
-			'sidebar/scene': 'Scène',
-			'sidebar/scene/background': 'Arrière Plan',
-			'sidebar/scene/environment': 'Environment',
-			'sidebar/scene/fog': 'Brouillard',
-
-			'sidebar/properties/object': 'Objet',
-			'sidebar/properties/geometry': 'Géométrie',
-			'sidebar/properties/material': 'Matériaux',
-			'sidebar/properties/script': 'Script',
-
-			'sidebar/object/type': 'Type',
-			'sidebar/object/new': 'Nouveau',
-			'sidebar/object/uuid': 'UUID',
-			'sidebar/object/name': 'Nom',
-			'sidebar/object/position': 'Position',
-			'sidebar/object/rotation': 'Rotation',
-			'sidebar/object/scale': 'Échelle',
-			'sidebar/object/fov': 'Champ de vision',
-			'sidebar/object/left': 'Gauche',
-			'sidebar/object/right': 'Droite',
-			'sidebar/object/top': 'Haut',
-			'sidebar/object/bottom': 'Bas',
-			'sidebar/object/near': 'Près',
-			'sidebar/object/far': 'Loin',
-			'sidebar/object/intensity': 'Intensité',
-			'sidebar/object/color': 'Couleur',
-			'sidebar/object/groundcolor': 'Couleur de fond',
-			'sidebar/object/distance': 'Distance',
-			'sidebar/object/angle': 'Angle',
-			'sidebar/object/penumbra': 'Pénombre',
-			'sidebar/object/decay': 'Affaiblissement',
-			'sidebar/object/shadow': 'Ombre',
-			'sidebar/object/shadowBias': 'Biais directionnel des ombres',
-			'sidebar/object/shadowNormalBias': 'Shadow Normal Bias',
-			'sidebar/object/shadowRadius': 'Rayon de l\'ombre',
-			'sidebar/object/cast': 'Projète',
-			'sidebar/object/receive': 'Reçoit',
-			'sidebar/object/visible': 'Visible',
-			'sidebar/object/frustumcull': 'Culling',
-			'sidebar/object/renderorder': 'Ordre de rendus',
-			'sidebar/object/userdata': 'Données utilisateur',
-
-			'sidebar/geometry/type': 'Type',
-			'sidebar/geometry/new': 'Nouveau',
-			'sidebar/geometry/uuid': 'UUID',
-			'sidebar/geometry/name': 'Nom',
-			'sidebar/geometry/bounds': 'Limites',
-			'sidebar/geometry/show_vertex_normals': 'Afficher normales',
-
-			'sidebar/geometry/box_geometry/width': 'Largeur',
-			'sidebar/geometry/box_geometry/height': 'Hauteur',
-			'sidebar/geometry/box_geometry/depth': 'Profondeur',
-			'sidebar/geometry/box_geometry/widthseg': 'Segments en Largeur',
-			'sidebar/geometry/box_geometry/heightseg': 'Segments en Hauteur',
-			'sidebar/geometry/box_geometry/depthseg': 'Segments en Profondeur',
-
-			'sidebar/geometry/buffer_geometry/attributes': 'Attributs',
-			'sidebar/geometry/buffer_geometry/index': 'index',
-
-			'sidebar/geometry/circle_geometry/radius': 'Rayon',
-			'sidebar/geometry/circle_geometry/segments': 'Segments',
-			'sidebar/geometry/circle_geometry/thetastart': 'Début Thêta (°)',
-			'sidebar/geometry/circle_geometry/thetalength': 'Longueur Thêta (°)',
-
-			'sidebar/geometry/cylinder_geometry/radiustop': 'Rayon supérieur',
-			'sidebar/geometry/cylinder_geometry/radiusbottom': 'Rayon inférieur',
-			'sidebar/geometry/cylinder_geometry/height': 'Hauteur',
-			'sidebar/geometry/cylinder_geometry/radialsegments': 'Segments radiaux',
-			'sidebar/geometry/cylinder_geometry/heightsegments': 'Segments en hauteur',
-			'sidebar/geometry/cylinder_geometry/openended': 'Extrémités ouvertes',
-
-			'sidebar/geometry/extrude_geometry/curveSegments': 'Segments de courbe',
-			'sidebar/geometry/extrude_geometry/steps': 'Pas',
-			'sidebar/geometry/extrude_geometry/depth': 'Profondeur',
-			'sidebar/geometry/extrude_geometry/bevelEnabled': 'Biseau',
-			'sidebar/geometry/extrude_geometry/bevelThickness': 'Épaisseur',
-			'sidebar/geometry/extrude_geometry/bevelSize': 'Taille',
-			'sidebar/geometry/extrude_geometry/bevelOffset': 'Décalage',
-			'sidebar/geometry/extrude_geometry/bevelSegments': 'Segments',
-			'sidebar/geometry/extrude_geometry/shape': 'Convertir en forme',
-
-			'sidebar/geometry/dodecahedron_geometry/radius': 'Rayon',
-			'sidebar/geometry/dodecahedron_geometry/detail': 'Détail',
-
-			'sidebar/geometry/icosahedron_geometry/radius': 'Rayon',
-			'sidebar/geometry/icosahedron_geometry/detail': 'Détail',
-
-			'sidebar/geometry/octahedron_geometry/radius': 'Rayon',
-			'sidebar/geometry/octahedron_geometry/detail': 'Détail',
-
-			'sidebar/geometry/tetrahedron_geometry/radius': 'Rayon',
-			'sidebar/geometry/tetrahedron_geometry/detail': 'Détail',
-
-			'sidebar/geometry/lathe_geometry/segments': 'Segments',
-			'sidebar/geometry/lathe_geometry/phistart': 'Début Phi (°)',
-			'sidebar/geometry/lathe_geometry/philength': 'Longueur Phi (°)',
-			'sidebar/geometry/lathe_geometry/points': 'Points',
-
-			'sidebar/geometry/plane_geometry/width': 'Largeur',
-			'sidebar/geometry/plane_geometry/height': 'Hauteur',
-			'sidebar/geometry/plane_geometry/widthsegments': 'Segments en Largeur',
-			'sidebar/geometry/plane_geometry/heightsegments': 'Segments en Hauteur',
-
-			'sidebar/geometry/ring_geometry/innerRadius': 'Rayon intérieur',
-			'sidebar/geometry/ring_geometry/outerRadius': 'Rayon extérieur',
-			'sidebar/geometry/ring_geometry/thetaSegments': 'Segments Thêta',
-			'sidebar/geometry/ring_geometry/phiSegments': 'Phi segments',
-			'sidebar/geometry/ring_geometry/thetastart': 'Début Thêta',
-			'sidebar/geometry/ring_geometry/thetalength': 'Longueur Thêta',
-
-			'sidebar/geometry/shape_geometry/curveSegments': 'Segments de courbe',
-			'sidebar/geometry/shape_geometry/extrude': 'Extruder',
-
-			'sidebar/geometry/sphere_geometry/radius': 'Rayon',
-			'sidebar/geometry/sphere_geometry/widthsegments': 'Segments en Largeur',
-			'sidebar/geometry/sphere_geometry/heightsegments': 'Segments en Hauteur',
-			'sidebar/geometry/sphere_geometry/phistart': 'Début Phi (°)',
-			'sidebar/geometry/sphere_geometry/philength': 'Longueur Phi (°)',
-			'sidebar/geometry/sphere_geometry/thetastart': 'Début Thêta',
-			'sidebar/geometry/sphere_geometry/thetalength': 'Longueur Thêta',
-
-			'sidebar/geometry/torus_geometry/radius': 'Rayon',
-			'sidebar/geometry/torus_geometry/tube': 'Tube',
-			'sidebar/geometry/torus_geometry/radialsegments': 'Segments radiaux',
-			'sidebar/geometry/torus_geometry/tubularsegments': 'Segments tubulaires',
-			'sidebar/geometry/torus_geometry/arc': 'Arc',
-
-			'sidebar/geometry/torusKnot_geometry/radius': 'Rayon',
-			'sidebar/geometry/torusKnot_geometry/tube': 'Tube',
-			'sidebar/geometry/torusKnot_geometry/tubularsegments': 'Segments tubulaires',
-			'sidebar/geometry/torusKnot_geometry/radialsegments': 'Segments radiaux',
-			'sidebar/geometry/torusKnot_geometry/p': 'P',
-			'sidebar/geometry/torusKnot_geometry/q': 'Q',
-
-			'sidebar/geometry/tube_geometry/path': 'Chemin',
-			'sidebar/geometry/tube_geometry/radius': 'Rayon',
-			'sidebar/geometry/tube_geometry/tube': 'Tube',
-			'sidebar/geometry/tube_geometry/tubularsegments': 'Segments tubulaires',
-			'sidebar/geometry/tube_geometry/radialsegments': 'Segments radiaux',
-			'sidebar/geometry/tube_geometry/closed': 'Fermé',
-			'sidebar/geometry/tube_geometry/curvetype': 'Type de courbe',
-			'sidebar/geometry/tube_geometry/tension': 'Tension',
-
-			'sidebar/material/new': 'Nouveau',
-			'sidebar/material/copy': 'Copier',
-			'sidebar/material/paste': 'Coller',
-			'sidebar/material/slot': 'Slot',
-			'sidebar/material/type': 'Type',
-			'sidebar/material/uuid': 'UUID',
-			'sidebar/material/name': 'Nom',
-			'sidebar/material/program': 'Programme',
-			'sidebar/material/info': 'Info',
-			'sidebar/material/vertex': 'Sommet',
-			'sidebar/material/fragment': 'Fragment',
-			'sidebar/material/color': 'Couleur',
-			'sidebar/material/depthPacking': 'Encodage profondeur de couleur',
-			'sidebar/material/roughness': 'Rugosité',
-			'sidebar/material/metalness': 'Métal',
-			'sidebar/material/reflectivity': 'Reflectivity',
-			'sidebar/material/emissive': 'Émissif',
-			'sidebar/material/specular': 'Spéculaire',
-			'sidebar/material/shininess': 'Brillance',
-			'sidebar/material/clearcoat': 'Vernis',
-			'sidebar/material/clearcoatroughness': 'Rugosité du vernis',
-			'sidebar/material/transmission': 'Transmission',
-			'sidebar/material/attenuationDistance': 'Attenuation Distance',
-			'sidebar/material/attenuationColor': 'Attenuation Color',
-			'sidebar/material/thickness': 'Thickness',
-			'sidebar/material/vertexcolors': 'Couleurs aux Sommets',
-			'sidebar/material/matcap': 'Matcap',
-			'sidebar/material/map': 'Texture',
-			'sidebar/material/alphamap': 'Texture de transparence',
-			'sidebar/material/bumpmap': 'Texture de relief',
-			'sidebar/material/normalmap': 'Texture de normales',
-			'sidebar/material/clearcoatnormalmap': 'Texture des normales du vernis',
-			'sidebar/material/displacementmap': 'Texture de déplacement',
-			'sidebar/material/roughnessmap': 'Texture de rugosité',
-			'sidebar/material/metalnessmap': 'Texture métallique',
-			'sidebar/material/specularmap': 'Texture spéculaire',
-			'sidebar/material/envmap': 'Texture d\'environnement',
-			'sidebar/material/lightmap': 'Texture d\'éclairage',
-			'sidebar/material/aomap': 'Texture d\'occlusion ambiante',
-			'sidebar/material/emissivemap': 'Texture d\'émission',
-			'sidebar/material/gradientmap': 'Texture de gradient',
-			'sidebar/material/side': 'Côté',
-			'sidebar/material/size': 'Size',
-			'sidebar/material/sizeAttenuation': 'Size Attenuation',
-			'sidebar/material/flatShading': 'Flat Shading',
-			'sidebar/material/blending': 'Mélange',
-			'sidebar/material/opacity': 'Opacité',
-			'sidebar/material/transparent': 'Transparence',
-			'sidebar/material/alphatest': 'Test de transparence',
-			'sidebar/material/depthtest': 'Depth Test',
-			'sidebar/material/depthwrite': 'Depth Write',
-			'sidebar/material/wireframe': 'Fil de fer',
-
-			'sidebar/script': 'Script',
-			'sidebar/script/new': 'Nouveau',
-			'sidebar/script/edit': 'Editer',
-			'sidebar/script/remove': 'Supprimer',
-
-			'sidebar/project': 'Projet',
-			'sidebar/project/title': 'Titre',
-			'sidebar/project/editable': 'Modifiable',
-			'sidebar/project/vr': 'VR',
-			'sidebar/project/renderer': 'Rendus',
-			'sidebar/project/antialias': 'Anticrénelage',
-			'sidebar/project/shadows': 'Ombres',
-			'sidebar/project/physicallyCorrectLights': 'Physical lights',
-			'sidebar/project/toneMapping': 'Mappage des nuances',
-			'sidebar/project/materials': 'Matériaux',
-			'sidebar/project/Assign': 'Attribuer',
-
-			'sidebar/project/video': 'Video',
-			'sidebar/project/resolution': 'Resolution',
-			'sidebar/project/duration': 'Duration',
-			'sidebar/project/render': 'Render',
-
-			'sidebar/settings': 'Paramètres',
-			'sidebar/settings/language': 'Langue',
-
-			'sidebar/settings/shortcuts': 'Shortcuts',
-			'sidebar/settings/shortcuts/translate': 'Position',
-			'sidebar/settings/shortcuts/rotate': 'Rotation',
-			'sidebar/settings/shortcuts/scale': 'Échelle',
-			'sidebar/settings/shortcuts/undo': 'Annuler',
-			'sidebar/settings/shortcuts/focus': 'Focus',
-
-			'sidebar/settings/viewport': 'Viewport',
-			'sidebar/settings/viewport/grid': 'Grille',
-			'sidebar/settings/viewport/helpers': 'Helpers',
-
-			'sidebar/history': 'Historique',
-			'sidebar/history/persistent': 'permanent',
-
-			'toolbar/translate': 'Position',
-			'toolbar/rotate': 'Rotation',
-			'toolbar/scale': 'Échelle',
-			'toolbar/local': 'Local',
-
-			'viewport/info/objects': 'Objets',
-			'viewport/info/vertices': 'Sommets',
-			'viewport/info/triangles': 'Triangles',
-			'viewport/info/frametime': 'Temps de trame'
-
-		},
-
-		zh: {
-
-			'menubar/file': '文件',
-			'menubar/file/new': '新建',
-			'menubar/file/import': '导入',
-			'menubar/file/export/geometry': '导出几何体',
-			'menubar/file/export/object': '导出物体',
-			'menubar/file/export/scene': '导出场景',
-			'menubar/file/export/dae': '导出DAE',
-			'menubar/file/export/drc': '导出DRC',
-			'menubar/file/export/glb': '导出GLB',
-			'menubar/file/export/gltf': '导出GLTF',
-			'menubar/file/export/obj': '导出OBJ',
-			'menubar/file/export/ply': '导出PLY',
-			'menubar/file/export/ply_binary': '导出PLY(二进制)',
-			'menubar/file/export/stl': '导出STL',
-			'menubar/file/export/stl_binary': '导出STL(二进制)',
-			'menubar/file/export/usdz': '导出USDZ',
-			'menubar/file/publish': '发布',
-
-			'menubar/edit': '编辑',
-			'menubar/edit/undo': '撤销 (Ctrl+Z)',
-			'menubar/edit/redo': '重做 (Ctrl+Shift+Z)',
-			'menubar/edit/clear_history': '清空历史记录',
-			'menubar/edit/center': '居中',
-			'menubar/edit/clone': '拷贝',
-			'menubar/edit/delete': '删除 (Del)',
-			'menubar/edit/fixcolormaps': '修复颜色贴图',
-
-			'menubar/add': '添加',
-			'menubar/add/group': '组',
-			'menubar/add/plane': '平面',
-			'menubar/add/box': '正方体',
-			'menubar/add/circle': '圆',
-			'menubar/add/cylinder': '圆柱体',
-			'menubar/add/ring': '环',
-			'menubar/add/sphere': '球体',
-			'menubar/add/dodecahedron': '十二面体',
-			'menubar/add/icosahedron': '二十面体',
-			'menubar/add/octahedron': '八面体',
-			'menubar/add/tetrahedron': '四面体',
-			'menubar/add/torus': '圆环体',
-			'menubar/add/torusknot': '环面纽结体',
-			'menubar/add/tube': '管',
-			'menubar/add/lathe': '酒杯',
-			'menubar/add/sprite': '精灵',
-			'menubar/add/pointlight': '点光源',
-			'menubar/add/spotlight': '聚光灯',
-			'menubar/add/directionallight': '平行光',
-			'menubar/add/hemispherelight': '半球光',
-			'menubar/add/ambientlight': '环境光',
-			'menubar/add/perspectivecamera': '透视相机',
-			'menubar/add/orthographiccamera': '正交相机',
-
-			'menubar/status/autosave': '自动保存',
-
-			'menubar/play': '启动',
-			'menubar/play/stop': '暂停',
-			'menubar/play/play': '启动',
-
-			'menubar/examples': '示例',
-			'menubar/examples/Arkanoid': '打砖块',
-			'menubar/examples/Camera': ' 摄像机',
-			'menubar/examples/Particles': '粒子',
-			'menubar/examples/Pong': '乒乓球',
-			'menubar/examples/Shaders': '着色器',
-
-			'menubar/view': '视图',
-			'menubar/view/fullscreen': '全屏',
-
-			'menubar/help': '帮助',
-			'menubar/help/source_code': '源码',
-			'menubar/help/icons': '图标组件包',
-			'menubar/help/about': '关于',
-			'menubar/help/manual': '手册',
-
-			'sidebar/animations': '动画',
-			'sidebar/animations/play': '播放',
-			'sidebar/animations/stop': '暂停',
-			'sidebar/animations/timescale': '时间缩放',
-
-			'sidebar/scene': '场景',
-			'sidebar/scene/background': '背景',
-			'sidebar/scene/environment': '环境',
-			'sidebar/scene/fog': '雾',
-
-			'sidebar/properties/object': '属性',
-			'sidebar/properties/geometry': '几何组件',
-			'sidebar/properties/material': '材质组件',
-			'sidebar/properties/script': '脚本',
-
-			'sidebar/object/type': '类型',
-			'sidebar/object/new': '更新',
-			'sidebar/object/uuid': '识别码',
-			'sidebar/object/name': '名称',
-			'sidebar/object/position': '位置',
-			'sidebar/object/rotation': '旋转',
-			'sidebar/object/scale': '缩放',
-			'sidebar/object/fov': '视角',
-			'sidebar/object/left': '左',
-			'sidebar/object/right': '右',
-			'sidebar/object/top': '上',
-			'sidebar/object/bottom': '下',
-			'sidebar/object/near': '近点',
-			'sidebar/object/far': '远点',
-			'sidebar/object/intensity': '强度',
-			'sidebar/object/color': '颜色',
-			'sidebar/object/groundcolor': '基色',
-			'sidebar/object/distance': '距离',
-			'sidebar/object/angle': '角度',
-			'sidebar/object/penumbra': '边缘',
-			'sidebar/object/decay': '衰减',
-			'sidebar/object/shadow': '阴影',
-			'sidebar/object/shadowBias': '阴影偏移',
-			'sidebar/object/shadowNormalBias': '阴影法线偏移',
-			'sidebar/object/shadowRadius': '阴影半径',
-			'sidebar/object/cast': '产生',
-			'sidebar/object/receive': '接受',
-			'sidebar/object/visible': '可见性',
-			'sidebar/object/frustumcull': '视锥体裁剪',
-			'sidebar/object/renderorder': '渲染次序',
-			'sidebar/object/userdata': '自定义数据',
-
-			'sidebar/geometry/type': '类型',
-			'sidebar/geometry/new': '更新',
-			'sidebar/geometry/uuid': '识别码',
-			'sidebar/geometry/name': '名称',
-			'sidebar/geometry/bounds': '界限',
-			'sidebar/geometry/show_vertex_normals': '显示顶点法线',
-
-			'sidebar/geometry/box_geometry/width': '宽度',
-			'sidebar/geometry/box_geometry/height': '高度',
-			'sidebar/geometry/box_geometry/depth': '深度',
-			'sidebar/geometry/box_geometry/widthseg': '宽度分段',
-			'sidebar/geometry/box_geometry/heightseg': '高度分段',
-			'sidebar/geometry/box_geometry/depthseg': '深度分段',
-
-			'sidebar/geometry/buffer_geometry/attributes': '属性',
-			'sidebar/geometry/buffer_geometry/index': '索引',
-
-			'sidebar/geometry/circle_geometry/radius': '半径',
-			'sidebar/geometry/circle_geometry/segments': '分段',
-			'sidebar/geometry/circle_geometry/thetastart': '弧度起点',
-			'sidebar/geometry/circle_geometry/thetalength': '弧度长度',
-
-			'sidebar/geometry/cylinder_geometry/radiustop': '顶部半径',
-			'sidebar/geometry/cylinder_geometry/radiusbottom': '底部半径',
-			'sidebar/geometry/cylinder_geometry/height': '高度',
-			'sidebar/geometry/cylinder_geometry/radialsegments': '径向分段',
-			'sidebar/geometry/cylinder_geometry/heightsegments': '高度分段',
-			'sidebar/geometry/cylinder_geometry/openended': '开端',
-
-			'sidebar/geometry/extrude_geometry/curveSegments': '曲线段',
-			'sidebar/geometry/extrude_geometry/steps': '细分点数',
-			'sidebar/geometry/extrude_geometry/depth': '深度',
-			'sidebar/geometry/extrude_geometry/bevelEnabled': '启用斜角',
-			'sidebar/geometry/extrude_geometry/bevelThickness': '斜角厚度',
-			'sidebar/geometry/extrude_geometry/bevelSize': '斜角大小',
-			'sidebar/geometry/extrude_geometry/bevelOffset': '斜角偏移量',
-			'sidebar/geometry/extrude_geometry/bevelSegments': '斜角分段',
-			'sidebar/geometry/extrude_geometry/shape': '转换图形',
-
-			'sidebar/geometry/dodecahedron_geometry/radius': '半径',
-			'sidebar/geometry/dodecahedron_geometry/detail': '面片分段',
-
-			'sidebar/geometry/icosahedron_geometry/radius': '半径',
-			'sidebar/geometry/icosahedron_geometry/detail': '面片分段',
-
-			'sidebar/geometry/octahedron_geometry/radius': '半径',
-			'sidebar/geometry/octahedron_geometry/detail': '面片分段',
-
-			'sidebar/geometry/tetrahedron_geometry/radius': '半径',
-			'sidebar/geometry/tetrahedron_geometry/detail': '面片分段',
-
-			'sidebar/geometry/lathe_geometry/segments': '分段',
-			'sidebar/geometry/lathe_geometry/phistart': '经度起点',
-			'sidebar/geometry/lathe_geometry/philength': '经度长度',
-			'sidebar/geometry/lathe_geometry/points': '点',
-
-			'sidebar/geometry/plane_geometry/width': '宽度',
-			'sidebar/geometry/plane_geometry/height': '长度',
-			'sidebar/geometry/plane_geometry/widthsegments': '宽度分段',
-			'sidebar/geometry/plane_geometry/heightsegments': '长度分段',
-
-			'sidebar/geometry/ring_geometry/innerRadius': '内半径',
-			'sidebar/geometry/ring_geometry/outerRadius': '外半径',
-			'sidebar/geometry/ring_geometry/thetaSegments': '弧度分段',
-			'sidebar/geometry/ring_geometry/phiSegments': '经度分段',
-			'sidebar/geometry/ring_geometry/thetastart': '弧度起点',
-			'sidebar/geometry/ring_geometry/thetalength': '弧度长度',
-
-			'sidebar/geometry/shape_geometry/curveSegments': '曲线段',
-			'sidebar/geometry/shape_geometry/extrude': '拉伸',
-
-			'sidebar/geometry/sphere_geometry/radius': '半径',
-			'sidebar/geometry/sphere_geometry/widthsegments': '宽度分段',
-			'sidebar/geometry/sphere_geometry/heightsegments': '长度分段',
-			'sidebar/geometry/sphere_geometry/phistart': '经度起点',
-			'sidebar/geometry/sphere_geometry/philength': '经度长度',
-			'sidebar/geometry/sphere_geometry/thetastart': '纬度起点',
-			'sidebar/geometry/sphere_geometry/thetalength': '纬度长度',
-
-			'sidebar/geometry/torus_geometry/radius': '半径',
-			'sidebar/geometry/torus_geometry/tube': '管厚',
-			'sidebar/geometry/torus_geometry/radialsegments': '半径分段',
-			'sidebar/geometry/torus_geometry/tubularsegments': '管厚分段',
-			'sidebar/geometry/torus_geometry/arc': '弧度',
-
-			'sidebar/geometry/torusKnot_geometry/radius': '半径',
-			'sidebar/geometry/torusKnot_geometry/tube': '管厚',
-			'sidebar/geometry/torusKnot_geometry/tubularsegments': '管厚分段',
-			'sidebar/geometry/torusKnot_geometry/radialsegments': '半径分段',
-			'sidebar/geometry/torusKnot_geometry/p': '管长弧度',
-			'sidebar/geometry/torusKnot_geometry/q': '扭曲弧度',
-
-			'sidebar/geometry/tube_geometry/path': '路径',
-			'sidebar/geometry/tube_geometry/radius': '半径',
-			'sidebar/geometry/tube_geometry/tube': '管厚',
-			'sidebar/geometry/tube_geometry/tubularsegments': '管厚分段',
-			'sidebar/geometry/tube_geometry/radialsegments': '半径分段',
-			'sidebar/geometry/tube_geometry/closed': '闭合',
-			'sidebar/geometry/tube_geometry/curvetype': '曲线类型',
-			'sidebar/geometry/tube_geometry/tension': '张力',
-
-			'sidebar/material/new': '更新',
-			'sidebar/material/copy': '复制',
-			'sidebar/material/paste': '粘贴',
-			'sidebar/material/slot': '插槽',
-			'sidebar/material/type': '类型',
-			'sidebar/material/uuid': '识别码',
-			'sidebar/material/name': '名称',
-			'sidebar/material/program': '程序',
-			'sidebar/material/info': '信息',
-			'sidebar/material/vertex': '顶点',
-			'sidebar/material/fragment': '片元',
-			'sidebar/material/color': '颜色',
-			'sidebar/material/depthPacking': '深度包装',
-			'sidebar/material/roughness': '粗糙度',
-			'sidebar/material/metalness': '金属度',
-			'sidebar/material/reflectivity': '反射率',
-			'sidebar/material/emissive': '自发光',
-			'sidebar/material/specular': '高光',
-			'sidebar/material/shininess': '高光大小',
-			'sidebar/material/clearcoat': '清漆',
-			'sidebar/material/clearcoatroughness': '清漆粗糙度',
-			'sidebar/material/transmission': '透光',
-			'sidebar/material/attenuationDistance': '衰减距离',
-			'sidebar/material/attenuationColor': 'Attenuation Color',
-			'sidebar/material/thickness': '厚度',
-			'sidebar/material/vertexcolors': '顶点颜色',
-			'sidebar/material/matcap': '材质捕获',
-			'sidebar/material/map': '贴图',
-			'sidebar/material/alphamap': '透明贴图',
-			'sidebar/material/bumpmap': '凹凸贴图',
-			'sidebar/material/normalmap': '法线贴图',
-			'sidebar/material/clearcoatnormalmap': '清漆法线贴图',
-			'sidebar/material/displacementmap': '置换贴图',
-			'sidebar/material/roughnessmap': '粗糙贴图',
-			'sidebar/material/metalnessmap': '金属贴图',
-			'sidebar/material/specularmap': '高光贴图',
-			'sidebar/material/envmap': '环境贴图',
-			'sidebar/material/lightmap': '光照贴图',
-			'sidebar/material/aomap': '环境光遮蔽贴图',
-			'sidebar/material/emissivemap': '自发光贴图',
-			'sidebar/material/gradientmap': '渐变贴图',
-			'sidebar/material/side': '面',
-			'sidebar/material/size': '大小',
-			'sidebar/material/sizeAttenuation': '大小衰减',
-			'sidebar/material/flatShading': '平面着色',
-			'sidebar/material/blending': '混合',
-			'sidebar/material/opacity': '透明度',
-			'sidebar/material/transparent': '透明性',
-			'sidebar/material/alphatest': 'α测试',
-			'sidebar/material/depthtest': '深度测试',
-			'sidebar/material/depthwrite': '深度缓冲',
-			'sidebar/material/wireframe': '线框',
-
-			'sidebar/script': '脚本',
-			'sidebar/script/new': '新建',
-			'sidebar/script/edit': '编辑',
-			'sidebar/script/remove': '删除',
-
-			'sidebar/project': '项目',
-			'sidebar/project/title': '标题',
-			'sidebar/project/editable': '编辑性',
-			'sidebar/project/vr': '虚拟现实',
-			'sidebar/project/renderer': '渲染器',
-			'sidebar/project/antialias': '抗锯齿',
-			'sidebar/project/shadows': '阴影',
-			'sidebar/project/physicallyCorrectLights': '物理灯',
-			'sidebar/project/toneMapping': '色调映射',
-			'sidebar/project/materials': '材质',
-			'sidebar/project/Assign': '应用',
-
-			'sidebar/project/video': '视频',
-			'sidebar/project/resolution': '分辨率',
-			'sidebar/project/duration': '时长',
-			'sidebar/project/render': '渲染',
-
-			'sidebar/settings': '设置',
-			'sidebar/settings/language': '语言',
-
-			'sidebar/settings/shortcuts': '快捷键',
-			'sidebar/settings/shortcuts/translate': '移动',
-			'sidebar/settings/shortcuts/rotate': '旋转',
-			'sidebar/settings/shortcuts/scale': '缩放',
-			'sidebar/settings/shortcuts/undo': '撤销',
-			'sidebar/settings/shortcuts/focus': '聚焦',
-
-			'sidebar/settings/viewport': '视窗',
-			'sidebar/settings/viewport/grid': '网格',
-			'sidebar/settings/viewport/helpers': '辅助',
-
-			'sidebar/history': '历史记录',
-			'sidebar/history/persistent': '本地存储',
-
-			'toolbar/translate': '移动',
-			'toolbar/rotate': '旋转',
-			'toolbar/scale': '缩放',
-			'toolbar/local': '本地',
-
-			'viewport/info/objects': '物体',
-			'viewport/info/vertices': '顶点',
-			'viewport/info/triangles': '三角形',
-			'viewport/info/frametime': '帧时'
+			}
 
 		}
+
+		return this;
+
+	}
+
+	clear() {
+
+		while ( this.dom.children.length ) {
+
+			this.dom.removeChild( this.dom.lastChild );
+
+		}
+
+	}
+
+	setId( id ) {
+
+		this.dom.id = id;
+
+		return this;
+
+	}
+
+	getId() {
+
+		return this.dom.id;
+
+	}
+
+	setClass( name ) {
+
+		this.dom.className = name;
+
+		return this;
+
+	}
+
+	addClass( name ) {
+
+		this.dom.classList.add( name );
+
+		return this;
+
+	}
+
+	removeClass( name ) {
+
+		this.dom.classList.remove( name );
+
+		return this;
+
+	}
+
+	setStyle( style, array ) {
+
+		for ( let i = 0; i < array.length; i ++ ) {
+
+			this.dom.style[ style ] = array[ i ];
+
+		}
+
+		return this;
+
+	}
+
+	setDisabled( value ) {
+
+		this.dom.disabled = value;
+
+		return this;
+
+	}
+
+	setTextContent( value ) {
+
+		this.dom.textContent = value;
+
+		return this;
+
+	}
+
+	setInnerHTML( value ) {
+
+		this.dom.innerHTML = value;
+
+	}
+
+	getIndexOfChild( element ) {
+
+		return Array.prototype.indexOf.call( this.dom.children, element.dom );
+
+	}
+
+}
+
+// properties
+
+const properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
+	'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'verticalAlign', 'color',
+	'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
+
+properties.forEach( function ( property ) {
+
+	const method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
+
+	UIElement.prototype[ method ] = function () {
+
+		this.setStyle( property, arguments );
+
+		return this;
 
 	};
 
-	return {
+} );
 
-		getKey: function ( key ) {
+// events
 
-			return values[ language ][ key ] || '???';
+const events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input' ];
 
-		}
+events.forEach( function ( event ) {
+
+	const method = 'on' + event;
+
+	UIElement.prototype[ method ] = function ( callback ) {
+
+		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ) );
+
+		return this;
 
 	};
 
-}
+} );
 
-function Storage() {
+class UISpan extends UIElement {
 
-	const indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+	constructor() {
 
-	if ( indexedDB === undefined ) {
-
-		console.warn( 'Storage: IndexedDB not available.' );
-		return { init: function () {}, get: function () {}, set: function () {}, clear: function () {} };
+		super( document.createElement( 'span' ) );
 
 	}
 
-	const name = 'threejs-editor';
-	const version = 1;
+}
 
-	let database;
+class UIDiv extends UIElement {
 
-	return {
+	constructor() {
 
-		init: function ( callback ) {
+		super( document.createElement( 'div' ) );
 
-			const request = indexedDB.open( name, version );
-			request.onupgradeneeded = function ( event ) {
-
-				const db = event.target.result;
-
-				if ( db.objectStoreNames.contains( 'states' ) === false ) {
-
-					db.createObjectStore( 'states' );
-
-				}
-
-			};
-
-			request.onsuccess = function ( event ) {
-
-				database = event.target.result;
-
-				callback();
-
-			};
-
-			request.onerror = function ( event ) {
-
-				console.error( 'IndexedDB', event );
-
-			};
-
-
-		},
-
-		get: function ( callback ) {
-
-			const transaction = database.transaction( [ 'states' ], 'readwrite' );
-			const objectStore = transaction.objectStore( 'states' );
-			const request = objectStore.get( 0 );
-			request.onsuccess = function ( event ) {
-
-				callback( event.target.result );
-
-			};
-
-		},
-
-		set: function ( data ) {
-
-			const start = performance.now();
-
-			const transaction = database.transaction( [ 'states' ], 'readwrite' );
-			const objectStore = transaction.objectStore( 'states' );
-			const request = objectStore.put( data, 0 );
-			request.onsuccess = function () {
-
-				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Saved state to IndexedDB. ' + ( performance.now() - start ).toFixed( 2 ) + 'ms' );
-
-			};
-
-		},
-
-		clear: function () {
-
-			if ( database === undefined ) return;
-
-			const transaction = database.transaction( [ 'states' ], 'readwrite' );
-			const objectStore = transaction.objectStore( 'states' );
-			const request = objectStore.clear();
-			request.onsuccess = function () {
-
-				console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Cleared IndexedDB.' );
-
-			};
-
-		}
-
-	};
+	}
 
 }
 
-var _DEFAULT_CAMERA = new PerspectiveCamera( 50, 1, 0.01, 1000 );
-_DEFAULT_CAMERA.name = 'Camera';
-_DEFAULT_CAMERA.position.set( 0, 5, 10 );
-_DEFAULT_CAMERA.lookAt( new Vector3() );
+class UIRow extends UIDiv {
 
-function Editor(signals) {
+	constructor() {
 
-	var Signal = signals.Signal;
+		super();
 
-	this.signals = {
+		this.dom.className = 'Row';
 
-		// script
-
-		editScript: new Signal(),
-
-		// player
-
-		startPlayer: new Signal(),
-		stopPlayer: new Signal(),
-
-		// vr
-
-		toggleVR: new Signal(),
-		exitedVR: new Signal(),
-
-		// notifications
-
-		editorCleared: new Signal(),
-
-		savingStarted: new Signal(),
-		savingFinished: new Signal(),
-
-		transformModeChanged: new Signal(),
-		snapChanged: new Signal(),
-		spaceChanged: new Signal(),
-		rendererCreated: new Signal(),
-		rendererUpdated: new Signal(),
-
-		sceneBackgroundChanged: new Signal(),
-		sceneEnvironmentChanged: new Signal(),
-		sceneFogChanged: new Signal(),
-		sceneFogSettingsChanged: new Signal(),
-		sceneGraphChanged: new Signal(),
-		sceneRendered: new Signal(),
-
-		cameraChanged: new Signal(),
-		cameraResetted: new Signal(),
-
-		geometryChanged: new Signal(),
-
-		objectSelected: new Signal(),
-		objectFocused: new Signal(),
-
-		objectAdded: new Signal(),
-		objectChanged: new Signal(),
-		objectRemoved: new Signal(),
-
-		cameraAdded: new Signal(),
-		cameraRemoved: new Signal(),
-
-		helperAdded: new Signal(),
-		helperRemoved: new Signal(),
-
-		materialAdded: new Signal(),
-		materialChanged: new Signal(),
-		materialRemoved: new Signal(),
-
-		scriptAdded: new Signal(),
-		scriptChanged: new Signal(),
-		scriptRemoved: new Signal(),
-
-		windowResize: new Signal(),
-
-		showGridChanged: new Signal(),
-		showHelpersChanged: new Signal(),
-		refreshSidebarObject3D: new Signal(),
-		historyChanged: new Signal(),
-
-		viewportCameraChanged: new Signal(),
-
-		animationStopped: new Signal()
-
-	};
-
-	this.config = new Config();
-	this.history = new History( this );
-	this.storage = new Storage();
-	this.strings = new Strings( this.config );
-
-	this.loader = new Loader( this );
-
-	this.camera = _DEFAULT_CAMERA.clone();
-
-	this.scene = new Scene();
-	this.scene.name = 'Scene';
-
-	this.sceneHelpers = new Scene();
-
-	this.object = {};
-	this.geometries = {};
-	this.materials = {};
-	this.textures = {};
-	this.scripts = {};
-
-	this.materialsRefCounter = new Map(); // tracks how often is a material used by a 3D object
-
-	this.mixer = new AnimationMixer( this.scene );
-
-	this.selected = null;
-	this.helpers = {};
-
-	this.cameras = {};
-	this.viewportCamera = this.camera;
-
-	this.addCamera( this.camera );
+	}
 
 }
 
-Editor.prototype = {
+class UIPanel extends UIDiv {
 
-	setScene: function ( scene ) {
+	constructor() {
 
-		this.scene.uuid = scene.uuid;
-		this.scene.name = scene.name;
+		super();
 
-		this.scene.background = scene.background;
-		this.scene.environment = scene.environment;
-		this.scene.fog = scene.fog;
+		this.dom.className = 'Panel';
 
-		this.scene.userData = JSON.parse( JSON.stringify( scene.userData ) );
+	}
 
-		// avoid render per object
+}
 
-		this.signals.sceneGraphChanged.active = false;
+class UIText extends UISpan {
 
-		while ( scene.children.length > 0 ) {
+	constructor( text ) {
 
-			this.addObject( scene.children[ 0 ] );
+		super();
+
+		this.dom.className = 'Text';
+		this.dom.style.cursor = 'default';
+		this.dom.style.display = 'inline-block';
+
+		this.setValue( text );
+
+	}
+
+	getValue() {
+
+		return this.dom.textContent;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			this.dom.textContent = value;
 
 		}
 
-		this.signals.sceneGraphChanged.active = true;
-		this.signals.sceneGraphChanged.dispatch();
+		return this;
 
-	},
+	}
 
-	//
+}
 
-	addObject: function ( object, parent, index ) {
 
-		var scope = this;
+class UIInput extends UIElement {
 
-		object.traverse( function ( child ) {
+	constructor( text ) {
 
-			if ( child.geometry !== undefined ) scope.addGeometry( child.geometry );
-			if ( child.material !== undefined ) scope.addMaterial( child.material );
+		super( document.createElement( 'input' ) );
 
-			scope.addCamera( child );
-			scope.addHelper( child );
+		this.dom.className = 'Input';
+		this.dom.style.padding = '2px';
+		this.dom.style.border = '1px solid transparent';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.dom.addEventListener( 'keydown', function ( event ) {
+
+			event.stopPropagation();
 
 		} );
 
-		if ( parent === undefined ) {
+		this.setValue( text );
 
-			this.scene.add( object );
+	}
 
-		} else {
+	getValue() {
 
-			parent.children.splice( index, 0, object );
-			object.parent = parent;
+		return this.dom.value;
 
-		}
+	}
 
-		this.signals.objectAdded.dispatch( object );
-		this.signals.sceneGraphChanged.dispatch();
+	setValue( value ) {
 
-	},
+		this.dom.value = value;
 
-	moveObject: function ( object, parent, before ) {
+		return this;
 
-		if ( parent === undefined ) {
+	}
 
-			parent = this.scene;
+}
 
-		}
+class UITextArea extends UIElement {
 
-		parent.add( object );
+	constructor() {
 
-		// sort children array
+		super( document.createElement( 'textarea' ) );
 
-		if ( before !== undefined ) {
+		this.dom.className = 'TextArea';
+		this.dom.style.padding = '2px';
+		this.dom.spellcheck = false;
 
-			var index = parent.children.indexOf( before );
-			parent.children.splice( index, 0, object );
-			parent.children.pop();
+		this.dom.setAttribute( 'autocomplete', 'off' );
 
-		}
+		this.dom.addEventListener( 'keydown', function ( event ) {
 
-		this.signals.sceneGraphChanged.dispatch();
+			event.stopPropagation();
 
-	},
+			if ( event.keyCode === 9 ) {
 
-	nameObject: function ( object, name ) {
+				event.preventDefault();
 
-		object.name = name;
-		this.signals.sceneGraphChanged.dispatch();
+				const cursor = this.selectionStart;
 
-	},
+				this.value = this.value.substring( 0, cursor ) + '\t' + this.value.substring( cursor );
+				this.selectionStart = cursor + 1;
+				this.selectionEnd = this.selectionStart;
 
-	removeObject: function ( object ) {
-
-		if ( object.parent === null ) return; // avoid deleting the camera or scene
-
-		var scope = this;
-
-		object.traverse( function ( child ) {
-
-			scope.removeCamera( child );
-			scope.removeHelper( child );
-
-			if ( child.material !== undefined ) scope.removeMaterial( child.material );
+			}
 
 		} );
 
-		object.parent.remove( object );
+	}
 
-		this.signals.objectRemoved.dispatch( object );
-		this.signals.sceneGraphChanged.dispatch();
+	getValue() {
 
-	},
+		return this.dom.value;
 
-	addGeometry: function ( geometry ) {
+	}
 
-		this.geometries[ geometry.uuid ] = geometry;
+	setValue( value ) {
 
-	},
+		this.dom.value = value;
 
-	setGeometryName: function ( geometry, name ) {
+		return this;
 
-		geometry.name = name;
-		this.signals.sceneGraphChanged.dispatch();
+	}
 
-	},
+}
 
-	addMaterial: function ( material ) {
+class UISelect extends UIElement {
 
-		if ( Array.isArray( material ) ) {
+	constructor() {
 
-			for ( var i = 0, l = material.length; i < l; i ++ ) {
+		super( document.createElement( 'select' ) );
 
-				this.addMaterialToRefCounter( material[ i ] );
+		this.dom.className = 'Select';
+		this.dom.style.padding = '2px';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+	}
+
+	setMultiple( boolean ) {
+
+		this.dom.multiple = boolean;
+
+		return this;
+
+	}
+
+	setOptions( options ) {
+
+		const selected = this.dom.value;
+
+		while ( this.dom.children.length > 0 ) {
+
+			this.dom.removeChild( this.dom.firstChild );
+
+		}
+
+		for ( const key in options ) {
+
+			const option = document.createElement( 'option' );
+			option.value = key;
+			option.innerHTML = options[ key ];
+			this.dom.appendChild( option );
+
+		}
+
+		this.dom.value = selected;
+
+		return this;
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	setValue( value ) {
+
+		value = String( value );
+
+		if ( this.dom.value !== value ) {
+
+			this.dom.value = value;
+
+		}
+
+		return this;
+
+	}
+
+}
+
+class UICheckbox extends UIElement {
+
+	constructor( boolean ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.className = 'Checkbox';
+		this.dom.type = 'checkbox';
+
+		this.setValue( boolean );
+
+	}
+
+	getValue() {
+
+		return this.dom.checked;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			this.dom.checked = value;
+
+		}
+
+		return this;
+
+	}
+
+}
+
+
+class UIColor extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.className = 'Color';
+		this.dom.style.width = '32px';
+		this.dom.style.height = '16px';
+		this.dom.style.border = '0px';
+		this.dom.style.padding = '2px';
+		this.dom.style.backgroundColor = 'transparent';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		try {
+
+			this.dom.type = 'color';
+			this.dom.value = '#ffffff';
+
+		} catch ( exception ) {}
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	getHexValue() {
+
+		return parseInt( this.dom.value.substr( 1 ), 16 );
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+		return this;
+
+	}
+
+	setHexValue( hex ) {
+
+		this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
+
+		return this;
+
+	}
+
+}
+
+class UINumber extends UIElement {
+
+	constructor( number ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.style.cursor = 'ns-resize';
+		this.dom.className = 'Number';
+		this.dom.value = '0.00';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.value = 0;
+
+		this.min = - Infinity;
+		this.max = Infinity;
+
+		this.precision = 2;
+		this.step = 1;
+		this.unit = '';
+		this.nudge = 0.01;
+
+		this.setValue( number );
+
+		const scope = this;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+
+		let distance = 0;
+		let onMouseDownValue = 0;
+
+		const pointer = { x: 0, y: 0 };
+		const prevPointer = { x: 0, y: 0 };
+
+		function onMouseDown( event ) {
+
+			event.preventDefault();
+
+			distance = 0;
+
+			onMouseDownValue = scope.value;
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+			document.addEventListener( 'mousemove', onMouseMove );
+			document.addEventListener( 'mouseup', onMouseUp );
+
+		}
+
+		function onMouseMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.clientX;
+			pointer.y = event.clientY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
 
 			}
 
-		} else {
-
-			this.addMaterialToRefCounter( material );
-
-		}
-
-		this.signals.materialAdded.dispatch();
-
-	},
-
-	addMaterialToRefCounter: function ( material ) {
-
-		var materialsRefCounter = this.materialsRefCounter;
-
-		var count = materialsRefCounter.get( material );
-
-		if ( count === undefined ) {
-
-			materialsRefCounter.set( material, 1 );
-			this.materials[ material.uuid ] = material;
-
-		} else {
-
-			count ++;
-			materialsRefCounter.set( material, count );
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
 
 		}
 
-	},
+		function onMouseUp() {
 
-	removeMaterial: function ( material ) {
+			document.removeEventListener( 'mousemove', onMouseMove );
+			document.removeEventListener( 'mouseup', onMouseUp );
 
-		if ( Array.isArray( material ) ) {
+			if ( Math.abs( distance ) < 2 ) {
 
-			for ( var i = 0, l = material.length; i < l; i ++ ) {
-
-				this.removeMaterialFromRefCounter( material[ i ] );
-
-			}
-
-		} else {
-
-			this.removeMaterialFromRefCounter( material );
-
-		}
-
-		this.signals.materialRemoved.dispatch();
-
-	},
-
-	removeMaterialFromRefCounter: function ( material ) {
-
-		var materialsRefCounter = this.materialsRefCounter;
-
-		var count = materialsRefCounter.get( material );
-		count --;
-
-		if ( count === 0 ) {
-
-			materialsRefCounter.delete( material );
-			delete this.materials[ material.uuid ];
-
-		} else {
-
-			materialsRefCounter.set( material, count );
-
-		}
-
-	},
-
-	getMaterialById: function ( id ) {
-
-		var material;
-		var materials = Object.values( this.materials );
-
-		for ( var i = 0; i < materials.length; i ++ ) {
-
-			if ( materials[ i ].id === id ) {
-
-				material = materials[ i ];
-				break;
+				scope.dom.focus();
+				scope.dom.select();
 
 			}
 
 		}
 
-		return material;
+		function onTouchStart( event ) {
 
-	},
+			if ( event.touches.length === 1 ) {
 
-	setMaterialName: function ( material, name ) {
+				distance = 0;
 
-		material.name = name;
-		this.signals.sceneGraphChanged.dispatch();
+				onMouseDownValue = scope.value;
 
-	},
+				prevPointer.x = event.touches[ 0 ].pageX;
+				prevPointer.y = event.touches[ 0 ].pageY;
 
-	addTexture: function ( texture ) {
-
-		this.textures[ texture.uuid ] = texture;
-
-	},
-
-	//
-
-	addCamera: function ( camera ) {
-
-		if ( camera.isCamera ) {
-
-			this.cameras[ camera.uuid ] = camera;
-
-			this.signals.cameraAdded.dispatch( camera );
-
-		}
-
-	},
-
-	removeCamera: function ( camera ) {
-
-		if ( this.cameras[ camera.uuid ] !== undefined ) {
-
-			delete this.cameras[ camera.uuid ];
-
-			this.signals.cameraRemoved.dispatch( camera );
-
-		}
-
-	},
-
-	//
-
-	addHelper: function () {
-
-		var geometry = new SphereGeometry( 2, 4, 2 );
-		var material = new MeshBasicMaterial( { color: 0xff0000, visible: false } );
-
-		return function ( object, helper ) {
-
-			if ( helper === undefined ) {
-
-				if ( object.isCamera ) {
-
-					helper = new CameraHelper( object );
-
-				} else if ( object.isPointLight ) {
-
-					helper = new PointLightHelper( object, 1 );
-
-				} else if ( object.isDirectionalLight ) {
-
-					helper = new DirectionalLightHelper( object, 1 );
-
-				} else if ( object.isSpotLight ) {
-
-					helper = new SpotLightHelper( object );
-
-				} else if ( object.isHemisphereLight ) {
-
-					helper = new HemisphereLightHelper( object, 1 );
-
-				} else if ( object.isSkinnedMesh ) {
-
-					helper = new SkeletonHelper( object.skeleton.bones[ 0 ] );
-
-				} else if ( object.isBone === true && object.parent?.isBone !== true ) {
-
-					helper = new SkeletonHelper( object );
-
-				} else {
-
-					// no helper for this object type
-					return;
-
-				}
-
-				var picker = new Mesh( geometry, material );
-				picker.name = 'picker';
-				picker.userData.object = object;
-				helper.add( picker );
+				document.addEventListener( 'touchmove', onTouchMove );
+				document.addEventListener( 'touchend', onTouchEnd );
 
 			}
 
-			this.sceneHelpers.add( helper );
-			this.helpers[ object.id ] = helper;
+		}
 
-			this.signals.helperAdded.dispatch( helper );
+		function onTouchMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.touches[ 0 ].pageX;
+			pointer.y = event.touches[ 0 ].pageY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
+
+			}
+
+			prevPointer.x = event.touches[ 0 ].pageX;
+			prevPointer.y = event.touches[ 0 ].pageY;
+
+		}
+
+		function onTouchEnd( event ) {
+
+			if ( event.touches.length === 0 ) {
+
+				document.removeEventListener( 'touchmove', onTouchMove );
+				document.removeEventListener( 'touchend', onTouchEnd );
+
+			}
+
+		}
+
+		function onChange() {
+
+			scope.setValue( scope.dom.value );
+
+		}
+
+		function onFocus() {
+
+			scope.dom.style.backgroundColor = '';
+			scope.dom.style.cursor = '';
+
+		}
+
+		function onBlur() {
+
+			scope.dom.style.backgroundColor = 'transparent';
+			scope.dom.style.cursor = 'ns-resize';
+
+		}
+
+		function onKeyDown( event ) {
+
+			event.stopPropagation();
+
+			switch ( event.keyCode ) {
+
+				case 13: // enter
+					scope.dom.blur();
+					break;
+
+				case 38: // up
+					event.preventDefault();
+					scope.setValue( scope.getValue() + scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+				case 40: // down
+					event.preventDefault();
+					scope.setValue( scope.getValue() - scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+			}
+
+		}
+
+		onBlur();
+
+		this.dom.addEventListener( 'keydown', onKeyDown );
+		this.dom.addEventListener( 'mousedown', onMouseDown );
+		this.dom.addEventListener( 'touchstart', onTouchStart );
+		this.dom.addEventListener( 'change', onChange );
+		this.dom.addEventListener( 'focus', onFocus );
+		this.dom.addEventListener( 'blur', onBlur );
+
+	}
+
+	getValue() {
+
+		return this.value;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			value = parseFloat( value );
+
+			if ( value < this.min ) value = this.min;
+			if ( value > this.max ) value = this.max;
+
+			this.value = value;
+			this.dom.value = value.toFixed( this.precision );
+
+			if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
+
+		}
+
+		return this;
+
+	}
+
+	setPrecision( precision ) {
+
+		this.precision = precision;
+
+		return this;
+
+	}
+
+	setStep( step ) {
+
+		this.step = step;
+
+		return this;
+
+	}
+
+	setNudge( nudge ) {
+
+		this.nudge = nudge;
+
+		return this;
+
+	}
+
+	setRange( min, max ) {
+
+		this.min = min;
+		this.max = max;
+
+		return this;
+
+	}
+
+	setUnit( unit ) {
+
+		this.unit = unit;
+
+		return this;
+
+	}
+
+}
+
+class UIInteger extends UIElement {
+
+	constructor( number ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.style.cursor = 'ns-resize';
+		this.dom.className = 'Number';
+		this.dom.value = '0';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.value = 0;
+
+		this.min = - Infinity;
+		this.max = Infinity;
+
+		this.step = 1;
+		this.nudge = 1;
+
+		this.setValue( number );
+
+		const scope = this;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+
+		let distance = 0;
+		let onMouseDownValue = 0;
+
+		const pointer = { x: 0, y: 0 };
+		const prevPointer = { x: 0, y: 0 };
+
+		function onMouseDown( event ) {
+
+			event.preventDefault();
+
+			distance = 0;
+
+			onMouseDownValue = scope.value;
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+			document.addEventListener( 'mousemove', onMouseMove );
+			document.addEventListener( 'mouseup', onMouseUp );
+
+		}
+
+		function onMouseMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.clientX;
+			pointer.y = event.clientY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
+
+			}
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+		}
+
+		function onMouseUp() {
+
+			document.removeEventListener( 'mousemove', onMouseMove );
+			document.removeEventListener( 'mouseup', onMouseUp );
+
+			if ( Math.abs( distance ) < 2 ) {
+
+				scope.dom.focus();
+				scope.dom.select();
+
+			}
+
+		}
+
+		function onChange() {
+
+			scope.setValue( scope.dom.value );
+
+		}
+
+		function onFocus() {
+
+			scope.dom.style.backgroundColor = '';
+			scope.dom.style.cursor = '';
+
+		}
+
+		function onBlur() {
+
+			scope.dom.style.backgroundColor = 'transparent';
+			scope.dom.style.cursor = 'ns-resize';
+
+		}
+
+		function onKeyDown( event ) {
+
+			event.stopPropagation();
+
+			switch ( event.keyCode ) {
+
+				case 13: // enter
+					scope.dom.blur();
+					break;
+
+				case 38: // up
+					event.preventDefault();
+					scope.setValue( scope.getValue() + scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+				case 40: // down
+					event.preventDefault();
+					scope.setValue( scope.getValue() - scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+			}
+
+		}
+
+		onBlur();
+
+		this.dom.addEventListener( 'keydown', onKeyDown );
+		this.dom.addEventListener( 'mousedown', onMouseDown );
+		this.dom.addEventListener( 'change', onChange );
+		this.dom.addEventListener( 'focus', onFocus );
+		this.dom.addEventListener( 'blur', onBlur );
+
+	}
+
+	getValue() {
+
+		return this.value;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			value = parseInt( value );
+
+			this.value = value;
+			this.dom.value = value;
+
+		}
+
+		return this;
+
+	}
+
+	setStep( step ) {
+
+		this.step = parseInt( step );
+
+		return this;
+
+	}
+
+	setNudge( nudge ) {
+
+		this.nudge = nudge;
+
+		return this;
+
+	}
+
+	setRange( min, max ) {
+
+		this.min = min;
+		this.max = max;
+
+		return this;
+
+	}
+
+}
+
+class UIBreak extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'br' ) );
+
+		this.dom.className = 'Break';
+
+	}
+
+}
+
+class UIHorizontalRule extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'hr' ) );
+
+		this.dom.className = 'HorizontalRule';
+
+	}
+
+}
+
+class UIButton extends UIElement {
+
+	constructor( value ) {
+
+		super( document.createElement( 'button' ) );
+
+		this.dom.className = 'Button';
+		this.dom.textContent = value;
+
+	}
+
+}
+
+class UIProgress extends UIElement {
+
+	constructor( value ) {
+
+		super( document.createElement( 'progress' ) );
+
+		this.dom.value = value;
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+	}
+
+}
+
+class UITabbedPanel extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'TabbedPanel';
+
+		this.tabs = [];
+		this.panels = [];
+
+		this.tabsDiv = new UIDiv();
+		this.tabsDiv.setClass( 'Tabs' );
+
+		this.panelsDiv = new UIDiv();
+		this.panelsDiv.setClass( 'Panels' );
+
+		this.add( this.tabsDiv );
+		this.add( this.panelsDiv );
+
+		this.selected = '';
+
+	}
+
+	select( id ) {
+
+		let tab;
+		let panel;
+		const scope = this;
+
+		// Deselect current selection
+		if ( this.selected && this.selected.length ) {
+
+			tab = this.tabs.find( function ( item ) {
+
+				return item.dom.id === scope.selected;
+
+			} );
+			panel = this.panels.find( function ( item ) {
+
+				return item.dom.id === scope.selected;
+
+			} );
+
+			if ( tab ) {
+
+				tab.removeClass( 'selected' );
+
+			}
+
+			if ( panel ) {
+
+				panel.setDisplay( 'none' );
+
+			}
+
+		}
+
+		tab = this.tabs.find( function ( item ) {
+
+			return item.dom.id === id;
+
+		} );
+		panel = this.panels.find( function ( item ) {
+
+			return item.dom.id === id;
+
+		} );
+
+		if ( tab ) {
+
+			tab.addClass( 'selected' );
+
+		}
+
+		if ( panel ) {
+
+			panel.setDisplay( '' );
+
+		}
+
+		this.selected = id;
+
+		return this;
+
+	}
+
+	addTab( id, label, items ) {
+
+		const tab = new UITab( label, this );
+		tab.setId( id );
+		this.tabs.push( tab );
+		this.tabsDiv.add( tab );
+
+		const panel = new UIDiv();
+		panel.setId( id );
+		panel.add( items );
+		panel.setDisplay( 'none' );
+		this.panels.push( panel );
+		this.panelsDiv.add( panel );
+
+		this.select( id );
+
+	}
+
+}
+
+class UITab extends UIText {
+
+	constructor( text, parent ) {
+
+		super( text );
+
+		this.dom.className = 'Tab';
+
+		this.parent = parent;
+
+		const scope = this;
+
+		this.dom.addEventListener( 'click', function () {
+
+			scope.parent.select( scope.dom.id );
+
+		} );
+
+	}
+
+}
+
+class UIListbox extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'Listbox';
+		this.dom.tabIndex = 0;
+
+		this.items = [];
+		this.listitems = [];
+		this.selectedIndex = 0;
+		this.selectedValue = null;
+
+	}
+
+	setItems( items ) {
+
+		if ( Array.isArray( items ) ) {
+
+			this.items = items;
+
+		}
+
+		this.render();
+
+	}
+
+	render( ) {
+
+		while ( this.listitems.length ) {
+
+			const item = this.listitems[ 0 ];
+
+			item.dom.remove();
+
+			this.listitems.splice( 0, 1 );
+
+		}
+
+		for ( let i = 0; i < this.items.length; i ++ ) {
+
+			const item = this.items[ i ];
+
+			const listitem = new UIListbox.ListboxItem( this );
+			listitem.setId( item.id || `Listbox-${i}` );
+			listitem.setTextContent( item.name || item.type );
+			this.add( listitem );
+
+		}
+
+	}
+
+	add() {
+
+		const items = Array.from( arguments );
+
+		this.listitems = this.listitems.concat( items );
+
+		UIElement.prototype.add.apply( this, items );
+
+	}
+
+	selectIndex( index ) {
+
+		if ( index >= 0 && index < this.items.length ) {
+
+			this.setValue( this.listitems[ index ].getId() );
+
+		}
+
+		this.selectedIndex = index;
+
+	}
+
+	getValue() {
+
+		return this.selectedValue;
+
+	}
+
+	setValue( value ) {
+
+		for ( let i = 0; i < this.listitems.length; i ++ ) {
+
+			const element = this.listitems[ i ];
+
+			if ( element.getId() === value ) {
+
+				element.addClass( 'active' );
+
+			} else {
+
+				element.removeClass( 'active' );
+
+			}
+
+		}
+
+		this.selectedValue = value;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+		this.dom.dispatchEvent( changeEvent );
+
+	}
+
+}
+
+class ListboxItem extends UIDiv {
+
+	constructor( parent ) {
+
+		super();
+
+		this.dom.className = 'ListboxItem';
+
+		this.parent = parent;
+
+		const scope = this;
+
+		function onClick() {
+
+			if ( scope.parent ) {
+
+				scope.parent.setValue( scope.getId( ) );
+
+			}
+
+		}
+
+		this.dom.addEventListener( 'click', onClick );
+
+	}
+
+}
+
+const vpTemp = new Vector4();
+
+class ViewHelper$1 extends Object3D {
+
+	constructor( editorCamera, dom ) {
+
+		super();
+
+		this.animating = false;
+		this.controls = null;
+
+		const color1 = new Color( '#ff3653' );
+		const color2 = new Color( '#8adb00' );
+		const color3 = new Color( '#2c8fff' );
+
+		const interactiveObjects = [];
+		const raycaster = new Raycaster();
+		const mouse = new Vector2();
+		const dummy = new Object3D();
+
+		const camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
+		camera.position.set( 0, 0, 2 );
+
+		const geometry = new BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
+
+		const xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
+		const yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
+		const zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
+
+		yAxis.rotation.z = Math.PI / 2;
+		zAxis.rotation.y = - Math.PI / 2;
+
+		this.add( xAxis );
+		this.add( zAxis );
+		this.add( yAxis );
+
+		const posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
+		posXAxisHelper.userData.type = 'posX';
+		const posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
+		posYAxisHelper.userData.type = 'posY';
+		const posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
+		posZAxisHelper.userData.type = 'posZ';
+		const negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
+		negXAxisHelper.userData.type = 'negX';
+		const negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
+		negYAxisHelper.userData.type = 'negY';
+		const negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
+		negZAxisHelper.userData.type = 'negZ';
+
+		posXAxisHelper.position.x = 1;
+		posYAxisHelper.position.y = 1;
+		posZAxisHelper.position.z = 1;
+		negXAxisHelper.position.x = - 1;
+		negXAxisHelper.scale.setScalar( 0.8 );
+		negYAxisHelper.position.y = - 1;
+		negYAxisHelper.scale.setScalar( 0.8 );
+		negZAxisHelper.position.z = - 1;
+		negZAxisHelper.scale.setScalar( 0.8 );
+
+		this.add( posXAxisHelper );
+		this.add( posYAxisHelper );
+		this.add( posZAxisHelper );
+		this.add( negXAxisHelper );
+		this.add( negYAxisHelper );
+		this.add( negZAxisHelper );
+
+		interactiveObjects.push( posXAxisHelper );
+		interactiveObjects.push( posYAxisHelper );
+		interactiveObjects.push( posZAxisHelper );
+		interactiveObjects.push( negXAxisHelper );
+		interactiveObjects.push( negYAxisHelper );
+		interactiveObjects.push( negZAxisHelper );
+
+		const point = new Vector3();
+		const dim = 128;
+		const turnRate = 2 * Math.PI; // turn rate in angles per second
+
+		this.render = function ( renderer ) {
+
+			this.quaternion.copy( editorCamera.quaternion ).invert();
+			this.updateMatrixWorld();
+
+			point.set( 0, 0, 1 );
+			point.applyQuaternion( editorCamera.quaternion );
+
+			if ( point.x >= 0 ) {
+
+				posXAxisHelper.material.opacity = 1;
+				negXAxisHelper.material.opacity = 0.5;
+
+			} else {
+
+				posXAxisHelper.material.opacity = 0.5;
+				negXAxisHelper.material.opacity = 1;
+
+			}
+
+			if ( point.y >= 0 ) {
+
+				posYAxisHelper.material.opacity = 1;
+				negYAxisHelper.material.opacity = 0.5;
+
+			} else {
+
+				posYAxisHelper.material.opacity = 0.5;
+				negYAxisHelper.material.opacity = 1;
+
+			}
+
+			if ( point.z >= 0 ) {
+
+				posZAxisHelper.material.opacity = 1;
+				negZAxisHelper.material.opacity = 0.5;
+
+			} else {
+
+				posZAxisHelper.material.opacity = 0.5;
+				negZAxisHelper.material.opacity = 1;
+
+			}
+
+			//
+
+			const x = dom.offsetWidth - dim;
+
+			renderer.clearDepth();
+
+			renderer.getViewport( vpTemp );
+			renderer.setViewport( x, 0, dim, dim );
+
+			renderer.render( this, camera );
+
+			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
 
 		};
 
-	}(),
+		const targetPosition = new Vector3();
+		const targetQuaternion = new Quaternion();
 
-	removeHelper: function ( object ) {
+		const q1 = new Quaternion();
+		const q2 = new Quaternion();
+		let radius = 0;
 
-		if ( this.helpers[ object.id ] !== undefined ) {
+		this.handleClick = function ( event ) {
 
-			var helper = this.helpers[ object.id ];
-			helper.parent.remove( helper );
+			if ( this.animating === true ) return false;
 
-			delete this.helpers[ object.id ];
+			const rect = dom.getBoundingClientRect();
+			const offsetX = rect.left + ( container.dom.offsetWidth - dim );
+			const offsetY = rect.top + ( container.dom.offsetHeight - dim );
+			mouse.x = ( ( event.clientX - offsetX ) / ( rect.width - offsetX ) ) * 2 - 1;
+			mouse.y = - ( ( event.clientY - offsetY ) / ( rect.bottom - offsetY ) ) * 2 + 1;
 
-			this.signals.helperRemoved.dispatch( helper );
+			raycaster.setFromCamera( mouse, camera );
 
-		}
+			const intersects = raycaster.intersectObjects( interactiveObjects );
 
-	},
+			if ( intersects.length > 0 ) {
 
-	//
+				const intersection = intersects[ 0 ];
+				const object = intersection.object;
 
-	addScript: function ( object, script ) {
+				prepareAnimationData( object, this.controls.center );
 
-		if ( this.scripts[ object.uuid ] === undefined ) {
+				this.animating = true;
 
-			this.scripts[ object.uuid ] = [];
+				return true;
 
-		}
+			} else {
 
-		this.scripts[ object.uuid ].push( script );
-
-		this.signals.scriptAdded.dispatch( script );
-
-	},
-
-	removeScript: function ( object, script ) {
-
-		if ( this.scripts[ object.uuid ] === undefined ) return;
-
-		var index = this.scripts[ object.uuid ].indexOf( script );
-
-		if ( index !== - 1 ) {
-
-			this.scripts[ object.uuid ].splice( index, 1 );
-
-		}
-
-		this.signals.scriptRemoved.dispatch( script );
-
-	},
-
-	getObjectMaterial: function ( object, slot ) {
-
-		var material = object.material;
-
-		if ( Array.isArray( material ) && slot !== undefined ) {
-
-			material = material[ slot ];
-
-		}
-
-		return material;
-
-	},
-
-	setObjectMaterial: function ( object, slot, newMaterial ) {
-
-		if ( Array.isArray( object.material ) && slot !== undefined ) {
-
-			object.material[ slot ] = newMaterial;
-
-		} else {
-
-			object.material = newMaterial;
-
-		}
-
-	},
-
-	setViewportCamera: function ( uuid ) {
-
-		this.viewportCamera = this.cameras[ uuid ];
-		this.signals.viewportCameraChanged.dispatch();
-
-	},
-
-	//
-
-	select: function ( object ) {
-
-		if ( this.selected === object ) return;
-
-		var uuid = null;
-
-		if ( object !== null ) {
-
-			uuid = object.uuid;
-
-		}
-
-		this.selected = object;
-
-		this.config.setKey( 'selected', uuid );
-		this.signals.objectSelected.dispatch( object );
-
-	},
-
-	selectById: function ( id ) {
-
-		if ( id === this.camera.id ) {
-
-			this.select( this.camera );
-			return;
-
-		}
-
-		this.select( this.scene.getObjectById( id ) );
-
-	},
-
-	selectByUuid: function ( uuid ) {
-
-		var scope = this;
-
-		this.scene.traverse( function ( child ) {
-
-			if ( child.uuid === uuid ) {
-
-				scope.select( child );
+				return false;
 
 			}
-
-		} );
-
-	},
-
-	deselect: function () {
-
-		this.select( null );
-
-	},
-
-	focus: function ( object ) {
-
-		if ( object !== undefined ) {
-
-			this.signals.objectFocused.dispatch( object );
-
-		}
-
-	},
-
-	focusById: function ( id ) {
-
-		this.focus( this.scene.getObjectById( id ) );
-
-	},
-
-	clear: function () {
-
-		this.history.clear();
-		this.storage.clear();
-
-		this.camera.copy( _DEFAULT_CAMERA );
-		this.signals.cameraResetted.dispatch();
-
-		this.scene.name = 'Scene';
-		this.scene.userData = {};
-		this.scene.background = null;
-		this.scene.environment = null;
-		this.scene.fog = null;
-
-		var objects = this.scene.children;
-
-		while ( objects.length > 0 ) {
-
-			this.removeObject( objects[ 0 ] );
-
-		}
-
-		this.geometries = {};
-		this.materials = {};
-		this.textures = {};
-		this.scripts = {};
-
-		this.materialsRefCounter.clear();
-
-		this.animations = {};
-		this.mixer.stopAllAction();
-
-		this.deselect();
-
-		this.signals.editorCleared.dispatch();
-
-	},
-
-	//
-
-	fromJSON: async function ( json ) {
-
-		var loader = new ObjectLoader();
-		var camera = await loader.parseAsync( json.camera );
-
-		this.camera.copy( camera );
-		this.signals.cameraResetted.dispatch();
-
-		this.history.fromJSON( json.history );
-		this.scripts = json.scripts;
-
-		this.setScene( await loader.parseAsync( json.scene ) );
-
-	},
-
-	toJSON: function () {
-
-		// scripts clean up
-
-		var scene = this.scene;
-		var scripts = this.scripts;
-
-		for ( var key in scripts ) {
-
-			var script = scripts[ key ];
-
-			if ( script.length === 0 || scene.getObjectByProperty( 'uuid', key ) === undefined ) {
-
-				delete scripts[ key ];
-
-			}
-
-		}
-
-		//
-
-		return {
-
-			metadata: {},
-			project: {
-				shadows: this.config.getKey( 'project/renderer/shadows' ),
-				shadowType: this.config.getKey( 'project/renderer/shadowType' ),
-				vr: this.config.getKey( 'project/vr' ),
-				physicallyCorrectLights: this.config.getKey( 'project/renderer/physicallyCorrectLights' ),
-				toneMapping: this.config.getKey( 'project/renderer/toneMapping' ),
-				toneMappingExposure: this.config.getKey( 'project/renderer/toneMappingExposure' )
-			},
-			camera: this.camera.toJSON(),
-			scene: this.scene.toJSON(),
-			scripts: this.scripts,
-			history: this.history.toJSON()
 
 		};
 
-	},
+		this.update = function ( delta ) {
 
-	objectByUuid: function ( uuid ) {
+			const step = delta * turnRate;
+			const focusPoint = this.controls.center;
 
-		return this.scene.getObjectByProperty( 'uuid', uuid, true );
+			// animate position by doing a slerp and then scaling the position on the unit sphere
 
-	},
+			q1.rotateTowards( q2, step );
+			editorCamera.position.set( 0, 0, 1 ).applyQuaternion( q1 ).multiplyScalar( radius ).add( focusPoint );
 
-	execute: function ( cmd, optionalName ) {
+			// animate orientation
 
-		this.history.execute( cmd, optionalName );
+			editorCamera.quaternion.rotateTowards( targetQuaternion, step );
 
-	},
+			if ( q1.angleTo( q2 ) === 0 ) {
 
-	undo: function () {
+				this.animating = false;
 
-		this.history.undo();
+			}
 
-	},
+		};
 
-	redo: function () {
+		function prepareAnimationData( object, focusPoint ) {
 
-		this.history.redo();
+			switch ( object.userData.type ) {
+
+				case 'posX':
+					targetPosition.set( 1, 0, 0 );
+					targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
+					break;
+
+				case 'posY':
+					targetPosition.set( 0, 1, 0 );
+					targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
+					break;
+
+				case 'posZ':
+					targetPosition.set( 0, 0, 1 );
+					targetQuaternion.setFromEuler( new Euler() );
+					break;
+
+				case 'negX':
+					targetPosition.set( - 1, 0, 0 );
+					targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
+					break;
+
+				case 'negY':
+					targetPosition.set( 0, - 1, 0 );
+					targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
+					break;
+
+				case 'negZ':
+					targetPosition.set( 0, 0, - 1 );
+					targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
+					break;
+
+				default:
+					console.error( 'ViewHelper: Invalid axis.' );
+
+			}
+
+			//
+
+			radius = editorCamera.position.distanceTo( focusPoint );
+			targetPosition.multiplyScalar( radius ).add( focusPoint );
+
+			dummy.position.copy( focusPoint );
+
+			dummy.lookAt( editorCamera.position );
+			q1.copy( dummy.quaternion );
+
+			dummy.lookAt( targetPosition );
+			q2.copy( dummy.quaternion );
+
+		}
+
+		function getAxisMaterial( color ) {
+
+			return new MeshBasicMaterial( { color: color, toneMapped: false } );
+
+		}
+
+		function getSpriteMaterial( color, text = null ) {
+
+			const canvas = document.createElement( 'canvas' );
+			canvas.width = 64;
+			canvas.height = 64;
+
+			const context = canvas.getContext( '2d' );
+			context.beginPath();
+			context.arc( 32, 32, 16, 0, 2 * Math.PI );
+			context.closePath();
+			context.fillStyle = color.getStyle();
+			context.fill();
+
+			if ( text !== null ) {
+
+				context.font = '24px Arial';
+				context.textAlign = 'center';
+				context.fillStyle = '#000000';
+				context.fillText( text, 32, 41 );
+
+			}
+
+			const texture = new CanvasTexture( canvas );
+
+			return new SpriteMaterial( { map: texture, toneMapped: false } );
+
+		}
 
 	}
 
-};
+}
+
+ViewHelper$1.prototype.isViewHelper = true;
+
+class ViewHelper extends ViewHelper$1 {
+
+	constructor( editorCamera, container ) {
+
+		super( editorCamera, container.dom );
+
+		const panel = new UIPanel();
+		panel.setId( 'viewHelper' );
+		panel.setPosition( 'absolute' );
+		panel.setRight( '0px' );
+		panel.setBottom( '0px' );
+		panel.setHeight( '128px' );
+		panel.setWidth( '128px' );
+
+		panel.dom.addEventListener( 'pointerup', ( event ) => {
+
+			event.stopPropagation();
+
+			this.handleClick( event );
+
+		} );
+
+		panel.dom.addEventListener( 'pointerdown', function ( event ) {
+
+			event.stopPropagation();
+
+		} );
+
+		container.add( panel );
+
+	}
+
+}
+
+function ViewportInfo( editor ) {
+
+	const signals = editor.signals;
+	const strings = editor.strings;
+
+	const container = new UIPanel();
+	container.setId( 'info' );
+	container.setPosition( 'absolute' );
+	container.setLeft( '10px' );
+	container.setBottom( '10px' );
+	container.setFontSize( '12px' );
+	container.setColor( '#fff' );
+
+	const objectsText = new UIText( '0' ).setMarginLeft( '6px' );
+	const verticesText = new UIText( '0' ).setMarginLeft( '6px' );
+	const trianglesText = new UIText( '0' ).setMarginLeft( '6px' );
+	const frametimeText = new UIText( '0' ).setMarginLeft( '6px' );
+
+	container.add( new UIText( strings.getKey( 'viewport/info/objects' ) ).setTextTransform( 'lowercase' ) );
+	container.add( objectsText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/vertices' ) ).setTextTransform( 'lowercase' ) );
+	container.add( verticesText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/triangles' ) ).setTextTransform( 'lowercase' ) );
+	container.add( trianglesText, new UIBreak() );
+	container.add( new UIText( strings.getKey( 'viewport/info/frametime' ) ).setTextTransform( 'lowercase' ) );
+	container.add( frametimeText, new UIBreak() );
+
+	signals.objectAdded.add( update );
+	signals.objectRemoved.add( update );
+	signals.geometryChanged.add( update );
+
+	//
+
+	function update() {
+
+		const scene = editor.scene;
+
+		let objects = 0, vertices = 0, triangles = 0;
+
+		for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
+
+			const object = scene.children[ i ];
+
+			object.traverseVisible( function ( object ) {
+
+				objects ++;
+
+				if ( object.isMesh ) {
+
+					const geometry = object.geometry;
+
+					vertices += geometry.attributes.position.count;
+
+					if ( geometry.index !== null ) {
+
+						triangles += geometry.index.count / 3;
+
+					} else {
+
+						triangles += geometry.attributes.position.count / 3;
+
+					}
+
+				}
+
+			} );
+
+		}
+
+		objectsText.setValue( objects.format() );
+		verticesText.setValue( vertices.format() );
+		trianglesText.setValue( triangles.format() );
+
+	}
+
+	signals.sceneRendered.add( updateFrametime );
+
+	function updateFrametime( frametime ) {
+
+		frametimeText.setValue( Number( frametime ).toFixed( 2 ) + ' ms' );
+
+	}
+
+	return container;
+
+}
 
 const _raycaster = new Raycaster();
 
@@ -60739,1287 +58815,6 @@ class TransformControlsPlane extends Mesh {
 
 TransformControlsPlane.prototype.isTransformControlsPlane = true;
 
-class UIElement {
-
-	constructor( dom ) {
-
-		this.dom = dom;
-
-	}
-
-	add() {
-
-		for ( let i = 0; i < arguments.length; i ++ ) {
-
-			const argument = arguments[ i ];
-
-			if ( argument instanceof UIElement ) {
-
-				this.dom.appendChild( argument.dom );
-
-			} else {
-
-				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
-
-			}
-
-		}
-
-		return this;
-
-	}
-
-	remove() {
-
-		for ( let i = 0; i < arguments.length; i ++ ) {
-
-			const argument = arguments[ i ];
-
-			if ( argument instanceof UIElement ) {
-
-				this.dom.removeChild( argument.dom );
-
-			} else {
-
-				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
-
-			}
-
-		}
-
-		return this;
-
-	}
-
-	clear() {
-
-		while ( this.dom.children.length ) {
-
-			this.dom.removeChild( this.dom.lastChild );
-
-		}
-
-	}
-
-	setId( id ) {
-
-		this.dom.id = id;
-
-		return this;
-
-	}
-
-	getId() {
-
-		return this.dom.id;
-
-	}
-
-	setClass( name ) {
-
-		this.dom.className = name;
-
-		return this;
-
-	}
-
-	addClass( name ) {
-
-		this.dom.classList.add( name );
-
-		return this;
-
-	}
-
-	removeClass( name ) {
-
-		this.dom.classList.remove( name );
-
-		return this;
-
-	}
-
-	setStyle( style, array ) {
-
-		for ( let i = 0; i < array.length; i ++ ) {
-
-			this.dom.style[ style ] = array[ i ];
-
-		}
-
-		return this;
-
-	}
-
-	setDisabled( value ) {
-
-		this.dom.disabled = value;
-
-		return this;
-
-	}
-
-	setTextContent( value ) {
-
-		this.dom.textContent = value;
-
-		return this;
-
-	}
-
-	setInnerHTML( value ) {
-
-		this.dom.innerHTML = value;
-
-	}
-
-	getIndexOfChild( element ) {
-
-		return Array.prototype.indexOf.call( this.dom.children, element.dom );
-
-	}
-
-}
-
-// properties
-
-const properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
-	'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'verticalAlign', 'color',
-	'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
-
-properties.forEach( function ( property ) {
-
-	const method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
-
-	UIElement.prototype[ method ] = function () {
-
-		this.setStyle( property, arguments );
-
-		return this;
-
-	};
-
-} );
-
-// events
-
-const events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input' ];
-
-events.forEach( function ( event ) {
-
-	const method = 'on' + event;
-
-	UIElement.prototype[ method ] = function ( callback ) {
-
-		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ) );
-
-		return this;
-
-	};
-
-} );
-
-class UISpan extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'span' ) );
-
-	}
-
-}
-
-class UIDiv extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'div' ) );
-
-	}
-
-}
-
-class UIRow extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Row';
-
-	}
-
-}
-
-class UIPanel extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Panel';
-
-	}
-
-}
-
-class UIText extends UISpan {
-
-	constructor( text ) {
-
-		super();
-
-		this.dom.className = 'Text';
-		this.dom.style.cursor = 'default';
-		this.dom.style.display = 'inline-block';
-
-		this.setValue( text );
-
-	}
-
-	getValue() {
-
-		return this.dom.textContent;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			this.dom.textContent = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-
-class UIInput extends UIElement {
-
-	constructor( text ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Input';
-		this.dom.style.padding = '2px';
-		this.dom.style.border = '1px solid transparent';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.dom.addEventListener( 'keydown', function ( event ) {
-
-			event.stopPropagation();
-
-		} );
-
-		this.setValue( text );
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-}
-
-class UITextArea extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'textarea' ) );
-
-		this.dom.className = 'TextArea';
-		this.dom.style.padding = '2px';
-		this.dom.spellcheck = false;
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.dom.addEventListener( 'keydown', function ( event ) {
-
-			event.stopPropagation();
-
-			if ( event.keyCode === 9 ) {
-
-				event.preventDefault();
-
-				const cursor = this.selectionStart;
-
-				this.value = this.value.substring( 0, cursor ) + '\t' + this.value.substring( cursor );
-				this.selectionStart = cursor + 1;
-				this.selectionEnd = this.selectionStart;
-
-			}
-
-		} );
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-}
-
-class UISelect extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'select' ) );
-
-		this.dom.className = 'Select';
-		this.dom.style.padding = '2px';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-	}
-
-	setMultiple( boolean ) {
-
-		this.dom.multiple = boolean;
-
-		return this;
-
-	}
-
-	setOptions( options ) {
-
-		const selected = this.dom.value;
-
-		while ( this.dom.children.length > 0 ) {
-
-			this.dom.removeChild( this.dom.firstChild );
-
-		}
-
-		for ( const key in options ) {
-
-			const option = document.createElement( 'option' );
-			option.value = key;
-			option.innerHTML = options[ key ];
-			this.dom.appendChild( option );
-
-		}
-
-		this.dom.value = selected;
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		value = String( value );
-
-		if ( this.dom.value !== value ) {
-
-			this.dom.value = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-class UICheckbox extends UIElement {
-
-	constructor( boolean ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Checkbox';
-		this.dom.type = 'checkbox';
-
-		this.setValue( boolean );
-
-	}
-
-	getValue() {
-
-		return this.dom.checked;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			this.dom.checked = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-
-class UIColor extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Color';
-		this.dom.style.width = '32px';
-		this.dom.style.height = '16px';
-		this.dom.style.border = '0px';
-		this.dom.style.padding = '2px';
-		this.dom.style.backgroundColor = 'transparent';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		try {
-
-			this.dom.type = 'color';
-			this.dom.value = '#ffffff';
-
-		} catch ( exception ) {}
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	getHexValue() {
-
-		return parseInt( this.dom.value.substr( 1 ), 16 );
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-	setHexValue( hex ) {
-
-		this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
-
-		return this;
-
-	}
-
-}
-
-class UINumber extends UIElement {
-
-	constructor( number ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.style.cursor = 'ns-resize';
-		this.dom.className = 'Number';
-		this.dom.value = '0.00';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.value = 0;
-
-		this.min = - Infinity;
-		this.max = Infinity;
-
-		this.precision = 2;
-		this.step = 1;
-		this.unit = '';
-		this.nudge = 0.01;
-
-		this.setValue( number );
-
-		const scope = this;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-
-		let distance = 0;
-		let onMouseDownValue = 0;
-
-		const pointer = { x: 0, y: 0 };
-		const prevPointer = { x: 0, y: 0 };
-
-		function onMouseDown( event ) {
-
-			event.preventDefault();
-
-			distance = 0;
-
-			onMouseDownValue = scope.value;
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-			document.addEventListener( 'mousemove', onMouseMove );
-			document.addEventListener( 'mouseup', onMouseUp );
-
-		}
-
-		function onMouseMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.clientX;
-			pointer.y = event.clientY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) );
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-		}
-
-		function onMouseUp() {
-
-			document.removeEventListener( 'mousemove', onMouseMove );
-			document.removeEventListener( 'mouseup', onMouseUp );
-
-			if ( Math.abs( distance ) < 2 ) {
-
-				scope.dom.focus();
-				scope.dom.select();
-
-			}
-
-		}
-
-		function onTouchStart( event ) {
-
-			if ( event.touches.length === 1 ) {
-
-				distance = 0;
-
-				onMouseDownValue = scope.value;
-
-				prevPointer.x = event.touches[ 0 ].pageX;
-				prevPointer.y = event.touches[ 0 ].pageY;
-
-				document.addEventListener( 'touchmove', onTouchMove );
-				document.addEventListener( 'touchend', onTouchEnd );
-
-			}
-
-		}
-
-		function onTouchMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.touches[ 0 ].pageX;
-			pointer.y = event.touches[ 0 ].pageY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) );
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.touches[ 0 ].pageX;
-			prevPointer.y = event.touches[ 0 ].pageY;
-
-		}
-
-		function onTouchEnd( event ) {
-
-			if ( event.touches.length === 0 ) {
-
-				document.removeEventListener( 'touchmove', onTouchMove );
-				document.removeEventListener( 'touchend', onTouchEnd );
-
-			}
-
-		}
-
-		function onChange() {
-
-			scope.setValue( scope.dom.value );
-
-		}
-
-		function onFocus() {
-
-			scope.dom.style.backgroundColor = '';
-			scope.dom.style.cursor = '';
-
-		}
-
-		function onBlur() {
-
-			scope.dom.style.backgroundColor = 'transparent';
-			scope.dom.style.cursor = 'ns-resize';
-
-		}
-
-		function onKeyDown( event ) {
-
-			event.stopPropagation();
-
-			switch ( event.keyCode ) {
-
-				case 13: // enter
-					scope.dom.blur();
-					break;
-
-				case 38: // up
-					event.preventDefault();
-					scope.setValue( scope.getValue() + scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-				case 40: // down
-					event.preventDefault();
-					scope.setValue( scope.getValue() - scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-			}
-
-		}
-
-		onBlur();
-
-		this.dom.addEventListener( 'keydown', onKeyDown );
-		this.dom.addEventListener( 'mousedown', onMouseDown );
-		this.dom.addEventListener( 'touchstart', onTouchStart );
-		this.dom.addEventListener( 'change', onChange );
-		this.dom.addEventListener( 'focus', onFocus );
-		this.dom.addEventListener( 'blur', onBlur );
-
-	}
-
-	getValue() {
-
-		return this.value;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			value = parseFloat( value );
-
-			if ( value < this.min ) value = this.min;
-			if ( value > this.max ) value = this.max;
-
-			this.value = value;
-			this.dom.value = value.toFixed( this.precision );
-
-			if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
-
-		}
-
-		return this;
-
-	}
-
-	setPrecision( precision ) {
-
-		this.precision = precision;
-
-		return this;
-
-	}
-
-	setStep( step ) {
-
-		this.step = step;
-
-		return this;
-
-	}
-
-	setNudge( nudge ) {
-
-		this.nudge = nudge;
-
-		return this;
-
-	}
-
-	setRange( min, max ) {
-
-		this.min = min;
-		this.max = max;
-
-		return this;
-
-	}
-
-	setUnit( unit ) {
-
-		this.unit = unit;
-
-		return this;
-
-	}
-
-}
-
-class UIInteger extends UIElement {
-
-	constructor( number ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.style.cursor = 'ns-resize';
-		this.dom.className = 'Number';
-		this.dom.value = '0';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.value = 0;
-
-		this.min = - Infinity;
-		this.max = Infinity;
-
-		this.step = 1;
-		this.nudge = 1;
-
-		this.setValue( number );
-
-		const scope = this;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-
-		let distance = 0;
-		let onMouseDownValue = 0;
-
-		const pointer = { x: 0, y: 0 };
-		const prevPointer = { x: 0, y: 0 };
-
-		function onMouseDown( event ) {
-
-			event.preventDefault();
-
-			distance = 0;
-
-			onMouseDownValue = scope.value;
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-			document.addEventListener( 'mousemove', onMouseMove );
-			document.addEventListener( 'mouseup', onMouseUp );
-
-		}
-
-		function onMouseMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.clientX;
-			pointer.y = event.clientY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-		}
-
-		function onMouseUp() {
-
-			document.removeEventListener( 'mousemove', onMouseMove );
-			document.removeEventListener( 'mouseup', onMouseUp );
-
-			if ( Math.abs( distance ) < 2 ) {
-
-				scope.dom.focus();
-				scope.dom.select();
-
-			}
-
-		}
-
-		function onChange() {
-
-			scope.setValue( scope.dom.value );
-
-		}
-
-		function onFocus() {
-
-			scope.dom.style.backgroundColor = '';
-			scope.dom.style.cursor = '';
-
-		}
-
-		function onBlur() {
-
-			scope.dom.style.backgroundColor = 'transparent';
-			scope.dom.style.cursor = 'ns-resize';
-
-		}
-
-		function onKeyDown( event ) {
-
-			event.stopPropagation();
-
-			switch ( event.keyCode ) {
-
-				case 13: // enter
-					scope.dom.blur();
-					break;
-
-				case 38: // up
-					event.preventDefault();
-					scope.setValue( scope.getValue() + scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-				case 40: // down
-					event.preventDefault();
-					scope.setValue( scope.getValue() - scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-			}
-
-		}
-
-		onBlur();
-
-		this.dom.addEventListener( 'keydown', onKeyDown );
-		this.dom.addEventListener( 'mousedown', onMouseDown );
-		this.dom.addEventListener( 'change', onChange );
-		this.dom.addEventListener( 'focus', onFocus );
-		this.dom.addEventListener( 'blur', onBlur );
-
-	}
-
-	getValue() {
-
-		return this.value;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			value = parseInt( value );
-
-			this.value = value;
-			this.dom.value = value;
-
-		}
-
-		return this;
-
-	}
-
-	setStep( step ) {
-
-		this.step = parseInt( step );
-
-		return this;
-
-	}
-
-	setNudge( nudge ) {
-
-		this.nudge = nudge;
-
-		return this;
-
-	}
-
-	setRange( min, max ) {
-
-		this.min = min;
-		this.max = max;
-
-		return this;
-
-	}
-
-}
-
-class UIBreak extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'br' ) );
-
-		this.dom.className = 'Break';
-
-	}
-
-}
-
-class UIHorizontalRule extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'hr' ) );
-
-		this.dom.className = 'HorizontalRule';
-
-	}
-
-}
-
-class UIButton extends UIElement {
-
-	constructor( value ) {
-
-		super( document.createElement( 'button' ) );
-
-		this.dom.className = 'Button';
-		this.dom.textContent = value;
-
-	}
-
-}
-
-class UIProgress extends UIElement {
-
-	constructor( value ) {
-
-		super( document.createElement( 'progress' ) );
-
-		this.dom.value = value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-	}
-
-}
-
-class UITabbedPanel extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'TabbedPanel';
-
-		this.tabs = [];
-		this.panels = [];
-
-		this.tabsDiv = new UIDiv();
-		this.tabsDiv.setClass( 'Tabs' );
-
-		this.panelsDiv = new UIDiv();
-		this.panelsDiv.setClass( 'Panels' );
-
-		this.add( this.tabsDiv );
-		this.add( this.panelsDiv );
-
-		this.selected = '';
-
-	}
-
-	select( id ) {
-
-		let tab;
-		let panel;
-		const scope = this;
-
-		// Deselect current selection
-		if ( this.selected && this.selected.length ) {
-
-			tab = this.tabs.find( function ( item ) {
-
-				return item.dom.id === scope.selected;
-
-			} );
-			panel = this.panels.find( function ( item ) {
-
-				return item.dom.id === scope.selected;
-
-			} );
-
-			if ( tab ) {
-
-				tab.removeClass( 'selected' );
-
-			}
-
-			if ( panel ) {
-
-				panel.setDisplay( 'none' );
-
-			}
-
-		}
-
-		tab = this.tabs.find( function ( item ) {
-
-			return item.dom.id === id;
-
-		} );
-		panel = this.panels.find( function ( item ) {
-
-			return item.dom.id === id;
-
-		} );
-
-		if ( tab ) {
-
-			tab.addClass( 'selected' );
-
-		}
-
-		if ( panel ) {
-
-			panel.setDisplay( '' );
-
-		}
-
-		this.selected = id;
-
-		return this;
-
-	}
-
-	addTab( id, label, items ) {
-
-		const tab = new UITab( label, this );
-		tab.setId( id );
-		this.tabs.push( tab );
-		this.tabsDiv.add( tab );
-
-		const panel = new UIDiv();
-		panel.setId( id );
-		panel.add( items );
-		panel.setDisplay( 'none' );
-		this.panels.push( panel );
-		this.panelsDiv.add( panel );
-
-		this.select( id );
-
-	}
-
-}
-
-class UITab extends UIText {
-
-	constructor( text, parent ) {
-
-		super( text );
-
-		this.dom.className = 'Tab';
-
-		this.parent = parent;
-
-		const scope = this;
-
-		this.dom.addEventListener( 'click', function () {
-
-			scope.parent.select( scope.dom.id );
-
-		} );
-
-	}
-
-}
-
-class UIListbox extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Listbox';
-		this.dom.tabIndex = 0;
-
-		this.items = [];
-		this.listitems = [];
-		this.selectedIndex = 0;
-		this.selectedValue = null;
-
-	}
-
-	setItems( items ) {
-
-		if ( Array.isArray( items ) ) {
-
-			this.items = items;
-
-		}
-
-		this.render();
-
-	}
-
-	render( ) {
-
-		while ( this.listitems.length ) {
-
-			const item = this.listitems[ 0 ];
-
-			item.dom.remove();
-
-			this.listitems.splice( 0, 1 );
-
-		}
-
-		for ( let i = 0; i < this.items.length; i ++ ) {
-
-			const item = this.items[ i ];
-
-			const listitem = new UIListbox.ListboxItem( this );
-			listitem.setId( item.id || `Listbox-${i}` );
-			listitem.setTextContent( item.name || item.type );
-			this.add( listitem );
-
-		}
-
-	}
-
-	add() {
-
-		const items = Array.from( arguments );
-
-		this.listitems = this.listitems.concat( items );
-
-		UIElement.prototype.add.apply( this, items );
-
-	}
-
-	selectIndex( index ) {
-
-		if ( index >= 0 && index < this.items.length ) {
-
-			this.setValue( this.listitems[ index ].getId() );
-
-		}
-
-		this.selectedIndex = index;
-
-	}
-
-	getValue() {
-
-		return this.selectedValue;
-
-	}
-
-	setValue( value ) {
-
-		for ( let i = 0; i < this.listitems.length; i ++ ) {
-
-			const element = this.listitems[ i ];
-
-			if ( element.getId() === value ) {
-
-				element.addClass( 'active' );
-
-			} else {
-
-				element.removeClass( 'active' );
-
-			}
-
-		}
-
-		this.selectedValue = value;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-		this.dom.dispatchEvent( changeEvent );
-
-	}
-
-}
-
-class ListboxItem extends UIDiv {
-
-	constructor( parent ) {
-
-		super();
-
-		this.dom.className = 'ListboxItem';
-
-		this.parent = parent;
-
-		const scope = this;
-
-		function onClick() {
-
-			if ( scope.parent ) {
-
-				scope.parent.setValue( scope.getId( ) );
-
-			}
-
-		}
-
-		this.dom.addEventListener( 'click', onClick );
-
-	}
-
-}
-
 function EditorControls( object, domElement ) {
 
 	// API
@@ -62371,1306 +59166,76 @@ function EditorControls( object, domElement ) {
 EditorControls.prototype = Object.create( EventDispatcher.prototype );
 EditorControls.prototype.constructor = EditorControls;
 
-function ViewportCamera( editor ) {
+function Config() {
 
-	const signals = editor.signals;
+	const name = 'threejs-editor';
 
-	//
+	const storage = {
+		'language': 'en',
 
-	const cameraSelect = new UISelect();
-	cameraSelect.setPosition( 'absolute' );
-	cameraSelect.setRight( '10px' );
-	cameraSelect.setTop( '10px' );
-	cameraSelect.onChange( function () {
+		'autosave': true,
 
-		editor.setViewportCamera( this.getValue() );
+		'project/title': '',
+		'project/editable': false,
+		'project/vr': false,
 
-	} );
+		'project/renderer/antialias': true,
+		'project/renderer/shadows': true,
+		'project/renderer/shadowType': 1, // PCF
+		'project/renderer/physicallyCorrectLights': false,
+		'project/renderer/toneMapping': 0, // NoToneMapping
+		'project/renderer/toneMappingExposure': 1,
 
-	signals.cameraAdded.add( update );
-	signals.cameraRemoved.add( update );
+		'settings/history': false,
 
-	update();
+		'settings/shortcuts/translate': 'w',
+		'settings/shortcuts/rotate': 'e',
+		'settings/shortcuts/scale': 'r',
+		'settings/shortcuts/undo': 'z',
+		'settings/shortcuts/focus': 'f'
+	};
 
-	//
+	if ( window.localStorage[ name ] === undefined ) {
 
-	function update() {
-
-		const options = {};
-
-		const cameras = editor.cameras;
-
-		for ( const key in cameras ) {
-
-			const camera = cameras[ key ];
-			options[ camera.uuid ] = camera.name;
-
-		}
-
-		cameraSelect.setOptions( options );
-		cameraSelect.setValue( editor.viewportCamera.uuid );
-
-	}
-
-	return cameraSelect;
-
-}
-
-function ViewportInfo( editor ) {
-
-	const signals = editor.signals;
-	const strings = editor.strings;
-
-	const container = new UIPanel();
-	container.setId( 'info' );
-	container.setPosition( 'absolute' );
-	container.setLeft( '10px' );
-	container.setBottom( '10px' );
-	container.setFontSize( '12px' );
-	container.setColor( '#fff' );
-
-	const objectsText = new UIText( '0' ).setMarginLeft( '6px' );
-	const verticesText = new UIText( '0' ).setMarginLeft( '6px' );
-	const trianglesText = new UIText( '0' ).setMarginLeft( '6px' );
-	const frametimeText = new UIText( '0' ).setMarginLeft( '6px' );
-
-	container.add( new UIText( strings.getKey( 'viewport/info/objects' ) ).setTextTransform( 'lowercase' ) );
-	container.add( objectsText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/vertices' ) ).setTextTransform( 'lowercase' ) );
-	container.add( verticesText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/triangles' ) ).setTextTransform( 'lowercase' ) );
-	container.add( trianglesText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/frametime' ) ).setTextTransform( 'lowercase' ) );
-	container.add( frametimeText, new UIBreak() );
-
-	signals.objectAdded.add( update );
-	signals.objectRemoved.add( update );
-	signals.geometryChanged.add( update );
-
-	//
-
-	function update() {
-
-		const scene = editor.scene;
-
-		let objects = 0, vertices = 0, triangles = 0;
-
-		for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
-
-			const object = scene.children[ i ];
-
-			object.traverseVisible( function ( object ) {
-
-				objects ++;
-
-				if ( object.isMesh ) {
-
-					const geometry = object.geometry;
-
-					vertices += geometry.attributes.position.count;
-
-					if ( geometry.index !== null ) {
-
-						triangles += geometry.index.count / 3;
-
-					} else {
-
-						triangles += geometry.attributes.position.count / 3;
-
-					}
-
-				}
-
-			} );
-
-		}
-
-		objectsText.setValue( objects.format() );
-		verticesText.setValue( vertices.format() );
-		trianglesText.setValue( triangles.format() );
-
-	}
-
-	signals.sceneRendered.add( updateFrametime );
-
-	function updateFrametime( frametime ) {
-
-		frametimeText.setValue( Number( frametime ).toFixed( 2 ) + ' ms' );
-
-	}
-
-	return container;
-
-}
-
-const vpTemp = new Vector4();
-
-class ViewHelper$1 extends Object3D {
-
-	constructor( editorCamera, dom ) {
-
-		super();
-
-		this.animating = false;
-		this.controls = null;
-
-		const color1 = new Color( '#ff3653' );
-		const color2 = new Color( '#8adb00' );
-		const color3 = new Color( '#2c8fff' );
-
-		const interactiveObjects = [];
-		const raycaster = new Raycaster();
-		const mouse = new Vector2();
-		const dummy = new Object3D();
-
-		const camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
-		camera.position.set( 0, 0, 2 );
-
-		const geometry = new BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
-
-		const xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
-		const yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
-		const zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
-
-		yAxis.rotation.z = Math.PI / 2;
-		zAxis.rotation.y = - Math.PI / 2;
-
-		this.add( xAxis );
-		this.add( zAxis );
-		this.add( yAxis );
-
-		const posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
-		posXAxisHelper.userData.type = 'posX';
-		const posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
-		posYAxisHelper.userData.type = 'posY';
-		const posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
-		posZAxisHelper.userData.type = 'posZ';
-		const negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
-		negXAxisHelper.userData.type = 'negX';
-		const negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
-		negYAxisHelper.userData.type = 'negY';
-		const negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
-		negZAxisHelper.userData.type = 'negZ';
-
-		posXAxisHelper.position.x = 1;
-		posYAxisHelper.position.y = 1;
-		posZAxisHelper.position.z = 1;
-		negXAxisHelper.position.x = - 1;
-		negXAxisHelper.scale.setScalar( 0.8 );
-		negYAxisHelper.position.y = - 1;
-		negYAxisHelper.scale.setScalar( 0.8 );
-		negZAxisHelper.position.z = - 1;
-		negZAxisHelper.scale.setScalar( 0.8 );
-
-		this.add( posXAxisHelper );
-		this.add( posYAxisHelper );
-		this.add( posZAxisHelper );
-		this.add( negXAxisHelper );
-		this.add( negYAxisHelper );
-		this.add( negZAxisHelper );
-
-		interactiveObjects.push( posXAxisHelper );
-		interactiveObjects.push( posYAxisHelper );
-		interactiveObjects.push( posZAxisHelper );
-		interactiveObjects.push( negXAxisHelper );
-		interactiveObjects.push( negYAxisHelper );
-		interactiveObjects.push( negZAxisHelper );
-
-		const point = new Vector3();
-		const dim = 128;
-		const turnRate = 2 * Math.PI; // turn rate in angles per second
-
-		this.render = function ( renderer ) {
-
-			this.quaternion.copy( editorCamera.quaternion ).invert();
-			this.updateMatrixWorld();
-
-			point.set( 0, 0, 1 );
-			point.applyQuaternion( editorCamera.quaternion );
-
-			if ( point.x >= 0 ) {
-
-				posXAxisHelper.material.opacity = 1;
-				negXAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posXAxisHelper.material.opacity = 0.5;
-				negXAxisHelper.material.opacity = 1;
-
-			}
-
-			if ( point.y >= 0 ) {
-
-				posYAxisHelper.material.opacity = 1;
-				negYAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posYAxisHelper.material.opacity = 0.5;
-				negYAxisHelper.material.opacity = 1;
-
-			}
-
-			if ( point.z >= 0 ) {
-
-				posZAxisHelper.material.opacity = 1;
-				negZAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posZAxisHelper.material.opacity = 0.5;
-				negZAxisHelper.material.opacity = 1;
-
-			}
-
-			//
-
-			const x = dom.offsetWidth - dim;
-
-			renderer.clearDepth();
-
-			renderer.getViewport( vpTemp );
-			renderer.setViewport( x, 0, dim, dim );
-
-			renderer.render( this, camera );
-
-			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
-
-		};
-
-		const targetPosition = new Vector3();
-		const targetQuaternion = new Quaternion();
-
-		const q1 = new Quaternion();
-		const q2 = new Quaternion();
-		let radius = 0;
-
-		this.handleClick = function ( event ) {
-
-			if ( this.animating === true ) return false;
-
-			const rect = dom.getBoundingClientRect();
-			const offsetX = rect.left + ( container.dom.offsetWidth - dim );
-			const offsetY = rect.top + ( container.dom.offsetHeight - dim );
-			mouse.x = ( ( event.clientX - offsetX ) / ( rect.width - offsetX ) ) * 2 - 1;
-			mouse.y = - ( ( event.clientY - offsetY ) / ( rect.bottom - offsetY ) ) * 2 + 1;
-
-			raycaster.setFromCamera( mouse, camera );
-
-			const intersects = raycaster.intersectObjects( interactiveObjects );
-
-			if ( intersects.length > 0 ) {
-
-				const intersection = intersects[ 0 ];
-				const object = intersection.object;
-
-				prepareAnimationData( object, this.controls.center );
-
-				this.animating = true;
-
-				return true;
-
-			} else {
-
-				return false;
-
-			}
-
-		};
-
-		this.update = function ( delta ) {
-
-			const step = delta * turnRate;
-			const focusPoint = this.controls.center;
-
-			// animate position by doing a slerp and then scaling the position on the unit sphere
-
-			q1.rotateTowards( q2, step );
-			editorCamera.position.set( 0, 0, 1 ).applyQuaternion( q1 ).multiplyScalar( radius ).add( focusPoint );
-
-			// animate orientation
-
-			editorCamera.quaternion.rotateTowards( targetQuaternion, step );
-
-			if ( q1.angleTo( q2 ) === 0 ) {
-
-				this.animating = false;
-
-			}
-
-		};
-
-		function prepareAnimationData( object, focusPoint ) {
-
-			switch ( object.userData.type ) {
-
-				case 'posX':
-					targetPosition.set( 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
-					break;
-
-				case 'posY':
-					targetPosition.set( 0, 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
-					break;
-
-				case 'posZ':
-					targetPosition.set( 0, 0, 1 );
-					targetQuaternion.setFromEuler( new Euler() );
-					break;
-
-				case 'negX':
-					targetPosition.set( - 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
-					break;
-
-				case 'negY':
-					targetPosition.set( 0, - 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
-					break;
-
-				case 'negZ':
-					targetPosition.set( 0, 0, - 1 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
-					break;
-
-				default:
-					console.error( 'ViewHelper: Invalid axis.' );
-
-			}
-
-			//
-
-			radius = editorCamera.position.distanceTo( focusPoint );
-			targetPosition.multiplyScalar( radius ).add( focusPoint );
-
-			dummy.position.copy( focusPoint );
-
-			dummy.lookAt( editorCamera.position );
-			q1.copy( dummy.quaternion );
-
-			dummy.lookAt( targetPosition );
-			q2.copy( dummy.quaternion );
-
-		}
-
-		function getAxisMaterial( color ) {
-
-			return new MeshBasicMaterial( { color: color, toneMapped: false } );
-
-		}
-
-		function getSpriteMaterial( color, text = null ) {
-
-			const canvas = document.createElement( 'canvas' );
-			canvas.width = 64;
-			canvas.height = 64;
-
-			const context = canvas.getContext( '2d' );
-			context.beginPath();
-			context.arc( 32, 32, 16, 0, 2 * Math.PI );
-			context.closePath();
-			context.fillStyle = color.getStyle();
-			context.fill();
-
-			if ( text !== null ) {
-
-				context.font = '24px Arial';
-				context.textAlign = 'center';
-				context.fillStyle = '#000000';
-				context.fillText( text, 32, 41 );
-
-			}
-
-			const texture = new CanvasTexture( canvas );
-
-			return new SpriteMaterial( { map: texture, toneMapped: false } );
-
-		}
-
-	}
-
-}
-
-ViewHelper$1.prototype.isViewHelper = true;
-
-class ViewHelper extends ViewHelper$1 {
-
-	constructor( editorCamera, container ) {
-
-		super( editorCamera, container.dom );
-
-		const panel = new UIPanel();
-		panel.setId( 'viewHelper' );
-		panel.setPosition( 'absolute' );
-		panel.setRight( '0px' );
-		panel.setBottom( '0px' );
-		panel.setHeight( '128px' );
-		panel.setWidth( '128px' );
-
-		panel.dom.addEventListener( 'pointerup', ( event ) => {
-
-			event.stopPropagation();
-
-			this.handleClick( event );
-
-		} );
-
-		panel.dom.addEventListener( 'pointerdown', function ( event ) {
-
-			event.stopPropagation();
-
-		} );
-
-		container.add( panel );
-
-	}
-
-}
-
-class HTMLMesh extends Mesh {
-
-	constructor( dom ) {
-
-		const texture = new HTMLTexture( dom );
-
-		const geometry = new PlaneGeometry( texture.image.width * 0.001, texture.image.height * 0.001 );
-		const material = new MeshBasicMaterial( { map: texture, toneMapped: false } );
-
-		super( geometry, material );
-
-		function onEvent( event ) {
-
-			material.map.dispatchDOMEvent( event );
-
-		}
-
-		this.addEventListener( 'mousedown', onEvent );
-		this.addEventListener( 'mousemove', onEvent );
-		this.addEventListener( 'mouseup', onEvent );
-		this.addEventListener( 'click', onEvent );
-
-		this.dispose = function () {
-
-			geometry.dispose();
-			material.dispose();
-
-			material.map.dispose();
-
-			this.removeEventListener( 'mousedown', onEvent );
-			this.removeEventListener( 'mousemove', onEvent );
-			this.removeEventListener( 'mouseup', onEvent );
-			this.removeEventListener( 'click', onEvent );
-
-		};
-
-	}
-
-}
-
-class HTMLTexture extends CanvasTexture {
-
-	constructor( dom ) {
-
-		super( html2canvas( dom ) );
-
-		this.dom = dom;
-
-		this.anisotropy = 16;
-		this.encoding = sRGBEncoding;
-		this.minFilter = LinearFilter;
-		this.magFilter = LinearFilter;
-
-		// Create an observer on the DOM, and run html2canvas update in the next loop
-		const observer = new MutationObserver( () => {
-
-			if ( ! this.scheduleUpdate ) {
-
-				// ideally should use xr.requestAnimationFrame, here setTimeout to avoid passing the renderer
-				this.scheduleUpdate = setTimeout( () => this.update(), 16 );
-
-			}
-
-		} );
-
-		const config = { attributes: true, childList: true, subtree: true, characterData: true };
-		observer.observe( dom, config );
-
-		this.observer = observer;
-
-	}
-
-	dispatchDOMEvent( event ) {
-
-		if ( event.data ) {
-
-			htmlevent( this.dom, event.type, event.data.x, event.data.y );
-
-		}
-
-	}
-
-	update() {
-
-		this.image = html2canvas( this.dom );
-		this.needsUpdate = true;
-
-		this.scheduleUpdate = null;
-
-	}
-
-	dispose() {
-
-		if ( this.observer ) {
-
-			this.observer.disconnect();
-
-		}
-
-		this.scheduleUpdate = clearTimeout( this.scheduleUpdate );
-
-		super.dispose();
-
-	}
-
-}
-
-
-//
-
-const canvases = new WeakMap();
-
-function html2canvas( element ) {
-
-	const range = document.createRange();
-
-	function Clipper( context ) {
-
-		const clips = [];
-		let isClipping = false;
-
-		function doClip() {
-
-			if ( isClipping ) {
-
-				isClipping = false;
-				context.restore();
-
-			}
-
-			if ( clips.length === 0 ) return;
-
-			let minX = - Infinity, minY = - Infinity;
-			let maxX = Infinity, maxY = Infinity;
-
-			for ( let i = 0; i < clips.length; i ++ ) {
-
-				const clip = clips[ i ];
-
-				minX = Math.max( minX, clip.x );
-				minY = Math.max( minY, clip.y );
-				maxX = Math.min( maxX, clip.x + clip.width );
-				maxY = Math.min( maxY, clip.y + clip.height );
-
-			}
-
-			context.save();
-			context.beginPath();
-			context.rect( minX, minY, maxX - minX, maxY - minY );
-			context.clip();
-
-			isClipping = true;
-
-		}
-
-		return {
-
-			add: function ( clip ) {
-
-				clips.push( clip );
-				doClip();
-
-			},
-
-			remove: function () {
-
-				clips.pop();
-				doClip();
-
-			}
-
-		};
-
-	}
-
-	function drawText( style, x, y, string ) {
-
-		if ( string !== '' ) {
-
-			if ( style.textTransform === 'uppercase' ) {
-
-				string = string.toUpperCase();
-
-			}
-
-			context.font = style.fontSize + ' ' + style.fontFamily;
-			context.textBaseline = 'top';
-			context.fillStyle = style.color;
-			context.fillText( string, x, y );
-
-		}
-
-	}
-
-	function drawBorder( style, which, x, y, width, height ) {
-
-		const borderWidth = style[ which + 'Width' ];
-		const borderStyle = style[ which + 'Style' ];
-		const borderColor = style[ which + 'Color' ];
-
-		if ( borderWidth !== '0px' && borderStyle !== 'none' && borderColor !== 'transparent' && borderColor !== 'rgba(0, 0, 0, 0)' ) {
-
-			context.strokeStyle = borderColor;
-			context.beginPath();
-			context.moveTo( x, y );
-			context.lineTo( x + width, y + height );
-			context.stroke();
-
-		}
-
-	}
-
-	function drawElement( element, style ) {
-
-		let x = 0, y = 0, width = 0, height = 0;
-
-		if ( element.nodeType === 3 ) {
-
-			// text
-
-			range.selectNode( element );
-
-			const rect = range.getBoundingClientRect();
-
-			x = rect.left - offset.left - 0.5;
-			y = rect.top - offset.top - 0.5;
-			width = rect.width;
-			height = rect.height;
-
-			drawText( style, x, y, element.nodeValue.trim() );
-
-		} else if ( element instanceof HTMLCanvasElement ) {
-
-			// Canvas element
-			if ( element.style.display === 'none' ) return;
-
-			context.save();
-			const dpr = window.devicePixelRatio;
-			context.scale(1/dpr, 1/dpr);
-			context.drawImage(element, 0, 0 );
-			context.restore();
-
-		} else {
-
-			if ( element.style.display === 'none' ) return;
-
-			const rect = element.getBoundingClientRect();
-
-			x = rect.left - offset.left - 0.5;
-			y = rect.top - offset.top - 0.5;
-			width = rect.width;
-			height = rect.height;
-
-			style = window.getComputedStyle( element );
-
-			const backgroundColor = style.backgroundColor;
-
-			if ( backgroundColor !== 'transparent' && backgroundColor !== 'rgba(0, 0, 0, 0)' ) {
-
-				context.fillStyle = backgroundColor;
-				context.fillRect( x, y, width, height );
-
-			}
-
-			drawBorder( style, 'borderTop', x, y, width, 0 );
-			drawBorder( style, 'borderLeft', x, y, 0, height );
-			drawBorder( style, 'borderBottom', x, y + height, width, 0 );
-			drawBorder( style, 'borderRight', x + width, y, 0, height );
-
-			if ( element.type === 'color' || element.type === 'text' || element.type === 'number' ) {
-
-				clipper.add( { x: x, y: y, width: width, height: height } );
-
-				drawText( style, x + parseInt( style.paddingLeft ), y + parseInt( style.paddingTop ), element.value );
-
-				clipper.remove();
-
-			}
-
-		}
-
-		/*
-		// debug
-		context.strokeStyle = '#' + Math.random().toString( 16 ).slice( - 3 );
-		context.strokeRect( x - 0.5, y - 0.5, width + 1, height + 1 );
-		*/
-
-		const isClipping = style.overflow === 'auto' || style.overflow === 'hidden';
-
-		if ( isClipping ) clipper.add( { x: x, y: y, width: width, height: height } );
-
-		for ( let i = 0; i < element.childNodes.length; i ++ ) {
-
-			drawElement( element.childNodes[ i ], style );
-
-		}
-
-		if ( isClipping ) clipper.remove();
-
-	}
-
-	const offset = element.getBoundingClientRect();
-
-	let canvas;
-
-	if ( canvases.has( element ) ) {
-
-		canvas = canvases.get( element );
+		window.localStorage[ name ] = JSON.stringify( storage );
 
 	} else {
 
-		canvas = document.createElement( 'canvas' );
-		canvas.width = offset.width;
-		canvas.height = offset.height;
+		const data = JSON.parse( window.localStorage[ name ] );
 
-	}
+		for ( const key in data ) {
 
-	const context = canvas.getContext( '2d'/*, { alpha: false }*/ );
-
-	const clipper = new Clipper( context );
-
-	// console.time( 'drawElement' );
-
-	drawElement( element );
-
-	// console.timeEnd( 'drawElement' );
-
-	return canvas;
-
-}
-
-function htmlevent( element, event, x, y ) {
-
-	const mouseEventInit = {
-		clientX: ( x * element.offsetWidth ) + element.offsetLeft,
-		clientY: ( y * element.offsetHeight ) + element.offsetTop,
-		view: element.ownerDocument.defaultView
-	};
-
-	window.dispatchEvent( new MouseEvent( event, mouseEventInit ) );
-
-	const rect = element.getBoundingClientRect();
-
-	x = x * rect.width + rect.left;
-	y = y * rect.height + rect.top;
-
-	function traverse( element ) {
-
-		if ( element.nodeType !== 3 ) {
-
-			const rect = element.getBoundingClientRect();
-
-			if ( x > rect.left && x < rect.right && y > rect.top && y < rect.bottom ) {
-
-				element.dispatchEvent( new MouseEvent( event, mouseEventInit ) );
-
-			}
-
-			for ( let i = 0; i < element.childNodes.length; i ++ ) {
-
-				traverse( element.childNodes[ i ] );
-
-			}
+			storage[ key ] = data[ key ];
 
 		}
 
 	}
 
-	traverse( element );
+	return {
 
-}
+		getKey: function ( key ) {
 
-const _pointer = new Vector2();
-const _event = { type: '', data: _pointer };
-
-class InteractiveGroup extends Group {
-
-	constructor( renderer, camera ) {
-
-		super();
-
-		const scope = this;
-
-		const raycaster = new Raycaster();
-		const tempMatrix = new Matrix4();
-
-		// Pointer Events
-
-		const element = renderer.domElement;
-
-		function onPointerEvent( event ) {
-
-			event.stopPropagation();
-
-			_pointer.x = ( event.clientX / element.clientWidth ) * 2 - 1;
-			_pointer.y = - ( event.clientY / element.clientHeight ) * 2 + 1;
-
-			raycaster.setFromCamera( _pointer, camera );
-
-			const intersects = raycaster.intersectObjects( scope.children, false );
-
-			if ( intersects.length > 0 ) {
-
-				const intersection = intersects[ 0 ];
-
-				const object = intersection.object;
-				const uv = intersection.uv;
-
-				_event.type = event.type;
-				_event.data.set( uv.x, 1 - uv.y );
-
-				object.dispatchEvent( _event );
-
-			}
-
-		}
-
-		element.addEventListener( 'pointerdown', onPointerEvent );
-		element.addEventListener( 'pointerup', onPointerEvent );
-		element.addEventListener( 'pointermove', onPointerEvent );
-		element.addEventListener( 'mousedown', onPointerEvent );
-		element.addEventListener( 'mouseup', onPointerEvent );
-		element.addEventListener( 'mousemove', onPointerEvent );
-		element.addEventListener( 'click', onPointerEvent );
-
-		// WebXR Controller Events
-		// TODO: Dispatch pointerevents too
-
-		const events = {
-			'move': 'mousemove',
-			'select': 'click',
-			'selectstart': 'mousedown',
-			'selectend': 'mouseup'
-		};
-
-		function onXRControllerEvent( event ) {
-
-			const controller = event.target;
-
-			tempMatrix.identity().extractRotation( controller.matrixWorld );
-
-			raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
-			raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
-
-			const intersections = raycaster.intersectObjects( scope.children, false );
-
-			if ( intersections.length > 0 ) {
-
-				const intersection = intersections[ 0 ];
-
-				const object = intersection.object;
-				const uv = intersection.uv;
-
-				_event.type = events[ event.type ];
-				_event.data.set( uv.x, 1 - uv.y );
-
-				object.dispatchEvent( _event );
-
-			}
-
-		}
-
-		const controller1 = renderer.xr.getController( 0 );
-		controller1.addEventListener( 'move', onXRControllerEvent );
-		controller1.addEventListener( 'select', onXRControllerEvent );
-		controller1.addEventListener( 'selectstart', onXRControllerEvent );
-		controller1.addEventListener( 'selectend', onXRControllerEvent );
-
-		const controller2 = renderer.xr.getController( 1 );
-		controller2.addEventListener( 'move', onXRControllerEvent );
-		controller2.addEventListener( 'select', onXRControllerEvent );
-		controller2.addEventListener( 'selectstart', onXRControllerEvent );
-		controller2.addEventListener( 'selectend', onXRControllerEvent );
-
-	}
-
-}
-
-class GLTFLoader extends Loader$1 {
-
-	constructor( manager ) {
-
-		super( manager );
-
-		this.dracoLoader = null;
-		this.ktx2Loader = null;
-		this.meshoptDecoder = null;
-
-		this.pluginCallbacks = [];
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsClearcoatExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFTextureBasisUExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFTextureWebPExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsSheenExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsTransmissionExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsVolumeExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsIorExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMaterialsSpecularExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFLightsExtension( parser );
-
-		} );
-
-		this.register( function ( parser ) {
-
-			return new GLTFMeshoptCompression( parser );
-
-		} );
-
-	}
-
-	load( url, onLoad, onProgress, onError ) {
-
-		const scope = this;
-
-		let resourcePath;
-
-		if ( this.resourcePath !== '' ) {
-
-			resourcePath = this.resourcePath;
-
-		} else if ( this.path !== '' ) {
-
-			resourcePath = this.path;
-
-		} else {
-
-			resourcePath = LoaderUtils$1.extractUrlBase( url );
-
-		}
-
-		// Tells the LoadingManager to track an extra item, which resolves after
-		// the model is fully loaded. This means the count of items loaded will
-		// be incorrect, but ensures manager.onLoad() does not fire early.
-		this.manager.itemStart( url );
-
-		const _onError = function ( e ) {
-
-			if ( onError ) {
-
-				onError( e );
-
-			} else {
-
-				console.error( e );
-
-			}
-
-			scope.manager.itemError( url );
-			scope.manager.itemEnd( url );
-
-		};
-
-		const loader = new FileLoader( this.manager );
-
-		loader.setPath( this.path );
-		loader.setResponseType( 'arraybuffer' );
-		loader.setRequestHeader( this.requestHeader );
-		loader.setWithCredentials( this.withCredentials );
-
-		loader.load( url, function ( data ) {
-
-			try {
-
-				scope.parse( data, resourcePath, function ( gltf ) {
-
-					onLoad( gltf );
-
-					scope.manager.itemEnd( url );
-
-				}, _onError );
-
-			} catch ( e ) {
-
-				_onError( e );
-
-			}
-
-		}, onProgress, _onError );
-
-	}
-
-	setDRACOLoader( dracoLoader ) {
-
-		this.dracoLoader = dracoLoader;
-		return this;
-
-	}
-
-	setDDSLoader() {
-
-		throw new Error(
-
-			'THREE.GLTFLoader: "MSFT_texture_dds" no longer supported. Please update to "KHR_texture_basisu".'
-
-		);
-
-	}
-
-	setKTX2Loader( ktx2Loader ) {
-
-		this.ktx2Loader = ktx2Loader;
-		return this;
-
-	}
-
-	setMeshoptDecoder( meshoptDecoder ) {
-
-		this.meshoptDecoder = meshoptDecoder;
-		return this;
-
-	}
-
-	register( callback ) {
-
-		if ( this.pluginCallbacks.indexOf( callback ) === - 1 ) {
-
-			this.pluginCallbacks.push( callback );
-
-		}
-
-		return this;
-
-	}
-
-	unregister( callback ) {
-
-		if ( this.pluginCallbacks.indexOf( callback ) !== - 1 ) {
-
-			this.pluginCallbacks.splice( this.pluginCallbacks.indexOf( callback ), 1 );
-
-		}
-
-		return this;
-
-	}
-
-	parse( data, path, onLoad, onError ) {
-
-		let content;
-		const extensions = {};
-		const plugins = {};
-
-		if ( typeof data === 'string' ) {
-
-			content = data;
-
-		} else {
-
-			const magic = LoaderUtils$1.decodeText( new Uint8Array( data, 0, 4 ) );
-
-			if ( magic === BINARY_EXTENSION_HEADER_MAGIC ) {
-
-				try {
-
-					extensions[ EXTENSIONS.KHR_BINARY_GLTF ] = new GLTFBinaryExtension( data );
-
-				} catch ( error ) {
-
-					if ( onError ) onError( error );
-					return;
-
-				}
-
-				content = extensions[ EXTENSIONS.KHR_BINARY_GLTF ].content;
-
-			} else {
-
-				content = LoaderUtils$1.decodeText( new Uint8Array( data ) );
-
-			}
-
-		}
-
-		const json = JSON.parse( content );
-
-		if ( json.asset === undefined || json.asset.version[ 0 ] < 2 ) {
-
-			if ( onError ) onError( new Error( 'THREE.GLTFLoader: Unsupported asset. glTF versions >=2.0 are supported.' ) );
-			return;
-
-		}
-
-		const parser = new GLTFParser( json, {
-
-			path: path || this.resourcePath || '',
-			crossOrigin: this.crossOrigin,
-			requestHeader: this.requestHeader,
-			manager: this.manager,
-			ktx2Loader: this.ktx2Loader,
-			meshoptDecoder: this.meshoptDecoder
-
-		} );
-
-		parser.fileLoader.setRequestHeader( this.requestHeader );
-
-		for ( let i = 0; i < this.pluginCallbacks.length; i ++ ) {
-
-			const plugin = this.pluginCallbacks[ i ]( parser );
-			plugins[ plugin.name ] = plugin;
-
-			// Workaround to avoid determining as unknown extension
-			// in addUnknownExtensionsToUserData().
-			// Remove this workaround if we move all the existing
-			// extension handlers to plugin system
-			extensions[ plugin.name ] = true;
-
-		}
-
-		if ( json.extensionsUsed ) {
-
-			for ( let i = 0; i < json.extensionsUsed.length; ++ i ) {
-
-				const extensionName = json.extensionsUsed[ i ];
-				const extensionsRequired = json.extensionsRequired || [];
-
-				switch ( extensionName ) {
-
-					case EXTENSIONS.KHR_MATERIALS_UNLIT:
-						extensions[ extensionName ] = new GLTFMaterialsUnlitExtension();
-						break;
-
-					case EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS:
-						extensions[ extensionName ] = new GLTFMaterialsPbrSpecularGlossinessExtension();
-						break;
-
-					case EXTENSIONS.KHR_DRACO_MESH_COMPRESSION:
-						extensions[ extensionName ] = new GLTFDracoMeshCompressionExtension( json, this.dracoLoader );
-						break;
-
-					case EXTENSIONS.KHR_TEXTURE_TRANSFORM:
-						extensions[ extensionName ] = new GLTFTextureTransformExtension();
-						break;
-
-					case EXTENSIONS.KHR_MESH_QUANTIZATION:
-						extensions[ extensionName ] = new GLTFMeshQuantizationExtension();
-						break;
-
-					default:
-
-						if ( extensionsRequired.indexOf( extensionName ) >= 0 && plugins[ extensionName ] === undefined ) {
-
-							console.warn( 'THREE.GLTFLoader: Unknown extension "' + extensionName + '".' );
-
-						}
-
-				}
-
-			}
-
-		}
-
-		parser.setExtensions( extensions );
-		parser.setPlugins( plugins );
-		parser.parse( onLoad, onError );
-
-	}
-
-	parseAsync( data, path ) {
-
-		const scope = this;
-
-		return new Promise( function ( resolve, reject ) {
-
-			scope.parse( data, path, resolve, reject );
-
-		} );
-
-	}
-
-}
-
-/* GLTFREGISTRY */
-
-function GLTFRegistry() {
-
-	let objects = {};
-
-	return	{
-
-		get: function ( key ) {
-
-			return objects[ key ];
+			return storage[ key ];
 
 		},
 
-		add: function ( key, object ) {
+		setKey: function () { // key, value, key, value ...
 
-			objects[ key ] = object;
+			for ( let i = 0, l = arguments.length; i < l; i += 2 ) {
+
+				storage[ arguments[ i ] ] = arguments[ i + 1 ];
+
+			}
+
+			window.localStorage[ name ] = JSON.stringify( storage );
+
+			console.log( '[' + /\d\d\:\d\d\:\d\d/.exec( new Date() )[ 0 ] + ']', 'Saved config to LocalStorage.' );
 
 		},
 
-		remove: function ( key ) {
+		clear: function () {
 
-			delete objects[ key ];
-
-		},
-
-		removeAll: function () {
-
-			objects = {};
+			delete window.localStorage[ name ];
 
 		}
 
@@ -63678,866 +59243,261 @@ function GLTFRegistry() {
 
 }
 
-/*********************************/
-/********** EXTENSIONS ***********/
-/*********************************/
-
-const EXTENSIONS = {
-	KHR_BINARY_GLTF: 'KHR_binary_glTF',
-	KHR_DRACO_MESH_COMPRESSION: 'KHR_draco_mesh_compression',
-	KHR_LIGHTS_PUNCTUAL: 'KHR_lights_punctual',
-	KHR_MATERIALS_CLEARCOAT: 'KHR_materials_clearcoat',
-	KHR_MATERIALS_IOR: 'KHR_materials_ior',
-	KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS: 'KHR_materials_pbrSpecularGlossiness',
-	KHR_MATERIALS_SHEEN: 'KHR_materials_sheen',
-	KHR_MATERIALS_SPECULAR: 'KHR_materials_specular',
-	KHR_MATERIALS_TRANSMISSION: 'KHR_materials_transmission',
-	KHR_MATERIALS_UNLIT: 'KHR_materials_unlit',
-	KHR_MATERIALS_VOLUME: 'KHR_materials_volume',
-	KHR_TEXTURE_BASISU: 'KHR_texture_basisu',
-	KHR_TEXTURE_TRANSFORM: 'KHR_texture_transform',
-	KHR_MESH_QUANTIZATION: 'KHR_mesh_quantization',
-	EXT_TEXTURE_WEBP: 'EXT_texture_webp',
-	EXT_MESHOPT_COMPRESSION: 'EXT_meshopt_compression'
-};
-
 /**
- * Punctual Lights Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param script javascript object
+ * @constructor
  */
-class GLTFLightsExtension {
+class AddScriptCommand extends Command {
 
-	constructor( parser ) {
+	constructor( editor, object, script ) {
 
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_LIGHTS_PUNCTUAL;
+		super( editor );
 
-		// Object3D instance caches
-		this.cache = { refs: {}, uses: {} };
+		this.type = 'AddScriptCommand';
+		this.name = 'Add Script';
+
+		this.object = object;
+		this.script = script;
 
 	}
 
-	_markDefs() {
+	execute() {
 
-		const parser = this.parser;
-		const nodeDefs = this.parser.json.nodes || [];
+		if ( this.editor.scripts[ this.object.uuid ] === undefined ) {
 
-		for ( let nodeIndex = 0, nodeLength = nodeDefs.length; nodeIndex < nodeLength; nodeIndex ++ ) {
-
-			const nodeDef = nodeDefs[ nodeIndex ];
-
-			if ( nodeDef.extensions
-					&& nodeDef.extensions[ this.name ]
-					&& nodeDef.extensions[ this.name ].light !== undefined ) {
-
-				parser._addNodeRef( this.cache, nodeDef.extensions[ this.name ].light );
-
-			}
+			this.editor.scripts[ this.object.uuid ] = [];
 
 		}
 
+		this.editor.scripts[ this.object.uuid ].push( this.script );
+
+		this.editor.signals.scriptAdded.dispatch( this.script );
+
 	}
 
-	_loadLight( lightIndex ) {
+	undo() {
 
-		const parser = this.parser;
-		const cacheKey = 'light:' + lightIndex;
-		let dependency = parser.cache.get( cacheKey );
+		if ( this.editor.scripts[ this.object.uuid ] === undefined ) return;
 
-		if ( dependency ) return dependency;
+		const index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
 
-		const json = parser.json;
-		const extensions = ( json.extensions && json.extensions[ this.name ] ) || {};
-		const lightDefs = extensions.lights || [];
-		const lightDef = lightDefs[ lightIndex ];
-		let lightNode;
+		if ( index !== - 1 ) {
 
-		const color = new Color( 0xffffff );
-
-		if ( lightDef.color !== undefined ) color.fromArray( lightDef.color );
-
-		const range = lightDef.range !== undefined ? lightDef.range : 0;
-
-		switch ( lightDef.type ) {
-
-			case 'directional':
-				lightNode = new DirectionalLight( color );
-				lightNode.target.position.set( 0, 0, - 1 );
-				lightNode.add( lightNode.target );
-				break;
-
-			case 'point':
-				lightNode = new PointLight( color );
-				lightNode.distance = range;
-				break;
-
-			case 'spot':
-				lightNode = new SpotLight( color );
-				lightNode.distance = range;
-				// Handle spotlight properties.
-				lightDef.spot = lightDef.spot || {};
-				lightDef.spot.innerConeAngle = lightDef.spot.innerConeAngle !== undefined ? lightDef.spot.innerConeAngle : 0;
-				lightDef.spot.outerConeAngle = lightDef.spot.outerConeAngle !== undefined ? lightDef.spot.outerConeAngle : Math.PI / 4.0;
-				lightNode.angle = lightDef.spot.outerConeAngle;
-				lightNode.penumbra = 1.0 - lightDef.spot.innerConeAngle / lightDef.spot.outerConeAngle;
-				lightNode.target.position.set( 0, 0, - 1 );
-				lightNode.add( lightNode.target );
-				break;
-
-			default:
-				throw new Error( 'THREE.GLTFLoader: Unexpected light type: ' + lightDef.type );
+			this.editor.scripts[ this.object.uuid ].splice( index, 1 );
 
 		}
 
-		// Some lights (e.g. spot) default to a position other than the origin. Reset the position
-		// here, because node-level parsing will only override position if explicitly specified.
-		lightNode.position.set( 0, 0, 0 );
-
-		lightNode.decay = 2;
-
-		if ( lightDef.intensity !== undefined ) lightNode.intensity = lightDef.intensity;
-
-		lightNode.name = parser.createUniqueName( lightDef.name || ( 'light_' + lightIndex ) );
-
-		dependency = Promise.resolve( lightNode );
-
-		parser.cache.add( cacheKey, dependency );
-
-		return dependency;
+		this.editor.signals.scriptRemoved.dispatch( this.script );
 
 	}
 
-	createNodeAttachment( nodeIndex ) {
+	toJSON() {
 
-		const self = this;
-		const parser = this.parser;
-		const json = parser.json;
-		const nodeDef = json.nodes[ nodeIndex ];
-		const lightDef = ( nodeDef.extensions && nodeDef.extensions[ this.name ] ) || {};
-		const lightIndex = lightDef.light;
+		const output = super.toJSON( this );
 
-		if ( lightIndex === undefined ) return null;
+		output.objectUuid = this.object.uuid;
+		output.script = this.script;
 
-		return this._loadLight( lightIndex ).then( function ( light ) {
+		return output;
 
-			return parser._getNodeRef( self.cache, lightIndex, light );
+	}
 
-		} );
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.script = json.script;
+		this.object = this.editor.objectByUuid( json.objectUuid );
 
 	}
 
 }
 
 /**
- * Unlit Materials Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_unlit
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newParent THREE.Object3D
+ * @param newBefore THREE.Object3D
+ * @constructor
  */
-class GLTFMaterialsUnlitExtension {
+class MoveObjectCommand extends Command {
 
-	constructor() {
+	constructor( editor, object, newParent, newBefore ) {
 
-		this.name = EXTENSIONS.KHR_MATERIALS_UNLIT;
+		super( editor );
 
-	}
+		this.type = 'MoveObjectCommand';
+		this.name = 'Move Object';
 
-	getMaterialType() {
+		this.object = object;
+		this.oldParent = ( object !== undefined ) ? object.parent : undefined;
+		this.oldIndex = ( this.oldParent !== undefined ) ? this.oldParent.children.indexOf( this.object ) : undefined;
+		this.newParent = newParent;
 
-		return MeshBasicMaterial;
+		if ( newBefore !== undefined ) {
 
-	}
-
-	extendParams( materialParams, materialDef, parser ) {
-
-		const pending = [];
-
-		materialParams.color = new Color( 1.0, 1.0, 1.0 );
-		materialParams.opacity = 1.0;
-
-		const metallicRoughness = materialDef.pbrMetallicRoughness;
-
-		if ( metallicRoughness ) {
-
-			if ( Array.isArray( metallicRoughness.baseColorFactor ) ) {
-
-				const array = metallicRoughness.baseColorFactor;
-
-				materialParams.color.fromArray( array );
-				materialParams.opacity = array[ 3 ];
-
-			}
-
-			if ( metallicRoughness.baseColorTexture !== undefined ) {
-
-				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture ) );
-
-			}
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * Clearcoat Materials Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_clearcoat
- */
-class GLTFMaterialsClearcoatExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_CLEARCOAT;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const pending = [];
-
-		const extension = materialDef.extensions[ this.name ];
-
-		if ( extension.clearcoatFactor !== undefined ) {
-
-			materialParams.clearcoat = extension.clearcoatFactor;
-
-		}
-
-		if ( extension.clearcoatTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'clearcoatMap', extension.clearcoatTexture ) );
-
-		}
-
-		if ( extension.clearcoatRoughnessFactor !== undefined ) {
-
-			materialParams.clearcoatRoughness = extension.clearcoatRoughnessFactor;
-
-		}
-
-		if ( extension.clearcoatRoughnessTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'clearcoatRoughnessMap', extension.clearcoatRoughnessTexture ) );
-
-		}
-
-		if ( extension.clearcoatNormalTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'clearcoatNormalMap', extension.clearcoatNormalTexture ) );
-
-			if ( extension.clearcoatNormalTexture.scale !== undefined ) {
-
-				const scale = extension.clearcoatNormalTexture.scale;
-
-				materialParams.clearcoatNormalScale = new Vector2( scale, scale );
-
-			}
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * Sheen Materials Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_sheen
- */
-class GLTFMaterialsSheenExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_SHEEN;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const pending = [];
-
-		materialParams.sheenColor = new Color( 0, 0, 0 );
-		materialParams.sheenRoughness = 0;
-		materialParams.sheen = 1;
-
-		const extension = materialDef.extensions[ this.name ];
-
-		if ( extension.sheenColorFactor !== undefined ) {
-
-			materialParams.sheenColor.fromArray( extension.sheenColorFactor );
-
-		}
-
-		if ( extension.sheenRoughnessFactor !== undefined ) {
-
-			materialParams.sheenRoughness = extension.sheenRoughnessFactor;
-
-		}
-
-		if ( extension.sheenColorTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'sheenColorMap', extension.sheenColorTexture ) );
-
-		}
-
-		if ( extension.sheenRoughnessTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'sheenRoughnessMap', extension.sheenRoughnessTexture ) );
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * Transmission Materials Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_transmission
- * Draft: https://github.com/KhronosGroup/glTF/pull/1698
- */
-class GLTFMaterialsTransmissionExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_TRANSMISSION;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const pending = [];
-
-		const extension = materialDef.extensions[ this.name ];
-
-		if ( extension.transmissionFactor !== undefined ) {
-
-			materialParams.transmission = extension.transmissionFactor;
-
-		}
-
-		if ( extension.transmissionTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'transmissionMap', extension.transmissionTexture ) );
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * Materials Volume Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_volume
- */
-class GLTFMaterialsVolumeExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_VOLUME;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const pending = [];
-
-		const extension = materialDef.extensions[ this.name ];
-
-		materialParams.thickness = extension.thicknessFactor !== undefined ? extension.thicknessFactor : 0;
-
-		if ( extension.thicknessTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'thicknessMap', extension.thicknessTexture ) );
-
-		}
-
-		materialParams.attenuationDistance = extension.attenuationDistance || 0;
-
-		const colorArray = extension.attenuationColor || [ 1, 1, 1 ];
-		materialParams.attenuationColor = new Color( colorArray[ 0 ], colorArray[ 1 ], colorArray[ 2 ] );
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * Materials ior Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_ior
- */
-class GLTFMaterialsIorExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_IOR;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const extension = materialDef.extensions[ this.name ];
-
-		materialParams.ior = extension.ior !== undefined ? extension.ior : 1.5;
-
-		return Promise.resolve();
-
-	}
-
-}
-
-/**
- * Materials specular Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_materials_specular
- */
-class GLTFMaterialsSpecularExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_MATERIALS_SPECULAR;
-
-	}
-
-	getMaterialType( materialIndex ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) return null;
-
-		return MeshPhysicalMaterial;
-
-	}
-
-	extendMaterialParams( materialIndex, materialParams ) {
-
-		const parser = this.parser;
-		const materialDef = parser.json.materials[ materialIndex ];
-
-		if ( ! materialDef.extensions || ! materialDef.extensions[ this.name ] ) {
-
-			return Promise.resolve();
-
-		}
-
-		const pending = [];
-
-		const extension = materialDef.extensions[ this.name ];
-
-		materialParams.specularIntensity = extension.specularFactor !== undefined ? extension.specularFactor : 1.0;
-
-		if ( extension.specularTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'specularIntensityMap', extension.specularTexture ) );
-
-		}
-
-		const colorArray = extension.specularColorFactor || [ 1, 1, 1 ];
-		materialParams.specularColor = new Color( colorArray[ 0 ], colorArray[ 1 ], colorArray[ 2 ] );
-
-		if ( extension.specularColorTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'specularColorMap', extension.specularColorTexture ).then( function ( texture ) {
-
-				texture.encoding = sRGBEncoding;
-
-			} ) );
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-}
-
-/**
- * BasisU Texture Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_basisu
- */
-class GLTFTextureBasisUExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.KHR_TEXTURE_BASISU;
-
-	}
-
-	loadTexture( textureIndex ) {
-
-		const parser = this.parser;
-		const json = parser.json;
-
-		const textureDef = json.textures[ textureIndex ];
-
-		if ( ! textureDef.extensions || ! textureDef.extensions[ this.name ] ) {
-
-			return null;
-
-		}
-
-		const extension = textureDef.extensions[ this.name ];
-		const loader = parser.options.ktx2Loader;
-
-		if ( ! loader ) {
-
-			if ( json.extensionsRequired && json.extensionsRequired.indexOf( this.name ) >= 0 ) {
-
-				throw new Error( 'THREE.GLTFLoader: setKTX2Loader must be called before loading KTX2 textures' );
-
-			} else {
-
-				// Assumes that the extension is optional and that a fallback texture is present
-				return null;
-
-			}
-
-		}
-
-		return parser.loadTextureImage( textureIndex, extension.source, loader );
-
-	}
-
-}
-
-/**
- * WebP Texture Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_texture_webp
- */
-class GLTFTextureWebPExtension {
-
-	constructor( parser ) {
-
-		this.parser = parser;
-		this.name = EXTENSIONS.EXT_TEXTURE_WEBP;
-		this.isSupported = null;
-
-	}
-
-	loadTexture( textureIndex ) {
-
-		const name = this.name;
-		const parser = this.parser;
-		const json = parser.json;
-
-		const textureDef = json.textures[ textureIndex ];
-
-		if ( ! textureDef.extensions || ! textureDef.extensions[ name ] ) {
-
-			return null;
-
-		}
-
-		const extension = textureDef.extensions[ name ];
-		const source = json.images[ extension.source ];
-
-		let loader = parser.textureLoader;
-		if ( source.uri ) {
-
-			const handler = parser.options.manager.getHandler( source.uri );
-			if ( handler !== null ) loader = handler;
-
-		}
-
-		return this.detectSupport().then( function ( isSupported ) {
-
-			if ( isSupported ) return parser.loadTextureImage( textureIndex, source, loader );
-
-			if ( json.extensionsRequired && json.extensionsRequired.indexOf( name ) >= 0 ) {
-
-				throw new Error( 'THREE.GLTFLoader: WebP required by asset but unsupported.' );
-
-			}
-
-			// Fall back to PNG or JPEG.
-			return parser.loadTexture( textureIndex );
-
-		} );
-
-	}
-
-	detectSupport() {
-
-		if ( ! this.isSupported ) {
-
-			this.isSupported = new Promise( function ( resolve ) {
-
-				const image = new Image();
-
-				// Lossy test image. Support for lossy images doesn't guarantee support for all
-				// WebP images, unfortunately.
-				image.src = 'data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA';
-
-				image.onload = image.onerror = function () {
-
-					resolve( image.height === 1 );
-
-				};
-
-			} );
-
-		}
-
-		return this.isSupported;
-
-	}
-
-}
-
-/**
- * meshopt BufferView Compression Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/EXT_meshopt_compression
- */
-class GLTFMeshoptCompression {
-
-	constructor( parser ) {
-
-		this.name = EXTENSIONS.EXT_MESHOPT_COMPRESSION;
-		this.parser = parser;
-
-	}
-
-	loadBufferView( index ) {
-
-		const json = this.parser.json;
-		const bufferView = json.bufferViews[ index ];
-
-		if ( bufferView.extensions && bufferView.extensions[ this.name ] ) {
-
-			const extensionDef = bufferView.extensions[ this.name ];
-
-			const buffer = this.parser.getDependency( 'buffer', extensionDef.buffer );
-			const decoder = this.parser.options.meshoptDecoder;
-
-			if ( ! decoder || ! decoder.supported ) {
-
-				if ( json.extensionsRequired && json.extensionsRequired.indexOf( this.name ) >= 0 ) {
-
-					throw new Error( 'THREE.GLTFLoader: setMeshoptDecoder must be called before loading compressed files' );
-
-				} else {
-
-					// Assumes that the extension is optional and that fallback buffer data is present
-					return null;
-
-				}
-
-			}
-
-			return Promise.all( [ buffer, decoder.ready ] ).then( function ( res ) {
-
-				const byteOffset = extensionDef.byteOffset || 0;
-				const byteLength = extensionDef.byteLength || 0;
-
-				const count = extensionDef.count;
-				const stride = extensionDef.byteStride;
-
-				const result = new ArrayBuffer( count * stride );
-				const source = new Uint8Array( res[ 0 ], byteOffset, byteLength );
-
-				decoder.decodeGltfBuffer( new Uint8Array( result ), count, stride, source, extensionDef.mode, extensionDef.filter );
-				return result;
-
-			} );
+			this.newIndex = ( newParent !== undefined ) ? newParent.children.indexOf( newBefore ) : undefined;
 
 		} else {
 
-			return null;
+			this.newIndex = ( newParent !== undefined ) ? newParent.children.length : undefined;
 
 		}
+
+		if ( this.oldParent === this.newParent && this.newIndex > this.oldIndex ) {
+
+			this.newIndex --;
+
+		}
+
+		this.newBefore = newBefore;
+
+	}
+
+	execute() {
+
+		this.oldParent.remove( this.object );
+
+		const children = this.newParent.children;
+		children.splice( this.newIndex, 0, this.object );
+		this.object.parent = this.newParent;
+
+		this.object.dispatchEvent( { type: 'added' } );
+		this.editor.signals.sceneGraphChanged.dispatch();
+
+	}
+
+	undo() {
+
+		this.newParent.remove( this.object );
+
+		const children = this.oldParent.children;
+		children.splice( this.oldIndex, 0, this.object );
+		this.object.parent = this.oldParent;
+
+		this.object.dispatchEvent( { type: 'added' } );
+		this.editor.signals.sceneGraphChanged.dispatch();
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.newParentUuid = this.newParent.uuid;
+		output.oldParentUuid = this.oldParent.uuid;
+		output.newIndex = this.newIndex;
+		output.oldIndex = this.oldIndex;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldParent = this.editor.objectByUuid( json.oldParentUuid );
+		if ( this.oldParent === undefined ) {
+
+			this.oldParent = this.editor.scene;
+
+		}
+
+		this.newParent = this.editor.objectByUuid( json.newParentUuid );
+
+		if ( this.newParent === undefined ) {
+
+			this.newParent = this.editor.scene;
+
+		}
+
+		this.newIndex = json.newIndex;
+		this.oldIndex = json.oldIndex;
 
 	}
 
 }
 
-/* BINARY EXTENSION */
-const BINARY_EXTENSION_HEADER_MAGIC = 'glTF';
-const BINARY_EXTENSION_HEADER_LENGTH = 12;
-const BINARY_EXTENSION_CHUNK_TYPES = { JSON: 0x4E4F534A, BIN: 0x004E4942 };
+/**
+ * @param editor Editor
+ * @param cmdArray array containing command objects
+ * @constructor
+ */
+class MultiCmdsCommand extends Command {
 
-class GLTFBinaryExtension {
+	constructor( editor, cmdArray ) {
 
-	constructor( data ) {
+		super( editor );
 
-		this.name = EXTENSIONS.KHR_BINARY_GLTF;
-		this.content = null;
-		this.body = null;
+		this.type = 'MultiCmdsCommand';
+		this.name = 'Multiple Changes';
 
-		const headerView = new DataView( data, 0, BINARY_EXTENSION_HEADER_LENGTH );
+		this.cmdArray = ( cmdArray !== undefined ) ? cmdArray : [];
 
-		this.header = {
-			magic: LoaderUtils$1.decodeText( new Uint8Array( data.slice( 0, 4 ) ) ),
-			version: headerView.getUint32( 4, true ),
-			length: headerView.getUint32( 8, true )
-		};
+	}
 
-		if ( this.header.magic !== BINARY_EXTENSION_HEADER_MAGIC ) {
+	execute() {
 
-			throw new Error( 'THREE.GLTFLoader: Unsupported glTF-Binary header.' );
+		this.editor.signals.sceneGraphChanged.active = false;
 
-		} else if ( this.header.version < 2.0 ) {
+		for ( let i = 0; i < this.cmdArray.length; i ++ ) {
 
-			throw new Error( 'THREE.GLTFLoader: Legacy binary file detected.' );
+			this.cmdArray[ i ].execute();
 
 		}
 
-		const chunkContentsLength = this.header.length - BINARY_EXTENSION_HEADER_LENGTH;
-		const chunkView = new DataView( data, BINARY_EXTENSION_HEADER_LENGTH );
-		let chunkIndex = 0;
+		this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.signals.sceneGraphChanged.dispatch();
 
-		while ( chunkIndex < chunkContentsLength ) {
+	}
 
-			const chunkLength = chunkView.getUint32( chunkIndex, true );
-			chunkIndex += 4;
+	undo() {
 
-			const chunkType = chunkView.getUint32( chunkIndex, true );
-			chunkIndex += 4;
+		this.editor.signals.sceneGraphChanged.active = false;
 
-			if ( chunkType === BINARY_EXTENSION_CHUNK_TYPES.JSON ) {
+		for ( let i = this.cmdArray.length - 1; i >= 0; i -- ) {
 
-				const contentArray = new Uint8Array( data, BINARY_EXTENSION_HEADER_LENGTH + chunkIndex, chunkLength );
-				this.content = LoaderUtils$1.decodeText( contentArray );
-
-			} else if ( chunkType === BINARY_EXTENSION_CHUNK_TYPES.BIN ) {
-
-				const byteOffset = BINARY_EXTENSION_HEADER_LENGTH + chunkIndex;
-				this.body = data.slice( byteOffset, byteOffset + chunkLength );
-
-			}
-
-			// Clients must ignore chunks with unknown types.
-
-			chunkIndex += chunkLength;
+			this.cmdArray[ i ].undo();
 
 		}
 
-		if ( this.content === null ) {
+		this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.signals.sceneGraphChanged.dispatch();
 
-			throw new Error( 'THREE.GLTFLoader: JSON content not found.' );
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		const cmds = [];
+		for ( let i = 0; i < this.cmdArray.length; i ++ ) {
+
+			cmds.push( this.cmdArray[ i ].toJSON() );
+
+		}
+
+		output.cmds = cmds;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		const cmds = json.cmds;
+		for ( let i = 0; i < cmds.length; i ++ ) {
+
+			const cmd = new window[ cmds[ i ].type ]();	// creates a new object of type "json.type"
+			cmd.fromJSON( cmds[ i ] );
+			this.cmdArray.push( cmd );
 
 		}
 
@@ -64546,714 +59506,74 @@ class GLTFBinaryExtension {
 }
 
 /**
- * DRACO Mesh Compression Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_draco_mesh_compression
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @constructor
  */
-class GLTFDracoMeshCompressionExtension {
+class RemoveObjectCommand extends Command {
 
-	constructor( json, dracoLoader ) {
+	constructor( editor, object ) {
 
-		if ( ! dracoLoader ) {
+		super( editor );
 
-			throw new Error( 'THREE.GLTFLoader: No DRACOLoader instance provided.' );
+		this.type = 'RemoveObjectCommand';
+		this.name = 'Remove Object';
 
-		}
+		this.object = object;
+		this.parent = ( object !== undefined ) ? object.parent : undefined;
+		if ( this.parent !== undefined ) {
 
-		this.name = EXTENSIONS.KHR_DRACO_MESH_COMPRESSION;
-		this.json = json;
-		this.dracoLoader = dracoLoader;
-		this.dracoLoader.preload();
-
-	}
-
-	decodePrimitive( primitive, parser ) {
-
-		const json = this.json;
-		const dracoLoader = this.dracoLoader;
-		const bufferViewIndex = primitive.extensions[ this.name ].bufferView;
-		const gltfAttributeMap = primitive.extensions[ this.name ].attributes;
-		const threeAttributeMap = {};
-		const attributeNormalizedMap = {};
-		const attributeTypeMap = {};
-
-		for ( const attributeName in gltfAttributeMap ) {
-
-			const threeAttributeName = ATTRIBUTES[ attributeName ] || attributeName.toLowerCase();
-
-			threeAttributeMap[ threeAttributeName ] = gltfAttributeMap[ attributeName ];
+			this.index = this.parent.children.indexOf( this.object );
 
 		}
 
-		for ( const attributeName in primitive.attributes ) {
+	}
 
-			const threeAttributeName = ATTRIBUTES[ attributeName ] || attributeName.toLowerCase();
+	execute() {
 
-			if ( gltfAttributeMap[ attributeName ] !== undefined ) {
+		this.editor.removeObject( this.object );
+		this.editor.deselect();
 
-				const accessorDef = json.accessors[ primitive.attributes[ attributeName ] ];
-				const componentType = WEBGL_COMPONENT_TYPES[ accessorDef.componentType ];
+	}
 
-				attributeTypeMap[ threeAttributeName ] = componentType;
-				attributeNormalizedMap[ threeAttributeName ] = accessorDef.normalized === true;
+	undo() {
 
-			}
+		this.editor.addObject( this.object, this.parent, this.index );
+		this.editor.select( this.object );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.object = this.object.toJSON();
+		output.index = this.index;
+		output.parentUuid = this.parent.uuid;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.parent = this.editor.objectByUuid( json.parentUuid );
+		if ( this.parent === undefined ) {
+
+			this.parent = this.editor.scene;
 
 		}
 
-		return parser.getDependency( 'bufferView', bufferViewIndex ).then( function ( bufferView ) {
+		this.index = json.index;
 
-			return new Promise( function ( resolve ) {
+		this.object = this.editor.objectByUuid( json.object.object.uuid );
 
-				dracoLoader.decodeDracoFile( bufferView, function ( geometry ) {
+		if ( this.object === undefined ) {
 
-					for ( const attributeName in geometry.attributes ) {
-
-						const attribute = geometry.attributes[ attributeName ];
-						const normalized = attributeNormalizedMap[ attributeName ];
-
-						if ( normalized !== undefined ) attribute.normalized = normalized;
-
-					}
-
-					resolve( geometry );
-
-				}, threeAttributeMap, attributeTypeMap );
-
-			} );
-
-		} );
-
-	}
-
-}
-
-/**
- * Texture Transform Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_texture_transform
- */
-class GLTFTextureTransformExtension {
-
-	constructor() {
-
-		this.name = EXTENSIONS.KHR_TEXTURE_TRANSFORM;
-
-	}
-
-	extendTexture( texture, transform ) {
-
-		if ( transform.texCoord !== undefined ) {
-
-			console.warn( 'THREE.GLTFLoader: Custom UV sets in "' + this.name + '" extension not yet supported.' );
-
-		}
-
-		if ( transform.offset === undefined && transform.rotation === undefined && transform.scale === undefined ) {
-
-			// See https://github.com/mrdoob/three.js/issues/21819.
-			return texture;
-
-		}
-
-		texture = texture.clone();
-
-		if ( transform.offset !== undefined ) {
-
-			texture.offset.fromArray( transform.offset );
-
-		}
-
-		if ( transform.rotation !== undefined ) {
-
-			texture.rotation = transform.rotation;
-
-		}
-
-		if ( transform.scale !== undefined ) {
-
-			texture.repeat.fromArray( transform.scale );
-
-		}
-
-		texture.needsUpdate = true;
-
-		return texture;
-
-	}
-
-}
-
-/**
- * Specular-Glossiness Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Archived/KHR_materials_pbrSpecularGlossiness
- */
-
-/**
- * A sub class of StandardMaterial with some of the functionality
- * changed via the `onBeforeCompile` callback
- * @pailhead
- */
-class GLTFMeshStandardSGMaterial extends MeshStandardMaterial {
-
-	constructor( params ) {
-
-		super();
-
-		this.isGLTFSpecularGlossinessMaterial = true;
-
-		//various chunks that need replacing
-		const specularMapParsFragmentChunk = [
-			'#ifdef USE_SPECULARMAP',
-			'	uniform sampler2D specularMap;',
-			'#endif'
-		].join( '\n' );
-
-		const glossinessMapParsFragmentChunk = [
-			'#ifdef USE_GLOSSINESSMAP',
-			'	uniform sampler2D glossinessMap;',
-			'#endif'
-		].join( '\n' );
-
-		const specularMapFragmentChunk = [
-			'vec3 specularFactor = specular;',
-			'#ifdef USE_SPECULARMAP',
-			'	vec4 texelSpecular = texture2D( specularMap, vUv );',
-			'	// reads channel RGB, compatible with a glTF Specular-Glossiness (RGBA) texture',
-			'	specularFactor *= texelSpecular.rgb;',
-			'#endif'
-		].join( '\n' );
-
-		const glossinessMapFragmentChunk = [
-			'float glossinessFactor = glossiness;',
-			'#ifdef USE_GLOSSINESSMAP',
-			'	vec4 texelGlossiness = texture2D( glossinessMap, vUv );',
-			'	// reads channel A, compatible with a glTF Specular-Glossiness (RGBA) texture',
-			'	glossinessFactor *= texelGlossiness.a;',
-			'#endif'
-		].join( '\n' );
-
-		const lightPhysicalFragmentChunk = [
-			'PhysicalMaterial material;',
-			'material.diffuseColor = diffuseColor.rgb * ( 1. - max( specularFactor.r, max( specularFactor.g, specularFactor.b ) ) );',
-			'vec3 dxy = max( abs( dFdx( geometryNormal ) ), abs( dFdy( geometryNormal ) ) );',
-			'float geometryRoughness = max( max( dxy.x, dxy.y ), dxy.z );',
-			'material.roughness = max( 1.0 - glossinessFactor, 0.0525 ); // 0.0525 corresponds to the base mip of a 256 cubemap.',
-			'material.roughness += geometryRoughness;',
-			'material.roughness = min( material.roughness, 1.0 );',
-			'material.specularColor = specularFactor;',
-		].join( '\n' );
-
-		const uniforms = {
-			specular: { value: new Color().setHex( 0xffffff ) },
-			glossiness: { value: 1 },
-			specularMap: { value: null },
-			glossinessMap: { value: null }
-		};
-
-		this._extraUniforms = uniforms;
-
-		this.onBeforeCompile = function ( shader ) {
-
-			for ( const uniformName in uniforms ) {
-
-				shader.uniforms[ uniformName ] = uniforms[ uniformName ];
-
-			}
-
-			shader.fragmentShader = shader.fragmentShader
-				.replace( 'uniform float roughness;', 'uniform vec3 specular;' )
-				.replace( 'uniform float metalness;', 'uniform float glossiness;' )
-				.replace( '#include <roughnessmap_pars_fragment>', specularMapParsFragmentChunk )
-				.replace( '#include <metalnessmap_pars_fragment>', glossinessMapParsFragmentChunk )
-				.replace( '#include <roughnessmap_fragment>', specularMapFragmentChunk )
-				.replace( '#include <metalnessmap_fragment>', glossinessMapFragmentChunk )
-				.replace( '#include <lights_physical_fragment>', lightPhysicalFragmentChunk );
-
-		};
-
-		Object.defineProperties( this, {
-
-			specular: {
-				get: function () {
-
-					return uniforms.specular.value;
-
-				},
-				set: function ( v ) {
-
-					uniforms.specular.value = v;
-
-				}
-			},
-
-			specularMap: {
-				get: function () {
-
-					return uniforms.specularMap.value;
-
-				},
-				set: function ( v ) {
-
-					uniforms.specularMap.value = v;
-
-					if ( v ) {
-
-						this.defines.USE_SPECULARMAP = ''; // USE_UV is set by the renderer for specular maps
-
-					} else {
-
-						delete this.defines.USE_SPECULARMAP;
-
-					}
-
-				}
-			},
-
-			glossiness: {
-				get: function () {
-
-					return uniforms.glossiness.value;
-
-				},
-				set: function ( v ) {
-
-					uniforms.glossiness.value = v;
-
-				}
-			},
-
-			glossinessMap: {
-				get: function () {
-
-					return uniforms.glossinessMap.value;
-
-				},
-				set: function ( v ) {
-
-					uniforms.glossinessMap.value = v;
-
-					if ( v ) {
-
-						this.defines.USE_GLOSSINESSMAP = '';
-						this.defines.USE_UV = '';
-
-					} else {
-
-						delete this.defines.USE_GLOSSINESSMAP;
-						delete this.defines.USE_UV;
-
-					}
-
-				}
-			}
-
-		} );
-
-		delete this.metalness;
-		delete this.roughness;
-		delete this.metalnessMap;
-		delete this.roughnessMap;
-
-		this.setValues( params );
-
-	}
-
-	copy( source ) {
-
-		super.copy( source );
-
-		this.specularMap = source.specularMap;
-		this.specular.copy( source.specular );
-		this.glossinessMap = source.glossinessMap;
-		this.glossiness = source.glossiness;
-		delete this.metalness;
-		delete this.roughness;
-		delete this.metalnessMap;
-		delete this.roughnessMap;
-		return this;
-
-	}
-
-}
-
-
-class GLTFMaterialsPbrSpecularGlossinessExtension {
-
-	constructor() {
-
-		this.name = EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS;
-
-		this.specularGlossinessParams = [
-			'color',
-			'map',
-			'lightMap',
-			'lightMapIntensity',
-			'aoMap',
-			'aoMapIntensity',
-			'emissive',
-			'emissiveIntensity',
-			'emissiveMap',
-			'bumpMap',
-			'bumpScale',
-			'normalMap',
-			'normalMapType',
-			'displacementMap',
-			'displacementScale',
-			'displacementBias',
-			'specularMap',
-			'specular',
-			'glossinessMap',
-			'glossiness',
-			'alphaMap',
-			'envMap',
-			'envMapIntensity',
-			'refractionRatio',
-		];
-
-	}
-
-	getMaterialType() {
-
-		return GLTFMeshStandardSGMaterial;
-
-	}
-
-	extendParams( materialParams, materialDef, parser ) {
-
-		const pbrSpecularGlossiness = materialDef.extensions[ this.name ];
-
-		materialParams.color = new Color( 1.0, 1.0, 1.0 );
-		materialParams.opacity = 1.0;
-
-		const pending = [];
-
-		if ( Array.isArray( pbrSpecularGlossiness.diffuseFactor ) ) {
-
-			const array = pbrSpecularGlossiness.diffuseFactor;
-
-			materialParams.color.fromArray( array );
-			materialParams.opacity = array[ 3 ];
-
-		}
-
-		if ( pbrSpecularGlossiness.diffuseTexture !== undefined ) {
-
-			pending.push( parser.assignTexture( materialParams, 'map', pbrSpecularGlossiness.diffuseTexture ) );
-
-		}
-
-		materialParams.emissive = new Color( 0.0, 0.0, 0.0 );
-		materialParams.glossiness = pbrSpecularGlossiness.glossinessFactor !== undefined ? pbrSpecularGlossiness.glossinessFactor : 1.0;
-		materialParams.specular = new Color( 1.0, 1.0, 1.0 );
-
-		if ( Array.isArray( pbrSpecularGlossiness.specularFactor ) ) {
-
-			materialParams.specular.fromArray( pbrSpecularGlossiness.specularFactor );
-
-		}
-
-		if ( pbrSpecularGlossiness.specularGlossinessTexture !== undefined ) {
-
-			const specGlossMapDef = pbrSpecularGlossiness.specularGlossinessTexture;
-			pending.push( parser.assignTexture( materialParams, 'glossinessMap', specGlossMapDef ) );
-			pending.push( parser.assignTexture( materialParams, 'specularMap', specGlossMapDef ) );
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-	createMaterial( materialParams ) {
-
-		const material = new GLTFMeshStandardSGMaterial( materialParams );
-		material.fog = true;
-
-		material.color = materialParams.color;
-
-		material.map = materialParams.map === undefined ? null : materialParams.map;
-
-		material.lightMap = null;
-		material.lightMapIntensity = 1.0;
-
-		material.aoMap = materialParams.aoMap === undefined ? null : materialParams.aoMap;
-		material.aoMapIntensity = 1.0;
-
-		material.emissive = materialParams.emissive;
-		material.emissiveIntensity = 1.0;
-		material.emissiveMap = materialParams.emissiveMap === undefined ? null : materialParams.emissiveMap;
-
-		material.bumpMap = materialParams.bumpMap === undefined ? null : materialParams.bumpMap;
-		material.bumpScale = 1;
-
-		material.normalMap = materialParams.normalMap === undefined ? null : materialParams.normalMap;
-		material.normalMapType = TangentSpaceNormalMap;
-
-		if ( materialParams.normalScale ) material.normalScale = materialParams.normalScale;
-
-		material.displacementMap = null;
-		material.displacementScale = 1;
-		material.displacementBias = 0;
-
-		material.specularMap = materialParams.specularMap === undefined ? null : materialParams.specularMap;
-		material.specular = materialParams.specular;
-
-		material.glossinessMap = materialParams.glossinessMap === undefined ? null : materialParams.glossinessMap;
-		material.glossiness = materialParams.glossiness;
-
-		material.alphaMap = null;
-
-		material.envMap = materialParams.envMap === undefined ? null : materialParams.envMap;
-		material.envMapIntensity = 1.0;
-
-		material.refractionRatio = 0.98;
-
-		return material;
-
-	}
-
-}
-
-/**
- * Mesh Quantization Extension
- *
- * Specification: https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization
- */
-class GLTFMeshQuantizationExtension {
-
-	constructor() {
-
-		this.name = EXTENSIONS.KHR_MESH_QUANTIZATION;
-
-	}
-
-}
-
-/*********************************/
-/********** INTERPOLATION ********/
-/*********************************/
-
-// Spline Interpolation
-// Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#appendix-c-spline-interpolation
-class GLTFCubicSplineInterpolant extends Interpolant {
-
-	constructor( parameterPositions, sampleValues, sampleSize, resultBuffer ) {
-
-		super( parameterPositions, sampleValues, sampleSize, resultBuffer );
-
-	}
-
-	copySampleValue_( index ) {
-
-		// Copies a sample value to the result buffer. See description of glTF
-		// CUBICSPLINE values layout in interpolate_() function below.
-
-		const result = this.resultBuffer,
-			values = this.sampleValues,
-			valueSize = this.valueSize,
-			offset = index * valueSize * 3 + valueSize;
-
-		for ( let i = 0; i !== valueSize; i ++ ) {
-
-			result[ i ] = values[ offset + i ];
-
-		}
-
-		return result;
-
-	}
-
-}
-
-GLTFCubicSplineInterpolant.prototype.beforeStart_ = GLTFCubicSplineInterpolant.prototype.copySampleValue_;
-
-GLTFCubicSplineInterpolant.prototype.afterEnd_ = GLTFCubicSplineInterpolant.prototype.copySampleValue_;
-
-GLTFCubicSplineInterpolant.prototype.interpolate_ = function ( i1, t0, t, t1 ) {
-
-	const result = this.resultBuffer;
-	const values = this.sampleValues;
-	const stride = this.valueSize;
-
-	const stride2 = stride * 2;
-	const stride3 = stride * 3;
-
-	const td = t1 - t0;
-
-	const p = ( t - t0 ) / td;
-	const pp = p * p;
-	const ppp = pp * p;
-
-	const offset1 = i1 * stride3;
-	const offset0 = offset1 - stride3;
-
-	const s2 = - 2 * ppp + 3 * pp;
-	const s3 = ppp - pp;
-	const s0 = 1 - s2;
-	const s1 = s3 - pp + p;
-
-	// Layout of keyframe output values for CUBICSPLINE animations:
-	//   [ inTangent_1, splineVertex_1, outTangent_1, inTangent_2, splineVertex_2, ... ]
-	for ( let i = 0; i !== stride; i ++ ) {
-
-		const p0 = values[ offset0 + i + stride ]; // splineVertex_k
-		const m0 = values[ offset0 + i + stride2 ] * td; // outTangent_k * (t_k+1 - t_k)
-		const p1 = values[ offset1 + i + stride ]; // splineVertex_k+1
-		const m1 = values[ offset1 + i ] * td; // inTangent_k+1 * (t_k+1 - t_k)
-
-		result[ i ] = s0 * p0 + s1 * m0 + s2 * p1 + s3 * m1;
-
-	}
-
-	return result;
-
-};
-
-const _q = new Quaternion();
-
-class GLTFCubicSplineQuaternionInterpolant extends GLTFCubicSplineInterpolant {
-
-	interpolate_( i1, t0, t, t1 ) {
-
-		const result = super.interpolate_( i1, t0, t, t1 );
-
-		_q.fromArray( result ).normalize().toArray( result );
-
-		return result;
-
-	}
-
-}
-
-
-/*********************************/
-/********** INTERNALS ************/
-/*********************************/
-
-/* CONSTANTS */
-
-const WEBGL_CONSTANTS = {
-	FLOAT: 5126,
-	//FLOAT_MAT2: 35674,
-	FLOAT_MAT3: 35675,
-	FLOAT_MAT4: 35676,
-	FLOAT_VEC2: 35664,
-	FLOAT_VEC3: 35665,
-	FLOAT_VEC4: 35666,
-	LINEAR: 9729,
-	REPEAT: 10497,
-	SAMPLER_2D: 35678,
-	POINTS: 0,
-	LINES: 1,
-	LINE_LOOP: 2,
-	LINE_STRIP: 3,
-	TRIANGLES: 4,
-	TRIANGLE_STRIP: 5,
-	TRIANGLE_FAN: 6,
-	UNSIGNED_BYTE: 5121,
-	UNSIGNED_SHORT: 5123
-};
-
-const WEBGL_COMPONENT_TYPES = {
-	5120: Int8Array,
-	5121: Uint8Array,
-	5122: Int16Array,
-	5123: Uint16Array,
-	5125: Uint32Array,
-	5126: Float32Array
-};
-
-const WEBGL_FILTERS = {
-	9728: NearestFilter,
-	9729: LinearFilter,
-	9984: NearestMipmapNearestFilter,
-	9985: LinearMipmapNearestFilter,
-	9986: NearestMipmapLinearFilter,
-	9987: LinearMipmapLinearFilter
-};
-
-const WEBGL_WRAPPINGS = {
-	33071: ClampToEdgeWrapping,
-	33648: MirroredRepeatWrapping,
-	10497: RepeatWrapping
-};
-
-const WEBGL_TYPE_SIZES = {
-	'SCALAR': 1,
-	'VEC2': 2,
-	'VEC3': 3,
-	'VEC4': 4,
-	'MAT2': 4,
-	'MAT3': 9,
-	'MAT4': 16
-};
-
-const ATTRIBUTES = {
-	POSITION: 'position',
-	NORMAL: 'normal',
-	TANGENT: 'tangent',
-	TEXCOORD_0: 'uv',
-	TEXCOORD_1: 'uv2',
-	COLOR_0: 'color',
-	WEIGHTS_0: 'skinWeight',
-	JOINTS_0: 'skinIndex',
-};
-
-const PATH_PROPERTIES = {
-	scale: 'scale',
-	translation: 'position',
-	rotation: 'quaternion',
-	weights: 'morphTargetInfluences'
-};
-
-const INTERPOLATION = {
-	CUBICSPLINE: undefined, // We use a custom interpolant (GLTFCubicSplineInterpolation) for CUBICSPLINE tracks. Each
-		                        // keyframe track will be initialized with a default interpolation type, then modified.
-	LINEAR: InterpolateLinear,
-	STEP: InterpolateDiscrete
-};
-
-const ALPHA_MODES = {
-	OPAQUE: 'OPAQUE',
-	MASK: 'MASK',
-	BLEND: 'BLEND'
-};
-
-/**
- * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#default-material
- */
-function createDefaultMaterial( cache ) {
-
-	if ( cache[ 'DefaultMaterial' ] === undefined ) {
-
-		cache[ 'DefaultMaterial' ] = new MeshStandardMaterial( {
-			color: 0xFFFFFF,
-			emissive: 0x000000,
-			metalness: 1,
-			roughness: 1,
-			transparent: false,
-			depthTest: true,
-			side: FrontSide
-		} );
-
-	}
-
-	return cache[ 'DefaultMaterial' ];
-
-}
-
-function addUnknownExtensionsToUserData( knownExtensions, object, objectDef ) {
-
-	// Add unknown glTF extensions to an object's userData.
-
-	for ( const name in objectDef.extensions ) {
-
-		if ( knownExtensions[ name ] === undefined ) {
-
-			object.userData.gltfExtensions = object.userData.gltfExtensions || {};
-			object.userData.gltfExtensions[ name ] = objectDef.extensions[ name ];
+			const loader = new ObjectLoader();
+			this.object = loader.parse( json.object );
 
 		}
 
@@ -65262,20 +59582,228 @@ function addUnknownExtensionsToUserData( knownExtensions, object, objectDef ) {
 }
 
 /**
- * @param {Object3D|Material|BufferGeometry} object
- * @param {GLTF.definition} gltfDef
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param script javascript object
+ * @constructor
  */
-function assignExtrasToUserData( object, gltfDef ) {
+class RemoveScriptCommand extends Command {
 
-	if ( gltfDef.extras !== undefined ) {
+	constructor( editor, object, script ) {
 
-		if ( typeof gltfDef.extras === 'object' ) {
+		super( editor );
 
-			Object.assign( object.userData, gltfDef.extras );
+		this.type = 'RemoveScriptCommand';
+		this.name = 'Remove Script';
 
-		} else {
+		this.object = object;
+		this.script = script;
+		if ( this.object && this.script ) {
 
-			console.warn( 'THREE.GLTFLoader: Ignoring primitive type .extras, ' + gltfDef.extras );
+			this.index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
+
+		}
+
+	}
+
+	execute() {
+
+		if ( this.editor.scripts[ this.object.uuid ] === undefined ) return;
+
+		if ( this.index !== - 1 ) {
+
+			this.editor.scripts[ this.object.uuid ].splice( this.index, 1 );
+
+		}
+
+		this.editor.signals.scriptRemoved.dispatch( this.script );
+
+	}
+
+	undo() {
+
+		if ( this.editor.scripts[ this.object.uuid ] === undefined ) {
+
+			this.editor.scripts[ this.object.uuid ] = [];
+
+		}
+
+		this.editor.scripts[ this.object.uuid ].splice( this.index, 0, this.script );
+
+		this.editor.signals.scriptAdded.dispatch( this.script );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.script = this.script;
+		output.index = this.index;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.script = json.script;
+		this.index = json.index;
+		this.object = this.editor.objectByUuid( json.objectUuid );
+
+	}
+
+}
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param attributeName string
+ * @param newValue integer representing a hex color value
+ * @constructor
+ */
+class SetColorCommand extends Command {
+
+	constructor( editor, object, attributeName, newValue ) {
+
+		super( editor );
+
+		this.type = 'SetColorCommand';
+		this.name = `Set ${attributeName}`;
+		this.updatable = true;
+
+		this.object = object;
+		this.attributeName = attributeName;
+		this.oldValue = ( object !== undefined ) ? this.object[ this.attributeName ].getHex() : undefined;
+		this.newValue = newValue;
+
+	}
+
+	execute() {
+
+		this.object[ this.attributeName ].setHex( this.newValue );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	undo() {
+
+		this.object[ this.attributeName ].setHex( this.oldValue );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	update( cmd ) {
+
+		this.newValue = cmd.newValue;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.attributeName = json.attributeName;
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+
+	}
+
+}
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newGeometry THREE.Geometry
+ * @constructor
+ */
+
+class SetGeometryCommand extends Command {
+
+	constructor( editor, object, newGeometry ) {
+
+		super( editor );
+
+		this.type = 'SetGeometryCommand';
+		this.name = 'Set Geometry';
+		this.updatable = true;
+
+		this.object = object;
+		this.oldGeometry = ( object !== undefined ) ? object.geometry : undefined;
+		this.newGeometry = newGeometry;
+
+	}
+
+	execute() {
+
+		this.object.geometry.dispose();
+		this.object.geometry = this.newGeometry;
+		this.object.geometry.computeBoundingSphere();
+
+		this.editor.signals.geometryChanged.dispatch( this.object );
+		this.editor.signals.sceneGraphChanged.dispatch();
+
+	}
+
+	undo() {
+
+		this.object.geometry.dispose();
+		this.object.geometry = this.oldGeometry;
+		this.object.geometry.computeBoundingSphere();
+
+		this.editor.signals.geometryChanged.dispatch( this.object );
+		this.editor.signals.sceneGraphChanged.dispatch();
+
+	}
+
+	update( cmd ) {
+
+		this.newGeometry = cmd.newGeometry;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldGeometry = this.object.geometry.toJSON();
+		output.newGeometry = this.newGeometry.toJSON();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+
+		this.oldGeometry = parseGeometry( json.oldGeometry );
+		this.newGeometry = parseGeometry( json.newGeometry );
+
+		function parseGeometry( data ) {
+
+			const loader = new ObjectLoader();
+			return loader.parseGeometries( [ data ] )[ data.uuid ];
 
 		}
 
@@ -65284,5486 +59812,1281 @@ function assignExtrasToUserData( object, gltfDef ) {
 }
 
 /**
- * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#morph-targets
- *
- * @param {BufferGeometry} geometry
- * @param {Array<GLTF.Target>} targets
- * @param {GLTFParser} parser
- * @return {Promise<BufferGeometry>}
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param attributeName string
+ * @param newValue number, string, boolean or object
+ * @constructor
  */
-function addMorphTargets( geometry, targets, parser ) {
+class SetGeometryValueCommand extends Command {
 
-	let hasMorphPosition = false;
-	let hasMorphNormal = false;
-	let hasMorphColor = false;
+	constructor( editor, object, attributeName, newValue ) {
 
-	for ( let i = 0, il = targets.length; i < il; i ++ ) {
+		super( editor );
 
-		const target = targets[ i ];
+		this.type = 'SetGeometryValueCommand';
+		this.name = `Set Geometry.${attributeName}`;
 
-		if ( target.POSITION !== undefined ) hasMorphPosition = true;
-		if ( target.NORMAL !== undefined ) hasMorphNormal = true;
-		if ( target.COLOR_0 !== undefined ) hasMorphColor = true;
-
-		if ( hasMorphPosition && hasMorphNormal && hasMorphColor ) break;
+		this.object = object;
+		this.attributeName = attributeName;
+		this.oldValue = ( object !== undefined ) ? object.geometry[ attributeName ] : undefined;
+		this.newValue = newValue;
 
 	}
 
-	if ( ! hasMorphPosition && ! hasMorphNormal && ! hasMorphColor ) return Promise.resolve( geometry );
+	execute() {
 
-	const pendingPositionAccessors = [];
-	const pendingNormalAccessors = [];
-	const pendingColorAccessors = [];
-
-	for ( let i = 0, il = targets.length; i < il; i ++ ) {
-
-		const target = targets[ i ];
-
-		if ( hasMorphPosition ) {
-
-			const pendingAccessor = target.POSITION !== undefined
-				? parser.getDependency( 'accessor', target.POSITION )
-				: geometry.attributes.position;
-
-			pendingPositionAccessors.push( pendingAccessor );
-
-		}
-
-		if ( hasMorphNormal ) {
-
-			const pendingAccessor = target.NORMAL !== undefined
-				? parser.getDependency( 'accessor', target.NORMAL )
-				: geometry.attributes.normal;
-
-			pendingNormalAccessors.push( pendingAccessor );
-
-		}
-
-		if ( hasMorphColor ) {
-
-			const pendingAccessor = target.COLOR_0 !== undefined
-				? parser.getDependency( 'accessor', target.COLOR_0 )
-				: geometry.attributes.color;
-
-			pendingColorAccessors.push( pendingAccessor );
-
-		}
+		this.object.geometry[ this.attributeName ] = this.newValue;
+		this.editor.signals.objectChanged.dispatch( this.object );
+		this.editor.signals.geometryChanged.dispatch();
+		this.editor.signals.sceneGraphChanged.dispatch();
 
 	}
 
-	return Promise.all( [
-		Promise.all( pendingPositionAccessors ),
-		Promise.all( pendingNormalAccessors ),
-		Promise.all( pendingColorAccessors )
-	] ).then( function ( accessors ) {
+	undo() {
 
-		const morphPositions = accessors[ 0 ];
-		const morphNormals = accessors[ 1 ];
-		const morphColors = accessors[ 2 ];
+		this.object.geometry[ this.attributeName ] = this.oldValue;
+		this.editor.signals.objectChanged.dispatch( this.object );
+		this.editor.signals.geometryChanged.dispatch();
+		this.editor.signals.sceneGraphChanged.dispatch();
 
-		if ( hasMorphPosition ) geometry.morphAttributes.position = morphPositions;
-		if ( hasMorphNormal ) geometry.morphAttributes.normal = morphNormals;
-		if ( hasMorphColor ) geometry.morphAttributes.color = morphColors;
-		geometry.morphTargetsRelative = true;
+	}
 
-		return geometry;
+	toJSON() {
 
-	} );
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.attributeName = json.attributeName;
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+
+	}
 
 }
 
 /**
- * @param {Mesh} mesh
- * @param {GLTF.Mesh} meshDef
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param attributeName string
+ * @param newValue integer representing a hex color value
+ * @constructor
  */
-function updateMorphTargets( mesh, meshDef ) {
+class SetMaterialColorCommand extends Command {
 
-	mesh.updateMorphTargets();
+	constructor( editor, object, attributeName, newValue, materialSlot ) {
 
-	if ( meshDef.weights !== undefined ) {
+		super( editor );
 
-		for ( let i = 0, il = meshDef.weights.length; i < il; i ++ ) {
+		this.type = 'SetMaterialColorCommand';
+		this.name = `Set Material.${attributeName}`;
+		this.updatable = true;
 
-			mesh.morphTargetInfluences[ i ] = meshDef.weights[ i ];
+		this.object = object;
+		this.material = ( this.object !== undefined ) ? this.editor.getObjectMaterial( object, materialSlot ) : undefined;
+
+		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ].getHex() : undefined;
+		this.newValue = newValue;
+
+		this.attributeName = attributeName;
+
+	}
+
+	execute() {
+
+		this.material[ this.attributeName ].setHex( this.newValue );
+
+		this.editor.signals.materialChanged.dispatch( this.material );
+
+	}
+
+	undo() {
+
+		this.material[ this.attributeName ].setHex( this.oldValue );
+
+		this.editor.signals.materialChanged.dispatch( this.material );
+
+	}
+
+	update( cmd ) {
+
+		this.newValue = cmd.newValue;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.attributeName = json.attributeName;
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+
+	}
+
+}
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newMaterial THREE.Material
+ * @constructor
+ */
+class SetMaterialCommand extends Command {
+
+	constructor( editor, object, newMaterial, materialSlot ) {
+
+		super( editor );
+
+		this.type = 'SetMaterialCommand';
+		this.name = 'New Material';
+
+		this.object = object;
+		this.materialSlot = materialSlot;
+
+		this.oldMaterial = this.editor.getObjectMaterial( object, materialSlot );
+		this.newMaterial = newMaterial;
+
+	}
+
+	execute() {
+
+		this.editor.setObjectMaterial( this.object, this.materialSlot, this.newMaterial );
+		this.editor.signals.materialChanged.dispatch( this.newMaterial );
+
+	}
+
+	undo() {
+
+		this.editor.setObjectMaterial( this.object, this.materialSlot, this.oldMaterial );
+		this.editor.signals.materialChanged.dispatch( this.oldMaterial );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldMaterial = this.oldMaterial.toJSON();
+		output.newMaterial = this.newMaterial.toJSON();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldMaterial = parseMaterial( json.oldMaterial );
+		this.newMaterial = parseMaterial( json.newMaterial );
+
+		function parseMaterial( json ) {
+
+			const loader = new ObjectLoader();
+			const images = loader.parseImages( json.images );
+			const textures = loader.parseTextures( json.textures, images );
+			const materials = loader.parseMaterials( [ json ], textures );
+			return materials[ json.uuid ];
 
 		}
 
 	}
 
-	// .extras has user-defined data, so check that .extras.targetNames is an array.
-	if ( meshDef.extras && Array.isArray( meshDef.extras.targetNames ) ) {
-
-		const targetNames = meshDef.extras.targetNames;
-
-		if ( mesh.morphTargetInfluences.length === targetNames.length ) {
-
-			mesh.morphTargetDictionary = {};
-
-			for ( let i = 0, il = targetNames.length; i < il; i ++ ) {
-
-				mesh.morphTargetDictionary[ targetNames[ i ] ] = i;
-
-			}
-
-		} else {
-
-			console.warn( 'THREE.GLTFLoader: Invalid extras.targetNames length. Ignoring names.' );
-
-		}
-
-	}
-
 }
 
-function createPrimitiveKey( primitiveDef ) {
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param mapName string
+ * @param newMap THREE.Texture
+ * @constructor
+ */
+class SetMaterialMapCommand extends Command {
 
-	const dracoExtension = primitiveDef.extensions && primitiveDef.extensions[ EXTENSIONS.KHR_DRACO_MESH_COMPRESSION ];
-	let geometryKey;
+	constructor( editor, object, mapName, newMap, materialSlot ) {
 
-	if ( dracoExtension ) {
+		super( editor );
 
-		geometryKey = 'draco:' + dracoExtension.bufferView
-				+ ':' + dracoExtension.indices
-				+ ':' + createAttributesKey( dracoExtension.attributes );
+		this.type = 'SetMaterialMapCommand';
+		this.name = `Set Material.${mapName}`;
 
-	} else {
+		this.object = object;
+		this.material = this.editor.getObjectMaterial( object, materialSlot );
 
-		geometryKey = primitiveDef.indices + ':' + createAttributesKey( primitiveDef.attributes ) + ':' + primitiveDef.mode;
+		this.oldMap = ( object !== undefined ) ? this.material[ mapName ] : undefined;
+		this.newMap = newMap;
 
-	}
-
-	return geometryKey;
-
-}
-
-function createAttributesKey( attributes ) {
-
-	let attributesKey = '';
-
-	const keys = Object.keys( attributes ).sort();
-
-	for ( let i = 0, il = keys.length; i < il; i ++ ) {
-
-		attributesKey += keys[ i ] + ':' + attributes[ keys[ i ] ] + ';';
+		this.mapName = mapName;
 
 	}
 
-	return attributesKey;
+	execute() {
 
-}
+		if ( this.oldMap !== null && this.oldMap !== undefined ) this.oldMap.dispose();
 
-function getNormalizedComponentScale( constructor ) {
+		this.material[ this.mapName ] = this.newMap;
+		this.material.needsUpdate = true;
 
-	// Reference:
-	// https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_mesh_quantization#encoding-quantized-data
-
-	switch ( constructor ) {
-
-		case Int8Array:
-			return 1 / 127;
-
-		case Uint8Array:
-			return 1 / 255;
-
-		case Int16Array:
-			return 1 / 32767;
-
-		case Uint16Array:
-			return 1 / 65535;
-
-		default:
-			throw new Error( 'THREE.GLTFLoader: Unsupported normalized accessor component type.' );
+		this.editor.signals.materialChanged.dispatch( this.material );
 
 	}
 
-}
+	undo() {
 
-function getImageURIMimeType( uri ) {
+		this.material[ this.mapName ] = this.oldMap;
+		this.material.needsUpdate = true;
 
-	if ( uri.search( /\.jpe?g($|\?)/i ) > 0 || uri.search( /^data\:image\/jpeg/ ) === 0 ) return 'image/jpeg';
-	if ( uri.search( /\.webp($|\?)/i ) > 0 || uri.search( /^data\:image\/webp/ ) === 0 ) return 'image/webp';
-
-	return 'image/png';
-
-}
-
-/* GLTF PARSER */
-
-class GLTFParser {
-
-	constructor( json = {}, options = {} ) {
-
-		this.json = json;
-		this.extensions = {};
-		this.plugins = {};
-		this.options = options;
-
-		// loader object cache
-		this.cache = new GLTFRegistry();
-
-		// associations between Three.js objects and glTF elements
-		this.associations = new Map();
-
-		// BufferGeometry caching
-		this.primitiveCache = {};
-
-		// Object3D instance caches
-		this.meshCache = { refs: {}, uses: {} };
-		this.cameraCache = { refs: {}, uses: {} };
-		this.lightCache = { refs: {}, uses: {} };
-
-		this.sourceCache = {};
-		this.textureCache = {};
-
-		// Track node names, to ensure no duplicates
-		this.nodeNamesUsed = {};
-
-		// Use an ImageBitmapLoader if imageBitmaps are supported. Moves much of the
-		// expensive work of uploading a texture to the GPU off the main thread.
-		if ( typeof createImageBitmap !== 'undefined' && /Firefox|^((?!chrome|android).)*safari/i.test( navigator.userAgent ) === false ) {
-
-			this.textureLoader = new ImageBitmapLoader( this.options.manager );
-
-		} else {
-
-			this.textureLoader = new TextureLoader( this.options.manager );
-
-		}
-
-		this.textureLoader.setCrossOrigin( this.options.crossOrigin );
-		this.textureLoader.setRequestHeader( this.options.requestHeader );
-
-		this.fileLoader = new FileLoader( this.options.manager );
-		this.fileLoader.setResponseType( 'arraybuffer' );
-
-		if ( this.options.crossOrigin === 'use-credentials' ) {
-
-			this.fileLoader.setWithCredentials( true );
-
-		}
+		this.editor.signals.materialChanged.dispatch( this.material );
 
 	}
 
-	setExtensions( extensions ) {
+	toJSON() {
 
-		this.extensions = extensions;
+		const output = super.toJSON( this );
 
-	}
+		output.objectUuid = this.object.uuid;
+		output.mapName = this.mapName;
+		output.newMap = serializeMap( this.newMap );
+		output.oldMap = serializeMap( this.oldMap );
 
-	setPlugins( plugins ) {
+		return output;
 
-		this.plugins = plugins;
+		// serializes a map (THREE.Texture)
 
-	}
+		function serializeMap( map ) {
 
-	parse( onLoad, onError ) {
+			if ( map === null || map === undefined ) return null;
 
-		const parser = this;
-		const json = this.json;
-		const extensions = this.extensions;
-
-		// Clear the loader cache
-		this.cache.removeAll();
-
-		// Mark the special nodes/meshes in json for efficient parse
-		this._invokeAll( function ( ext ) {
-
-			return ext._markDefs && ext._markDefs();
-
-		} );
-
-		Promise.all( this._invokeAll( function ( ext ) {
-
-			return ext.beforeRoot && ext.beforeRoot();
-
-		} ) ).then( function () {
-
-			return Promise.all( [
-
-				parser.getDependencies( 'scene' ),
-				parser.getDependencies( 'animation' ),
-				parser.getDependencies( 'camera' ),
-
-			] );
-
-		} ).then( function ( dependencies ) {
-
-			const result = {
-				scene: dependencies[ 0 ][ json.scene || 0 ],
-				scenes: dependencies[ 0 ],
-				animations: dependencies[ 1 ],
-				cameras: dependencies[ 2 ],
-				asset: json.asset,
-				parser: parser,
-				userData: {}
+			const meta = {
+				geometries: {},
+				materials: {},
+				textures: {},
+				images: {}
 			};
 
-			addUnknownExtensionsToUserData( extensions, result, json );
+			const json = map.toJSON( meta );
+			const images = extractFromCache( meta.images );
+			if ( images.length > 0 ) json.images = images;
+			json.sourceFile = map.sourceFile;
 
-			assignExtrasToUserData( result, json );
-
-			Promise.all( parser._invokeAll( function ( ext ) {
-
-				return ext.afterRoot && ext.afterRoot( result );
-
-			} ) ).then( function () {
-
-				onLoad( result );
-
-			} );
-
-		} ).catch( onError );
-
-	}
-
-	/**
-	 * Marks the special nodes/meshes in json for efficient parse.
-	 */
-	_markDefs() {
-
-		const nodeDefs = this.json.nodes || [];
-		const skinDefs = this.json.skins || [];
-		const meshDefs = this.json.meshes || [];
-
-		// Nothing in the node definition indicates whether it is a Bone or an
-		// Object3D. Use the skins' joint references to mark bones.
-		for ( let skinIndex = 0, skinLength = skinDefs.length; skinIndex < skinLength; skinIndex ++ ) {
-
-			const joints = skinDefs[ skinIndex ].joints;
-
-			for ( let i = 0, il = joints.length; i < il; i ++ ) {
-
-				nodeDefs[ joints[ i ] ].isBone = true;
-
-			}
+			return json;
 
 		}
 
-		// Iterate over all nodes, marking references to shared resources,
-		// as well as skeleton joints.
-		for ( let nodeIndex = 0, nodeLength = nodeDefs.length; nodeIndex < nodeLength; nodeIndex ++ ) {
+		// Note: The function 'extractFromCache' is copied from Object3D.toJSON()
 
-			const nodeDef = nodeDefs[ nodeIndex ];
+		// extract data from the cache hash
+		// remove metadata on each item
+		// and return as array
+		function extractFromCache( cache ) {
 
-			if ( nodeDef.mesh !== undefined ) {
+			const values = [];
+			for ( const key in cache ) {
 
-				this._addNodeRef( this.meshCache, nodeDef.mesh );
-
-				// Nothing in the mesh definition indicates whether it is
-				// a SkinnedMesh or Mesh. Use the node's mesh reference
-				// to mark SkinnedMesh if node has skin.
-				if ( nodeDef.skin !== undefined ) {
-
-					meshDefs[ nodeDef.mesh ].isSkinnedMesh = true;
-
-				}
+				const data = cache[ key ];
+				delete data.metadata;
+				values.push( data );
 
 			}
 
-			if ( nodeDef.camera !== undefined ) {
-
-				this._addNodeRef( this.cameraCache, nodeDef.camera );
-
-			}
+			return values;
 
 		}
 
 	}
 
-	/**
-	 * Counts references to shared node / Object3D resources. These resources
-	 * can be reused, or "instantiated", at multiple nodes in the scene
-	 * hierarchy. Mesh, Camera, and Light instances are instantiated and must
-	 * be marked. Non-scenegraph resources (like Materials, Geometries, and
-	 * Textures) can be reused directly and are not marked here.
-	 *
-	 * Example: CesiumMilkTruck sample model reuses "Wheel" meshes.
-	 */
-	_addNodeRef( cache, index ) {
+	fromJSON( json ) {
 
-		if ( index === undefined ) return;
+		super.fromJSON( json );
 
-		if ( cache.refs[ index ] === undefined ) {
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.mapName = json.mapName;
+		this.oldMap = parseTexture( json.oldMap );
+		this.newMap = parseTexture( json.newMap );
 
-			cache.refs[ index ] = cache.uses[ index ] = 0;
+		function parseTexture( json ) {
+
+			let map = null;
+			if ( json !== null ) {
+
+				const loader = new ObjectLoader();
+				const images = loader.parseImages( json.images );
+				const textures = loader.parseTextures( [ json ], images );
+				map = textures[ json.uuid ];
+				map.sourceFile = json.sourceFile;
+
+			}
+
+			return map;
 
 		}
-
-		cache.refs[ index ] ++;
 
 	}
-
-	/** Returns a reference to a shared resource, cloning it if necessary. */
-	_getNodeRef( cache, index, object ) {
-
-		if ( cache.refs[ index ] <= 1 ) return object;
-
-		const ref = object.clone();
-
-		// Propagates mappings to the cloned object, prevents mappings on the
-		// original object from being lost.
-		const updateMappings = ( original, clone ) => {
-
-			const mappings = this.associations.get( original );
-			if ( mappings != null ) {
-
-				this.associations.set( clone, mappings );
-
-			}
-
-			for ( const [ i, child ] of original.children.entries() ) {
-
-				updateMappings( child, clone.children[ i ] );
-
-			}
-
-		};
-
-		updateMappings( object, ref );
-
-		ref.name += '_instance_' + ( cache.uses[ index ] ++ );
-
-		return ref;
-
-	}
-
-	_invokeOne( func ) {
-
-		const extensions = Object.values( this.plugins );
-		extensions.push( this );
-
-		for ( let i = 0; i < extensions.length; i ++ ) {
-
-			const result = func( extensions[ i ] );
-
-			if ( result ) return result;
-
-		}
-
-		return null;
-
-	}
-
-	_invokeAll( func ) {
-
-		const extensions = Object.values( this.plugins );
-		extensions.unshift( this );
-
-		const pending = [];
-
-		for ( let i = 0; i < extensions.length; i ++ ) {
-
-			const result = func( extensions[ i ] );
-
-			if ( result ) pending.push( result );
-
-		}
-
-		return pending;
-
-	}
-
-	/**
-	 * Requests the specified dependency asynchronously, with caching.
-	 * @param {string} type
-	 * @param {number} index
-	 * @return {Promise<Object3D|Material|THREE.Texture|AnimationClip|ArrayBuffer|Object>}
-	 */
-	getDependency( type, index ) {
-
-		const cacheKey = type + ':' + index;
-		let dependency = this.cache.get( cacheKey );
-
-		if ( ! dependency ) {
-
-			switch ( type ) {
-
-				case 'scene':
-					dependency = this.loadScene( index );
-					break;
-
-				case 'node':
-					dependency = this.loadNode( index );
-					break;
-
-				case 'mesh':
-					dependency = this._invokeOne( function ( ext ) {
-
-						return ext.loadMesh && ext.loadMesh( index );
-
-					} );
-					break;
-
-				case 'accessor':
-					dependency = this.loadAccessor( index );
-					break;
-
-				case 'bufferView':
-					dependency = this._invokeOne( function ( ext ) {
-
-						return ext.loadBufferView && ext.loadBufferView( index );
-
-					} );
-					break;
-
-				case 'buffer':
-					dependency = this.loadBuffer( index );
-					break;
-
-				case 'material':
-					dependency = this._invokeOne( function ( ext ) {
-
-						return ext.loadMaterial && ext.loadMaterial( index );
-
-					} );
-					break;
-
-				case 'texture':
-					dependency = this._invokeOne( function ( ext ) {
-
-						return ext.loadTexture && ext.loadTexture( index );
-
-					} );
-					break;
-
-				case 'skin':
-					dependency = this.loadSkin( index );
-					break;
-
-				case 'animation':
-					dependency = this.loadAnimation( index );
-					break;
-
-				case 'camera':
-					dependency = this.loadCamera( index );
-					break;
-
-				default:
-					throw new Error( 'Unknown type: ' + type );
-
-			}
-
-			this.cache.add( cacheKey, dependency );
-
-		}
-
-		return dependency;
-
-	}
-
-	/**
-	 * Requests all dependencies of the specified type asynchronously, with caching.
-	 * @param {string} type
-	 * @return {Promise<Array<Object>>}
-	 */
-	getDependencies( type ) {
-
-		let dependencies = this.cache.get( type );
-
-		if ( ! dependencies ) {
-
-			const parser = this;
-			const defs = this.json[ type + ( type === 'mesh' ? 'es' : 's' ) ] || [];
-
-			dependencies = Promise.all( defs.map( function ( def, index ) {
-
-				return parser.getDependency( type, index );
-
-			} ) );
-
-			this.cache.add( type, dependencies );
-
-		}
-
-		return dependencies;
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-	 * @param {number} bufferIndex
-	 * @return {Promise<ArrayBuffer>}
-	 */
-	loadBuffer( bufferIndex ) {
-
-		const bufferDef = this.json.buffers[ bufferIndex ];
-		const loader = this.fileLoader;
-
-		if ( bufferDef.type && bufferDef.type !== 'arraybuffer' ) {
-
-			throw new Error( 'THREE.GLTFLoader: ' + bufferDef.type + ' buffer type is not supported.' );
-
-		}
-
-		// If present, GLB container is required to be the first buffer.
-		if ( bufferDef.uri === undefined && bufferIndex === 0 ) {
-
-			return Promise.resolve( this.extensions[ EXTENSIONS.KHR_BINARY_GLTF ].body );
-
-		}
-
-		const options = this.options;
-
-		return new Promise( function ( resolve, reject ) {
-
-			loader.load( LoaderUtils$1.resolveURL( bufferDef.uri, options.path ), resolve, undefined, function () {
-
-				reject( new Error( 'THREE.GLTFLoader: Failed to load buffer "' + bufferDef.uri + '".' ) );
-
-			} );
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#buffers-and-buffer-views
-	 * @param {number} bufferViewIndex
-	 * @return {Promise<ArrayBuffer>}
-	 */
-	loadBufferView( bufferViewIndex ) {
-
-		const bufferViewDef = this.json.bufferViews[ bufferViewIndex ];
-
-		return this.getDependency( 'buffer', bufferViewDef.buffer ).then( function ( buffer ) {
-
-			const byteLength = bufferViewDef.byteLength || 0;
-			const byteOffset = bufferViewDef.byteOffset || 0;
-			return buffer.slice( byteOffset, byteOffset + byteLength );
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessors
-	 * @param {number} accessorIndex
-	 * @return {Promise<BufferAttribute|InterleavedBufferAttribute>}
-	 */
-	loadAccessor( accessorIndex ) {
-
-		const parser = this;
-		const json = this.json;
-
-		const accessorDef = this.json.accessors[ accessorIndex ];
-
-		if ( accessorDef.bufferView === undefined && accessorDef.sparse === undefined ) {
-
-			// Ignore empty accessors, which may be used to declare runtime
-			// information about attributes coming from another source (e.g. Draco
-			// compression extension).
-			return Promise.resolve( null );
-
-		}
-
-		const pendingBufferViews = [];
-
-		if ( accessorDef.bufferView !== undefined ) {
-
-			pendingBufferViews.push( this.getDependency( 'bufferView', accessorDef.bufferView ) );
-
-		} else {
-
-			pendingBufferViews.push( null );
-
-		}
-
-		if ( accessorDef.sparse !== undefined ) {
-
-			pendingBufferViews.push( this.getDependency( 'bufferView', accessorDef.sparse.indices.bufferView ) );
-			pendingBufferViews.push( this.getDependency( 'bufferView', accessorDef.sparse.values.bufferView ) );
-
-		}
-
-		return Promise.all( pendingBufferViews ).then( function ( bufferViews ) {
-
-			const bufferView = bufferViews[ 0 ];
-
-			const itemSize = WEBGL_TYPE_SIZES[ accessorDef.type ];
-			const TypedArray = WEBGL_COMPONENT_TYPES[ accessorDef.componentType ];
-
-			// For VEC3: itemSize is 3, elementBytes is 4, itemBytes is 12.
-			const elementBytes = TypedArray.BYTES_PER_ELEMENT;
-			const itemBytes = elementBytes * itemSize;
-			const byteOffset = accessorDef.byteOffset || 0;
-			const byteStride = accessorDef.bufferView !== undefined ? json.bufferViews[ accessorDef.bufferView ].byteStride : undefined;
-			const normalized = accessorDef.normalized === true;
-			let array, bufferAttribute;
-
-			// The buffer is not interleaved if the stride is the item size in bytes.
-			if ( byteStride && byteStride !== itemBytes ) {
-
-				// Each "slice" of the buffer, as defined by 'count' elements of 'byteStride' bytes, gets its own InterleavedBuffer
-				// This makes sure that IBA.count reflects accessor.count properly
-				const ibSlice = Math.floor( byteOffset / byteStride );
-				const ibCacheKey = 'InterleavedBuffer:' + accessorDef.bufferView + ':' + accessorDef.componentType + ':' + ibSlice + ':' + accessorDef.count;
-				let ib = parser.cache.get( ibCacheKey );
-
-				if ( ! ib ) {
-
-					array = new TypedArray( bufferView, ibSlice * byteStride, accessorDef.count * byteStride / elementBytes );
-
-					// Integer parameters to IB/IBA are in array elements, not bytes.
-					ib = new InterleavedBuffer( array, byteStride / elementBytes );
-
-					parser.cache.add( ibCacheKey, ib );
-
-				}
-
-				bufferAttribute = new InterleavedBufferAttribute( ib, itemSize, ( byteOffset % byteStride ) / elementBytes, normalized );
-
-			} else {
-
-				if ( bufferView === null ) {
-
-					array = new TypedArray( accessorDef.count * itemSize );
-
-				} else {
-
-					array = new TypedArray( bufferView, byteOffset, accessorDef.count * itemSize );
-
-				}
-
-				bufferAttribute = new BufferAttribute( array, itemSize, normalized );
-
-			}
-
-			// https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#sparse-accessors
-			if ( accessorDef.sparse !== undefined ) {
-
-				const itemSizeIndices = WEBGL_TYPE_SIZES.SCALAR;
-				const TypedArrayIndices = WEBGL_COMPONENT_TYPES[ accessorDef.sparse.indices.componentType ];
-
-				const byteOffsetIndices = accessorDef.sparse.indices.byteOffset || 0;
-				const byteOffsetValues = accessorDef.sparse.values.byteOffset || 0;
-
-				const sparseIndices = new TypedArrayIndices( bufferViews[ 1 ], byteOffsetIndices, accessorDef.sparse.count * itemSizeIndices );
-				const sparseValues = new TypedArray( bufferViews[ 2 ], byteOffsetValues, accessorDef.sparse.count * itemSize );
-
-				if ( bufferView !== null ) {
-
-					// Avoid modifying the original ArrayBuffer, if the bufferView wasn't initialized with zeroes.
-					bufferAttribute = new BufferAttribute( bufferAttribute.array.slice(), bufferAttribute.itemSize, bufferAttribute.normalized );
-
-				}
-
-				for ( let i = 0, il = sparseIndices.length; i < il; i ++ ) {
-
-					const index = sparseIndices[ i ];
-
-					bufferAttribute.setX( index, sparseValues[ i * itemSize ] );
-					if ( itemSize >= 2 ) bufferAttribute.setY( index, sparseValues[ i * itemSize + 1 ] );
-					if ( itemSize >= 3 ) bufferAttribute.setZ( index, sparseValues[ i * itemSize + 2 ] );
-					if ( itemSize >= 4 ) bufferAttribute.setW( index, sparseValues[ i * itemSize + 3 ] );
-					if ( itemSize >= 5 ) throw new Error( 'THREE.GLTFLoader: Unsupported itemSize in sparse BufferAttribute.' );
-
-				}
-
-			}
-
-			return bufferAttribute;
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#textures
-	 * @param {number} textureIndex
-	 * @return {Promise<THREE.Texture>}
-	 */
-	loadTexture( textureIndex ) {
-
-		const json = this.json;
-		const options = this.options;
-		const textureDef = json.textures[ textureIndex ];
-		const sourceIndex = textureDef.source;
-		const sourceDef = json.images[ sourceIndex ];
-
-		let loader = this.textureLoader;
-
-		if ( sourceDef.uri ) {
-
-			const handler = options.manager.getHandler( sourceDef.uri );
-			if ( handler !== null ) loader = handler;
-
-		}
-
-		return this.loadTextureImage( textureIndex, sourceIndex, loader );
-
-	}
-
-	loadTextureImage( textureIndex, sourceIndex, loader ) {
-
-		const parser = this;
-		const json = this.json;
-
-		const textureDef = json.textures[ textureIndex ];
-		const sourceDef = json.images[ sourceIndex ];
-
-		const cacheKey = ( sourceDef.uri || sourceDef.bufferView ) + ':' + textureDef.sampler;
-
-		if ( this.textureCache[ cacheKey ] ) {
-
-			// See https://github.com/mrdoob/three.js/issues/21559.
-			return this.textureCache[ cacheKey ];
-
-		}
-
-		const promise = this.loadImageSource( sourceIndex, loader ).then( function ( texture ) {
-
-			texture.flipY = false;
-
-			if ( textureDef.name ) texture.name = textureDef.name;
-
-			const samplers = json.samplers || {};
-			const sampler = samplers[ textureDef.sampler ] || {};
-
-			texture.magFilter = WEBGL_FILTERS[ sampler.magFilter ] || LinearFilter;
-			texture.minFilter = WEBGL_FILTERS[ sampler.minFilter ] || LinearMipmapLinearFilter;
-			texture.wrapS = WEBGL_WRAPPINGS[ sampler.wrapS ] || RepeatWrapping;
-			texture.wrapT = WEBGL_WRAPPINGS[ sampler.wrapT ] || RepeatWrapping;
-
-			parser.associations.set( texture, { textures: textureIndex } );
-
-			return texture;
-
-		} ).catch( function () {
-
-			return null;
-
-		} );
-
-		this.textureCache[ cacheKey ] = promise;
-
-		return promise;
-
-	}
-
-	loadImageSource( sourceIndex, loader ) {
-
-		const parser = this;
-		const json = this.json;
-		const options = this.options;
-
-		if ( this.sourceCache[ sourceIndex ] !== undefined ) {
-
-			return this.sourceCache[ sourceIndex ].then( function ( texture ) {
-
-				return texture.clone();
-
-			} ).catch( function ( error ) {
-
-				throw error;
-
-			} );
-
-		}
-
-		const sourceDef = json.images[ sourceIndex ];
-
-		const URL = self.URL || self.webkitURL;
-
-		let sourceURI = sourceDef.uri || '';
-		let isObjectURL = false;
-
-		if ( sourceDef.bufferView !== undefined ) {
-
-			// Load binary image data from bufferView, if provided.
-
-			sourceURI = parser.getDependency( 'bufferView', sourceDef.bufferView ).then( function ( bufferView ) {
-
-				isObjectURL = true;
-				const blob = new Blob( [ bufferView ], { type: sourceDef.mimeType } );
-				sourceURI = URL.createObjectURL( blob );
-				return sourceURI;
-
-			} );
-
-		} else if ( sourceDef.uri === undefined ) {
-
-			throw new Error( 'THREE.GLTFLoader: Image ' + sourceIndex + ' is missing URI and bufferView' );
-
-		}
-
-		const promise = Promise.resolve( sourceURI ).then( function ( sourceURI ) {
-
-			return new Promise( function ( resolve, reject ) {
-
-				let onLoad = resolve;
-
-				if ( loader.isImageBitmapLoader === true ) {
-
-					onLoad = function ( imageBitmap ) {
-
-						const texture = new Texture( imageBitmap );
-						texture.needsUpdate = true;
-
-						resolve( texture );
-
-					};
-
-				}
-
-				loader.load( LoaderUtils$1.resolveURL( sourceURI, options.path ), onLoad, undefined, reject );
-
-			} );
-
-		} ).then( function ( texture ) {
-
-			// Clean up resources and configure Texture.
-
-			if ( isObjectURL === true ) {
-
-				URL.revokeObjectURL( sourceURI );
-
-			}
-
-			texture.userData.mimeType = sourceDef.mimeType || getImageURIMimeType( sourceDef.uri );
-
-			return texture;
-
-		} ).catch( function ( error ) {
-
-			console.error( 'THREE.GLTFLoader: Couldn\'t load texture', sourceURI );
-			throw error;
-
-		} );
-
-		this.sourceCache[ sourceIndex ] = promise;
-		return promise;
-
-	}
-
-	/**
-	 * Asynchronously assigns a texture to the given material parameters.
-	 * @param {Object} materialParams
-	 * @param {string} mapName
-	 * @param {Object} mapDef
-	 * @return {Promise<Texture>}
-	 */
-	assignTexture( materialParams, mapName, mapDef ) {
-
-		const parser = this;
-
-		return this.getDependency( 'texture', mapDef.index ).then( function ( texture ) {
-
-			// Materials sample aoMap from UV set 1 and other maps from UV set 0 - this can't be configured
-			// However, we will copy UV set 0 to UV set 1 on demand for aoMap
-			if ( mapDef.texCoord !== undefined && mapDef.texCoord != 0 && ! ( mapName === 'aoMap' && mapDef.texCoord == 1 ) ) {
-
-				console.warn( 'THREE.GLTFLoader: Custom UV set ' + mapDef.texCoord + ' for texture ' + mapName + ' not yet supported.' );
-
-			}
-
-			if ( parser.extensions[ EXTENSIONS.KHR_TEXTURE_TRANSFORM ] ) {
-
-				const transform = mapDef.extensions !== undefined ? mapDef.extensions[ EXTENSIONS.KHR_TEXTURE_TRANSFORM ] : undefined;
-
-				if ( transform ) {
-
-					const gltfReference = parser.associations.get( texture );
-					texture = parser.extensions[ EXTENSIONS.KHR_TEXTURE_TRANSFORM ].extendTexture( texture, transform );
-					parser.associations.set( texture, gltfReference );
-
-				}
-
-			}
-
-			materialParams[ mapName ] = texture;
-
-			return texture;
-
-		} );
-
-	}
-
-	/**
-	 * Assigns final material to a Mesh, Line, or Points instance. The instance
-	 * already has a material (generated from the glTF material options alone)
-	 * but reuse of the same glTF material may require multiple threejs materials
-	 * to accommodate different primitive types, defines, etc. New materials will
-	 * be created if necessary, and reused from a cache.
-	 * @param  {Object3D} mesh Mesh, Line, or Points instance.
-	 */
-	assignFinalMaterial( mesh ) {
-
-		const geometry = mesh.geometry;
-		let material = mesh.material;
-
-		const useDerivativeTangents = geometry.attributes.tangent === undefined;
-		const useVertexColors = geometry.attributes.color !== undefined;
-		const useFlatShading = geometry.attributes.normal === undefined;
-
-		if ( mesh.isPoints ) {
-
-			const cacheKey = 'PointsMaterial:' + material.uuid;
-
-			let pointsMaterial = this.cache.get( cacheKey );
-
-			if ( ! pointsMaterial ) {
-
-				pointsMaterial = new PointsMaterial();
-				Material.prototype.copy.call( pointsMaterial, material );
-				pointsMaterial.color.copy( material.color );
-				pointsMaterial.map = material.map;
-				pointsMaterial.sizeAttenuation = false; // glTF spec says points should be 1px
-
-				this.cache.add( cacheKey, pointsMaterial );
-
-			}
-
-			material = pointsMaterial;
-
-		} else if ( mesh.isLine ) {
-
-			const cacheKey = 'LineBasicMaterial:' + material.uuid;
-
-			let lineMaterial = this.cache.get( cacheKey );
-
-			if ( ! lineMaterial ) {
-
-				lineMaterial = new LineBasicMaterial();
-				Material.prototype.copy.call( lineMaterial, material );
-				lineMaterial.color.copy( material.color );
-
-				this.cache.add( cacheKey, lineMaterial );
-
-			}
-
-			material = lineMaterial;
-
-		}
-
-		// Clone the material if it will be modified
-		if ( useDerivativeTangents || useVertexColors || useFlatShading ) {
-
-			let cacheKey = 'ClonedMaterial:' + material.uuid + ':';
-
-			if ( material.isGLTFSpecularGlossinessMaterial ) cacheKey += 'specular-glossiness:';
-			if ( useDerivativeTangents ) cacheKey += 'derivative-tangents:';
-			if ( useVertexColors ) cacheKey += 'vertex-colors:';
-			if ( useFlatShading ) cacheKey += 'flat-shading:';
-
-			let cachedMaterial = this.cache.get( cacheKey );
-
-			if ( ! cachedMaterial ) {
-
-				cachedMaterial = material.clone();
-
-				if ( useVertexColors ) cachedMaterial.vertexColors = true;
-				if ( useFlatShading ) cachedMaterial.flatShading = true;
-
-				if ( useDerivativeTangents ) {
-
-					// https://github.com/mrdoob/three.js/issues/11438#issuecomment-507003995
-					if ( cachedMaterial.normalScale ) cachedMaterial.normalScale.y *= - 1;
-					if ( cachedMaterial.clearcoatNormalScale ) cachedMaterial.clearcoatNormalScale.y *= - 1;
-
-				}
-
-				this.cache.add( cacheKey, cachedMaterial );
-
-				this.associations.set( cachedMaterial, this.associations.get( material ) );
-
-			}
-
-			material = cachedMaterial;
-
-		}
-
-		// workarounds for mesh and geometry
-
-		if ( material.aoMap && geometry.attributes.uv2 === undefined && geometry.attributes.uv !== undefined ) {
-
-			geometry.setAttribute( 'uv2', geometry.attributes.uv );
-
-		}
-
-		mesh.material = material;
-
-	}
-
-	getMaterialType( /* materialIndex */ ) {
-
-		return MeshStandardMaterial;
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#materials
-	 * @param {number} materialIndex
-	 * @return {Promise<Material>}
-	 */
-	loadMaterial( materialIndex ) {
-
-		const parser = this;
-		const json = this.json;
-		const extensions = this.extensions;
-		const materialDef = json.materials[ materialIndex ];
-
-		let materialType;
-		const materialParams = {};
-		const materialExtensions = materialDef.extensions || {};
-
-		const pending = [];
-
-		if ( materialExtensions[ EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ] ) {
-
-			const sgExtension = extensions[ EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ];
-			materialType = sgExtension.getMaterialType();
-			pending.push( sgExtension.extendParams( materialParams, materialDef, parser ) );
-
-		} else if ( materialExtensions[ EXTENSIONS.KHR_MATERIALS_UNLIT ] ) {
-
-			const kmuExtension = extensions[ EXTENSIONS.KHR_MATERIALS_UNLIT ];
-			materialType = kmuExtension.getMaterialType();
-			pending.push( kmuExtension.extendParams( materialParams, materialDef, parser ) );
-
-		} else {
-
-			// Specification:
-			// https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#metallic-roughness-material
-
-			const metallicRoughness = materialDef.pbrMetallicRoughness || {};
-
-			materialParams.color = new Color( 1.0, 1.0, 1.0 );
-			materialParams.opacity = 1.0;
-
-			if ( Array.isArray( metallicRoughness.baseColorFactor ) ) {
-
-				const array = metallicRoughness.baseColorFactor;
-
-				materialParams.color.fromArray( array );
-				materialParams.opacity = array[ 3 ];
-
-			}
-
-			if ( metallicRoughness.baseColorTexture !== undefined ) {
-
-				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture ) );
-
-			}
-
-			materialParams.metalness = metallicRoughness.metallicFactor !== undefined ? metallicRoughness.metallicFactor : 1.0;
-			materialParams.roughness = metallicRoughness.roughnessFactor !== undefined ? metallicRoughness.roughnessFactor : 1.0;
-
-			if ( metallicRoughness.metallicRoughnessTexture !== undefined ) {
-
-				pending.push( parser.assignTexture( materialParams, 'metalnessMap', metallicRoughness.metallicRoughnessTexture ) );
-				pending.push( parser.assignTexture( materialParams, 'roughnessMap', metallicRoughness.metallicRoughnessTexture ) );
-
-			}
-
-			materialType = this._invokeOne( function ( ext ) {
-
-				return ext.getMaterialType && ext.getMaterialType( materialIndex );
-
-			} );
-
-			pending.push( Promise.all( this._invokeAll( function ( ext ) {
-
-				return ext.extendMaterialParams && ext.extendMaterialParams( materialIndex, materialParams );
-
-			} ) ) );
-
-		}
-
-		if ( materialDef.doubleSided === true ) {
-
-			materialParams.side = DoubleSide;
-
-		}
-
-		const alphaMode = materialDef.alphaMode || ALPHA_MODES.OPAQUE;
-
-		if ( alphaMode === ALPHA_MODES.BLEND ) {
-
-			materialParams.transparent = true;
-
-			// See: https://github.com/mrdoob/three.js/issues/17706
-			materialParams.depthWrite = false;
-
-		} else {
-
-			materialParams.transparent = false;
-
-			if ( alphaMode === ALPHA_MODES.MASK ) {
-
-				materialParams.alphaTest = materialDef.alphaCutoff !== undefined ? materialDef.alphaCutoff : 0.5;
-
-			}
-
-		}
-
-		if ( materialDef.normalTexture !== undefined && materialType !== MeshBasicMaterial ) {
-
-			pending.push( parser.assignTexture( materialParams, 'normalMap', materialDef.normalTexture ) );
-
-			materialParams.normalScale = new Vector2( 1, 1 );
-
-			if ( materialDef.normalTexture.scale !== undefined ) {
-
-				const scale = materialDef.normalTexture.scale;
-
-				materialParams.normalScale.set( scale, scale );
-
-			}
-
-		}
-
-		if ( materialDef.occlusionTexture !== undefined && materialType !== MeshBasicMaterial ) {
-
-			pending.push( parser.assignTexture( materialParams, 'aoMap', materialDef.occlusionTexture ) );
-
-			if ( materialDef.occlusionTexture.strength !== undefined ) {
-
-				materialParams.aoMapIntensity = materialDef.occlusionTexture.strength;
-
-			}
-
-		}
-
-		if ( materialDef.emissiveFactor !== undefined && materialType !== MeshBasicMaterial ) {
-
-			materialParams.emissive = new Color().fromArray( materialDef.emissiveFactor );
-
-		}
-
-		if ( materialDef.emissiveTexture !== undefined && materialType !== MeshBasicMaterial ) {
-
-			pending.push( parser.assignTexture( materialParams, 'emissiveMap', materialDef.emissiveTexture ) );
-
-		}
-
-		return Promise.all( pending ).then( function () {
-
-			let material;
-
-			if ( materialType === GLTFMeshStandardSGMaterial ) {
-
-				material = extensions[ EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS ].createMaterial( materialParams );
-
-			} else {
-
-				material = new materialType( materialParams );
-
-			}
-
-			if ( materialDef.name ) material.name = materialDef.name;
-
-			// baseColorTexture, emissiveTexture, sheenColorMap, specularColorMap and specularGlossinessTexture use sRGB encoding.
-			if ( material.map ) material.map.encoding = sRGBEncoding;
-			if ( material.emissiveMap ) material.emissiveMap.encoding = sRGBEncoding;
-			if ( material.sheenColorMap ) material.sheenColorMap.encoding = sRGBEncoding;
-			if ( material.specularColorMap ) material.specularColorMap.encoding = sRGBEncoding;
-			if ( material.specularMap ) material.specularMap.encoding = sRGBEncoding;
-
-			assignExtrasToUserData( material, materialDef );
-
-			parser.associations.set( material, { materials: materialIndex } );
-
-			if ( materialDef.extensions ) addUnknownExtensionsToUserData( extensions, material, materialDef );
-
-			return material;
-
-		} );
-
-	}
-
-	/** When Object3D instances are targeted by animation, they need unique names. */
-	createUniqueName( originalName ) {
-
-		const sanitizedName = PropertyBinding.sanitizeNodeName( originalName || '' );
-
-		let name = sanitizedName;
-
-		for ( let i = 1; this.nodeNamesUsed[ name ]; ++ i ) {
-
-			name = sanitizedName + '_' + i;
-
-		}
-
-		this.nodeNamesUsed[ name ] = true;
-
-		return name;
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#geometry
-	 *
-	 * Creates BufferGeometries from primitives.
-	 *
-	 * @param {Array<GLTF.Primitive>} primitives
-	 * @return {Promise<Array<BufferGeometry>>}
-	 */
-	loadGeometries( primitives ) {
-
-		const parser = this;
-		const extensions = this.extensions;
-		const cache = this.primitiveCache;
-
-		function createDracoPrimitive( primitive ) {
-
-			return extensions[ EXTENSIONS.KHR_DRACO_MESH_COMPRESSION ]
-				.decodePrimitive( primitive, parser )
-				.then( function ( geometry ) {
-
-					return addPrimitiveAttributes( geometry, primitive, parser );
-
-				} );
-
-		}
-
-		const pending = [];
-
-		for ( let i = 0, il = primitives.length; i < il; i ++ ) {
-
-			const primitive = primitives[ i ];
-			const cacheKey = createPrimitiveKey( primitive );
-
-			// See if we've already created this geometry
-			const cached = cache[ cacheKey ];
-
-			if ( cached ) {
-
-				// Use the cached geometry if it exists
-				pending.push( cached.promise );
-
-			} else {
-
-				let geometryPromise;
-
-				if ( primitive.extensions && primitive.extensions[ EXTENSIONS.KHR_DRACO_MESH_COMPRESSION ] ) {
-
-					// Use DRACO geometry if available
-					geometryPromise = createDracoPrimitive( primitive );
-
-				} else {
-
-					// Otherwise create a new geometry
-					geometryPromise = addPrimitiveAttributes( new BufferGeometry(), primitive, parser );
-
-				}
-
-				// Cache this geometry
-				cache[ cacheKey ] = { primitive: primitive, promise: geometryPromise };
-
-				pending.push( geometryPromise );
-
-			}
-
-		}
-
-		return Promise.all( pending );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#meshes
-	 * @param {number} meshIndex
-	 * @return {Promise<Group|Mesh|SkinnedMesh>}
-	 */
-	loadMesh( meshIndex ) {
-
-		const parser = this;
-		const json = this.json;
-		const extensions = this.extensions;
-
-		const meshDef = json.meshes[ meshIndex ];
-		const primitives = meshDef.primitives;
-
-		const pending = [];
-
-		for ( let i = 0, il = primitives.length; i < il; i ++ ) {
-
-			const material = primitives[ i ].material === undefined
-				? createDefaultMaterial( this.cache )
-				: this.getDependency( 'material', primitives[ i ].material );
-
-			pending.push( material );
-
-		}
-
-		pending.push( parser.loadGeometries( primitives ) );
-
-		return Promise.all( pending ).then( function ( results ) {
-
-			const materials = results.slice( 0, results.length - 1 );
-			const geometries = results[ results.length - 1 ];
-
-			const meshes = [];
-
-			for ( let i = 0, il = geometries.length; i < il; i ++ ) {
-
-				const geometry = geometries[ i ];
-				const primitive = primitives[ i ];
-
-				// 1. create Mesh
-
-				let mesh;
-
-				const material = materials[ i ];
-
-				if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLES ||
-						primitive.mode === WEBGL_CONSTANTS.TRIANGLE_STRIP ||
-						primitive.mode === WEBGL_CONSTANTS.TRIANGLE_FAN ||
-						primitive.mode === undefined ) {
-
-					// .isSkinnedMesh isn't in glTF spec. See ._markDefs()
-					mesh = meshDef.isSkinnedMesh === true
-						? new SkinnedMesh( geometry, material )
-						: new Mesh( geometry, material );
-
-					if ( mesh.isSkinnedMesh === true && ! mesh.geometry.attributes.skinWeight.normalized ) {
-
-						// we normalize floating point skin weight array to fix malformed assets (see #15319)
-						// it's important to skip this for non-float32 data since normalizeSkinWeights assumes non-normalized inputs
-						mesh.normalizeSkinWeights();
-
-					}
-
-					if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLE_STRIP ) {
-
-						mesh.geometry = toTrianglesDrawMode( mesh.geometry, TriangleStripDrawMode );
-
-					} else if ( primitive.mode === WEBGL_CONSTANTS.TRIANGLE_FAN ) {
-
-						mesh.geometry = toTrianglesDrawMode( mesh.geometry, TriangleFanDrawMode );
-
-					}
-
-				} else if ( primitive.mode === WEBGL_CONSTANTS.LINES ) {
-
-					mesh = new LineSegments( geometry, material );
-
-				} else if ( primitive.mode === WEBGL_CONSTANTS.LINE_STRIP ) {
-
-					mesh = new Line( geometry, material );
-
-				} else if ( primitive.mode === WEBGL_CONSTANTS.LINE_LOOP ) {
-
-					mesh = new LineLoop( geometry, material );
-
-				} else if ( primitive.mode === WEBGL_CONSTANTS.POINTS ) {
-
-					mesh = new Points( geometry, material );
-
-				} else {
-
-					throw new Error( 'THREE.GLTFLoader: Primitive mode unsupported: ' + primitive.mode );
-
-				}
-
-				if ( Object.keys( mesh.geometry.morphAttributes ).length > 0 ) {
-
-					updateMorphTargets( mesh, meshDef );
-
-				}
-
-				mesh.name = parser.createUniqueName( meshDef.name || ( 'mesh_' + meshIndex ) );
-
-				assignExtrasToUserData( mesh, meshDef );
-
-				if ( primitive.extensions ) addUnknownExtensionsToUserData( extensions, mesh, primitive );
-
-				parser.assignFinalMaterial( mesh );
-
-				meshes.push( mesh );
-
-			}
-
-			for ( let i = 0, il = meshes.length; i < il; i ++ ) {
-
-				parser.associations.set( meshes[ i ], {
-					meshes: meshIndex,
-					primitives: i
-				} );
-
-			}
-
-			if ( meshes.length === 1 ) {
-
-				return meshes[ 0 ];
-
-			}
-
-			const group = new Group();
-
-			parser.associations.set( group, { meshes: meshIndex } );
-
-			for ( let i = 0, il = meshes.length; i < il; i ++ ) {
-
-				group.add( meshes[ i ] );
-
-			}
-
-			return group;
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#cameras
-	 * @param {number} cameraIndex
-	 * @return {Promise<THREE.Camera>}
-	 */
-	loadCamera( cameraIndex ) {
-
-		let camera;
-		const cameraDef = this.json.cameras[ cameraIndex ];
-		const params = cameraDef[ cameraDef.type ];
-
-		if ( ! params ) {
-
-			console.warn( 'THREE.GLTFLoader: Missing camera parameters.' );
-			return;
-
-		}
-
-		if ( cameraDef.type === 'perspective' ) {
-
-			camera = new PerspectiveCamera( MathUtils.radToDeg( params.yfov ), params.aspectRatio || 1, params.znear || 1, params.zfar || 2e6 );
-
-		} else if ( cameraDef.type === 'orthographic' ) {
-
-			camera = new OrthographicCamera( - params.xmag, params.xmag, params.ymag, - params.ymag, params.znear, params.zfar );
-
-		}
-
-		if ( cameraDef.name ) camera.name = this.createUniqueName( cameraDef.name );
-
-		assignExtrasToUserData( camera, cameraDef );
-
-		return Promise.resolve( camera );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#skins
-	 * @param {number} skinIndex
-	 * @return {Promise<Object>}
-	 */
-	loadSkin( skinIndex ) {
-
-		const skinDef = this.json.skins[ skinIndex ];
-
-		const skinEntry = { joints: skinDef.joints };
-
-		if ( skinDef.inverseBindMatrices === undefined ) {
-
-			return Promise.resolve( skinEntry );
-
-		}
-
-		return this.getDependency( 'accessor', skinDef.inverseBindMatrices ).then( function ( accessor ) {
-
-			skinEntry.inverseBindMatrices = accessor;
-
-			return skinEntry;
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#animations
-	 * @param {number} animationIndex
-	 * @return {Promise<AnimationClip>}
-	 */
-	loadAnimation( animationIndex ) {
-
-		const json = this.json;
-
-		const animationDef = json.animations[ animationIndex ];
-
-		const pendingNodes = [];
-		const pendingInputAccessors = [];
-		const pendingOutputAccessors = [];
-		const pendingSamplers = [];
-		const pendingTargets = [];
-
-		for ( let i = 0, il = animationDef.channels.length; i < il; i ++ ) {
-
-			const channel = animationDef.channels[ i ];
-			const sampler = animationDef.samplers[ channel.sampler ];
-			const target = channel.target;
-			const name = target.node !== undefined ? target.node : target.id; // NOTE: target.id is deprecated.
-			const input = animationDef.parameters !== undefined ? animationDef.parameters[ sampler.input ] : sampler.input;
-			const output = animationDef.parameters !== undefined ? animationDef.parameters[ sampler.output ] : sampler.output;
-
-			pendingNodes.push( this.getDependency( 'node', name ) );
-			pendingInputAccessors.push( this.getDependency( 'accessor', input ) );
-			pendingOutputAccessors.push( this.getDependency( 'accessor', output ) );
-			pendingSamplers.push( sampler );
-			pendingTargets.push( target );
-
-		}
-
-		return Promise.all( [
-
-			Promise.all( pendingNodes ),
-			Promise.all( pendingInputAccessors ),
-			Promise.all( pendingOutputAccessors ),
-			Promise.all( pendingSamplers ),
-			Promise.all( pendingTargets )
-
-		] ).then( function ( dependencies ) {
-
-			const nodes = dependencies[ 0 ];
-			const inputAccessors = dependencies[ 1 ];
-			const outputAccessors = dependencies[ 2 ];
-			const samplers = dependencies[ 3 ];
-			const targets = dependencies[ 4 ];
-
-			const tracks = [];
-
-			for ( let i = 0, il = nodes.length; i < il; i ++ ) {
-
-				const node = nodes[ i ];
-				const inputAccessor = inputAccessors[ i ];
-				const outputAccessor = outputAccessors[ i ];
-				const sampler = samplers[ i ];
-				const target = targets[ i ];
-
-				if ( node === undefined ) continue;
-
-				node.updateMatrix();
-				node.matrixAutoUpdate = true;
-
-				let TypedKeyframeTrack;
-
-				switch ( PATH_PROPERTIES[ target.path ] ) {
-
-					case PATH_PROPERTIES.weights:
-
-						TypedKeyframeTrack = NumberKeyframeTrack;
-						break;
-
-					case PATH_PROPERTIES.rotation:
-
-						TypedKeyframeTrack = QuaternionKeyframeTrack;
-						break;
-
-					case PATH_PROPERTIES.position:
-					case PATH_PROPERTIES.scale:
-					default:
-
-						TypedKeyframeTrack = VectorKeyframeTrack;
-						break;
-
-				}
-
-				const targetName = node.name ? node.name : node.uuid;
-
-				const interpolation = sampler.interpolation !== undefined ? INTERPOLATION[ sampler.interpolation ] : InterpolateLinear;
-
-				const targetNames = [];
-
-				if ( PATH_PROPERTIES[ target.path ] === PATH_PROPERTIES.weights ) {
-
-					node.traverse( function ( object ) {
-
-						if ( object.morphTargetInfluences ) {
-
-							targetNames.push( object.name ? object.name : object.uuid );
-
-						}
-
-					} );
-
-				} else {
-
-					targetNames.push( targetName );
-
-				}
-
-				let outputArray = outputAccessor.array;
-
-				if ( outputAccessor.normalized ) {
-
-					const scale = getNormalizedComponentScale( outputArray.constructor );
-					const scaled = new Float32Array( outputArray.length );
-
-					for ( let j = 0, jl = outputArray.length; j < jl; j ++ ) {
-
-						scaled[ j ] = outputArray[ j ] * scale;
-
-					}
-
-					outputArray = scaled;
-
-				}
-
-				for ( let j = 0, jl = targetNames.length; j < jl; j ++ ) {
-
-					const track = new TypedKeyframeTrack(
-						targetNames[ j ] + '.' + PATH_PROPERTIES[ target.path ],
-						inputAccessor.array,
-						outputArray,
-						interpolation
-					);
-
-					// Override interpolation with custom factory method.
-					if ( sampler.interpolation === 'CUBICSPLINE' ) {
-
-						track.createInterpolant = function InterpolantFactoryMethodGLTFCubicSpline( result ) {
-
-							// A CUBICSPLINE keyframe in glTF has three output values for each input value,
-							// representing inTangent, splineVertex, and outTangent. As a result, track.getValueSize()
-							// must be divided by three to get the interpolant's sampleSize argument.
-
-							const interpolantType = ( this instanceof QuaternionKeyframeTrack ) ? GLTFCubicSplineQuaternionInterpolant : GLTFCubicSplineInterpolant;
-
-							return new interpolantType( this.times, this.values, this.getValueSize() / 3, result );
-
-						};
-
-						// Mark as CUBICSPLINE. `track.getInterpolation()` doesn't support custom interpolants.
-						track.createInterpolant.isInterpolantFactoryMethodGLTFCubicSpline = true;
-
-					}
-
-					tracks.push( track );
-
-				}
-
-			}
-
-			const name = animationDef.name ? animationDef.name : 'animation_' + animationIndex;
-
-			return new AnimationClip( name, undefined, tracks );
-
-		} );
-
-	}
-
-	createNodeMesh( nodeIndex ) {
-
-		const json = this.json;
-		const parser = this;
-		const nodeDef = json.nodes[ nodeIndex ];
-
-		if ( nodeDef.mesh === undefined ) return null;
-
-		return parser.getDependency( 'mesh', nodeDef.mesh ).then( function ( mesh ) {
-
-			const node = parser._getNodeRef( parser.meshCache, nodeDef.mesh, mesh );
-
-			// if weights are provided on the node, override weights on the mesh.
-			if ( nodeDef.weights !== undefined ) {
-
-				node.traverse( function ( o ) {
-
-					if ( ! o.isMesh ) return;
-
-					for ( let i = 0, il = nodeDef.weights.length; i < il; i ++ ) {
-
-						o.morphTargetInfluences[ i ] = nodeDef.weights[ i ];
-
-					}
-
-				} );
-
-			}
-
-			return node;
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#nodes-and-hierarchy
-	 * @param {number} nodeIndex
-	 * @return {Promise<Object3D>}
-	 */
-	loadNode( nodeIndex ) {
-
-		const json = this.json;
-		const extensions = this.extensions;
-		const parser = this;
-
-		const nodeDef = json.nodes[ nodeIndex ];
-
-		// reserve node's name before its dependencies, so the root has the intended name.
-		const nodeName = nodeDef.name ? parser.createUniqueName( nodeDef.name ) : '';
-
-		return ( function () {
-
-			const pending = [];
-
-			const meshPromise = parser._invokeOne( function ( ext ) {
-
-				return ext.createNodeMesh && ext.createNodeMesh( nodeIndex );
-
-			} );
-
-			if ( meshPromise ) {
-
-				pending.push( meshPromise );
-
-			}
-
-			if ( nodeDef.camera !== undefined ) {
-
-				pending.push( parser.getDependency( 'camera', nodeDef.camera ).then( function ( camera ) {
-
-					return parser._getNodeRef( parser.cameraCache, nodeDef.camera, camera );
-
-				} ) );
-
-			}
-
-			parser._invokeAll( function ( ext ) {
-
-				return ext.createNodeAttachment && ext.createNodeAttachment( nodeIndex );
-
-			} ).forEach( function ( promise ) {
-
-				pending.push( promise );
-
-			} );
-
-			return Promise.all( pending );
-
-		}() ).then( function ( objects ) {
-
-			let node;
-
-			// .isBone isn't in glTF spec. See ._markDefs
-			if ( nodeDef.isBone === true ) {
-
-				node = new Bone();
-
-			} else if ( objects.length > 1 ) {
-
-				node = new Group();
-
-			} else if ( objects.length === 1 ) {
-
-				node = objects[ 0 ];
-
-			} else {
-
-				node = new Object3D();
-
-			}
-
-			if ( node !== objects[ 0 ] ) {
-
-				for ( let i = 0, il = objects.length; i < il; i ++ ) {
-
-					node.add( objects[ i ] );
-
-				}
-
-			}
-
-			if ( nodeDef.name ) {
-
-				node.userData.name = nodeDef.name;
-				node.name = nodeName;
-
-			}
-
-			assignExtrasToUserData( node, nodeDef );
-
-			if ( nodeDef.extensions ) addUnknownExtensionsToUserData( extensions, node, nodeDef );
-
-			if ( nodeDef.matrix !== undefined ) {
-
-				const matrix = new Matrix4();
-				matrix.fromArray( nodeDef.matrix );
-				node.applyMatrix4( matrix );
-
-			} else {
-
-				if ( nodeDef.translation !== undefined ) {
-
-					node.position.fromArray( nodeDef.translation );
-
-				}
-
-				if ( nodeDef.rotation !== undefined ) {
-
-					node.quaternion.fromArray( nodeDef.rotation );
-
-				}
-
-				if ( nodeDef.scale !== undefined ) {
-
-					node.scale.fromArray( nodeDef.scale );
-
-				}
-
-			}
-
-			if ( ! parser.associations.has( node ) ) {
-
-				parser.associations.set( node, {} );
-
-			}
-
-			parser.associations.get( node ).nodes = nodeIndex;
-
-			return node;
-
-		} );
-
-	}
-
-	/**
-	 * Specification: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#scenes
-	 * @param {number} sceneIndex
-	 * @return {Promise<Group>}
-	 */
-	loadScene( sceneIndex ) {
-
-		const json = this.json;
-		const extensions = this.extensions;
-		const sceneDef = this.json.scenes[ sceneIndex ];
-		const parser = this;
-
-		// Loader returns Group, not Scene.
-		// See: https://github.com/mrdoob/three.js/issues/18342#issuecomment-578981172
-		const scene = new Group();
-		if ( sceneDef.name ) scene.name = parser.createUniqueName( sceneDef.name );
-
-		assignExtrasToUserData( scene, sceneDef );
-
-		if ( sceneDef.extensions ) addUnknownExtensionsToUserData( extensions, scene, sceneDef );
-
-		const nodeIds = sceneDef.nodes || [];
-
-		const pending = [];
-
-		for ( let i = 0, il = nodeIds.length; i < il; i ++ ) {
-
-			pending.push( buildNodeHierarchy( nodeIds[ i ], scene, json, parser ) );
-
-		}
-
-		return Promise.all( pending ).then( function () {
-
-			// Removes dangling associations, associations that reference a node that
-			// didn't make it into the scene.
-			const reduceAssociations = ( node ) => {
-
-				const reducedAssociations = new Map();
-
-				for ( const [ key, value ] of parser.associations ) {
-
-					if ( key instanceof Material || key instanceof Texture ) {
-
-						reducedAssociations.set( key, value );
-
-					}
-
-				}
-
-				node.traverse( ( node ) => {
-
-					const mappings = parser.associations.get( node );
-
-					if ( mappings != null ) {
-
-						reducedAssociations.set( node, mappings );
-
-					}
-
-				} );
-
-				return reducedAssociations;
-
-			};
-
-			parser.associations = reduceAssociations( scene );
-
-			return scene;
-
-		} );
-
-	}
-
-}
-
-function buildNodeHierarchy( nodeId, parentObject, json, parser ) {
-
-	const nodeDef = json.nodes[ nodeId ];
-
-	return parser.getDependency( 'node', nodeId ).then( function ( node ) {
-
-		if ( nodeDef.skin === undefined ) return node;
-
-		// build skeleton here as well
-
-		let skinEntry;
-
-		return parser.getDependency( 'skin', nodeDef.skin ).then( function ( skin ) {
-
-			skinEntry = skin;
-
-			const pendingJoints = [];
-
-			for ( let i = 0, il = skinEntry.joints.length; i < il; i ++ ) {
-
-				pendingJoints.push( parser.getDependency( 'node', skinEntry.joints[ i ] ) );
-
-			}
-
-			return Promise.all( pendingJoints );
-
-		} ).then( function ( jointNodes ) {
-
-			node.traverse( function ( mesh ) {
-
-				if ( ! mesh.isMesh ) return;
-
-				const bones = [];
-				const boneInverses = [];
-
-				for ( let j = 0, jl = jointNodes.length; j < jl; j ++ ) {
-
-					const jointNode = jointNodes[ j ];
-
-					if ( jointNode ) {
-
-						bones.push( jointNode );
-
-						const mat = new Matrix4();
-
-						if ( skinEntry.inverseBindMatrices !== undefined ) {
-
-							mat.fromArray( skinEntry.inverseBindMatrices.array, j * 16 );
-
-						}
-
-						boneInverses.push( mat );
-
-					} else {
-
-						console.warn( 'THREE.GLTFLoader: Joint "%s" could not be found.', skinEntry.joints[ j ] );
-
-					}
-
-				}
-
-				mesh.bind( new Skeleton( bones, boneInverses ), mesh.matrixWorld );
-
-			} );
-
-			return node;
-
-		} );
-
-	} ).then( function ( node ) {
-
-		// build node hierachy
-
-		parentObject.add( node );
-
-		const pending = [];
-
-		if ( nodeDef.children ) {
-
-			const children = nodeDef.children;
-
-			for ( let i = 0, il = children.length; i < il; i ++ ) {
-
-				const child = children[ i ];
-				pending.push( buildNodeHierarchy( child, node, json, parser ) );
-
-			}
-
-		}
-
-		return Promise.all( pending );
-
-	} );
 
 }
 
 /**
- * @param {BufferGeometry} geometry
- * @param {GLTF.Primitive} primitiveDef
- * @param {GLTFParser} parser
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param attributeName string
+ * @param newValue number, string, boolean or object
+ * @constructor
  */
-function computeBounds( geometry, primitiveDef, parser ) {
+class SetMaterialValueCommand extends Command {
 
-	const attributes = primitiveDef.attributes;
+	constructor( editor, object, attributeName, newValue, materialSlot ) {
 
-	const box = new Box3();
+		super( editor );
 
-	if ( attributes.POSITION !== undefined ) {
+		this.type = 'SetMaterialValueCommand';
+		this.name = `Set Material.${attributeName}`;
+		this.updatable = true;
 
-		const accessor = parser.json.accessors[ attributes.POSITION ];
+		this.object = object;
+		this.material = this.editor.getObjectMaterial( object, materialSlot );
 
-		const min = accessor.min;
-		const max = accessor.max;
+		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ] : undefined;
+		this.newValue = newValue;
 
-		// glTF requires 'min' and 'max', but VRM (which extends glTF) currently ignores that requirement.
-
-		if ( min !== undefined && max !== undefined ) {
-
-			box.set(
-				new Vector3( min[ 0 ], min[ 1 ], min[ 2 ] ),
-				new Vector3( max[ 0 ], max[ 1 ], max[ 2 ] )
-			);
-
-			if ( accessor.normalized ) {
-
-				const boxScale = getNormalizedComponentScale( WEBGL_COMPONENT_TYPES[ accessor.componentType ] );
-				box.min.multiplyScalar( boxScale );
-				box.max.multiplyScalar( boxScale );
-
-			}
-
-		} else {
-
-			console.warn( 'THREE.GLTFLoader: Missing min/max properties for accessor POSITION.' );
-
-			return;
-
-		}
-
-	} else {
-
-		return;
+		this.attributeName = attributeName;
 
 	}
 
-	const targets = primitiveDef.targets;
+	execute() {
 
-	if ( targets !== undefined ) {
+		this.material[ this.attributeName ] = this.newValue;
+		this.material.needsUpdate = true;
 
-		const maxDisplacement = new Vector3();
-		const vector = new Vector3();
-
-		for ( let i = 0, il = targets.length; i < il; i ++ ) {
-
-			const target = targets[ i ];
-
-			if ( target.POSITION !== undefined ) {
-
-				const accessor = parser.json.accessors[ target.POSITION ];
-				const min = accessor.min;
-				const max = accessor.max;
-
-				// glTF requires 'min' and 'max', but VRM (which extends glTF) currently ignores that requirement.
-
-				if ( min !== undefined && max !== undefined ) {
-
-					// we need to get max of absolute components because target weight is [-1,1]
-					vector.setX( Math.max( Math.abs( min[ 0 ] ), Math.abs( max[ 0 ] ) ) );
-					vector.setY( Math.max( Math.abs( min[ 1 ] ), Math.abs( max[ 1 ] ) ) );
-					vector.setZ( Math.max( Math.abs( min[ 2 ] ), Math.abs( max[ 2 ] ) ) );
-
-
-					if ( accessor.normalized ) {
-
-						const boxScale = getNormalizedComponentScale( WEBGL_COMPONENT_TYPES[ accessor.componentType ] );
-						vector.multiplyScalar( boxScale );
-
-					}
-
-					// Note: this assumes that the sum of all weights is at most 1. This isn't quite correct - it's more conservative
-					// to assume that each target can have a max weight of 1. However, for some use cases - notably, when morph targets
-					// are used to implement key-frame animations and as such only two are active at a time - this results in very large
-					// boxes. So for now we make a box that's sometimes a touch too small but is hopefully mostly of reasonable size.
-					maxDisplacement.max( vector );
-
-				} else {
-
-					console.warn( 'THREE.GLTFLoader: Missing min/max properties for accessor POSITION.' );
-
-				}
-
-			}
-
-		}
-
-		// As per comment above this box isn't conservative, but has a reasonable size for a very large number of morph targets.
-		box.expandByVector( maxDisplacement );
+		this.editor.signals.objectChanged.dispatch( this.object );
+		this.editor.signals.materialChanged.dispatch( this.material );
 
 	}
 
-	geometry.boundingBox = box;
+	undo() {
 
-	const sphere = new Sphere();
+		this.material[ this.attributeName ] = this.oldValue;
+		this.material.needsUpdate = true;
 
-	box.getCenter( sphere.center );
-	sphere.radius = box.min.distanceTo( box.max ) / 2;
+		this.editor.signals.objectChanged.dispatch( this.object );
+		this.editor.signals.materialChanged.dispatch( this.material );
 
-	geometry.boundingSphere = sphere;
+	}
+
+	update( cmd ) {
+
+		this.newValue = cmd.newValue;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.attributeName = json.attributeName;
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+		this.object = this.editor.objectByUuid( json.objectUuid );
+
+	}
+
+}
+
+class SetMaterialVectorCommand extends Command {
+
+	constructor( editor, object, attributeName, newValue, materialSlot ) {
+
+		super( editor );
+
+		this.type = 'SetMaterialColorCommand';
+		this.name = `Set Material.${attributeName}`;
+		this.updatable = true;
+
+		this.object = object;
+		this.material = this.editor.getObjectMaterial( object, materialSlot );
+
+		this.oldValue = ( this.material !== undefined ) ? this.material[ attributeName ].toArray() : undefined;
+		this.newValue = newValue;
+
+		this.attributeName = attributeName;
+
+	}
+
+	execute() {
+
+		this.material[ this.attributeName ].fromArray( this.newValue );
+
+		this.editor.signals.materialChanged.dispatch( this.material );
+
+	}
+
+	undo() {
+
+		this.material[ this.attributeName ].fromArray( this.oldValue );
+
+		this.editor.signals.materialChanged.dispatch( this.material );
+
+	}
+
+	update( cmd ) {
+
+		this.newValue = cmd.newValue;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.attributeName = json.attributeName;
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+
+	}
 
 }
 
 /**
- * @param {BufferGeometry} geometry
- * @param {GLTF.Primitive} primitiveDef
- * @param {GLTFParser} parser
- * @return {Promise<BufferGeometry>}
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newPosition THREE.Vector3
+ * @param optionalOldPosition THREE.Vector3
+ * @constructor
  */
-function addPrimitiveAttributes( geometry, primitiveDef, parser ) {
+class SetPositionCommand$1 extends Command {
 
-	const attributes = primitiveDef.attributes;
+	constructor( editor, object, newPosition, optionalOldPosition ) {
 
-	const pending = [];
+		super( editor );
 
-	function assignAttributeAccessor( accessorIndex, attributeName ) {
+		this.type = 'SetPositionCommand';
+		this.name = 'Set Position';
+		this.updatable = true;
 
-		return parser.getDependency( 'accessor', accessorIndex )
-			.then( function ( accessor ) {
+		this.object = object;
 
-				geometry.setAttribute( attributeName, accessor );
+		if ( object !== undefined && newPosition !== undefined ) {
 
-			} );
+			this.oldPosition = object.position.clone();
+			this.newPosition = newPosition.clone();
 
-	}
+		}
 
-	for ( const gltfAttributeName in attributes ) {
+		if ( optionalOldPosition !== undefined ) {
 
-		const threeAttributeName = ATTRIBUTES[ gltfAttributeName ] || gltfAttributeName.toLowerCase();
+			this.oldPosition = optionalOldPosition.clone();
 
-		// Skip attributes already provided by e.g. Draco extension.
-		if ( threeAttributeName in geometry.attributes ) continue;
-
-		pending.push( assignAttributeAccessor( attributes[ gltfAttributeName ], threeAttributeName ) );
-
-	}
-
-	if ( primitiveDef.indices !== undefined && ! geometry.index ) {
-
-		const accessor = parser.getDependency( 'accessor', primitiveDef.indices ).then( function ( accessor ) {
-
-			geometry.setIndex( accessor );
-
-		} );
-
-		pending.push( accessor );
+		}
 
 	}
 
-	assignExtrasToUserData( geometry, primitiveDef );
+	execute() {
 
-	computeBounds( geometry, primitiveDef, parser );
+		this.object.position.copy( this.newPosition );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
 
-	return Promise.all( pending ).then( function () {
+	}
 
-		return primitiveDef.targets !== undefined
-			? addMorphTargets( geometry, primitiveDef.targets, parser )
-			: geometry;
+	undo() {
 
-	} );
+		this.object.position.copy( this.oldPosition );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	update( command ) {
+
+		this.newPosition.copy( command.newPosition );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldPosition = this.oldPosition.toArray();
+		output.newPosition = this.newPosition.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldPosition = new Vector3().fromArray( json.oldPosition );
+		this.newPosition = new Vector3().fromArray( json.newPosition );
+
+	}
 
 }
 
 /**
- * @param {BufferGeometry} geometry
- * @param {Number} drawMode
- * @return {BufferGeometry}
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newRotation THREE.Euler
+ * @param optionalOldRotation THREE.Euler
+ * @constructor
  */
-function toTrianglesDrawMode( geometry, drawMode ) {
+class SetRotationCommand$1 extends Command {
 
-	let index = geometry.getIndex();
+	constructor( editor, object, newRotation, optionalOldRotation ) {
 
-	// generate index if not present
+		super( editor );
 
-	if ( index === null ) {
+		this.type = 'SetRotationCommand';
+		this.name = 'Set Rotation';
+		this.updatable = true;
 
-		const indices = [];
+		this.object = object;
 
-		const position = geometry.getAttribute( 'position' );
+		if ( object !== undefined && newRotation !== undefined ) {
 
-		if ( position !== undefined ) {
+			this.oldRotation = object.rotation.clone();
+			this.newRotation = newRotation.clone();
 
-			for ( let i = 0; i < position.count; i ++ ) {
+		}
 
-				indices.push( i );
+		if ( optionalOldRotation !== undefined ) {
 
-			}
-
-			geometry.setIndex( indices );
-			index = geometry.getIndex();
-
-		} else {
-
-			console.error( 'THREE.GLTFLoader.toTrianglesDrawMode(): Undefined position attribute. Processing not possible.' );
-			return geometry;
+			this.oldRotation = optionalOldRotation.clone();
 
 		}
 
 	}
 
-	//
+	execute() {
 
-	const numberOfTriangles = index.count - 2;
-	const newIndices = [];
-
-	if ( drawMode === TriangleFanDrawMode ) {
-
-		// gl.TRIANGLE_FAN
-
-		for ( let i = 1; i <= numberOfTriangles; i ++ ) {
-
-			newIndices.push( index.getX( 0 ) );
-			newIndices.push( index.getX( i ) );
-			newIndices.push( index.getX( i + 1 ) );
-
-		}
-
-	} else {
-
-		// gl.TRIANGLE_STRIP
-
-		for ( let i = 0; i < numberOfTriangles; i ++ ) {
-
-			if ( i % 2 === 0 ) {
-
-				newIndices.push( index.getX( i ) );
-				newIndices.push( index.getX( i + 1 ) );
-				newIndices.push( index.getX( i + 2 ) );
-
-
-			} else {
-
-				newIndices.push( index.getX( i + 2 ) );
-				newIndices.push( index.getX( i + 1 ) );
-				newIndices.push( index.getX( i ) );
-
-			}
-
-		}
+		this.object.rotation.copy( this.newRotation );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
-	if ( ( newIndices.length / 3 ) !== numberOfTriangles ) {
+	undo() {
 
-		console.error( 'THREE.GLTFLoader.toTrianglesDrawMode(): Unable to generate correct amount of triangles.' );
+		this.object.rotation.copy( this.oldRotation );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
-	// build final geometry
+	update( command ) {
 
-	const newGeometry = geometry.clone();
-	newGeometry.setIndex( newIndices );
+		this.newRotation.copy( command.newRotation );
 
-	return newGeometry;
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldRotation = this.oldRotation.toArray();
+		output.newRotation = this.newRotation.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldRotation = new Euler().fromArray( json.oldRotation );
+		this.newRotation = new Euler().fromArray( json.newRotation );
+
+	}
 
 }
 
-var GLTFLoader$1 = /*#__PURE__*/Object.freeze({
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newScale THREE.Vector3
+ * @param optionalOldScale THREE.Vector3
+ * @constructor
+ */
+class SetScaleCommand$1 extends Command {
+
+	constructor( editor, object, newScale, optionalOldScale ) {
+
+		super( editor );
+
+		this.type = 'SetScaleCommand';
+		this.name = 'Set Scale';
+		this.updatable = true;
+
+		this.object = object;
+
+		if ( object !== undefined && newScale !== undefined ) {
+
+			this.oldScale = object.scale.clone();
+			this.newScale = newScale.clone();
+
+		}
+
+		if ( optionalOldScale !== undefined ) {
+
+			this.oldScale = optionalOldScale.clone();
+
+		}
+
+	}
+
+	execute() {
+
+		this.object.scale.copy( this.newScale );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	undo() {
+
+		this.object.scale.copy( this.oldScale );
+		this.object.updateMatrixWorld( true );
+		this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	update( command ) {
+
+		this.newScale.copy( command.newScale );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldScale = this.oldScale.toArray();
+		output.newScale = this.newScale.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldScale = new Vector3().fromArray( json.oldScale );
+		this.newScale = new Vector3().fromArray( json.newScale );
+
+	}
+
+}
+
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param script javascript object
+ * @param attributeName string
+ * @param newValue string, object
+ * @constructor
+ */
+class SetScriptValueCommand extends Command {
+
+	constructor( editor, object, script, attributeName, newValue ) {
+
+		super( editor );
+
+		this.type = 'SetScriptValueCommand';
+		this.name = `Set Script.${attributeName}`;
+		this.updatable = true;
+
+		this.object = object;
+		this.script = script;
+
+		this.attributeName = attributeName;
+		this.oldValue = ( script !== undefined ) ? script[ this.attributeName ] : undefined;
+		this.newValue = newValue;
+
+	}
+
+	execute() {
+
+		this.script[ this.attributeName ] = this.newValue;
+
+		this.editor.signals.scriptChanged.dispatch();
+
+	}
+
+	undo() {
+
+		this.script[ this.attributeName ] = this.oldValue;
+
+		this.editor.signals.scriptChanged.dispatch();
+
+	}
+
+	update( cmd ) {
+
+		this.newValue = cmd.newValue;
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.index = this.editor.scripts[ this.object.uuid ].indexOf( this.script );
+		output.attributeName = this.attributeName;
+		output.oldValue = this.oldValue;
+		output.newValue = this.newValue;
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.oldValue = json.oldValue;
+		this.newValue = json.newValue;
+		this.attributeName = json.attributeName;
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.script = this.editor.scripts[ json.objectUuid ][ json.index ];
+
+	}
+
+}
+
+var Commands = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	GLTFLoader: GLTFLoader
+	AddObjectCommand: AddObjectCommand,
+	AddScriptCommand: AddScriptCommand,
+	MoveObjectCommand: MoveObjectCommand,
+	MultiCmdsCommand: MultiCmdsCommand,
+	RemoveObjectCommand: RemoveObjectCommand,
+	RemoveScriptCommand: RemoveScriptCommand,
+	SetColorCommand: SetColorCommand,
+	SetGeometryCommand: SetGeometryCommand,
+	SetGeometryValueCommand: SetGeometryValueCommand,
+	SetMaterialColorCommand: SetMaterialColorCommand,
+	SetMaterialCommand: SetMaterialCommand,
+	SetMaterialMapCommand: SetMaterialMapCommand,
+	SetMaterialValueCommand: SetMaterialValueCommand,
+	SetMaterialVectorCommand: SetMaterialVectorCommand,
+	SetPositionCommand: SetPositionCommand$1,
+	SetRotationCommand: SetRotationCommand$1,
+	SetScaleCommand: SetScaleCommand$1,
+	SetSceneCommand: SetSceneCommand,
+	SetScriptValueCommand: SetScriptValueCommand,
+	SetUuidCommand: SetUuidCommand,
+	SetValueCommand: SetValueCommand
 });
 
-/**
- * @webxr-input-profiles/motion-controllers 1.0.0 https://github.com/immersive-web/webxr-input-profiles
- */
-
-const Constants = {
-  Handedness: Object.freeze({
-    NONE: 'none',
-    LEFT: 'left',
-    RIGHT: 'right'
-  }),
-
-  ComponentState: Object.freeze({
-    DEFAULT: 'default',
-    TOUCHED: 'touched',
-    PRESSED: 'pressed'
-  }),
-
-  ComponentProperty: Object.freeze({
-    BUTTON: 'button',
-    X_AXIS: 'xAxis',
-    Y_AXIS: 'yAxis',
-    STATE: 'state'
-  }),
-
-  ComponentType: Object.freeze({
-    TRIGGER: 'trigger',
-    SQUEEZE: 'squeeze',
-    TOUCHPAD: 'touchpad',
-    THUMBSTICK: 'thumbstick',
-    BUTTON: 'button'
-  }),
-
-  ButtonTouchThreshold: 0.05,
-
-  AxisTouchThreshold: 0.1,
-
-  VisualResponseProperty: Object.freeze({
-    TRANSFORM: 'transform',
-    VISIBILITY: 'visibility'
-  })
-};
-
-/**
- * @description Static helper function to fetch a JSON file and turn it into a JS object
- * @param {string} path - Path to JSON file to be fetched
- */
-async function fetchJsonFile(path) {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  } else {
-    return response.json();
-  }
-}
-
-async function fetchProfilesList(basePath) {
-  if (!basePath) {
-    throw new Error('No basePath supplied');
-  }
-
-  const profileListFileName = 'profilesList.json';
-  const profilesList = await fetchJsonFile(`${basePath}/${profileListFileName}`);
-  return profilesList;
-}
-
-async function fetchProfile(xrInputSource, basePath, defaultProfile = null, getAssetPath = true) {
-  if (!xrInputSource) {
-    throw new Error('No xrInputSource supplied');
-  }
-
-  if (!basePath) {
-    throw new Error('No basePath supplied');
-  }
-
-  // Get the list of profiles
-  const supportedProfilesList = await fetchProfilesList(basePath);
-
-  // Find the relative path to the first requested profile that is recognized
-  let match;
-  xrInputSource.profiles.some((profileId) => {
-    const supportedProfile = supportedProfilesList[profileId];
-    if (supportedProfile) {
-      match = {
-        profileId,
-        profilePath: `${basePath}/${supportedProfile.path}`,
-        deprecated: !!supportedProfile.deprecated
-      };
-    }
-    return !!match;
-  });
-
-  if (!match) {
-    if (!defaultProfile) {
-      throw new Error('No matching profile name found');
-    }
-
-    const supportedProfile = supportedProfilesList[defaultProfile];
-    if (!supportedProfile) {
-      throw new Error(`No matching profile name found and default profile "${defaultProfile}" missing.`);
-    }
-
-    match = {
-      profileId: defaultProfile,
-      profilePath: `${basePath}/${supportedProfile.path}`,
-      deprecated: !!supportedProfile.deprecated
-    };
-  }
-
-  const profile = await fetchJsonFile(match.profilePath);
-
-  let assetPath;
-  if (getAssetPath) {
-    let layout;
-    if (xrInputSource.handedness === 'any') {
-      layout = profile.layouts[Object.keys(profile.layouts)[0]];
-    } else {
-      layout = profile.layouts[xrInputSource.handedness];
-    }
-    if (!layout) {
-      throw new Error(
-        `No matching handedness, ${xrInputSource.handedness}, in profile ${match.profileId}`
-      );
-    }
-
-    if (layout.assetPath) {
-      assetPath = match.profilePath.replace('profile.json', layout.assetPath);
-    }
-  }
-
-  return { profile, assetPath };
-}
-
-/** @constant {Object} */
-const defaultComponentValues = {
-  xAxis: 0,
-  yAxis: 0,
-  button: 0,
-  state: Constants.ComponentState.DEFAULT
-};
-
-/**
- * @description Converts an X, Y coordinate from the range -1 to 1 (as reported by the Gamepad
- * API) to the range 0 to 1 (for interpolation). Also caps the X, Y values to be bounded within
- * a circle. This ensures that thumbsticks are not animated outside the bounds of their physical
- * range of motion and touchpads do not report touch locations off their physical bounds.
- * @param {number} x The original x coordinate in the range -1 to 1
- * @param {number} y The original y coordinate in the range -1 to 1
- */
-function normalizeAxes(x = 0, y = 0) {
-  let xAxis = x;
-  let yAxis = y;
-
-  // Determine if the point is outside the bounds of the circle
-  // and, if so, place it on the edge of the circle
-  const hypotenuse = Math.sqrt((x * x) + (y * y));
-  if (hypotenuse > 1) {
-    const theta = Math.atan2(y, x);
-    xAxis = Math.cos(theta);
-    yAxis = Math.sin(theta);
-  }
-
-  // Scale and move the circle so values are in the interpolation range.  The circle's origin moves
-  // from (0, 0) to (0.5, 0.5). The circle's radius scales from 1 to be 0.5.
-  const result = {
-    normalizedXAxis: (xAxis * 0.5) + 0.5,
-    normalizedYAxis: (yAxis * 0.5) + 0.5
-  };
-  return result;
-}
-
-/**
- * Contains the description of how the 3D model should visually respond to a specific user input.
- * This is accomplished by initializing the object with the name of a node in the 3D model and
- * property that need to be modified in response to user input, the name of the nodes representing
- * the allowable range of motion, and the name of the input which triggers the change. In response
- * to the named input changing, this object computes the appropriate weighting to use for
- * interpolating between the range of motion nodes.
- */
-class VisualResponse {
-  constructor(visualResponseDescription) {
-    this.componentProperty = visualResponseDescription.componentProperty;
-    this.states = visualResponseDescription.states;
-    this.valueNodeName = visualResponseDescription.valueNodeName;
-    this.valueNodeProperty = visualResponseDescription.valueNodeProperty;
-
-    if (this.valueNodeProperty === Constants.VisualResponseProperty.TRANSFORM) {
-      this.minNodeName = visualResponseDescription.minNodeName;
-      this.maxNodeName = visualResponseDescription.maxNodeName;
-    }
-
-    // Initializes the response's current value based on default data
-    this.value = 0;
-    this.updateFromComponent(defaultComponentValues);
-  }
-
-  /**
-   * Computes the visual response's interpolation weight based on component state
-   * @param {Object} componentValues - The component from which to update
-   * @param {number} xAxis - The reported X axis value of the component
-   * @param {number} yAxis - The reported Y axis value of the component
-   * @param {number} button - The reported value of the component's button
-   * @param {string} state - The component's active state
-   */
-  updateFromComponent({
-    xAxis, yAxis, button, state
-  }) {
-    const { normalizedXAxis, normalizedYAxis } = normalizeAxes(xAxis, yAxis);
-    switch (this.componentProperty) {
-      case Constants.ComponentProperty.X_AXIS:
-        this.value = (this.states.includes(state)) ? normalizedXAxis : 0.5;
-        break;
-      case Constants.ComponentProperty.Y_AXIS:
-        this.value = (this.states.includes(state)) ? normalizedYAxis : 0.5;
-        break;
-      case Constants.ComponentProperty.BUTTON:
-        this.value = (this.states.includes(state)) ? button : 0;
-        break;
-      case Constants.ComponentProperty.STATE:
-        if (this.valueNodeProperty === Constants.VisualResponseProperty.VISIBILITY) {
-          this.value = (this.states.includes(state));
-        } else {
-          this.value = this.states.includes(state) ? 1.0 : 0.0;
-        }
-        break;
-      default:
-        throw new Error(`Unexpected visualResponse componentProperty ${this.componentProperty}`);
-    }
-  }
-}
-
-class Component {
-  /**
-   * @param {Object} componentId - Id of the component
-   * @param {Object} componentDescription - Description of the component to be created
-   */
-  constructor(componentId, componentDescription) {
-    if (!componentId
-     || !componentDescription
-     || !componentDescription.visualResponses
-     || !componentDescription.gamepadIndices
-     || Object.keys(componentDescription.gamepadIndices).length === 0) {
-      throw new Error('Invalid arguments supplied');
-    }
-
-    this.id = componentId;
-    this.type = componentDescription.type;
-    this.rootNodeName = componentDescription.rootNodeName;
-    this.touchPointNodeName = componentDescription.touchPointNodeName;
-
-    // Build all the visual responses for this component
-    this.visualResponses = {};
-    Object.keys(componentDescription.visualResponses).forEach((responseName) => {
-      const visualResponse = new VisualResponse(componentDescription.visualResponses[responseName]);
-      this.visualResponses[responseName] = visualResponse;
-    });
-
-    // Set default values
-    this.gamepadIndices = Object.assign({}, componentDescription.gamepadIndices);
-
-    this.values = {
-      state: Constants.ComponentState.DEFAULT,
-      button: (this.gamepadIndices.button !== undefined) ? 0 : undefined,
-      xAxis: (this.gamepadIndices.xAxis !== undefined) ? 0 : undefined,
-      yAxis: (this.gamepadIndices.yAxis !== undefined) ? 0 : undefined
-    };
-  }
-
-  get data() {
-    const data = { id: this.id, ...this.values };
-    return data;
-  }
-
-  /**
-   * @description Poll for updated data based on current gamepad state
-   * @param {Object} gamepad - The gamepad object from which the component data should be polled
-   */
-  updateFromGamepad(gamepad) {
-    // Set the state to default before processing other data sources
-    this.values.state = Constants.ComponentState.DEFAULT;
-
-    // Get and normalize button
-    if (this.gamepadIndices.button !== undefined
-        && gamepad.buttons.length > this.gamepadIndices.button) {
-      const gamepadButton = gamepad.buttons[this.gamepadIndices.button];
-      this.values.button = gamepadButton.value;
-      this.values.button = (this.values.button < 0) ? 0 : this.values.button;
-      this.values.button = (this.values.button > 1) ? 1 : this.values.button;
-
-      // Set the state based on the button
-      if (gamepadButton.pressed || this.values.button === 1) {
-        this.values.state = Constants.ComponentState.PRESSED;
-      } else if (gamepadButton.touched || this.values.button > Constants.ButtonTouchThreshold) {
-        this.values.state = Constants.ComponentState.TOUCHED;
-      }
-    }
-
-    // Get and normalize x axis value
-    if (this.gamepadIndices.xAxis !== undefined
-        && gamepad.axes.length > this.gamepadIndices.xAxis) {
-      this.values.xAxis = gamepad.axes[this.gamepadIndices.xAxis];
-      this.values.xAxis = (this.values.xAxis < -1) ? -1 : this.values.xAxis;
-      this.values.xAxis = (this.values.xAxis > 1) ? 1 : this.values.xAxis;
-
-      // If the state is still default, check if the xAxis makes it touched
-      if (this.values.state === Constants.ComponentState.DEFAULT
-        && Math.abs(this.values.xAxis) > Constants.AxisTouchThreshold) {
-        this.values.state = Constants.ComponentState.TOUCHED;
-      }
-    }
-
-    // Get and normalize Y axis value
-    if (this.gamepadIndices.yAxis !== undefined
-        && gamepad.axes.length > this.gamepadIndices.yAxis) {
-      this.values.yAxis = gamepad.axes[this.gamepadIndices.yAxis];
-      this.values.yAxis = (this.values.yAxis < -1) ? -1 : this.values.yAxis;
-      this.values.yAxis = (this.values.yAxis > 1) ? 1 : this.values.yAxis;
-
-      // If the state is still default, check if the yAxis makes it touched
-      if (this.values.state === Constants.ComponentState.DEFAULT
-        && Math.abs(this.values.yAxis) > Constants.AxisTouchThreshold) {
-        this.values.state = Constants.ComponentState.TOUCHED;
-      }
-    }
-
-    // Update the visual response weights based on the current component data
-    Object.values(this.visualResponses).forEach((visualResponse) => {
-      visualResponse.updateFromComponent(this.values);
-    });
-  }
-}
-
-/**
-  * @description Builds a motion controller with components and visual responses based on the
-  * supplied profile description. Data is polled from the xrInputSource's gamepad.
-  * @author Nell Waliczek / https://github.com/NellWaliczek
-*/
-class MotionController {
-  /**
-   * @param {Object} xrInputSource - The XRInputSource to build the MotionController around
-   * @param {Object} profile - The best matched profile description for the supplied xrInputSource
-   * @param {Object} assetUrl
-   */
-  constructor(xrInputSource, profile, assetUrl) {
-    if (!xrInputSource) {
-      throw new Error('No xrInputSource supplied');
-    }
-
-    if (!profile) {
-      throw new Error('No profile supplied');
-    }
-
-    this.xrInputSource = xrInputSource;
-    this.assetUrl = assetUrl;
-    this.id = profile.profileId;
-
-    // Build child components as described in the profile description
-    this.layoutDescription = profile.layouts[xrInputSource.handedness];
-    this.components = {};
-    Object.keys(this.layoutDescription.components).forEach((componentId) => {
-      const componentDescription = this.layoutDescription.components[componentId];
-      this.components[componentId] = new Component(componentId, componentDescription);
-    });
-
-    // Initialize components based on current gamepad state
-    this.updateFromGamepad();
-  }
-
-  get gripSpace() {
-    return this.xrInputSource.gripSpace;
-  }
-
-  get targetRaySpace() {
-    return this.xrInputSource.targetRaySpace;
-  }
-
-  /**
-   * @description Returns a subset of component data for simplified debugging
-   */
-  get data() {
-    const data = [];
-    Object.values(this.components).forEach((component) => {
-      data.push(component.data);
-    });
-    return data;
-  }
-
-  /**
-   * @description Poll for updated data based on current gamepad state
-   */
-  updateFromGamepad() {
-    Object.values(this.components).forEach((component) => {
-      component.updateFromGamepad(this.xrInputSource.gamepad);
-    });
-  }
-}
-
-const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
-const DEFAULT_PROFILE = 'generic-trigger';
-
-class XRControllerModel extends Object3D {
-
-	constructor() {
-
-		super();
-
-		this.motionController = null;
-		this.envMap = null;
-
-	}
-
-	setEnvironmentMap( envMap ) {
-
-		if ( this.envMap == envMap ) {
-
-			return this;
-
-		}
-
-		this.envMap = envMap;
-		this.traverse( ( child ) => {
-
-			if ( child.isMesh ) {
-
-				child.material.envMap = this.envMap;
-				child.material.needsUpdate = true;
-
-			}
-
-		} );
-
-		return this;
-
-	}
-
-	/**
-	 * Polls data from the XRInputSource and updates the model's components to match
-	 * the real world data
-	 */
-	updateMatrixWorld( force ) {
-
-		super.updateMatrixWorld( force );
-
-		if ( ! this.motionController ) return;
-
-		// Cause the MotionController to poll the Gamepad for data
-		this.motionController.updateFromGamepad();
-
-		// Update the 3D model to reflect the button, thumbstick, and touchpad state
-		Object.values( this.motionController.components ).forEach( ( component ) => {
-
-			// Update node data based on the visual responses' current states
-			Object.values( component.visualResponses ).forEach( ( visualResponse ) => {
-
-				const { valueNode, minNode, maxNode, value, valueNodeProperty } = visualResponse;
-
-				// Skip if the visual response node is not found. No error is needed,
-				// because it will have been reported at load time.
-				if ( ! valueNode ) return;
-
-				// Calculate the new properties based on the weight supplied
-				if ( valueNodeProperty === Constants.VisualResponseProperty.VISIBILITY ) {
-
-					valueNode.visible = value;
-
-				} else if ( valueNodeProperty === Constants.VisualResponseProperty.TRANSFORM ) {
-
-					valueNode.quaternion.slerpQuaternions(
-						minNode.quaternion,
-						maxNode.quaternion,
-						value
-					);
-
-					valueNode.position.lerpVectors(
-						minNode.position,
-						maxNode.position,
-						value
-					);
-
-				}
-
-			} );
-
-		} );
-
-	}
-
-}
-
-/**
- * Walks the model's tree to find the nodes needed to animate the components and
- * saves them to the motionContoller components for use in the frame loop. When
- * touchpads are found, attaches a touch dot to them.
- */
-function findNodes( motionController, scene ) {
-
-	// Loop through the components and find the nodes needed for each components' visual responses
-	Object.values( motionController.components ).forEach( ( component ) => {
-
-		const { type, touchPointNodeName, visualResponses } = component;
-
-		if ( type === Constants.ComponentType.TOUCHPAD ) {
-
-			component.touchPointNode = scene.getObjectByName( touchPointNodeName );
-			if ( component.touchPointNode ) {
-
-				// Attach a touch dot to the touchpad.
-				const sphereGeometry = new SphereGeometry( 0.001 );
-				const material = new MeshBasicMaterial( { color: 0x0000FF } );
-				const sphere = new Mesh( sphereGeometry, material );
-				component.touchPointNode.add( sphere );
-
-			} else {
-
-				console.warn( `Could not find touch dot, ${component.touchPointNodeName}, in touchpad component ${component.id}` );
-
-			}
-
-		}
-
-		// Loop through all the visual responses to be applied to this component
-		Object.values( visualResponses ).forEach( ( visualResponse ) => {
-
-			const { valueNodeName, minNodeName, maxNodeName, valueNodeProperty } = visualResponse;
-
-			// If animating a transform, find the two nodes to be interpolated between.
-			if ( valueNodeProperty === Constants.VisualResponseProperty.TRANSFORM ) {
-
-				visualResponse.minNode = scene.getObjectByName( minNodeName );
-				visualResponse.maxNode = scene.getObjectByName( maxNodeName );
-
-				// If the extents cannot be found, skip this animation
-				if ( ! visualResponse.minNode ) {
-
-					console.warn( `Could not find ${minNodeName} in the model` );
-					return;
-
-				}
-
-				if ( ! visualResponse.maxNode ) {
-
-					console.warn( `Could not find ${maxNodeName} in the model` );
-					return;
-
-				}
-
-			}
-
-			// If the target node cannot be found, skip this animation
-			visualResponse.valueNode = scene.getObjectByName( valueNodeName );
-			if ( ! visualResponse.valueNode ) {
-
-				console.warn( `Could not find ${valueNodeName} in the model` );
-
-			}
-
-		} );
-
-	} );
-
-}
-
-function addAssetSceneToControllerModel( controllerModel, scene ) {
-
-	// Find the nodes needed for animation and cache them on the motionController.
-	findNodes( controllerModel.motionController, scene );
-
-	// Apply any environment map that the mesh already has set.
-	if ( controllerModel.envMap ) {
-
-		scene.traverse( ( child ) => {
-
-			if ( child.isMesh ) {
-
-				child.material.envMap = controllerModel.envMap;
-				child.material.needsUpdate = true;
-
-			}
-
-		} );
-
-	}
-
-	// Add the glTF scene to the controllerModel.
-	controllerModel.add( scene );
-
-}
-
-class XRControllerModelFactory {
-
-	constructor( gltfLoader = null ) {
-
-		this.gltfLoader = gltfLoader;
-		this.path = DEFAULT_PROFILES_PATH;
-		this._assetCache = {};
-
-		// If a GLTFLoader wasn't supplied to the constructor create a new one.
-		if ( ! this.gltfLoader ) {
-
-			this.gltfLoader = new GLTFLoader();
-
-		}
-
-	}
-
-	createControllerModel( controller ) {
-
-		const controllerModel = new XRControllerModel();
-		let scene = null;
-
-		controller.addEventListener( 'connected', ( event ) => {
-
-			const xrInputSource = event.data;
-
-			if ( xrInputSource.targetRayMode !== 'tracked-pointer' || ! xrInputSource.gamepad ) return;
-
-			fetchProfile( xrInputSource, this.path, DEFAULT_PROFILE ).then( ( { profile, assetPath } ) => {
-
-				controllerModel.motionController = new MotionController(
-					xrInputSource,
-					profile,
-					assetPath
-				);
-
-				const cachedAsset = this._assetCache[ controllerModel.motionController.assetUrl ];
-				if ( cachedAsset ) {
-
-					scene = cachedAsset.scene.clone();
-
-					addAssetSceneToControllerModel( controllerModel, scene );
-
-				} else {
-
-					if ( ! this.gltfLoader ) {
-
-						throw new Error( 'GLTFLoader not set.' );
-
-					}
-
-					this.gltfLoader.setPath( '' );
-					this.gltfLoader.load( controllerModel.motionController.assetUrl, ( asset ) => {
-
-						this._assetCache[ controllerModel.motionController.assetUrl ] = asset;
-
-						scene = asset.scene.clone();
-
-						addAssetSceneToControllerModel( controllerModel, scene );
-
-					},
-					null,
-					() => {
-
-						throw new Error( `Asset ${controllerModel.motionController.assetUrl} missing or malformed.` );
-
-					} );
-
-				}
-
-			} ).catch( ( err ) => {
-
-				console.warn( err );
-
-			} );
-
-		} );
-
-		controller.addEventListener( 'disconnected', () => {
-
-			controllerModel.motionController = null;
-			controllerModel.remove( scene );
-			scene = null;
-
-		} );
-
-		return controllerModel;
-
-	}
-
-}
-
-class VR {
-
-	constructor( editor ) {
-
-		const signals = editor.signals;
-
-		let group = null;
-
-		let camera = null;
-		let renderer = null;
-
-		const intersectables = [];
-
-		this.currentSession = null;
-
-		const onSessionStarted = async ( session ) => {
-
-			const sidebar = document.getElementById( 'sidebar' );
-			sidebar.style.width = '300px';
-			sidebar.style.height = '700px';
-
-			//
-
-			if ( group === null ) {
-
-				group = new InteractiveGroup( renderer );
-				editor.sceneHelpers.add( group );
-
-				const mesh = new HTMLMesh( sidebar );
-				mesh.position.set( 1, 1.5, - 0.5 );
-				mesh.rotation.y = - 0.5;
-				mesh.scale.setScalar( 2 );
-				group.add( mesh );
-
-				intersectables.push( mesh );
-
-				// controllers
-
-				const geometry = new BufferGeometry();
-				geometry.setFromPoints( [ new Vector3( 0, 0, 0 ), new Vector3( 0, 0, - 5 ) ] );
-
-				const controller1 = renderer.xr.getController( 0 );
-				controller1.add( new Line( geometry ) );
-				group.add( controller1 );
-
-				const controller2 = renderer.xr.getController( 1 );
-				controller2.add( new Line( geometry ) );
-				group.add( controller2 );
-
-				//
-
-				const controllerModelFactory = new XRControllerModelFactory();
-
-				const controllerGrip1 = renderer.xr.getControllerGrip( 0 );
-				controllerGrip1.add( controllerModelFactory.createControllerModel( controllerGrip1 ) );
-				group.add( controllerGrip1 );
-
-				const controllerGrip2 = renderer.xr.getControllerGrip( 1 );
-				controllerGrip2.add( controllerModelFactory.createControllerModel( controllerGrip2 ) );
-				group.add( controllerGrip2 );
-
-			}
-
-			camera = editor.camera.clone();
-
-			group.visible = true;
-
-			this.currentSession = session;
-			this.currentSession.addEventListener( 'end', onSessionEnded );
-
-			await renderer.xr.setSession( this.currentSession );
-
-		};
-
-		const onSessionEnded = async () => {
-
-			const sidebar = document.getElementById( 'sidebar' );
-			sidebar.style.width = '';
-			sidebar.style.height = '';
-
-			//
-
-			editor.camera.copy( camera );
-
-			group.visible = false;
-
-			this.currentSession.removeEventListener( 'end', onSessionEnded );
-			this.currentSession = null;
-
-			await renderer.xr.setSession( null );
-
-			signals.exitedVR.dispatch();
-
-		};
-
-		// signals
-
-		signals.toggleVR.add( () => {
-
-			if ( this.currentSession === null ) {
-
-				const sessionInit = { optionalFeatures: [ 'local-floor', 'bounded-floor' ] };
-				navigator.xr.requestSession( 'immersive-vr', sessionInit ).then( onSessionStarted );
-
-			} else {
-
-				this.currentSession.end();
-
-			}
-
-		} );
-
-		signals.rendererCreated.add( ( value ) => {
-
-			renderer = value;
-			renderer.xr.enabled = true;
-
-		} );
-
-	}
-
-}
-
-/**
- * https://github.com/google/model-viewer/blob/master/packages/model-viewer/src/three-components/EnvironmentScene.ts
- */
-
-class RoomEnvironment extends Scene {
-
-	constructor() {
-
-		super();
-
-		const geometry = new BoxGeometry();
-		geometry.deleteAttribute( 'uv' );
-
-		const roomMaterial = new MeshStandardMaterial( { side: BackSide } );
-		const boxMaterial = new MeshStandardMaterial();
-
-		const mainLight = new PointLight( 0xffffff, 5.0, 28, 2 );
-		mainLight.position.set( 0.418, 16.199, 0.300 );
-		this.add( mainLight );
-
-		const room = new Mesh( geometry, roomMaterial );
-		room.position.set( - 0.757, 13.219, 0.717 );
-		room.scale.set( 31.713, 28.305, 28.591 );
-		this.add( room );
-
-		const box1 = new Mesh( geometry, boxMaterial );
-		box1.position.set( - 10.906, 2.009, 1.846 );
-		box1.rotation.set( 0, - 0.195, 0 );
-		box1.scale.set( 2.328, 7.905, 4.651 );
-		this.add( box1 );
-
-		const box2 = new Mesh( geometry, boxMaterial );
-		box2.position.set( - 5.607, - 0.754, - 0.758 );
-		box2.rotation.set( 0, 0.994, 0 );
-		box2.scale.set( 1.970, 1.534, 3.955 );
-		this.add( box2 );
-
-		const box3 = new Mesh( geometry, boxMaterial );
-		box3.position.set( 6.167, 0.857, 7.803 );
-		box3.rotation.set( 0, 0.561, 0 );
-		box3.scale.set( 3.927, 6.285, 3.687 );
-		this.add( box3 );
-
-		const box4 = new Mesh( geometry, boxMaterial );
-		box4.position.set( - 2.017, 0.018, 6.124 );
-		box4.rotation.set( 0, 0.333, 0 );
-		box4.scale.set( 2.002, 4.566, 2.064 );
-		this.add( box4 );
-
-		const box5 = new Mesh( geometry, boxMaterial );
-		box5.position.set( 2.291, - 0.756, - 2.621 );
-		box5.rotation.set( 0, - 0.286, 0 );
-		box5.scale.set( 1.546, 1.552, 1.496 );
-		this.add( box5 );
-
-		const box6 = new Mesh( geometry, boxMaterial );
-		box6.position.set( - 2.193, - 0.369, - 5.547 );
-		box6.rotation.set( 0, 0.516, 0 );
-		box6.scale.set( 3.875, 3.487, 2.986 );
-		this.add( box6 );
-
-
-		// -x right
-		const light1 = new Mesh( geometry, createAreaLightMaterial( 50 ) );
-		light1.position.set( - 16.116, 14.37, 8.208 );
-		light1.scale.set( 0.1, 2.428, 2.739 );
-		this.add( light1 );
-
-		// -x left
-		const light2 = new Mesh( geometry, createAreaLightMaterial( 50 ) );
-		light2.position.set( - 16.109, 18.021, - 8.207 );
-		light2.scale.set( 0.1, 2.425, 2.751 );
-		this.add( light2 );
-
-		// +x
-		const light3 = new Mesh( geometry, createAreaLightMaterial( 17 ) );
-		light3.position.set( 14.904, 12.198, - 1.832 );
-		light3.scale.set( 0.15, 4.265, 6.331 );
-		this.add( light3 );
-
-		// +z
-		const light4 = new Mesh( geometry, createAreaLightMaterial( 43 ) );
-		light4.position.set( - 0.462, 8.89, 14.520 );
-		light4.scale.set( 4.38, 5.441, 0.088 );
-		this.add( light4 );
-
-		// -z
-		const light5 = new Mesh( geometry, createAreaLightMaterial( 20 ) );
-		light5.position.set( 3.235, 11.486, - 12.541 );
-		light5.scale.set( 2.5, 2.0, 0.1 );
-		this.add( light5 );
-
-		// +y
-		const light6 = new Mesh( geometry, createAreaLightMaterial( 100 ) );
-		light6.position.set( 0.0, 20.0, 0.0 );
-		light6.scale.set( 1.0, 0.1, 1.0 );
-		this.add( light6 );
-
-	}
-
-}
-
-function createAreaLightMaterial( intensity ) {
-
-	const material = new MeshBasicMaterial();
-	material.color.setScalar( intensity );
-	return material;
-
-}
-
-function Viewport( editor ) {
-
-	const signals = editor.signals;
-
-	const container = new UIPanel();
-	container.setId( 'viewport' );
-	container.setPosition( 'absolute' );
-
-	container.add( new ViewportCamera( editor ) );
-	container.add( new ViewportInfo( editor ) );
-
-	//
-
-	let renderer = null;
-	let pmremGenerator = null;
-
-	const camera = editor.camera;
-	const scene = editor.scene;
-	const sceneHelpers = editor.sceneHelpers;
-	let showSceneHelpers = true;
-
-	const objects = [];
-
-	// helpers
-
-	const grid = new Group();
-
-	const grid1 = new GridHelper( 30, 30, 0x888888 );
-	grid1.material.color.setHex( 0x888888 );
-	grid1.material.vertexColors = false;
-	grid.add( grid1 );
-
-	const grid2 = new GridHelper( 30, 6, 0x222222 );
-	grid2.material.color.setHex( 0x222222 );
-	grid2.material.depthFunc = AlwaysDepth;
-	grid2.material.vertexColors = false;
-	grid.add( grid2 );
-
-	const viewHelper = new ViewHelper( camera, container );
-	const vr = new VR( editor );
-
-	//
-
-	const box = new Box3();
-
-	const selectionBox = new Box3Helper( box );
-	selectionBox.material.depthTest = false;
-	selectionBox.material.transparent = true;
-	selectionBox.visible = false;
-	sceneHelpers.add( selectionBox );
-
-	let objectPositionOnDown = null;
-	let objectRotationOnDown = null;
-	let objectScaleOnDown = null;
-
-	const transformControls = new TransformControls( camera, container.dom );
-	transformControls.addEventListener( 'change', function () {
-
-		const object = transformControls.object;
-
-		if ( object !== undefined ) {
-
-			box.setFromObject( object, true );
-
-			const helper = editor.helpers[ object.id ];
-
-			if ( helper !== undefined && helper.isSkeletonHelper !== true ) {
-
-				helper.update();
-
-			}
-
-			signals.refreshSidebarObject3D.dispatch( object );
-
-		}
-
-		render();
-
-	} );
-	transformControls.addEventListener( 'mouseDown', function () {
-
-		const object = transformControls.object;
-
-		objectPositionOnDown = object.position.clone();
-		objectRotationOnDown = object.rotation.clone();
-		objectScaleOnDown = object.scale.clone();
-
-		controls.enabled = false;
-
-	} );
-	transformControls.addEventListener( 'mouseUp', function () {
-
-		const object = transformControls.object;
-
-		if ( object !== undefined ) {
-
-			switch ( transformControls.getMode() ) {
-
-				case 'translate':
-
-					if ( ! objectPositionOnDown.equals( object.position ) ) {
-
-						editor.execute( new SetPositionCommand( editor, object, object.position, objectPositionOnDown ) );
-
-					}
-
-					break;
-
-				case 'rotate':
-
-					if ( ! objectRotationOnDown.equals( object.rotation ) ) {
-
-						editor.execute( new SetRotationCommand( editor, object, object.rotation, objectRotationOnDown ) );
-
-					}
-
-					break;
-
-				case 'scale':
-
-					if ( ! objectScaleOnDown.equals( object.scale ) ) {
-
-						editor.execute( new SetScaleCommand( editor, object, object.scale, objectScaleOnDown ) );
-
-					}
-
-					break;
-
-			}
-
-		}
-
-		controls.enabled = true;
-
-	} );
-
-	sceneHelpers.add( transformControls );
-
-	// object picking
-
-	const raycaster = new Raycaster();
-	const mouse = new Vector2();
-
-	// events
-
-	function updateAspectRatio() {
-
-		camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
-		camera.updateProjectionMatrix();
-
-	}
-
-	function getIntersects( point, objects ) {
-
-		mouse.set( ( point.x * 2 ) - 1, - ( point.y * 2 ) + 1 );
-
-		raycaster.setFromCamera( mouse, camera );
-
-		return raycaster.intersectObjects( objects )
-			.filter( intersect => intersect.object.visible === true );
-
-	}
-
-	const onDownPosition = new Vector2();
-	const onUpPosition = new Vector2();
-	const onDoubleClickPosition = new Vector2();
-
-	function getMousePosition( dom, x, y ) {
-
-		const rect = dom.getBoundingClientRect();
-		return [ ( x - rect.left ) / rect.width, ( y - rect.top ) / rect.height ];
-
-	}
-
-	function handleClick() {
-
-		if ( onDownPosition.distanceTo( onUpPosition ) === 0 ) {
-
-			const intersects = getIntersects( onUpPosition, objects );
-
-			if ( intersects.length > 0 ) {
-
-				const object = intersects[ 0 ].object;
-
-				if ( object.userData.object !== undefined ) {
-
-					// helper
-
-					editor.select( object.userData.object );
-
-				} else {
-
-					editor.select( object );
-
-				}
-
-			} else {
-
-				editor.select( null );
-
-			}
-
-			render();
-
-		}
-
-	}
-
-	function onMouseDown( event ) {
-
-		// event.preventDefault();
-
-		const array = getMousePosition( container.dom, event.clientX, event.clientY );
-		onDownPosition.fromArray( array );
-
-		document.addEventListener( 'mouseup', onMouseUp );
-
-	}
-
-	function onMouseUp( event ) {
-
-		const array = getMousePosition( container.dom, event.clientX, event.clientY );
-		onUpPosition.fromArray( array );
-
-		handleClick();
-
-		document.removeEventListener( 'mouseup', onMouseUp );
-
-	}
-
-	function onTouchStart( event ) {
-
-		const touch = event.changedTouches[ 0 ];
-
-		const array = getMousePosition( container.dom, touch.clientX, touch.clientY );
-		onDownPosition.fromArray( array );
-
-		document.addEventListener( 'touchend', onTouchEnd );
-
-	}
-
-	function onTouchEnd( event ) {
-
-		const touch = event.changedTouches[ 0 ];
-
-		const array = getMousePosition( container.dom, touch.clientX, touch.clientY );
-		onUpPosition.fromArray( array );
-
-		handleClick();
-
-		document.removeEventListener( 'touchend', onTouchEnd );
-
-	}
-
-	function onDoubleClick( event ) {
-
-		const array = getMousePosition( container.dom, event.clientX, event.clientY );
-		onDoubleClickPosition.fromArray( array );
-
-		const intersects = getIntersects( onDoubleClickPosition, objects );
-
-		if ( intersects.length > 0 ) {
-
-			const intersect = intersects[ 0 ];
-
-			signals.objectFocused.dispatch( intersect.object );
-
-		}
-
-	}
-
-	container.dom.addEventListener( 'mousedown', onMouseDown );
-	container.dom.addEventListener( 'touchstart', onTouchStart );
-	container.dom.addEventListener( 'dblclick', onDoubleClick );
-
-	// controls need to be added *after* main logic,
-	// otherwise controls.enabled doesn't work.
-
-	const controls = new EditorControls( camera, container.dom );
-	controls.addEventListener( 'change', function () {
-
-		signals.cameraChanged.dispatch( camera );
-		signals.refreshSidebarObject3D.dispatch( camera );
-
-	} );
-	viewHelper.controls = controls;
-
-	// signals
-
-	signals.editorCleared.add( function () {
-
-		controls.center.set( 0, 0, 0 );
-		render();
-
-	} );
-
-	signals.transformModeChanged.add( function ( mode ) {
-
-		transformControls.setMode( mode );
-
-	} );
-
-	signals.snapChanged.add( function ( dist ) {
-
-		transformControls.setTranslationSnap( dist );
-
-	} );
-
-	signals.spaceChanged.add( function ( space ) {
-
-		transformControls.setSpace( space );
-
-	} );
-
-	signals.rendererUpdated.add( function () {
-
-		scene.traverse( function ( child ) {
-
-			if ( child.material !== undefined ) {
-
-				child.material.needsUpdate = true;
-
-			}
-
-		} );
-
-		render();
-
-	} );
-
-	signals.rendererCreated.add( function ( newRenderer ) {
-
-		if ( renderer !== null ) {
-
-			renderer.setAnimationLoop( null );
-			renderer.dispose();
-			pmremGenerator.dispose();
-
-			container.dom.removeChild( renderer.domElement );
-
-		}
-
-		renderer = newRenderer;
-
-		renderer.setAnimationLoop( animate );
-		renderer.setClearColor( 0xaaaaaa );
-
-		if ( window.matchMedia ) {
-
-			const mediaQuery = window.matchMedia( '(prefers-color-scheme: dark)' );
-			mediaQuery.addListener( function ( event ) {
-
-				renderer.setClearColor( event.matches ? 0x333333 : 0xaaaaaa );
-				updateGridColors( grid1, grid2, event.matches ? [ 0x222222, 0x888888 ] : [ 0x888888, 0x282828 ] );
-
-				render();
-
-			} );
-
-			renderer.setClearColor( mediaQuery.matches ? 0x333333 : 0xaaaaaa );
-			updateGridColors( grid1, grid2, mediaQuery.matches ? [ 0x222222, 0x888888 ] : [ 0x888888, 0x282828 ] );
-
-		}
-
-		renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
-
-		pmremGenerator = new PMREMGenerator( renderer );
-		pmremGenerator.compileEquirectangularShader();
-
-		container.dom.appendChild( renderer.domElement );
-
-		render();
-
-	} );
-
-	signals.sceneGraphChanged.add( function () {
-
-		render();
-
-	} );
-
-	signals.cameraChanged.add( function () {
-
-		render();
-
-	} );
-
-	signals.objectSelected.add( function ( object ) {
-
-		selectionBox.visible = false;
-		transformControls.detach();
-
-		if ( object !== null && object !== scene && object !== camera ) {
-
-			box.setFromObject( object, true );
-
-			if ( box.isEmpty() === false ) {
-
-				selectionBox.visible = true;
-
-			}
-
-			transformControls.attach( object );
-
-		}
-
-		render();
-
-	} );
-
-	signals.objectFocused.add( function ( object ) {
-
-		controls.focus( object );
-
-	} );
-
-	signals.geometryChanged.add( function ( object ) {
-
-		if ( object !== undefined ) {
-
-			box.setFromObject( object, true );
-
-		}
-
-		render();
-
-	} );
-
-	signals.objectAdded.add( function ( object ) {
-
-		object.traverse( function ( child ) {
-
-			objects.push( child );
-
-		} );
-
-	} );
-
-	signals.objectChanged.add( function ( object ) {
-
-		if ( editor.selected === object ) {
-
-			box.setFromObject( object, true );
-
-		}
-
-		if ( object.isPerspectiveCamera ) {
-
-			object.updateProjectionMatrix();
-
-		}
-
-		if ( editor.helpers[ object.id ] !== undefined ) {
-
-			editor.helpers[ object.id ].update();
-
-		}
-
-		render();
-
-	} );
-
-	signals.objectRemoved.add( function ( object ) {
-
-		controls.enabled = true; // see #14180
-		if ( object === transformControls.object ) {
-
-			transformControls.detach();
-
-		}
-
-		object.traverse( function ( child ) {
-
-			objects.splice( objects.indexOf( child ), 1 );
-
-		} );
-
-	} );
-
-	signals.helperAdded.add( function ( object ) {
-
-		const picker = object.getObjectByName( 'picker' );
-
-		if ( picker !== undefined ) {
-
-			objects.push( picker );
-
-		}
-
-	} );
-
-	signals.helperRemoved.add( function ( object ) {
-
-		const picker = object.getObjectByName( 'picker' );
-
-		if ( picker !== undefined ) {
-
-			objects.splice( objects.indexOf( picker ), 1 );
-
-		}
-
-	} );
-
-	signals.materialChanged.add( function () {
-
-		render();
-
-	} );
-
-	signals.animationStopped.add( function () {
-
-		render();
-
-	} );
-
-	// background
-
-	signals.sceneBackgroundChanged.add( function ( backgroundType, backgroundColor, backgroundTexture, backgroundEquirectangularTexture ) {
-
-		switch ( backgroundType ) {
-
-			case 'None':
-
-				scene.background = null;
-
-				break;
-
-			case 'Color':
-
-				scene.background = new Color( backgroundColor );
-
-				break;
-
-			case 'Texture':
-
-				if ( backgroundTexture ) {
-
-					scene.background = backgroundTexture;
-
-				}
-
-				break;
-
-			case 'Equirectangular':
-
-				if ( backgroundEquirectangularTexture ) {
-
-					backgroundEquirectangularTexture.mapping = EquirectangularReflectionMapping;
-					scene.background = backgroundEquirectangularTexture;
-
-				}
-
-				break;
-
-		}
-
-		render();
-
-	} );
-
-	// environment
-
-	signals.sceneEnvironmentChanged.add( function ( environmentType, environmentEquirectangularTexture ) {
-
-		switch ( environmentType ) {
-
-			case 'None':
-
-				scene.environment = null;
-
-				break;
-
-			case 'Equirectangular':
-
-				scene.environment = null;
-
-				if ( environmentEquirectangularTexture ) {
-
-					environmentEquirectangularTexture.mapping = EquirectangularReflectionMapping;
-					scene.environment = environmentEquirectangularTexture;
-
-				}
-
-				break;
-
-			case 'ModelViewer':
-
-				scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
-
-				break;
-
-		}
-
-		render();
-
-	} );
-
-	// fog
-
-	signals.sceneFogChanged.add( function ( fogType, fogColor, fogNear, fogFar, fogDensity ) {
-
-		switch ( fogType ) {
-
-			case 'None':
-				scene.fog = null;
-				break;
-			case 'Fog':
-				scene.fog = new Fog( fogColor, fogNear, fogFar );
-				break;
-			case 'FogExp2':
-				scene.fog = new FogExp2( fogColor, fogDensity );
-				break;
-
-		}
-
-		render();
-
-	} );
-
-	signals.sceneFogSettingsChanged.add( function ( fogType, fogColor, fogNear, fogFar, fogDensity ) {
-
-		switch ( fogType ) {
-
-			case 'Fog':
-				scene.fog.color.setHex( fogColor );
-				scene.fog.near = fogNear;
-				scene.fog.far = fogFar;
-				break;
-			case 'FogExp2':
-				scene.fog.color.setHex( fogColor );
-				scene.fog.density = fogDensity;
-				break;
-
-		}
-
-		render();
-
-	} );
-
-	signals.viewportCameraChanged.add( function () {
-
-		const viewportCamera = editor.viewportCamera;
-
-		if ( viewportCamera.isPerspectiveCamera ) {
-
-			viewportCamera.aspect = editor.camera.aspect;
-			viewportCamera.projectionMatrix.copy( editor.camera.projectionMatrix );
-
-		} else if ( viewportCamera.isOrthographicCamera ) {
-
-			// TODO
-
-		}
-
-		// disable EditorControls when setting a user camera
-
-		controls.enabled = ( viewportCamera === editor.camera );
-
-		render();
-
-	} );
-
-	signals.exitedVR.add( render );
-
-	//
-
-	signals.windowResize.add( function () {
-
-		updateAspectRatio();
-
-		renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
-
-		render();
-
-	} );
-
-	signals.showGridChanged.add( function ( showGrid ) {
-
-		grid.visible = showGrid;
-		render();
-
-	} );
-
-	signals.showHelpersChanged.add( function ( showHelpers ) {
-
-		showSceneHelpers = showHelpers;
-		transformControls.enabled = showHelpers;
-
-		render();
-
-	} );
-
-	signals.cameraResetted.add( updateAspectRatio );
-
-	// animations
-
-	const clock = new Clock(); // only used for animations
-
-	function animate() {
-
-		const mixer = editor.mixer;
-		const delta = clock.getDelta();
-
-		let needsUpdate = false;
-
-		if ( mixer.stats.actions.inUse > 0 ) {
-
-			mixer.update( delta );
-			needsUpdate = true;
-
-		}
-
-		if ( viewHelper.animating === true ) {
-
-			viewHelper.update( delta );
-			needsUpdate = true;
-
-		}
-
-		if ( vr.currentSession !== null ) {
-
-			needsUpdate = true;
-
-		}
-
-		if ( needsUpdate === true ) render();
-
-	}
-
-	//
-
-	let startTime = 0;
-	let endTime = 0;
-
-	function render() {
-
-		startTime = performance.now();
-
-		// Adding/removing grid to scene so materials with depthWrite false
-		// don't render under the grid.
-
-		scene.add( grid );
-		renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
-		renderer.render( scene, editor.viewportCamera );
-		scene.remove( grid );
-
-		if ( camera === editor.viewportCamera ) {
-
-			renderer.autoClear = false;
-			if ( showSceneHelpers === true ) renderer.render( sceneHelpers, camera );
-			if ( vr.currentSession === null ) viewHelper.render( renderer );
-			renderer.autoClear = true;
-
-		}
-
-		endTime = performance.now();
-		editor.signals.sceneRendered.dispatch( endTime - startTime );
-
-	}
-
-	return container;
-
-}
-
-function updateGridColors( grid1, grid2, colors ) {
-
-	grid1.material.color.setHex( colors[ 0 ] );
-	grid2.material.color.setHex( colors[ 1 ] );
-
-}
-
-// https://github.com/mrdoob/three.js/issues/5552
-// http://en.wikipedia.org/wiki/RGBE_image_format
-
-class RGBELoader extends DataTextureLoader {
-
-	constructor( manager ) {
-
-		super( manager );
-
-		this.type = HalfFloatType;
-
-	}
-
-	// adapted from http://www.graphics.cornell.edu/~bjw/rgbe.html
-
-	parse( buffer ) {
-
-		const
-			/* return codes for rgbe routines */
-			//RGBE_RETURN_SUCCESS = 0,
-			RGBE_RETURN_FAILURE = - 1,
-
-			/* default error routine.  change this to change error handling */
-			rgbe_read_error = 1,
-			rgbe_write_error = 2,
-			rgbe_format_error = 3,
-			rgbe_memory_error = 4,
-			rgbe_error = function ( rgbe_error_code, msg ) {
-
-				switch ( rgbe_error_code ) {
-
-					case rgbe_read_error: console.error( 'THREE.RGBELoader Read Error: ' + ( msg || '' ) );
-						break;
-					case rgbe_write_error: console.error( 'THREE.RGBELoader Write Error: ' + ( msg || '' ) );
-						break;
-					case rgbe_format_error: console.error( 'THREE.RGBELoader Bad File Format: ' + ( msg || '' ) );
-						break;
-					default:
-					case rgbe_memory_error: console.error( 'THREE.RGBELoader: Error: ' + ( msg || '' ) );
-
-				}
-
-				return RGBE_RETURN_FAILURE;
-
-			},
-
-			/* offsets to red, green, and blue components in a data (float) pixel */
-			//RGBE_DATA_RED = 0,
-			//RGBE_DATA_GREEN = 1,
-			//RGBE_DATA_BLUE = 2,
-
-			/* number of floats per pixel, use 4 since stored in rgba image format */
-			//RGBE_DATA_SIZE = 4,
-
-			/* flags indicating which fields in an rgbe_header_info are valid */
-			RGBE_VALID_PROGRAMTYPE = 1,
-			RGBE_VALID_FORMAT = 2,
-			RGBE_VALID_DIMENSIONS = 4,
-
-			NEWLINE = '\n',
-
-			fgets = function ( buffer, lineLimit, consume ) {
-
-				const chunkSize = 128;
-
-				lineLimit = ! lineLimit ? 1024 : lineLimit;
-				let p = buffer.pos,
-					i = - 1, len = 0, s = '',
-					chunk = String.fromCharCode.apply( null, new Uint16Array( buffer.subarray( p, p + chunkSize ) ) );
-
-				while ( ( 0 > ( i = chunk.indexOf( NEWLINE ) ) ) && ( len < lineLimit ) && ( p < buffer.byteLength ) ) {
-
-					s += chunk; len += chunk.length;
-					p += chunkSize;
-					chunk += String.fromCharCode.apply( null, new Uint16Array( buffer.subarray( p, p + chunkSize ) ) );
-
-				}
-
-				if ( - 1 < i ) {
-
-					/*for (i=l-1; i>=0; i--) {
-						byteCode = m.charCodeAt(i);
-						if (byteCode > 0x7f && byteCode <= 0x7ff) byteLen++;
-						else if (byteCode > 0x7ff && byteCode <= 0xffff) byteLen += 2;
-						if (byteCode >= 0xDC00 && byteCode <= 0xDFFF) i--; //trail surrogate
-					}*/
-					if ( false !== consume ) buffer.pos += len + i + 1;
-					return s + chunk.slice( 0, i );
-
-				}
-
-				return false;
-
-			},
-
-			/* minimal header reading.  modify if you want to parse more information */
-			RGBE_ReadHeader = function ( buffer ) {
-
-
-				// regexes to parse header info fields
-				const magic_token_re = /^#\?(\S+)/,
-					gamma_re = /^\s*GAMMA\s*=\s*(\d+(\.\d+)?)\s*$/,
-					exposure_re = /^\s*EXPOSURE\s*=\s*(\d+(\.\d+)?)\s*$/,
-					format_re = /^\s*FORMAT=(\S+)\s*$/,
-					dimensions_re = /^\s*\-Y\s+(\d+)\s+\+X\s+(\d+)\s*$/,
-
-					// RGBE format header struct
-					header = {
-
-						valid: 0, /* indicate which fields are valid */
-
-						string: '', /* the actual header string */
-
-						comments: '', /* comments found in header */
-
-						programtype: 'RGBE', /* listed at beginning of file to identify it after "#?". defaults to "RGBE" */
-
-						format: '', /* RGBE format, default 32-bit_rle_rgbe */
-
-						gamma: 1.0, /* image has already been gamma corrected with given gamma. defaults to 1.0 (no correction) */
-
-						exposure: 1.0, /* a value of 1.0 in an image corresponds to <exposure> watts/steradian/m^2. defaults to 1.0 */
-
-						width: 0, height: 0 /* image dimensions, width/height */
-
-					};
-
-				let line, match;
-
-				if ( buffer.pos >= buffer.byteLength || ! ( line = fgets( buffer ) ) ) {
-
-					return rgbe_error( rgbe_read_error, 'no header found' );
-
-				}
-
-				/* if you want to require the magic token then uncomment the next line */
-				if ( ! ( match = line.match( magic_token_re ) ) ) {
-
-					return rgbe_error( rgbe_format_error, 'bad initial token' );
-
-				}
-
-				header.valid |= RGBE_VALID_PROGRAMTYPE;
-				header.programtype = match[ 1 ];
-				header.string += line + '\n';
-
-				while ( true ) {
-
-					line = fgets( buffer );
-					if ( false === line ) break;
-					header.string += line + '\n';
-
-					if ( '#' === line.charAt( 0 ) ) {
-
-						header.comments += line + '\n';
-						continue; // comment line
-
-					}
-
-					if ( match = line.match( gamma_re ) ) {
-
-						header.gamma = parseFloat( match[ 1 ] );
-
-					}
-
-					if ( match = line.match( exposure_re ) ) {
-
-						header.exposure = parseFloat( match[ 1 ] );
-
-					}
-
-					if ( match = line.match( format_re ) ) {
-
-						header.valid |= RGBE_VALID_FORMAT;
-						header.format = match[ 1 ];//'32-bit_rle_rgbe';
-
-					}
-
-					if ( match = line.match( dimensions_re ) ) {
-
-						header.valid |= RGBE_VALID_DIMENSIONS;
-						header.height = parseInt( match[ 1 ], 10 );
-						header.width = parseInt( match[ 2 ], 10 );
-
-					}
-
-					if ( ( header.valid & RGBE_VALID_FORMAT ) && ( header.valid & RGBE_VALID_DIMENSIONS ) ) break;
-
-				}
-
-				if ( ! ( header.valid & RGBE_VALID_FORMAT ) ) {
-
-					return rgbe_error( rgbe_format_error, 'missing format specifier' );
-
-				}
-
-				if ( ! ( header.valid & RGBE_VALID_DIMENSIONS ) ) {
-
-					return rgbe_error( rgbe_format_error, 'missing image size specifier' );
-
-				}
-
-				return header;
-
-			},
-
-			RGBE_ReadPixels_RLE = function ( buffer, w, h ) {
-
-				const scanline_width = w;
-
-				if (
-					// run length encoding is not allowed so read flat
-					( ( scanline_width < 8 ) || ( scanline_width > 0x7fff ) ) ||
-					// this file is not run length encoded
-					( ( 2 !== buffer[ 0 ] ) || ( 2 !== buffer[ 1 ] ) || ( buffer[ 2 ] & 0x80 ) )
-				) {
-
-					// return the flat buffer
-					return new Uint8Array( buffer );
-
-				}
-
-				if ( scanline_width !== ( ( buffer[ 2 ] << 8 ) | buffer[ 3 ] ) ) {
-
-					return rgbe_error( rgbe_format_error, 'wrong scanline width' );
-
-				}
-
-				const data_rgba = new Uint8Array( 4 * w * h );
-
-				if ( ! data_rgba.length ) {
-
-					return rgbe_error( rgbe_memory_error, 'unable to allocate buffer space' );
-
-				}
-
-				let offset = 0, pos = 0;
-
-				const ptr_end = 4 * scanline_width;
-				const rgbeStart = new Uint8Array( 4 );
-				const scanline_buffer = new Uint8Array( ptr_end );
-				let num_scanlines = h;
-
-				// read in each successive scanline
-				while ( ( num_scanlines > 0 ) && ( pos < buffer.byteLength ) ) {
-
-					if ( pos + 4 > buffer.byteLength ) {
-
-						return rgbe_error( rgbe_read_error );
-
-					}
-
-					rgbeStart[ 0 ] = buffer[ pos ++ ];
-					rgbeStart[ 1 ] = buffer[ pos ++ ];
-					rgbeStart[ 2 ] = buffer[ pos ++ ];
-					rgbeStart[ 3 ] = buffer[ pos ++ ];
-
-					if ( ( 2 != rgbeStart[ 0 ] ) || ( 2 != rgbeStart[ 1 ] ) || ( ( ( rgbeStart[ 2 ] << 8 ) | rgbeStart[ 3 ] ) != scanline_width ) ) {
-
-						return rgbe_error( rgbe_format_error, 'bad rgbe scanline format' );
-
-					}
-
-					// read each of the four channels for the scanline into the buffer
-					// first red, then green, then blue, then exponent
-					let ptr = 0, count;
-
-					while ( ( ptr < ptr_end ) && ( pos < buffer.byteLength ) ) {
-
-						count = buffer[ pos ++ ];
-						const isEncodedRun = count > 128;
-						if ( isEncodedRun ) count -= 128;
-
-						if ( ( 0 === count ) || ( ptr + count > ptr_end ) ) {
-
-							return rgbe_error( rgbe_format_error, 'bad scanline data' );
-
-						}
-
-						if ( isEncodedRun ) {
-
-							// a (encoded) run of the same value
-							const byteValue = buffer[ pos ++ ];
-							for ( let i = 0; i < count; i ++ ) {
-
-								scanline_buffer[ ptr ++ ] = byteValue;
-
-							}
-							//ptr += count;
-
-						} else {
-
-							// a literal-run
-							scanline_buffer.set( buffer.subarray( pos, pos + count ), ptr );
-							ptr += count; pos += count;
-
-						}
-
-					}
-
-
-					// now convert data from buffer into rgba
-					// first red, then green, then blue, then exponent (alpha)
-					const l = scanline_width; //scanline_buffer.byteLength;
-					for ( let i = 0; i < l; i ++ ) {
-
-						let off = 0;
-						data_rgba[ offset ] = scanline_buffer[ i + off ];
-						off += scanline_width; //1;
-						data_rgba[ offset + 1 ] = scanline_buffer[ i + off ];
-						off += scanline_width; //1;
-						data_rgba[ offset + 2 ] = scanline_buffer[ i + off ];
-						off += scanline_width; //1;
-						data_rgba[ offset + 3 ] = scanline_buffer[ i + off ];
-						offset += 4;
-
-					}
-
-					num_scanlines --;
-
-				}
-
-				return data_rgba;
-
-			};
-
-		const RGBEByteToRGBFloat = function ( sourceArray, sourceOffset, destArray, destOffset ) {
-
-			const e = sourceArray[ sourceOffset + 3 ];
-			const scale = Math.pow( 2.0, e - 128.0 ) / 255.0;
-
-			destArray[ destOffset + 0 ] = sourceArray[ sourceOffset + 0 ] * scale;
-			destArray[ destOffset + 1 ] = sourceArray[ sourceOffset + 1 ] * scale;
-			destArray[ destOffset + 2 ] = sourceArray[ sourceOffset + 2 ] * scale;
-			destArray[ destOffset + 3 ] = 1;
-
-		};
-
-		const RGBEByteToRGBHalf = function ( sourceArray, sourceOffset, destArray, destOffset ) {
-
-			const e = sourceArray[ sourceOffset + 3 ];
-			const scale = Math.pow( 2.0, e - 128.0 ) / 255.0;
-
-			// clamping to 65504, the maximum representable value in float16
-			destArray[ destOffset + 0 ] = DataUtils.toHalfFloat( Math.min( sourceArray[ sourceOffset + 0 ] * scale, 65504 ) );
-			destArray[ destOffset + 1 ] = DataUtils.toHalfFloat( Math.min( sourceArray[ sourceOffset + 1 ] * scale, 65504 ) );
-			destArray[ destOffset + 2 ] = DataUtils.toHalfFloat( Math.min( sourceArray[ sourceOffset + 2 ] * scale, 65504 ) );
-			destArray[ destOffset + 3 ] = DataUtils.toHalfFloat( 1 );
-
-		};
-
-		const byteArray = new Uint8Array( buffer );
-		byteArray.pos = 0;
-		const rgbe_header_info = RGBE_ReadHeader( byteArray );
-
-		if ( RGBE_RETURN_FAILURE !== rgbe_header_info ) {
-
-			const w = rgbe_header_info.width,
-				h = rgbe_header_info.height,
-				image_rgba_data = RGBE_ReadPixels_RLE( byteArray.subarray( byteArray.pos ), w, h );
-
-			if ( RGBE_RETURN_FAILURE !== image_rgba_data ) {
-
-				let data, format, type;
-				let numElements;
-
-				switch ( this.type ) {
-
-					case FloatType:
-
-						numElements = image_rgba_data.length / 4;
-						const floatArray = new Float32Array( numElements * 4 );
-
-						for ( let j = 0; j < numElements; j ++ ) {
-
-							RGBEByteToRGBFloat( image_rgba_data, j * 4, floatArray, j * 4 );
-
-						}
-
-						data = floatArray;
-						type = FloatType;
-						break;
-
-					case HalfFloatType:
-
-						numElements = image_rgba_data.length / 4;
-						const halfArray = new Uint16Array( numElements * 4 );
-
-						for ( let j = 0; j < numElements; j ++ ) {
-
-							RGBEByteToRGBHalf( image_rgba_data, j * 4, halfArray, j * 4 );
-
-						}
-
-						data = halfArray;
-						type = HalfFloatType;
-						break;
-
-					default:
-
-						console.error( 'THREE.RGBELoader: unsupported type: ', this.type );
-						break;
-
-				}
-
-				return {
-					width: w, height: h,
-					data: data,
-					header: rgbe_header_info.string,
-					gamma: rgbe_header_info.gamma,
-					exposure: rgbe_header_info.exposure,
-					format: format,
-					type: type
-				};
-
-			}
-
-		}
-
-		return null;
-
-	}
-
-	setDataType( value ) {
-
-		this.type = value;
-		return this;
-
-	}
-
-	load( url, onLoad, onProgress, onError ) {
-
-		function onLoadCallback( texture, texData ) {
-
-			switch ( texture.type ) {
-
-				case FloatType:
-
-					texture.encoding = LinearEncoding;
-					texture.minFilter = LinearFilter;
-					texture.magFilter = LinearFilter;
-					texture.generateMipmaps = false;
-					texture.flipY = true;
-					break;
-
-				case HalfFloatType:
-
-					texture.encoding = LinearEncoding;
-					texture.minFilter = LinearFilter;
-					texture.magFilter = LinearFilter;
-					texture.generateMipmaps = false;
-					texture.flipY = true;
-					break;
-
-			}
-
-			if ( onLoad ) onLoad( texture, texData );
-
-		}
-
-		return super.load( url, onLoadCallback, onProgress, onError );
-
-	}
-
-}
-
-class UITexture extends UISpan {
-
-	constructor( mapping ) {
-
-		super();
-
-		const scope = this;
-
-		const form = document.createElement( 'form' );
-
-		const input = document.createElement( 'input' );
-		input.type = 'file';
-		input.addEventListener( 'change', function ( event ) {
-
-			loadFile( event.target.files[ 0 ] );
-
-		} );
-		form.appendChild( input );
-
-		const canvas = document.createElement( 'canvas' );
-		canvas.width = 32;
-		canvas.height = 16;
-		canvas.style.cursor = 'pointer';
-		canvas.style.marginRight = '5px';
-		canvas.style.border = '1px solid #888';
-		canvas.addEventListener( 'click', function () {
-
-			input.click();
-
-		} );
-		canvas.addEventListener( 'drop', function ( event ) {
-
-			event.preventDefault();
-			event.stopPropagation();
-			loadFile( event.dataTransfer.files[ 0 ] );
-
-		} );
-		this.dom.appendChild( canvas );
-
-		function loadFile( file ) {
-
-			const extension = file.name.split( '.' ).pop().toLowerCase();
-			const reader = new FileReader();
-
-			if ( extension === 'hdr' || extension === 'pic' ) {
-
-				reader.addEventListener( 'load', function ( event ) {
-
-					// assuming RGBE/Radiance HDR iamge format
-
-					const loader = new RGBELoader();
-					loader.load( event.target.result, function ( hdrTexture ) {
-
-						hdrTexture.sourceFile = file.name;
-						hdrTexture.isHDRTexture = true;
-
-						scope.setValue( hdrTexture );
-
-						if ( scope.onChangeCallback ) scope.onChangeCallback( hdrTexture );
-
-					} );
-
-				} );
-
-				reader.readAsDataURL( file );
-
-			} else if ( extension === 'tga' ) {
-
-				reader.addEventListener( 'load', function ( event ) {
-
-					const canvas = new TGALoader().parse( event.target.result );
-
-					const texture = new CanvasTexture( canvas, mapping );
-					texture.sourceFile = file.name;
-
-					scope.setValue( texture );
-
-					if ( scope.onChangeCallback ) scope.onChangeCallback( texture );
-
-				}, false );
-
-				reader.readAsArrayBuffer( file );
-
-			} else if ( file.type.match( 'image.*' ) ) {
-
-				reader.addEventListener( 'load', function ( event ) {
-
-					const image = document.createElement( 'img' );
-					image.addEventListener( 'load', function () {
-
-						const texture = new Texture( this, mapping );
-						texture.sourceFile = file.name;
-						texture.needsUpdate = true;
-
-						scope.setValue( texture );
-
-						if ( scope.onChangeCallback ) scope.onChangeCallback( texture );
-
-					}, false );
-
-					image.src = event.target.result;
-
-				}, false );
-
-				reader.readAsDataURL( file );
-
-			}
-
-			form.reset();
-
-		}
-
-		this.texture = null;
-		this.onChangeCallback = null;
-
-	}
-
-	getValue() {
-
-		return this.texture;
-
-	}
-
-	setValue( texture ) {
-
-		const canvas = this.dom.children[ 0 ];
-		const context = canvas.getContext( '2d' );
-
-		// Seems like context can be null if the canvas is not visible
-		if ( context ) {
-
-			// Always clear the context before set new texture, because new texture may has transparency
-			context.clearRect( 0, 0, canvas.width, canvas.height );
-
-		}
-
-		if ( texture !== null ) {
-
-			const image = texture.image;
-
-			if ( image !== undefined && image.width > 0 ) {
-
-				canvas.title = texture.sourceFile;
-				const scale = canvas.width / image.width;
-
-				if ( image.data === undefined ) {
-
-					context.drawImage( image, 0, 0, image.width * scale, image.height * scale );
-
-				} else {
-
-					const canvas2 = renderToCanvas( texture );
-					context.drawImage( canvas2, 0, 0, image.width * scale, image.height * scale );
-
-				}
-
-			} else {
-
-				canvas.title = texture.sourceFile + ' (error)';
-
-			}
-
-		} else {
-
-			canvas.title = 'empty';
-
-		}
-
-		this.texture = texture;
-
-	}
-
-	setEncoding( encoding ) {
-
-		const texture = this.getValue();
-
-		if ( texture !== null ) {
-
-			texture.encoding = encoding;
-
-		}
-
-		return this;
-
-	}
-
-	onChange( callback ) {
-
-		this.onChangeCallback = callback;
-
-		return this;
-
-	}
-
-}
-
-class UICubeTexture extends UIElement {
-
-	constructor() {
-
-		const container = new UIDiv();
-
-		super( container.dom );
-
-		this.cubeTexture = null;
-		this.onChangeCallback = null;
-
-		this.textures = [];
-
-		const scope = this;
-
-		const pRow = new UIRow();
-		const nRow = new UIRow();
-
-		pRow.add( new UIText( 'P:' ).setWidth( '35px' ) );
-		nRow.add( new UIText( 'N:' ).setWidth( '35px' ) );
-
-		const posXTexture = new UITexture().onChange( onTextureChanged );
-		const negXTexture = new UITexture().onChange( onTextureChanged );
-		const posYTexture = new UITexture().onChange( onTextureChanged );
-		const negYTexture = new UITexture().onChange( onTextureChanged );
-		const posZTexture = new UITexture().onChange( onTextureChanged );
-		const negZTexture = new UITexture().onChange( onTextureChanged );
-
-		this.textures.push( posXTexture, negXTexture, posYTexture, negYTexture, posZTexture, negZTexture );
-
-		pRow.add( posXTexture );
-		pRow.add( posYTexture );
-		pRow.add( posZTexture );
-
-		nRow.add( negXTexture );
-		nRow.add( negYTexture );
-		nRow.add( negZTexture );
-
-		container.add( pRow, nRow );
-
-		function onTextureChanged() {
-
-			const images = [];
-
-			for ( let i = 0; i < scope.textures.length; i ++ ) {
-
-				const texture = scope.textures[ i ].getValue();
-
-				if ( texture !== null ) {
-
-					images.push( texture.isHDRTexture ? texture : texture.image );
-
-				}
-
-			}
-
-			if ( images.length === 6 ) {
-
-				const cubeTexture = new CubeTexture( images );
-				cubeTexture.needsUpdate = true;
-
-				if ( images[ 0 ].isHDRTexture ) cubeTexture.isHDRTexture = true;
-
-				scope.cubeTexture = cubeTexture;
-
-				if ( scope.onChangeCallback ) scope.onChangeCallback( cubeTexture );
-
-			}
-
-		}
-
-	}
-
-	setEncoding( encoding ) {
-
-		const cubeTexture = this.getValue();
-		if ( cubeTexture !== null ) {
-
-			cubeTexture.encoding = encoding;
-
-		}
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.cubeTexture;
-
-	}
-
-	setValue( cubeTexture ) {
-
-		this.cubeTexture = cubeTexture;
-
-		if ( cubeTexture !== null ) {
-
-			const images = cubeTexture.image;
-
-			if ( Array.isArray( images ) === true && images.length === 6 ) {
-
-				for ( let i = 0; i < images.length; i ++ ) {
-
-					const image = images[ i ];
-
-					const texture = new Texture( image );
-					this.textures[ i ].setValue( texture );
-
-				}
-
-			}
-
-		} else {
-
-			const textures = this.textures;
-
-			for ( let i = 0; i < textures.length; i ++ ) {
-
-				textures[ i ].setValue( null );
-
-			}
-
-		}
-
-		return this;
-
-	}
-
-	onChange( callback ) {
-
-		this.onChangeCallback = callback;
-
-		return this;
-
-	}
-
-}
-
-class UIOutliner extends UIDiv {
-
-	constructor( editor ) {
-
-		super();
-
-		this.dom.className = 'Outliner';
-		this.dom.tabIndex = 0;	// keyup event is ignored without setting tabIndex
-
-		const scope = this;
-
-		// hack
-		this.scene = editor.scene;
-
-		// Prevent native scroll behavior
-		this.dom.addEventListener( 'keydown', function ( event ) {
-
-			switch ( event.keyCode ) {
-
-				case 38: // up
-				case 40: // down
-					event.preventDefault();
-					event.stopPropagation();
-					break;
-
-			}
-
-		} );
-
-		// Keybindings to support arrow navigation
-		this.dom.addEventListener( 'keyup', function ( event ) {
-
-			switch ( event.keyCode ) {
-
-				case 38: // up
-					scope.selectIndex( scope.selectedIndex - 1 );
-					break;
-				case 40: // down
-					scope.selectIndex( scope.selectedIndex + 1 );
-					break;
-
-			}
-
-		} );
-
+class History {
+	
+	constructor(editor) {
 		this.editor = editor;
+		this.undos = [];
+		this.redos = [];
+		this.lastCmdTime = new Date();
+		this.idCounter = 0;
 
-		this.options = [];
-		this.selectedIndex = - 1;
-		this.selectedValue = null;
-
+		this.historyDisabled = false;
+		this.config = editor.config;
 	}
 
-	selectIndex( index ) {
-
-		if ( index >= 0 && index < this.options.length ) {
-
-			this.setValue( this.options[ index ].value );
-
-			const changeEvent = document.createEvent( 'HTMLEvents' );
-			changeEvent.initEvent( 'change', true, true );
-			this.dom.dispatchEvent( changeEvent );
-
+	execute( cmd, optionalName ) {
+		const lastCmd = this.undos[ this.undos.length - 1 ];
+		const timeDifference = new Date().getTime() - this.lastCmdTime.getTime();
+		const isUpdatableCmd = lastCmd &&
+			lastCmd.updatable &&
+			cmd.updatable &&
+			lastCmd.object === cmd.object &&
+			lastCmd.type === cmd.type &&
+			lastCmd.script === cmd.script &&
+			lastCmd.attributeName === cmd.attributeName;
+		if ( isUpdatableCmd && cmd.type === 'SetScriptValueCommand' ) {
+			// When the cmd.type is "SetScriptValueCommand" the timeDifference is ignored
+			lastCmd.update( cmd );
+			cmd = lastCmd;
+		} else if ( isUpdatableCmd && timeDifference < 500 ) {
+			lastCmd.update( cmd );
+			cmd = lastCmd;
+		} else {
+			// the command is not updatable and is added as a new part of the history
+			this.undos.push( cmd );
+			cmd.id = ++ this.idCounter;
 		}
-
+		cmd.name = ( optionalName !== undefined ) ? optionalName : cmd.name;
+		cmd.execute();
+		cmd.inMemory = true;
+		if ( this.config.getKey( 'settings/history' ) ) {
+			cmd.json = cmd.toJSON();	// serialize the cmd immediately after execution and append the json to the cmd
+		}
+		this.lastCmdTime = new Date();
+		// clearing all the redo-commands
+		this.redos = [];
+		// this.editor.signals.historyChanged.dispatch( cmd );
 	}
 
-	setOptions( options ) {
-
-		const scope = this;
-
-		while ( scope.dom.children.length > 0 ) {
-
-			scope.dom.removeChild( scope.dom.firstChild );
-
+	undo() {
+		if ( this.historyDisabled ) {
+			alert( 'Undo/Redo disabled while scene is playing.' );
+			return;
 		}
-
-		function onClick() {
-
-			scope.setValue( this.value );
-
-			const changeEvent = document.createEvent( 'HTMLEvents' );
-			changeEvent.initEvent( 'change', true, true );
-			scope.dom.dispatchEvent( changeEvent );
-
-		}
-
-		// Drag
-
-		let currentDrag;
-
-		function onDrag() {
-
-			currentDrag = this;
-
-		}
-
-		function onDragStart( event ) {
-
-			event.dataTransfer.setData( 'text', 'foo' );
-
-		}
-
-		function onDragOver( event ) {
-
-			if ( this === currentDrag ) return;
-
-			const area = event.offsetY / this.clientHeight;
-
-			if ( area < 0.25 ) {
-
-				this.className = 'option dragTop';
-
-			} else if ( area > 0.75 ) {
-
-				this.className = 'option dragBottom';
-
-			} else {
-
-				this.className = 'option drag';
-
+		let cmd = undefined;
+		if ( this.undos.length > 0 ) {
+			cmd = this.undos.pop();
+			if ( cmd.inMemory === false ) {
+				cmd.fromJSON( cmd.json );
 			}
-
 		}
-
-		function onDragLeave() {
-
-			if ( this === currentDrag ) return;
-
-			this.className = 'option';
-
+		if ( cmd !== undefined ) {
+			cmd.undo();
+			this.redos.push( cmd );
+			this.editor.signals.historyChanged.dispatch( cmd );
 		}
-
-		function onDrop( event ) {
-
-			if ( this === currentDrag || currentDrag === undefined ) return;
-
-			this.className = 'option';
-
-			const scene = scope.scene;
-			const object = scene.getObjectById( currentDrag.value );
-
-			const area = event.offsetY / this.clientHeight;
-
-			if ( area < 0.25 ) {
-
-				const nextObject = scene.getObjectById( this.value );
-				moveObject( object, nextObject.parent, nextObject );
-
-			} else if ( area > 0.75 ) {
-
-				let nextObject, parent;
-
-				if ( this.nextSibling !== null ) {
-
-					nextObject = scene.getObjectById( this.nextSibling.value );
-					parent = nextObject.parent;
-
-				} else {
-
-					// end of list (no next object)
-
-					nextObject = null;
-					parent = scene.getObjectById( this.value ).parent;
-
-				}
-
-				moveObject( object, parent, nextObject );
-
-			} else {
-
-				const parentObject = scene.getObjectById( this.value );
-				moveObject( object, parentObject );
-
-			}
-
-		}
-
-		function moveObject( object, newParent, nextObject ) {
-
-			if ( nextObject === null ) nextObject = undefined;
-
-			let newParentIsChild = false;
-
-			object.traverse( function ( child ) {
-
-				if ( child === newParent ) newParentIsChild = true;
-
-			} );
-
-			if ( newParentIsChild ) return;
-
-			const editor = scope.editor;
-			editor.execute( new MoveObjectCommand( editor, object, newParent, nextObject ) );
-
-			const changeEvent = document.createEvent( 'HTMLEvents' );
-			changeEvent.initEvent( 'change', true, true );
-			scope.dom.dispatchEvent( changeEvent );
-
-		}
-
-		//
-
-		scope.options = [];
-
-		for ( let i = 0; i < options.length; i ++ ) {
-
-			const div = options[ i ];
-			div.className = 'option';
-			scope.dom.appendChild( div );
-
-			scope.options.push( div );
-
-			div.addEventListener( 'click', onClick );
-
-			if ( div.draggable === true ) {
-
-				div.addEventListener( 'drag', onDrag );
-				div.addEventListener( 'dragstart', onDragStart ); // Firefox needs this
-
-				div.addEventListener( 'dragover', onDragOver );
-				div.addEventListener( 'dragleave', onDragLeave );
-				div.addEventListener( 'drop', onDrop );
-
-			}
-
-
-		}
-
-		return scope;
-
+		return cmd;
 	}
 
-	getValue() {
-
-		return this.selectedValue;
-
-	}
-
-	setValue( value ) {
-
-		for ( let i = 0; i < this.options.length; i ++ ) {
-
-			const element = this.options[ i ];
-
-			if ( element.value === value ) {
-
-				element.classList.add( 'active' );
-
-				// scroll into view
-
-				const y = element.offsetTop - this.dom.offsetTop;
-				const bottomY = y + element.offsetHeight;
-				const minScroll = bottomY - this.dom.offsetHeight;
-
-				if ( this.dom.scrollTop > y ) {
-
-					this.dom.scrollTop = y;
-
-				} else if ( this.dom.scrollTop < minScroll ) {
-
-					this.dom.scrollTop = minScroll;
-
-				}
-
-				this.selectedIndex = i;
-
-			} else {
-
-				element.classList.remove( 'active' );
-
-			}
-
+	redo() {
+		if ( this.historyDisabled ) {
+			alert( 'Undo/Redo disabled while scene is playing.' );
+			return;
 		}
-
-		this.selectedValue = value;
-
-		return this;
-
-	}
-
-}
-
-class UIPoints extends UISpan {
-
-	constructor() {
-
-		super();
-
-		this.dom.style.display = 'inline-block';
-
-		this.pointsList = new UIDiv();
-		this.add( this.pointsList );
-
-		this.pointsUI = [];
-		this.lastPointIdx = 0;
-		this.onChangeCallback = null;
-
-		// TODO Remove this bind() stuff
-
-		this.update = function () {
-
-			if ( this.onChangeCallback !== null ) {
-
-				this.onChangeCallback();
-
+		let cmd = undefined;
+		if ( this.redos.length > 0 ) {
+			cmd = this.redos.pop();
+			if ( cmd.inMemory === false ) {
+				cmd.fromJSON( cmd.json );
 			}
-
-		}.bind( this );
-
+		}
+		if ( cmd !== undefined ) {
+			cmd.execute();
+			this.undos.push( cmd );
+			this.editor.signals.historyChanged.dispatch( cmd );
+		}
+		return cmd;
 	}
 
-	onChange( callback ) {
+	toJSON() {
+		const history = {};
+		history.undos = [];
+		history.redos = [];
+		if ( ! this.config.getKey( 'settings/history' ) ) {
+			return history;
+		}
+		// Append Undos to History
+		for ( let i = 0; i < this.undos.length; i ++ ) {
+			if ( this.undos[ i ].hasOwnProperty( 'json' ) ) {
+				history.undos.push( this.undos[ i ].json );
+			}
+		}
+		// Append Redos to History
+		for ( let i = 0; i < this.redos.length; i ++ ) {
+			if ( this.redos[ i ].hasOwnProperty( 'json' ) ) {
+				history.redos.push( this.redos[ i ].json );
+			}
+		}
+		return history;
+	}
 
-		this.onChangeCallback = callback;
-
-		return this;
-
+	fromJSON( json ) {
+		if ( json === undefined ) return;
+		for ( let i = 0; i < json.undos.length; i ++ ) {
+			const cmdJSON = json.undos[ i ];
+			const cmd = new Commands[ cmdJSON.type ]( this.editor ); // creates a new object of type "json.type"
+			cmd.json = cmdJSON;
+			cmd.id = cmdJSON.id;
+			cmd.name = cmdJSON.name;
+			this.undos.push( cmd );
+			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
+		}
+		for ( let i = 0; i < json.redos.length; i ++ ) {
+			const cmdJSON = json.redos[ i ];
+			const cmd = new Commands[ cmdJSON.type ]( this.editor ); // creates a new object of type "json.type"
+			cmd.json = cmdJSON;
+			cmd.id = cmdJSON.id;
+			cmd.name = cmdJSON.name;
+			this.redos.push( cmd );
+			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
+		}
+		// Select the last executed undo-command
+		this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
 	}
 
 	clear() {
+		this.undos = [];
+		this.redos = [];
+		this.idCounter = 0;
+		this.editor.signals.historyChanged.dispatch();
+	}
 
-		for ( let i = 0; i < this.pointsUI.length; ++ i ) {
-
-			if ( this.pointsUI[ i ] ) {
-
-				this.deletePointRow( i, true );
-
+	goToState( id ) {
+		if ( this.historyDisabled ) {
+			alert( 'Undo/Redo disabled while scene is playing.' );
+			return;
+		}
+		this.editor.signals.sceneGraphChanged.active = false;
+		this.editor.signals.historyChanged.active = false;
+		let cmd = this.undos.length > 0 ? this.undos[ this.undos.length - 1 ] : undefined;	// next cmd to pop
+		if ( cmd === undefined || id > cmd.id ) {
+			cmd = this.redo();
+			while ( cmd !== undefined && id > cmd.id ) {
+				cmd = this.redo();
 			}
-
-		}
-
-		this.lastPointIdx = 0;
-
-	}
-
-	deletePointRow( idx, dontUpdate ) {
-
-		if ( ! this.pointsUI[ idx ] ) return;
-
-		this.pointsList.remove( this.pointsUI[ idx ].row );
-
-		this.pointsUI.splice( idx, 1 );
-
-		if ( dontUpdate !== true ) {
-
-			this.update();
-
-		}
-
-		this.lastPointIdx --;
-
-	}
-
-}
-
-class UIPoints2 extends UIPoints {
-
-	constructor() {
-
-		super();
-
-		const row = new UIRow();
-		this.add( row );
-
-		const addPointButton = new UIButton( '+' );
-		addPointButton.onClick( () => {
-
-			if ( this.pointsUI.length === 0 ) {
-
-				this.pointsList.add( this.createPointRow( 0, 0 ) );
-
-			} else {
-
-				const point = this.pointsUI[ this.pointsUI.length - 1 ];
-
-				this.pointsList.add( this.createPointRow( point.x.getValue(), point.y.getValue() ) );
-
+		} else {
+			while ( true ) {
+				cmd = this.undos[ this.undos.length - 1 ];	// next cmd to pop
+				if ( cmd === undefined || id === cmd.id ) break;
+				this.undo();
 			}
-
-			this.update();
-
-		} );
-		row.add( addPointButton );
-
-	}
-
-	getValue() {
-
-		const points = [];
-
-		let count = 0;
-
-		for ( let i = 0; i < this.pointsUI.length; i ++ ) {
-
-			const pointUI = this.pointsUI[ i ];
-
-			if ( ! pointUI ) continue;
-
-			points.push( new Vector2( pointUI.x.getValue(), pointUI.y.getValue() ) );
-			++ count;
-			pointUI.lbl.setValue( count );
-
 		}
-
-		return points;
-
+		this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.signals.historyChanged.active = true;
+		this.editor.signals.sceneGraphChanged.dispatch();
+		this.editor.signals.historyChanged.dispatch( cmd );
 	}
+	
+	enableSerialization( id ) {
+		/**
+		 * because there might be commands in this.undos and this.redos
+		 * which have not been serialized with .toJSON() we go back
+		 * to the oldest command and redo one command after the other
+		 * while also calling .toJSON() on them.
+		 */
+		this.goToState( - 1 );
+		this.editor.signals.sceneGraphChanged.active = false;
+		this.editor.signals.historyChanged.active = false;
 
-	setValue( points ) {
-
-		this.clear();
-
-		for ( let i = 0; i < points.length; i ++ ) {
-
-			const point = points[ i ];
-			this.pointsList.add( this.createPointRow( point.x, point.y ) );
-
-		}
-
-		this.update();
-		return this;
-
-	}
-
-	createPointRow( x, y ) {
-
-		const pointRow = new UIDiv();
-		const lbl = new UIText( this.lastPointIdx + 1 ).setWidth( '20px' );
-		const txtX = new UINumber( x ).setWidth( '30px' ).onChange( this.update );
-		const txtY = new UINumber( y ).setWidth( '30px' ).onChange( this.update );
-
-		const scope = this;
-		const btn = new UIButton( '-' ).onClick( function () {
-
-			if ( scope.isEditing ) return;
-
-			const idx = scope.pointsList.getIndexOfChild( pointRow );
-			scope.deletePointRow( idx );
-
-		} );
-
-		this.pointsUI.push( { row: pointRow, lbl: lbl, x: txtX, y: txtY } );
-		++ this.lastPointIdx;
-		pointRow.add( lbl, txtX, txtY, btn );
-
-		return pointRow;
-
-	}
-
-}
-
-class UIPoints3 extends UIPoints {
-
-	constructor() {
-
-		super();
-
-		const row = new UIRow();
-		this.add( row );
-
-		const addPointButton = new UIButton( '+' );
-		addPointButton.onClick( () => {
-
-			if ( this.pointsUI.length === 0 ) {
-
-				this.pointsList.add( this.createPointRow( 0, 0, 0 ) );
-
-			} else {
-
-				const point = this.pointsUI[ this.pointsUI.length - 1 ];
-
-				this.pointsList.add( this.createPointRow( point.x.getValue(), point.y.getValue(), point.z.getValue() ) );
-
+		let cmd = this.redo();
+		while ( cmd !== undefined ) {
+			if ( ! cmd.hasOwnProperty( 'json' ) ) {
+				cmd.json = cmd.toJSON();
 			}
-
-			this.update();
-
-		} );
-		row.add( addPointButton );
-
+			cmd = this.redo();
+		}
+		this.editor.signals.sceneGraphChanged.active = true;
+		this.editor.signals.historyChanged.active = true;
+		this.goToState( id );
 	}
 
-	getValue() {
+}
 
-		const points = [];
-		let count = 0;
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newPosition THREE.Vector3
+ * @param optionalOldPosition THREE.Vector3
+ * @constructor
+ */
+class SetPositionCommand extends Command {
 
-		for ( let i = 0; i < this.pointsUI.length; i ++ ) {
+	constructor( editor, object, newPosition, optionalOldPosition ) {
 
-			const pointUI = this.pointsUI[ i ];
+		super( editor );
 
-			if ( ! pointUI ) continue;
+		this.type = 'SetPositionCommand';
+		this.name = 'Set Position';
+		this.updatable = true;
 
-			points.push( new Vector3( pointUI.x.getValue(), pointUI.y.getValue(), pointUI.z.getValue() ) );
-			++ count;
-			pointUI.lbl.setValue( count );
+		this.object = object;
+
+		if ( object !== undefined && newPosition !== undefined ) {
+
+			this.oldPosition = object.position.clone();
+			this.newPosition = newPosition.clone();
 
 		}
 
-		return points;
+		if ( optionalOldPosition !== undefined ) {
 
-	}
-
-	setValue( points ) {
-
-		this.clear();
-
-		for ( let i = 0; i < points.length; i ++ ) {
-
-			const point = points[ i ];
-			this.pointsList.add( this.createPointRow( point.x, point.y, point.z ) );
+			this.oldPosition = optionalOldPosition.clone();
 
 		}
 
-		this.update();
-		return this;
+	}
+
+	execute() {
+
+		this.object.position.copy( this.newPosition );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
-	createPointRow( x, y, z ) {
+	undo() {
 
-		const pointRow = new UIDiv();
-		const lbl = new UIText( this.lastPointIdx + 1 ).setWidth( '20px' );
-		const txtX = new UINumber( x ).setWidth( '30px' ).onChange( this.update );
-		const txtY = new UINumber( y ).setWidth( '30px' ).onChange( this.update );
-		const txtZ = new UINumber( z ).setWidth( '30px' ).onChange( this.update );
+		this.object.position.copy( this.oldPosition );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
-		const scope = this;
-		const btn = new UIButton( '-' ).onClick( function () {
+	}
 
-			if ( scope.isEditing ) return;
+	update( command ) {
 
-			const idx = scope.pointsList.getIndexOfChild( pointRow );
-			scope.deletePointRow( idx );
+		this.newPosition.copy( command.newPosition );
 
-		} );
+	}
 
-		this.pointsUI.push( { row: pointRow, lbl: lbl, x: txtX, y: txtY, z: txtZ } );
-		++ this.lastPointIdx;
-		pointRow.add( lbl, txtX, txtY, txtZ, btn );
+	toJSON() {
 
-		return pointRow;
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldPosition = this.oldPosition.toArray();
+		output.newPosition = this.newPosition.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldPosition = new Vector3().fromArray( json.oldPosition );
+		this.newPosition = new Vector3().fromArray( json.newPosition );
 
 	}
 
 }
 
-class UIBoolean extends UISpan {
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newRotation THREE.Euler
+ * @param optionalOldRotation THREE.Euler
+ * @constructor
+ */
+class SetRotationCommand extends Command {
 
-	constructor( boolean, text ) {
+	constructor( editor, object, newRotation, optionalOldRotation ) {
 
-		super();
+		super( editor );
 
-		this.setMarginRight( '4px' );
+		this.type = 'SetRotationCommand';
+		this.name = 'Set Rotation';
+		this.updatable = true;
 
-		this.checkbox = new UICheckbox( boolean );
-		this.text = new UIText( text ).setMarginLeft( '3px' );
+		this.object = object;
 
-		this.add( this.checkbox );
-		this.add( this.text );
+		if ( object !== undefined && newRotation !== undefined ) {
+
+			this.oldRotation = object.rotation.clone();
+			this.newRotation = newRotation.clone();
+
+		}
+
+		if ( optionalOldRotation !== undefined ) {
+
+			this.oldRotation = optionalOldRotation.clone();
+
+		}
 
 	}
 
-	getValue() {
+	execute() {
 
-		return this.checkbox.getValue();
+		this.object.rotation.copy( this.newRotation );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
 	}
 
-	setValue( value ) {
+	undo() {
 
-		return this.checkbox.setValue( value );
+		this.object.rotation.copy( this.oldRotation );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
+
+	}
+
+	update( command ) {
+
+		this.newRotation.copy( command.newRotation );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldRotation = this.oldRotation.toArray();
+		output.newRotation = this.newRotation.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldRotation = new Euler().fromArray( json.oldRotation );
+		this.newRotation = new Euler().fromArray( json.newRotation );
 
 	}
 
 }
 
-let renderer;
+/**
+ * @param editor Editor
+ * @param object THREE.Object3D
+ * @param newScale THREE.Vector3
+ * @param optionalOldScale THREE.Vector3
+ * @constructor
+ */
+class SetScaleCommand extends Command {
 
-function renderToCanvas( texture ) {
+	constructor( editor, object, newScale, optionalOldScale ) {
 
-	if ( renderer === undefined ) {
+		super( editor );
 
-		renderer = new WebGLRenderer();
-		renderer.outputEncoding = sRGBEncoding;
+		this.type = 'SetScaleCommand';
+		this.name = 'Set Scale';
+		this.updatable = true;
+
+		this.object = object;
+
+		if ( object !== undefined && newScale !== undefined ) {
+
+			this.oldScale = object.scale.clone();
+			this.newScale = newScale.clone();
+
+		}
+
+		if ( optionalOldScale !== undefined ) {
+
+			this.oldScale = optionalOldScale.clone();
+
+		}
 
 	}
 
-	const image = texture.image;
+	execute() {
 
-	renderer.setSize( image.width, image.height, false );
+		this.object.scale.copy( this.newScale );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
-	const scene = new Scene();
-	const camera = new OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
+	}
 
-	const material = new MeshBasicMaterial( { map: texture } );
-	const quad = new PlaneGeometry( 2, 2 );
-	const mesh = new Mesh( quad, material );
-	scene.add( mesh );
+	undo() {
 
-	renderer.render( scene, camera );
+		this.object.scale.copy( this.oldScale );
+		this.object.updateMatrixWorld( true );
+		// this.editor.signals.objectChanged.dispatch( this.object );
 
-	return renderer.domElement;
+	}
+
+	update( command ) {
+
+		this.newScale.copy( command.newScale );
+
+	}
+
+	toJSON() {
+
+		const output = super.toJSON( this );
+
+		output.objectUuid = this.object.uuid;
+		output.oldScale = this.oldScale.toArray();
+		output.newScale = this.newScale.toArray();
+
+		return output;
+
+	}
+
+	fromJSON( json ) {
+
+		super.fromJSON( json );
+
+		this.object = this.editor.objectByUuid( json.objectUuid );
+		this.oldScale = new Vector3().fromArray( json.oldScale );
+		this.newScale = new Vector3().fromArray( json.newScale );
+
+	}
 
 }
 
 module.exports = {
 	THREE,
-	
+	History,
 	Loader,
 	ViewHelper,
+	ViewportInfo,
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
 	SetScaleCommand,
 	EditorControls,
 	Config,
-
 	UIPanel,
 };
 

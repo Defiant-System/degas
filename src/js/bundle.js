@@ -1,26 +1,32 @@
 
 import * as THREE from "./modules/threejs/build/three.module.js";
-import { Editor } from './modules/threejs/editor/js/Editor.js';
-import { Viewport } from './modules/threejs/editor/js/Viewport.js';
 
-import { UIPanel, UIRow, UIInput, UICheckbox, UIText, UIListbox, UISpan, UIButton, UISelect, UINumber } from './modules/threejs/editor/js/libs/ui.js';
-import { UIBoolean } from './modules/threejs/editor/js/libs/ui.three.js';
+import { Loader } from './modules/threejs/editor/js/Loader.js';
+import { ViewHelper } from './modules/threejs/editor/js/Viewport.ViewHelper.js';
+import { ViewportInfo } from './modules/threejs/editor/js/Viewport.Info.js';
+import { TransformControls } from './modules/threejs/examples/jsm/controls/TransformControls.js';
+import { EditorControls } from './modules/threejs/editor/js/EditorControls.js';
+import { Config } from './modules/threejs/editor/js/Config.js';
+import { UIPanel } from './modules/threejs/editor/js/libs/ui.js';
+
+
+import { History } from './classes/History.js';
+import { SetPositionCommand } from './classes/commands/SetPositionCommand.js';
+import { SetRotationCommand } from './classes/commands/SetRotationCommand.js';
+import { SetScaleCommand } from './classes/commands/SetScaleCommand.js';
 
 
 module.exports = {
 	THREE,
-	Editor,
-	Viewport,
-	
+	History,
+	Loader,
+	ViewHelper,
+	ViewportInfo,
+	TransformControls,
+	SetPositionCommand,
+	SetRotationCommand,
+	SetScaleCommand,
+	EditorControls,
+	Config,
 	UIPanel,
-	UIRow,
-	UIInput,
-	UICheckbox,
-	UIText,
-	UIListbox,
-	UISpan,
-	UIButton,
-	UISelect,
-	UINumber,
-	UIBoolean,
 };

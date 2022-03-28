@@ -1,15 +1,12 @@
 
-@import "./classes/history.js";
-@import "./classes/editor.js";
-@import "./classes/viewport.js";
-@import "./classes/vr.js";
+@import "./classes/Editor.js";
+@import "./classes/Viewport.js";
+@import "./classes/Viewport.VR.js";
 
 // import libs
 const {
 	THREE,
-
-	Strings,
-	Storage,
+	History,
 	Loader,
 	ViewHelper,
 	TransformControls,
@@ -18,7 +15,6 @@ const {
 	SetScaleCommand,
 	EditorControls,
 	Config,
-
 	UIPanel,
 } = await window.fetch("~/js/bundle.js");
 

@@ -1,4 +1,6 @@
 
+import * as Commands from '../modules/threejs/editor/js/commands/Commands.js';
+
 class History {
 	
 	constructor(editor) {
@@ -189,3 +191,5 @@ class History {
 	}
 
 }
+
+export { History };
