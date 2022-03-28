@@ -4,6 +4,24 @@
 		<Menu type="divider"/>
 		<Menu name="Quit Degas" shell="win -c"/>
 	</Menu>
+	<Menu name="File">
+		<Menu name="New"/>
+		<Menu name="Open&#8230;"/>
+		<Menu type="divider"/>
+		<Menu name="Save"/>
+		<Menu name="Save as&#8230;"/>
+		<Menu type="divider"/>
+		<Menu name="Close File"/>
+	</Menu>
+	<Menu name="Edit">
+		<Menu name="Undo" disabled="true"/>
+		<Menu name="Redo" disabled="true"/>
+		<Menu type="divider"/>
+		<Menu name="Cut"/>
+		<Menu name="Copy"/>
+		<Menu name="Paste"/>
+		<Menu name="Select All"/>
+	</Menu>
 	<Menu name="Add">
 		<Menu name="Mesh">
 			<Menu name="Box" click="add-mesh" arg="box"/>
