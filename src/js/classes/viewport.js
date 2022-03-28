@@ -2,8 +2,9 @@
 class Viewport {
 	
 	constructor(editor) {
-		const container = new UIPanel();
+		const Self = this;
 
+		const container = new UIPanel();
 		container.setId( 'viewport' );
 		container.setPosition( 'absolute' );
 		//
@@ -236,6 +237,8 @@ class Viewport {
 				renderer.autoClear = true;
 			}
 			endTime = performance.now();
+			
+			Self.viewInfo.updateFrametime( endTime - startTime );
 		}
 
 		function resize() {
