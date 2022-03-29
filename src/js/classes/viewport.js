@@ -228,6 +228,8 @@ class Viewport {
 				renderer.autoClear = true;
 			}
 			endTime = performance.now();
+
+			// APP.workspace.postProcessing.composer.render();
 			
 			Self.viewInfo.updateFrametime( endTime - startTime );
 		}

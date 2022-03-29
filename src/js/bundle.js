@@ -6,6 +6,13 @@ import { TransformControls } from './modules/threejs/examples/jsm/controls/Trans
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
 
+import { EffectComposer } from './modules/threejs/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './modules/threejs/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from './modules/threejs/examples/jsm/postprocessing/ShaderPass.js';
+import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/OutlinePass.js';
+import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js';
+
+
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
 import { SetPositionCommand } from './classes/commands/SetPositionCommand.js';
@@ -17,6 +24,13 @@ module.exports = {
 	THREE,
 	History,
 	Loader,
+
+	EffectComposer,
+	RenderPass,
+	ShaderPass,
+	OutlinePass,
+	FXAAShader,
+
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,

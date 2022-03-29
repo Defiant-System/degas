@@ -14,6 +14,31 @@
 		editor = new Editor();
 		viewport = new Viewport(editor);
 
+		/*
+		this.postProcessing = {
+			composer: new EffectComposer( renderer ),
+			renderPass: new RenderPass( editor.scene, editor.camera ),
+			outlinePass: new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), editor.scene, editor.camera ),
+			effectFXAA: new ShaderPass( FXAAShader ),
+		};
+		
+		this.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+
+		this.postProcessing.composer.addPass( this.postProcessing.renderPass );
+		this.postProcessing.composer.addPass( this.postProcessing.outlinePass );
+		this.postProcessing.composer.addPass( this.postProcessing.effectFXAA );
+
+		this.postProcessing.outlinePass.edgeStrength = Number( 3.0 );
+		this.postProcessing.outlinePass.edgeGlow = Number( 0.0 );
+		this.postProcessing.outlinePass.edgeThickness = Number( 1.0 );
+		this.postProcessing.outlinePass.pulsePeriod = Number( 0 );
+		this.postProcessing.outlinePass.usePatternTexture = false;
+
+		this.postProcessing.outlinePass.visibleEdgeColor.set( '#ffffff' );
+		this.postProcessing.outlinePass.hiddenEdgeColor.set( '#190a05' );
+		*/
+
+
 		// append panel
 		this.els.workspace.append(viewport.container.dom);
 		this.els.rendererCvs = this.els.workspace.append(renderer.domElement),
@@ -45,6 +70,7 @@
 					case "wireframe":
 						value = mesh => {
 							mesh.material.wireframe = true;
+							// mesh.material.vertexColors = true;
 							mesh.material.flatShading = false;
 							mesh.material.needsUpdate = true;
 						};
@@ -52,6 +78,7 @@
 					case "solid":
 						value = mesh => {
 							mesh.material.wireframe = false;
+							// mesh.material.vertexColors = false;
 							mesh.material.flatShading = false;
 							mesh.material.needsUpdate = true;
 						};
@@ -59,6 +86,7 @@
 					case "flat":
 						value = mesh => {
 							mesh.material.wireframe = false;
+							// mesh.material.vertexColors = false;
 							mesh.material.flatShading = true;
 							mesh.material.needsUpdate = true;
 						};
@@ -76,6 +104,9 @@
 				object = Self.getMesh(event.arg);
 				editor.addObject( object );
 				editor.select( object );
+
+				// Self.postProcessing.outlinePass.selectedObjects = [object];
+
 				viewport.viewInfo.update();
 				viewport.render();
 				break;
