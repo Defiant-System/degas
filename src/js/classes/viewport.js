@@ -184,24 +184,27 @@ class Viewport {
 		viewHelper.controls = controls;
 
 		// animations
-		// const clock = new THREE.Clock(); // only used for animations
-		// function animate() {
-		// 	const mixer = editor.mixer;
-		// 	const delta = clock.getDelta();
-		// 	let needsUpdate = false;
-		// 	if ( mixer.stats.actions.inUse > 0 ) {
-		// 		mixer.update( delta );
-		// 		needsUpdate = true;
-		// 	}
-		// 	if ( viewHelper.animating === true ) {
-		// 		viewHelper.update( delta );
-		// 		needsUpdate = true;
-		// 	}
-		// 	if ( vr.currentSession !== null ) {
-		// 		needsUpdate = true;
-		// 	}
-		// 	if ( needsUpdate === true ) render();
-		// }
+		const clock = new THREE.Clock(); // only used for animations
+		function animate() {
+			requestAnimationFrame(animate);
+
+			const mixer = editor.mixer;
+			const delta = clock.getDelta();
+			let needsUpdate = false;
+			if ( mixer.stats.actions.inUse > 0 ) {
+				mixer.update( delta );
+				needsUpdate = true;
+			}
+			if ( viewHelper.animating === true ) {
+				viewHelper.update( delta );
+				needsUpdate = true;
+			}
+			if ( vr.currentSession !== null ) {
+				needsUpdate = true;
+			}
+			if ( needsUpdate === true ) render();
+		}
+
 
 		//
 		let startTime = 0;
@@ -239,6 +242,7 @@ class Viewport {
 		this.viewInfo = viewInfo;
 		this.container = container;
 		this.grid = grid;
+		this.animate = animate;
 
 		this.selectObject = function(object) {
 			selectionBox.visible = false;

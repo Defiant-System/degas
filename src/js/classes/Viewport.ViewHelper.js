@@ -11,10 +11,10 @@ class ViewHelper extends THREE.Object3D {
 		const panel = new UIPanel();
 		panel.setId( 'viewHelper' );
 		panel.setPosition( 'absolute' );
-		panel.setRight( '0px' );
-		panel.setBottom( '0px' );
-		panel.setHeight( '128px' );
-		panel.setWidth( '128px' );
+		// panel.setRight( '0px' );
+		// panel.setBottom( '0px' );
+		// panel.setHeight( '128px' );
+		// panel.setWidth( '128px' );
 
 		panel.dom.addEventListener( 'pointerup', ( event ) => {
 			event.stopPropagation();
@@ -143,15 +143,11 @@ class ViewHelper extends THREE.Object3D {
 
 			if ( this.animating === true ) return false;
 
-			let tmp = document.getElementById("viewport");
 			const rect = dom.getBoundingClientRect();
-			const offsetX = rect.left + ( tmp.offsetWidth - dim );
-			const offsetY = rect.top + ( tmp.offsetHeight - dim );
-			console.log( tmp.offsetWidth, tmp.offsetHeight );
-			console.log( rect );
-			console.log( offsetX, offsetY );
-			mouse.x = ( ( event.clientX - offsetX ) / ( rect.width - offsetX ) ) * 2 - 1;
-			mouse.y = - ( ( event.clientY - offsetY ) / ( rect.bottom - offsetY ) ) * 2 + 1;
+			const offsetX = rect.left + ( dom.offsetWidth - dim );
+			const offsetY = rect.top + ( dom.offsetHeight - dim );
+			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
+			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
 
 			raycaster.setFromCamera( mouse, camera );
 
@@ -225,6 +221,9 @@ class ViewHelper extends THREE.Object3D {
 
 			dummy.lookAt( targetPosition );
 			q2.copy( dummy.quaternion );
+
+			// temp
+			viewport.animate();
 		}
 
 		function getAxisMaterial( color ) {
