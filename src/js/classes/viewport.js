@@ -41,7 +41,7 @@ class Viewport {
 		// this.vr = vr;
 
 		const selectionBox = new THREE.Box3Helper( box );
-		selectionBox.material.depthTest = false;
+		selectionBox.material.depthTest = THREE.AlwaysDepth;
 		selectionBox.material.transparent = true;
 		selectionBox.visible = false;
 		sceneHelpers.add( selectionBox );
