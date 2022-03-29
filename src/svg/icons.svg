@@ -71,8 +71,8 @@
 		</style>
 		<circle class="st0" cx="6.5" cy="6.5" r="6"/>
 	</svg>
-	
-	<svg id="icon-view-material" viewBox="0 0 13 13">
+
+	<svg id="icon-view-flat" viewBox="0 0 13 13">
 		<style type="text/css">
 			.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
 			.st1{fill:#33333360;}
@@ -83,6 +83,17 @@
 		<path class="st1" d="M5,1.2C4.3,2.5,4,4.5,4,6.5c0,0.3,0,0.6,0,0.9C2.2,7.2,1.1,6.8,1,6.5C1,4,2.7,1.9,5,1.2z M6.5,12
 			c-0.4,0-1.1-1.2-1.4-3.5c0.5,0,0.9,0,1.4,0c1.6,0,3.9-0.2,5.3-0.8C11.3,10.2,9.1,12,6.5,12z"/>
 	</svg>
+	
+	<svg id="icon-view-material" viewBox="0 0 13 13">
+		<style type="text/css">
+			.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
+			.st1{fill:#33333360;}
+		</style>
+		<circle class="st0" cx="6.5" cy="6.5" r="6"/>
+		<path class="st1" d="M5,1.2C4.3,2.5,4,4.5,4,6.5c0,0.3,0,0.6,0,0.9C2.2,7.2,1.1,6.8,1,6.5C1,4,2.7,1.9,5,1.2z M6.5,12
+			c-0.4,0-1.1-1.2-1.4-3.5c0.5,0,0.9,0,1.4,0c1.6,0,3.9-0.2,5.3-0.8C11.3,10.2,9.1,12,6.5,12z"/>
+	</svg>
+
 
 
 	<svg id="icon-sidebar" viewBox="0 0 13 13">

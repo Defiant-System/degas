@@ -20,6 +20,7 @@
 		<Options>
 			<Tool symbol="icon-view-wireframe" click="set-view-shade" arg="wireframe"/>
 			<Tool symbol="icon-view-solid" click="set-view-shade" arg="solid"/>
+			<Tool symbol="icon-view-flat" click="set-view-shade" arg="flat"/>
 			<Tool symbol="icon-view-material" click="set-view-shade" arg="material"/>
 		</Options>
 		<Tool symbol="icon-sidebar" />

@@ -41,12 +41,32 @@
 				editor.deselect();
 				break;
 			case "set-view-shade":
-				if (["wireframe", "solid"].includes(event.arg)) {
-					value = event.arg === "wireframe";
-					editor.scene.children
-						.filter(item => item.material)
-						.map(mesh => mesh.material.wireframe = value);
+				switch (event.arg) {
+					case "wireframe":
+						value = mesh => {
+							mesh.material.wireframe = true;
+							mesh.material.flatShading = false;
+							mesh.material.needsUpdate = true;
+						};
+						break;
+					case "solid":
+						value = mesh => {
+							mesh.material.wireframe = false;
+							mesh.material.flatShading = false;
+							mesh.material.needsUpdate = true;
+						};
+						break;
+					case "flat":
+						value = mesh => {
+							mesh.material.wireframe = false;
+							mesh.material.flatShading = true;
+							mesh.material.needsUpdate = true;
+						};
+						break;
+					case "material": return;
 				}
+				editor.scene.children.filter(item => item.material).map(value);
+				// render
 				viewport.render();
 				return true;
 			case "set-transform-control-mode":
