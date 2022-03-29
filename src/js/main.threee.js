@@ -4,12 +4,10 @@ const {
 	THREE,
 	History,
 	Loader,
-	// ViewHelper,
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
 	SetScaleCommand,
-	EditorControls,
 	Config,
 	UIPanel,
 	UIDiv,
@@ -18,6 +16,7 @@ const {
 
 
 @import "./classes/Editor.js";
+@import "./classes/EditorControls.js";
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.VR.js";
 @import "./classes/Viewport.ViewportInfo.js";

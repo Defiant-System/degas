@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-fba7ebc4.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-46e33969.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-71e43feb.js' );
+					const { TDSLoader } = await import( './TDSLoader-39f2e279.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-5968b3c3.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-c03945f2.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-e91514d4.js' );
+					const { AMFLoader } = await import( './AMFLoader-9c91b488.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-bd43622e.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-f0439eff.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-6617907a.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-24cd977f.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-54f7f03e.js' );
+					const { FBXLoader } = await import( './FBXLoader-66225889.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-6617907a.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-259a7468.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-24cd977f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-65c0cfd3.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-6617907a.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-259a7468.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-24cd977f.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-65c0cfd3.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-fc62d22f.js' );
+					const { IFCLoader } = await import( './IFCLoader-1bee28b7.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-8222949b.js' );
+					const { KMZLoader } = await import( './KMZLoader-3a46dc5d.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-79ed32d5.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-546e37a8.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-792057f1.js' );
+					const { MD2Loader } = await import( './MD2Loader-d2aeef5d.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-5aeaf301.js' );
+					const { OBJLoader } = await import( './OBJLoader-005f9cb9.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-350d83ac.js' );
+					const { PLYLoader } = await import( './PLYLoader-81eb8e17.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-ea3ea21e.js' );
+					const { STLLoader } = await import( './STLLoader-d2dbf954.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-006d58a5.js' );
+					const { SVGLoader } = await import( './SVGLoader-64e36637.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-45cadf98.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-e55a1282.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-77ae825f.js' );
+					const { VTKLoader } = await import( './VTKLoader-86203ff2.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-27f36115.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-9dec0eb4.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-2ea790f9.js' );
+					const { XYZLoader } = await import( './XYZLoader-676a8c45.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-f7dd9f0d.js' );
-			const { OBJLoader } = await import( './OBJLoader-5aeaf301.js' );
+			const { MTLLoader } = await import( './MTLLoader-c38de437.js' );
+			const { OBJLoader } = await import( './OBJLoader-005f9cb9.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-54f7f03e.js' );
+					const { FBXLoader } = await import( './FBXLoader-66225889.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-6617907a.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-259a7468.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-24cd977f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-65c0cfd3.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-6617907a.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-259a7468.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-24cd977f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-65c0cfd3.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55585,1700 +55585,6 @@ function Loader( editor ) {
 		return ( json.asset != undefined && json.asset.version[ 0 ] < 2 );
 
 	}
-
-}
-
-class UIElement {
-
-	constructor( dom ) {
-
-		this.dom = dom;
-
-	}
-
-	add() {
-
-		for ( let i = 0; i < arguments.length; i ++ ) {
-
-			const argument = arguments[ i ];
-
-			if ( argument instanceof UIElement ) {
-
-				this.dom.appendChild( argument.dom );
-
-			} else {
-
-				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
-
-			}
-
-		}
-
-		return this;
-
-	}
-
-	remove() {
-
-		for ( let i = 0; i < arguments.length; i ++ ) {
-
-			const argument = arguments[ i ];
-
-			if ( argument instanceof UIElement ) {
-
-				this.dom.removeChild( argument.dom );
-
-			} else {
-
-				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
-
-			}
-
-		}
-
-		return this;
-
-	}
-
-	clear() {
-
-		while ( this.dom.children.length ) {
-
-			this.dom.removeChild( this.dom.lastChild );
-
-		}
-
-	}
-
-	setId( id ) {
-
-		this.dom.id = id;
-
-		return this;
-
-	}
-
-	getId() {
-
-		return this.dom.id;
-
-	}
-
-	setClass( name ) {
-
-		this.dom.className = name;
-
-		return this;
-
-	}
-
-	addClass( name ) {
-
-		this.dom.classList.add( name );
-
-		return this;
-
-	}
-
-	removeClass( name ) {
-
-		this.dom.classList.remove( name );
-
-		return this;
-
-	}
-
-	setStyle( style, array ) {
-
-		for ( let i = 0; i < array.length; i ++ ) {
-
-			this.dom.style[ style ] = array[ i ];
-
-		}
-
-		return this;
-
-	}
-
-	setDisabled( value ) {
-
-		this.dom.disabled = value;
-
-		return this;
-
-	}
-
-	setTextContent( value ) {
-
-		this.dom.textContent = value;
-
-		return this;
-
-	}
-
-	setInnerHTML( value ) {
-
-		this.dom.innerHTML = value;
-
-	}
-
-	getIndexOfChild( element ) {
-
-		return Array.prototype.indexOf.call( this.dom.children, element.dom );
-
-	}
-
-}
-
-// properties
-
-const properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
-	'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'verticalAlign', 'color',
-	'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
-
-properties.forEach( function ( property ) {
-
-	const method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
-
-	UIElement.prototype[ method ] = function () {
-
-		this.setStyle( property, arguments );
-
-		return this;
-
-	};
-
-} );
-
-// events
-
-const events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input' ];
-
-events.forEach( function ( event ) {
-
-	const method = 'on' + event;
-
-	UIElement.prototype[ method ] = function ( callback ) {
-
-		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ) );
-
-		return this;
-
-	};
-
-} );
-
-class UISpan extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'span' ) );
-
-	}
-
-}
-
-class UIDiv extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'div' ) );
-
-	}
-
-}
-
-class UIRow extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Row';
-
-	}
-
-}
-
-class UIPanel extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Panel';
-
-	}
-
-}
-
-class UIText extends UISpan {
-
-	constructor( text ) {
-
-		super();
-
-		this.dom.className = 'Text';
-		this.dom.style.cursor = 'default';
-		this.dom.style.display = 'inline-block';
-
-		this.setValue( text );
-
-	}
-
-	getValue() {
-
-		return this.dom.textContent;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			this.dom.textContent = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-
-class UIInput extends UIElement {
-
-	constructor( text ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Input';
-		this.dom.style.padding = '2px';
-		this.dom.style.border = '1px solid transparent';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.dom.addEventListener( 'keydown', function ( event ) {
-
-			event.stopPropagation();
-
-		} );
-
-		this.setValue( text );
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-}
-
-class UITextArea extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'textarea' ) );
-
-		this.dom.className = 'TextArea';
-		this.dom.style.padding = '2px';
-		this.dom.spellcheck = false;
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.dom.addEventListener( 'keydown', function ( event ) {
-
-			event.stopPropagation();
-
-			if ( event.keyCode === 9 ) {
-
-				event.preventDefault();
-
-				const cursor = this.selectionStart;
-
-				this.value = this.value.substring( 0, cursor ) + '\t' + this.value.substring( cursor );
-				this.selectionStart = cursor + 1;
-				this.selectionEnd = this.selectionStart;
-
-			}
-
-		} );
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-}
-
-class UISelect extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'select' ) );
-
-		this.dom.className = 'Select';
-		this.dom.style.padding = '2px';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-	}
-
-	setMultiple( boolean ) {
-
-		this.dom.multiple = boolean;
-
-		return this;
-
-	}
-
-	setOptions( options ) {
-
-		const selected = this.dom.value;
-
-		while ( this.dom.children.length > 0 ) {
-
-			this.dom.removeChild( this.dom.firstChild );
-
-		}
-
-		for ( const key in options ) {
-
-			const option = document.createElement( 'option' );
-			option.value = key;
-			option.innerHTML = options[ key ];
-			this.dom.appendChild( option );
-
-		}
-
-		this.dom.value = selected;
-
-		return this;
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	setValue( value ) {
-
-		value = String( value );
-
-		if ( this.dom.value !== value ) {
-
-			this.dom.value = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-class UICheckbox extends UIElement {
-
-	constructor( boolean ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Checkbox';
-		this.dom.type = 'checkbox';
-
-		this.setValue( boolean );
-
-	}
-
-	getValue() {
-
-		return this.dom.checked;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			this.dom.checked = value;
-
-		}
-
-		return this;
-
-	}
-
-}
-
-
-class UIColor extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.className = 'Color';
-		this.dom.style.width = '32px';
-		this.dom.style.height = '16px';
-		this.dom.style.border = '0px';
-		this.dom.style.padding = '2px';
-		this.dom.style.backgroundColor = 'transparent';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		try {
-
-			this.dom.type = 'color';
-			this.dom.value = '#ffffff';
-
-		} catch ( exception ) {}
-
-	}
-
-	getValue() {
-
-		return this.dom.value;
-
-	}
-
-	getHexValue() {
-
-		return parseInt( this.dom.value.substr( 1 ), 16 );
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-		return this;
-
-	}
-
-	setHexValue( hex ) {
-
-		this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
-
-		return this;
-
-	}
-
-}
-
-class UINumber extends UIElement {
-
-	constructor( number ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.style.cursor = 'ns-resize';
-		this.dom.className = 'Number';
-		this.dom.value = '0.00';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.value = 0;
-
-		this.min = - Infinity;
-		this.max = Infinity;
-
-		this.precision = 2;
-		this.step = 1;
-		this.unit = '';
-		this.nudge = 0.01;
-
-		this.setValue( number );
-
-		const scope = this;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-
-		let distance = 0;
-		let onMouseDownValue = 0;
-
-		const pointer = { x: 0, y: 0 };
-		const prevPointer = { x: 0, y: 0 };
-
-		function onMouseDown( event ) {
-
-			event.preventDefault();
-
-			distance = 0;
-
-			onMouseDownValue = scope.value;
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-			document.addEventListener( 'mousemove', onMouseMove );
-			document.addEventListener( 'mouseup', onMouseUp );
-
-		}
-
-		function onMouseMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.clientX;
-			pointer.y = event.clientY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) );
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-		}
-
-		function onMouseUp() {
-
-			document.removeEventListener( 'mousemove', onMouseMove );
-			document.removeEventListener( 'mouseup', onMouseUp );
-
-			if ( Math.abs( distance ) < 2 ) {
-
-				scope.dom.focus();
-				scope.dom.select();
-
-			}
-
-		}
-
-		function onTouchStart( event ) {
-
-			if ( event.touches.length === 1 ) {
-
-				distance = 0;
-
-				onMouseDownValue = scope.value;
-
-				prevPointer.x = event.touches[ 0 ].pageX;
-				prevPointer.y = event.touches[ 0 ].pageY;
-
-				document.addEventListener( 'touchmove', onTouchMove );
-				document.addEventListener( 'touchend', onTouchEnd );
-
-			}
-
-		}
-
-		function onTouchMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.touches[ 0 ].pageX;
-			pointer.y = event.touches[ 0 ].pageY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) );
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.touches[ 0 ].pageX;
-			prevPointer.y = event.touches[ 0 ].pageY;
-
-		}
-
-		function onTouchEnd( event ) {
-
-			if ( event.touches.length === 0 ) {
-
-				document.removeEventListener( 'touchmove', onTouchMove );
-				document.removeEventListener( 'touchend', onTouchEnd );
-
-			}
-
-		}
-
-		function onChange() {
-
-			scope.setValue( scope.dom.value );
-
-		}
-
-		function onFocus() {
-
-			scope.dom.style.backgroundColor = '';
-			scope.dom.style.cursor = '';
-
-		}
-
-		function onBlur() {
-
-			scope.dom.style.backgroundColor = 'transparent';
-			scope.dom.style.cursor = 'ns-resize';
-
-		}
-
-		function onKeyDown( event ) {
-
-			event.stopPropagation();
-
-			switch ( event.keyCode ) {
-
-				case 13: // enter
-					scope.dom.blur();
-					break;
-
-				case 38: // up
-					event.preventDefault();
-					scope.setValue( scope.getValue() + scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-				case 40: // down
-					event.preventDefault();
-					scope.setValue( scope.getValue() - scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-			}
-
-		}
-
-		onBlur();
-
-		this.dom.addEventListener( 'keydown', onKeyDown );
-		this.dom.addEventListener( 'mousedown', onMouseDown );
-		this.dom.addEventListener( 'touchstart', onTouchStart );
-		this.dom.addEventListener( 'change', onChange );
-		this.dom.addEventListener( 'focus', onFocus );
-		this.dom.addEventListener( 'blur', onBlur );
-
-	}
-
-	getValue() {
-
-		return this.value;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			value = parseFloat( value );
-
-			if ( value < this.min ) value = this.min;
-			if ( value > this.max ) value = this.max;
-
-			this.value = value;
-			this.dom.value = value.toFixed( this.precision );
-
-			if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
-
-		}
-
-		return this;
-
-	}
-
-	setPrecision( precision ) {
-
-		this.precision = precision;
-
-		return this;
-
-	}
-
-	setStep( step ) {
-
-		this.step = step;
-
-		return this;
-
-	}
-
-	setNudge( nudge ) {
-
-		this.nudge = nudge;
-
-		return this;
-
-	}
-
-	setRange( min, max ) {
-
-		this.min = min;
-		this.max = max;
-
-		return this;
-
-	}
-
-	setUnit( unit ) {
-
-		this.unit = unit;
-
-		return this;
-
-	}
-
-}
-
-class UIInteger extends UIElement {
-
-	constructor( number ) {
-
-		super( document.createElement( 'input' ) );
-
-		this.dom.style.cursor = 'ns-resize';
-		this.dom.className = 'Number';
-		this.dom.value = '0';
-
-		this.dom.setAttribute( 'autocomplete', 'off' );
-
-		this.value = 0;
-
-		this.min = - Infinity;
-		this.max = Infinity;
-
-		this.step = 1;
-		this.nudge = 1;
-
-		this.setValue( number );
-
-		const scope = this;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-
-		let distance = 0;
-		let onMouseDownValue = 0;
-
-		const pointer = { x: 0, y: 0 };
-		const prevPointer = { x: 0, y: 0 };
-
-		function onMouseDown( event ) {
-
-			event.preventDefault();
-
-			distance = 0;
-
-			onMouseDownValue = scope.value;
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-			document.addEventListener( 'mousemove', onMouseMove );
-			document.addEventListener( 'mouseup', onMouseUp );
-
-		}
-
-		function onMouseMove( event ) {
-
-			const currentValue = scope.value;
-
-			pointer.x = event.clientX;
-			pointer.y = event.clientY;
-
-			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
-
-			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
-			value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
-
-			if ( currentValue !== value ) {
-
-				scope.setValue( value );
-				scope.dom.dispatchEvent( changeEvent );
-
-			}
-
-			prevPointer.x = event.clientX;
-			prevPointer.y = event.clientY;
-
-		}
-
-		function onMouseUp() {
-
-			document.removeEventListener( 'mousemove', onMouseMove );
-			document.removeEventListener( 'mouseup', onMouseUp );
-
-			if ( Math.abs( distance ) < 2 ) {
-
-				scope.dom.focus();
-				scope.dom.select();
-
-			}
-
-		}
-
-		function onChange() {
-
-			scope.setValue( scope.dom.value );
-
-		}
-
-		function onFocus() {
-
-			scope.dom.style.backgroundColor = '';
-			scope.dom.style.cursor = '';
-
-		}
-
-		function onBlur() {
-
-			scope.dom.style.backgroundColor = 'transparent';
-			scope.dom.style.cursor = 'ns-resize';
-
-		}
-
-		function onKeyDown( event ) {
-
-			event.stopPropagation();
-
-			switch ( event.keyCode ) {
-
-				case 13: // enter
-					scope.dom.blur();
-					break;
-
-				case 38: // up
-					event.preventDefault();
-					scope.setValue( scope.getValue() + scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-				case 40: // down
-					event.preventDefault();
-					scope.setValue( scope.getValue() - scope.nudge );
-					scope.dom.dispatchEvent( changeEvent );
-					break;
-
-			}
-
-		}
-
-		onBlur();
-
-		this.dom.addEventListener( 'keydown', onKeyDown );
-		this.dom.addEventListener( 'mousedown', onMouseDown );
-		this.dom.addEventListener( 'change', onChange );
-		this.dom.addEventListener( 'focus', onFocus );
-		this.dom.addEventListener( 'blur', onBlur );
-
-	}
-
-	getValue() {
-
-		return this.value;
-
-	}
-
-	setValue( value ) {
-
-		if ( value !== undefined ) {
-
-			value = parseInt( value );
-
-			this.value = value;
-			this.dom.value = value;
-
-		}
-
-		return this;
-
-	}
-
-	setStep( step ) {
-
-		this.step = parseInt( step );
-
-		return this;
-
-	}
-
-	setNudge( nudge ) {
-
-		this.nudge = nudge;
-
-		return this;
-
-	}
-
-	setRange( min, max ) {
-
-		this.min = min;
-		this.max = max;
-
-		return this;
-
-	}
-
-}
-
-class UIBreak extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'br' ) );
-
-		this.dom.className = 'Break';
-
-	}
-
-}
-
-class UIHorizontalRule extends UIElement {
-
-	constructor() {
-
-		super( document.createElement( 'hr' ) );
-
-		this.dom.className = 'HorizontalRule';
-
-	}
-
-}
-
-class UIButton extends UIElement {
-
-	constructor( value ) {
-
-		super( document.createElement( 'button' ) );
-
-		this.dom.className = 'Button';
-		this.dom.textContent = value;
-
-	}
-
-}
-
-class UIProgress extends UIElement {
-
-	constructor( value ) {
-
-		super( document.createElement( 'progress' ) );
-
-		this.dom.value = value;
-
-	}
-
-	setValue( value ) {
-
-		this.dom.value = value;
-
-	}
-
-}
-
-class UITabbedPanel extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'TabbedPanel';
-
-		this.tabs = [];
-		this.panels = [];
-
-		this.tabsDiv = new UIDiv();
-		this.tabsDiv.setClass( 'Tabs' );
-
-		this.panelsDiv = new UIDiv();
-		this.panelsDiv.setClass( 'Panels' );
-
-		this.add( this.tabsDiv );
-		this.add( this.panelsDiv );
-
-		this.selected = '';
-
-	}
-
-	select( id ) {
-
-		let tab;
-		let panel;
-		const scope = this;
-
-		// Deselect current selection
-		if ( this.selected && this.selected.length ) {
-
-			tab = this.tabs.find( function ( item ) {
-
-				return item.dom.id === scope.selected;
-
-			} );
-			panel = this.panels.find( function ( item ) {
-
-				return item.dom.id === scope.selected;
-
-			} );
-
-			if ( tab ) {
-
-				tab.removeClass( 'selected' );
-
-			}
-
-			if ( panel ) {
-
-				panel.setDisplay( 'none' );
-
-			}
-
-		}
-
-		tab = this.tabs.find( function ( item ) {
-
-			return item.dom.id === id;
-
-		} );
-		panel = this.panels.find( function ( item ) {
-
-			return item.dom.id === id;
-
-		} );
-
-		if ( tab ) {
-
-			tab.addClass( 'selected' );
-
-		}
-
-		if ( panel ) {
-
-			panel.setDisplay( '' );
-
-		}
-
-		this.selected = id;
-
-		return this;
-
-	}
-
-	addTab( id, label, items ) {
-
-		const tab = new UITab( label, this );
-		tab.setId( id );
-		this.tabs.push( tab );
-		this.tabsDiv.add( tab );
-
-		const panel = new UIDiv();
-		panel.setId( id );
-		panel.add( items );
-		panel.setDisplay( 'none' );
-		this.panels.push( panel );
-		this.panelsDiv.add( panel );
-
-		this.select( id );
-
-	}
-
-}
-
-class UITab extends UIText {
-
-	constructor( text, parent ) {
-
-		super( text );
-
-		this.dom.className = 'Tab';
-
-		this.parent = parent;
-
-		const scope = this;
-
-		this.dom.addEventListener( 'click', function () {
-
-			scope.parent.select( scope.dom.id );
-
-		} );
-
-	}
-
-}
-
-class UIListbox extends UIDiv {
-
-	constructor() {
-
-		super();
-
-		this.dom.className = 'Listbox';
-		this.dom.tabIndex = 0;
-
-		this.items = [];
-		this.listitems = [];
-		this.selectedIndex = 0;
-		this.selectedValue = null;
-
-	}
-
-	setItems( items ) {
-
-		if ( Array.isArray( items ) ) {
-
-			this.items = items;
-
-		}
-
-		this.render();
-
-	}
-
-	render( ) {
-
-		while ( this.listitems.length ) {
-
-			const item = this.listitems[ 0 ];
-
-			item.dom.remove();
-
-			this.listitems.splice( 0, 1 );
-
-		}
-
-		for ( let i = 0; i < this.items.length; i ++ ) {
-
-			const item = this.items[ i ];
-
-			const listitem = new UIListbox.ListboxItem( this );
-			listitem.setId( item.id || `Listbox-${i}` );
-			listitem.setTextContent( item.name || item.type );
-			this.add( listitem );
-
-		}
-
-	}
-
-	add() {
-
-		const items = Array.from( arguments );
-
-		this.listitems = this.listitems.concat( items );
-
-		UIElement.prototype.add.apply( this, items );
-
-	}
-
-	selectIndex( index ) {
-
-		if ( index >= 0 && index < this.items.length ) {
-
-			this.setValue( this.listitems[ index ].getId() );
-
-		}
-
-		this.selectedIndex = index;
-
-	}
-
-	getValue() {
-
-		return this.selectedValue;
-
-	}
-
-	setValue( value ) {
-
-		for ( let i = 0; i < this.listitems.length; i ++ ) {
-
-			const element = this.listitems[ i ];
-
-			if ( element.getId() === value ) {
-
-				element.addClass( 'active' );
-
-			} else {
-
-				element.removeClass( 'active' );
-
-			}
-
-		}
-
-		this.selectedValue = value;
-
-		const changeEvent = document.createEvent( 'HTMLEvents' );
-		changeEvent.initEvent( 'change', true, true );
-		this.dom.dispatchEvent( changeEvent );
-
-	}
-
-}
-
-class ListboxItem extends UIDiv {
-
-	constructor( parent ) {
-
-		super();
-
-		this.dom.className = 'ListboxItem';
-
-		this.parent = parent;
-
-		const scope = this;
-
-		function onClick() {
-
-			if ( scope.parent ) {
-
-				scope.parent.setValue( scope.getId( ) );
-
-			}
-
-		}
-
-		this.dom.addEventListener( 'click', onClick );
-
-	}
-
-}
-
-const vpTemp = new Vector4();
-
-class ViewHelper$1 extends Object3D {
-
-	constructor( editorCamera, dom ) {
-
-		super();
-
-		this.animating = false;
-		this.controls = null;
-
-		const color1 = new Color( '#ff3653' );
-		const color2 = new Color( '#8adb00' );
-		const color3 = new Color( '#2c8fff' );
-
-		const interactiveObjects = [];
-		const raycaster = new Raycaster();
-		const mouse = new Vector2();
-		const dummy = new Object3D();
-
-		const camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
-		camera.position.set( 0, 0, 2 );
-
-		const geometry = new BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
-
-		const xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
-		const yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
-		const zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
-
-		yAxis.rotation.z = Math.PI / 2;
-		zAxis.rotation.y = - Math.PI / 2;
-
-		this.add( xAxis );
-		this.add( zAxis );
-		this.add( yAxis );
-
-		const posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
-		posXAxisHelper.userData.type = 'posX';
-		const posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
-		posYAxisHelper.userData.type = 'posY';
-		const posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
-		posZAxisHelper.userData.type = 'posZ';
-		const negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
-		negXAxisHelper.userData.type = 'negX';
-		const negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
-		negYAxisHelper.userData.type = 'negY';
-		const negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
-		negZAxisHelper.userData.type = 'negZ';
-
-		posXAxisHelper.position.x = 1;
-		posYAxisHelper.position.y = 1;
-		posZAxisHelper.position.z = 1;
-		negXAxisHelper.position.x = - 1;
-		negXAxisHelper.scale.setScalar( 0.8 );
-		negYAxisHelper.position.y = - 1;
-		negYAxisHelper.scale.setScalar( 0.8 );
-		negZAxisHelper.position.z = - 1;
-		negZAxisHelper.scale.setScalar( 0.8 );
-
-		this.add( posXAxisHelper );
-		this.add( posYAxisHelper );
-		this.add( posZAxisHelper );
-		this.add( negXAxisHelper );
-		this.add( negYAxisHelper );
-		this.add( negZAxisHelper );
-
-		interactiveObjects.push( posXAxisHelper );
-		interactiveObjects.push( posYAxisHelper );
-		interactiveObjects.push( posZAxisHelper );
-		interactiveObjects.push( negXAxisHelper );
-		interactiveObjects.push( negYAxisHelper );
-		interactiveObjects.push( negZAxisHelper );
-
-		const point = new Vector3();
-		const dim = 128;
-		const turnRate = 2 * Math.PI; // turn rate in angles per second
-
-		this.render = function ( renderer ) {
-
-			this.quaternion.copy( editorCamera.quaternion ).invert();
-			this.updateMatrixWorld();
-
-			point.set( 0, 0, 1 );
-			point.applyQuaternion( editorCamera.quaternion );
-
-			if ( point.x >= 0 ) {
-
-				posXAxisHelper.material.opacity = 1;
-				negXAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posXAxisHelper.material.opacity = 0.5;
-				negXAxisHelper.material.opacity = 1;
-
-			}
-
-			if ( point.y >= 0 ) {
-
-				posYAxisHelper.material.opacity = 1;
-				negYAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posYAxisHelper.material.opacity = 0.5;
-				negYAxisHelper.material.opacity = 1;
-
-			}
-
-			if ( point.z >= 0 ) {
-
-				posZAxisHelper.material.opacity = 1;
-				negZAxisHelper.material.opacity = 0.5;
-
-			} else {
-
-				posZAxisHelper.material.opacity = 0.5;
-				negZAxisHelper.material.opacity = 1;
-
-			}
-
-			//
-
-			const x = dom.offsetWidth - dim;
-
-			renderer.clearDepth();
-
-			renderer.getViewport( vpTemp );
-			renderer.setViewport( x, 0, dim, dim );
-
-			renderer.render( this, camera );
-
-			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
-
-		};
-
-		const targetPosition = new Vector3();
-		const targetQuaternion = new Quaternion();
-
-		const q1 = new Quaternion();
-		const q2 = new Quaternion();
-		let radius = 0;
-
-		this.handleClick = function ( event ) {
-
-			if ( this.animating === true ) return false;
-
-			const rect = dom.getBoundingClientRect();
-			const offsetX = rect.left + ( container.dom.offsetWidth - dim );
-			const offsetY = rect.top + ( container.dom.offsetHeight - dim );
-			mouse.x = ( ( event.clientX - offsetX ) / ( rect.width - offsetX ) ) * 2 - 1;
-			mouse.y = - ( ( event.clientY - offsetY ) / ( rect.bottom - offsetY ) ) * 2 + 1;
-
-			raycaster.setFromCamera( mouse, camera );
-
-			const intersects = raycaster.intersectObjects( interactiveObjects );
-
-			if ( intersects.length > 0 ) {
-
-				const intersection = intersects[ 0 ];
-				const object = intersection.object;
-
-				prepareAnimationData( object, this.controls.center );
-
-				this.animating = true;
-
-				return true;
-
-			} else {
-
-				return false;
-
-			}
-
-		};
-
-		this.update = function ( delta ) {
-
-			const step = delta * turnRate;
-			const focusPoint = this.controls.center;
-
-			// animate position by doing a slerp and then scaling the position on the unit sphere
-
-			q1.rotateTowards( q2, step );
-			editorCamera.position.set( 0, 0, 1 ).applyQuaternion( q1 ).multiplyScalar( radius ).add( focusPoint );
-
-			// animate orientation
-
-			editorCamera.quaternion.rotateTowards( targetQuaternion, step );
-
-			if ( q1.angleTo( q2 ) === 0 ) {
-
-				this.animating = false;
-
-			}
-
-		};
-
-		function prepareAnimationData( object, focusPoint ) {
-
-			switch ( object.userData.type ) {
-
-				case 'posX':
-					targetPosition.set( 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
-					break;
-
-				case 'posY':
-					targetPosition.set( 0, 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
-					break;
-
-				case 'posZ':
-					targetPosition.set( 0, 0, 1 );
-					targetQuaternion.setFromEuler( new Euler() );
-					break;
-
-				case 'negX':
-					targetPosition.set( - 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
-					break;
-
-				case 'negY':
-					targetPosition.set( 0, - 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
-					break;
-
-				case 'negZ':
-					targetPosition.set( 0, 0, - 1 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
-					break;
-
-				default:
-					console.error( 'ViewHelper: Invalid axis.' );
-
-			}
-
-			//
-
-			radius = editorCamera.position.distanceTo( focusPoint );
-			targetPosition.multiplyScalar( radius ).add( focusPoint );
-
-			dummy.position.copy( focusPoint );
-
-			dummy.lookAt( editorCamera.position );
-			q1.copy( dummy.quaternion );
-
-			dummy.lookAt( targetPosition );
-			q2.copy( dummy.quaternion );
-
-		}
-
-		function getAxisMaterial( color ) {
-
-			return new MeshBasicMaterial( { color: color, toneMapped: false } );
-
-		}
-
-		function getSpriteMaterial( color, text = null ) {
-
-			const canvas = document.createElement( 'canvas' );
-			canvas.width = 64;
-			canvas.height = 64;
-
-			const context = canvas.getContext( '2d' );
-			context.beginPath();
-			context.arc( 32, 32, 16, 0, 2 * Math.PI );
-			context.closePath();
-			context.fillStyle = color.getStyle();
-			context.fill();
-
-			if ( text !== null ) {
-
-				context.font = '24px Arial';
-				context.textAlign = 'center';
-				context.fillStyle = '#000000';
-				context.fillText( text, 32, 41 );
-
-			}
-
-			const texture = new CanvasTexture( canvas );
-
-			return new SpriteMaterial( { map: texture, toneMapped: false } );
-
-		}
-
-	}
-
-}
-
-ViewHelper$1.prototype.isViewHelper = true;
-
-class ViewHelper extends ViewHelper$1 {
-
-	constructor( editorCamera, container ) {
-
-		super( editorCamera, container.dom );
-
-		const panel = new UIPanel();
-		panel.setId( 'viewHelper' );
-		panel.setPosition( 'absolute' );
-		panel.setRight( '0px' );
-		panel.setBottom( '0px' );
-		panel.setHeight( '128px' );
-		panel.setWidth( '128px' );
-
-		panel.dom.addEventListener( 'pointerup', ( event ) => {
-
-			event.stopPropagation();
-
-			this.handleClick( event );
-
-		} );
-
-		panel.dom.addEventListener( 'pointerdown', function ( event ) {
-
-			event.stopPropagation();
-
-		} );
-
-		container.add( panel );
-
-	}
-
-}
-
-function ViewportInfo( editor ) {
-
-	const signals = editor.signals;
-	const strings = editor.strings;
-
-	const container = new UIPanel();
-	container.setId( 'info' );
-	container.setPosition( 'absolute' );
-	container.setLeft( '10px' );
-	container.setBottom( '10px' );
-	container.setFontSize( '12px' );
-	container.setColor( '#fff' );
-
-	const objectsText = new UIText( '0' ).setMarginLeft( '6px' );
-	const verticesText = new UIText( '0' ).setMarginLeft( '6px' );
-	const trianglesText = new UIText( '0' ).setMarginLeft( '6px' );
-	const frametimeText = new UIText( '0' ).setMarginLeft( '6px' );
-
-	container.add( new UIText( strings.getKey( 'viewport/info/objects' ) ).setTextTransform( 'lowercase' ) );
-	container.add( objectsText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/vertices' ) ).setTextTransform( 'lowercase' ) );
-	container.add( verticesText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/triangles' ) ).setTextTransform( 'lowercase' ) );
-	container.add( trianglesText, new UIBreak() );
-	container.add( new UIText( strings.getKey( 'viewport/info/frametime' ) ).setTextTransform( 'lowercase' ) );
-	container.add( frametimeText, new UIBreak() );
-
-	signals.objectAdded.add( update );
-	signals.objectRemoved.add( update );
-	signals.geometryChanged.add( update );
-
-	//
-
-	function update() {
-
-		const scene = editor.scene;
-
-		let objects = 0, vertices = 0, triangles = 0;
-
-		for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
-
-			const object = scene.children[ i ];
-
-			object.traverseVisible( function ( object ) {
-
-				objects ++;
-
-				if ( object.isMesh ) {
-
-					const geometry = object.geometry;
-
-					vertices += geometry.attributes.position.count;
-
-					if ( geometry.index !== null ) {
-
-						triangles += geometry.index.count / 3;
-
-					} else {
-
-						triangles += geometry.attributes.position.count / 3;
-
-					}
-
-				}
-
-			} );
-
-		}
-
-		objectsText.setValue( objects.format() );
-		verticesText.setValue( vertices.format() );
-		trianglesText.setValue( triangles.format() );
-
-	}
-
-	signals.sceneRendered.add( updateFrametime );
-
-	function updateFrametime( frametime ) {
-
-		frametimeText.setValue( Number( frametime ).toFixed( 2 ) + ' ms' );
-
-	}
-
-	return container;
 
 }
 
@@ -58815,356 +57121,1286 @@ class TransformControlsPlane extends Mesh {
 
 TransformControlsPlane.prototype.isTransformControlsPlane = true;
 
-function EditorControls( object, domElement ) {
+class UIElement {
 
-	// API
+	constructor( dom ) {
 
-	this.enabled = true;
-	this.center = new Vector3();
-	this.panSpeed = 0.002;
-	this.zoomSpeed = 0.1;
-	this.rotationSpeed = 0.005;
-
-	// internals
-
-	var scope = this;
-	var vector = new Vector3();
-	var delta = new Vector3();
-	var box = new Box3();
-
-	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
-	var state = STATE.NONE;
-
-	var center = this.center;
-	var normalMatrix = new Matrix3();
-	var pointer = new Vector2();
-	var pointerOld = new Vector2();
-	var spherical = new Spherical();
-	var sphere = new Sphere();
-
-	// events
-
-	var changeEvent = { type: 'change' };
-
-	this.focus = function ( target ) {
-
-		var distance;
-
-		box.setFromObject( target );
-
-		if ( box.isEmpty() === false ) {
-
-			box.getCenter( center );
-			distance = box.getBoundingSphere( sphere ).radius;
-
-		} else {
-
-			// Focusing on an Group, AmbientLight, etc
-
-			center.setFromMatrixPosition( target.matrixWorld );
-			distance = 0.1;
-
-		}
-
-		delta.set( 0, 0, 1 );
-		delta.applyQuaternion( object.quaternion );
-		delta.multiplyScalar( distance * 4 );
-
-		object.position.copy( center ).add( delta );
-
-		scope.dispatchEvent( changeEvent );
-
-	};
-
-	this.pan = function ( delta ) {
-
-		var distance = object.position.distanceTo( center );
-
-		delta.multiplyScalar( distance * scope.panSpeed );
-		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
-
-		object.position.add( delta );
-		center.add( delta );
-
-		scope.dispatchEvent( changeEvent );
-
-	};
-
-	this.zoom = function ( delta ) {
-
-		var distance = object.position.distanceTo( center );
-
-		delta.multiplyScalar( distance * scope.zoomSpeed );
-
-		if ( delta.length() > distance ) return;
-
-		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
-
-		object.position.add( delta );
-
-		scope.dispatchEvent( changeEvent );
-
-	};
-
-	this.rotate = function ( delta ) {
-
-		vector.copy( object.position ).sub( center );
-
-		spherical.setFromVector3( vector );
-
-		spherical.theta += delta.x * scope.rotationSpeed;
-		spherical.phi += delta.y * scope.rotationSpeed;
-
-		spherical.makeSafe();
-
-		vector.setFromSpherical( spherical );
-
-		object.position.copy( center ).add( vector );
-
-		object.lookAt( center );
-
-		scope.dispatchEvent( changeEvent );
-
-	};
-
-	//
-
-	function onPointerDown( event ) {
-
-		if ( scope.enabled === false ) return;
-
-		switch ( event.pointerType ) {
-
-			case 'mouse':
-			case 'pen':
-				onMouseDown( event );
-				break;
-
-			// TODO touch
-
-		}
-
-		domElement.ownerDocument.addEventListener( 'pointermove', onPointerMove );
-		domElement.ownerDocument.addEventListener( 'pointerup', onPointerUp );
+		this.dom = dom;
 
 	}
 
-	function onPointerMove( event ) {
+	add() {
 
-		if ( scope.enabled === false ) return;
+		for ( let i = 0; i < arguments.length; i ++ ) {
 
-		switch ( event.pointerType ) {
+			const argument = arguments[ i ];
 
-			case 'mouse':
-			case 'pen':
-				onMouseMove( event );
-				break;
+			if ( argument instanceof UIElement ) {
 
-			// TODO touch
+				this.dom.appendChild( argument.dom );
 
-		}
+			} else {
 
-	}
-
-	function onPointerUp( event ) {
-
-		switch ( event.pointerType ) {
-
-			case 'mouse':
-			case 'pen':
-				onMouseUp();
-				break;
-
-			// TODO touch
-
-		}
-
-		domElement.ownerDocument.removeEventListener( 'pointermove', onPointerMove );
-		domElement.ownerDocument.removeEventListener( 'pointerup', onPointerUp );
-
-	}
-
-	// mouse
-
-	function onMouseDown( event ) {
-
-		if ( event.button === 0 ) {
-
-			state = STATE.ROTATE;
-
-		} else if ( event.button === 1 ) {
-
-			state = STATE.ZOOM;
-
-		} else if ( event.button === 2 ) {
-
-			state = STATE.PAN;
-
-		}
-
-		pointerOld.set( event.clientX, event.clientY );
-
-	}
-
-	function onMouseMove( event ) {
-
-		pointer.set( event.clientX, event.clientY );
-
-		var movementX = pointer.x - pointerOld.x;
-		var movementY = pointer.y - pointerOld.y;
-
-		if ( state === STATE.ROTATE ) {
-
-			scope.rotate( delta.set( - movementX, - movementY, 0 ) );
-
-		} else if ( state === STATE.ZOOM ) {
-
-			scope.zoom( delta.set( 0, 0, movementY ) );
-
-		} else if ( state === STATE.PAN ) {
-
-			scope.pan( delta.set( - movementX, movementY, 0 ) );
-
-		}
-
-		pointerOld.set( event.clientX, event.clientY );
-
-	}
-
-	function onMouseUp() {
-
-		state = STATE.NONE;
-
-	}
-
-	function onMouseWheel( event ) {
-
-		if ( scope.enabled === false ) return;
-
-		event.preventDefault();
-
-		// Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
-		scope.zoom( delta.set( 0, 0, event.deltaY > 0 ? 1 : - 1 ) );
-
-	}
-
-	function contextmenu( event ) {
-
-		event.preventDefault();
-
-	}
-
-	this.dispose = function () {
-
-		domElement.removeEventListener( 'contextmenu', contextmenu );
-		domElement.removeEventListener( 'dblclick', onMouseUp );
-		domElement.removeEventListener( 'wheel', onMouseWheel );
-
-		domElement.removeEventListener( 'pointerdown', onPointerDown );
-
-		domElement.removeEventListener( 'touchstart', touchStart );
-		domElement.removeEventListener( 'touchmove', touchMove );
-
-	};
-
-	domElement.addEventListener( 'contextmenu', contextmenu );
-	domElement.addEventListener( 'dblclick', onMouseUp );
-	domElement.addEventListener( 'wheel', onMouseWheel );
-
-	domElement.addEventListener( 'pointerdown', onPointerDown );
-
-	// touch
-
-	var touches = [ new Vector3(), new Vector3(), new Vector3() ];
-	var prevTouches = [ new Vector3(), new Vector3(), new Vector3() ];
-
-	var prevDistance = null;
-
-	function touchStart( event ) {
-
-		if ( scope.enabled === false ) return;
-
-		switch ( event.touches.length ) {
-
-			case 1:
-				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				touches[ 1 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				break;
-
-			case 2:
-				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				touches[ 1 ].set( event.touches[ 1 ].pageX, event.touches[ 1 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				prevDistance = touches[ 0 ].distanceTo( touches[ 1 ] );
-				break;
-
-		}
-
-		prevTouches[ 0 ].copy( touches[ 0 ] );
-		prevTouches[ 1 ].copy( touches[ 1 ] );
-
-	}
-
-
-	function touchMove( event ) {
-
-		if ( scope.enabled === false ) return;
-
-		event.preventDefault();
-		event.stopPropagation();
-
-		function getClosest( touch, touches ) {
-
-			var closest = touches[ 0 ];
-
-			for ( var i in touches ) {
-
-				if ( closest.distanceTo( touch ) > touches[ i ].distanceTo( touch ) ) closest = touches[ i ];
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
 
 			}
 
-			return closest;
-
 		}
 
-		switch ( event.touches.length ) {
-
-			case 1:
-				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				touches[ 1 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				scope.rotate( touches[ 0 ].sub( getClosest( touches[ 0 ], prevTouches ) ).multiplyScalar( - 1 ) );
-				break;
-
-			case 2:
-				touches[ 0 ].set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				touches[ 1 ].set( event.touches[ 1 ].pageX, event.touches[ 1 ].pageY, 0 ).divideScalar( window.devicePixelRatio );
-				var distance = touches[ 0 ].distanceTo( touches[ 1 ] );
-				scope.zoom( delta.set( 0, 0, prevDistance - distance ) );
-				prevDistance = distance;
-
-
-				var offset0 = touches[ 0 ].clone().sub( getClosest( touches[ 0 ], prevTouches ) );
-				var offset1 = touches[ 1 ].clone().sub( getClosest( touches[ 1 ], prevTouches ) );
-				offset0.x = - offset0.x;
-				offset1.x = - offset1.x;
-
-				scope.pan( offset0.add( offset1 ) );
-
-				break;
-
-		}
-
-		prevTouches[ 0 ].copy( touches[ 0 ] );
-		prevTouches[ 1 ].copy( touches[ 1 ] );
+		return this;
 
 	}
 
-	domElement.addEventListener( 'touchstart', touchStart );
-	domElement.addEventListener( 'touchmove', touchMove );
+	remove() {
+
+		for ( let i = 0; i < arguments.length; i ++ ) {
+
+			const argument = arguments[ i ];
+
+			if ( argument instanceof UIElement ) {
+
+				this.dom.removeChild( argument.dom );
+
+			} else {
+
+				console.error( 'UIElement:', argument, 'is not an instance of UIElement.' );
+
+			}
+
+		}
+
+		return this;
+
+	}
+
+	clear() {
+
+		while ( this.dom.children.length ) {
+
+			this.dom.removeChild( this.dom.lastChild );
+
+		}
+
+	}
+
+	setId( id ) {
+
+		this.dom.id = id;
+
+		return this;
+
+	}
+
+	getId() {
+
+		return this.dom.id;
+
+	}
+
+	setClass( name ) {
+
+		this.dom.className = name;
+
+		return this;
+
+	}
+
+	addClass( name ) {
+
+		this.dom.classList.add( name );
+
+		return this;
+
+	}
+
+	removeClass( name ) {
+
+		this.dom.classList.remove( name );
+
+		return this;
+
+	}
+
+	setStyle( style, array ) {
+
+		for ( let i = 0; i < array.length; i ++ ) {
+
+			this.dom.style[ style ] = array[ i ];
+
+		}
+
+		return this;
+
+	}
+
+	setDisabled( value ) {
+
+		this.dom.disabled = value;
+
+		return this;
+
+	}
+
+	setTextContent( value ) {
+
+		this.dom.textContent = value;
+
+		return this;
+
+	}
+
+	setInnerHTML( value ) {
+
+		this.dom.innerHTML = value;
+
+	}
+
+	getIndexOfChild( element ) {
+
+		return Array.prototype.indexOf.call( this.dom.children, element.dom );
+
+	}
 
 }
 
-EditorControls.prototype = Object.create( EventDispatcher.prototype );
-EditorControls.prototype.constructor = EditorControls;
+// properties
+
+const properties = [ 'position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'border', 'borderLeft',
+	'borderTop', 'borderRight', 'borderBottom', 'borderColor', 'display', 'overflow', 'margin', 'marginLeft', 'marginTop', 'marginRight', 'marginBottom', 'padding', 'paddingLeft', 'paddingTop', 'paddingRight', 'paddingBottom', 'verticalAlign', 'color',
+	'background', 'backgroundColor', 'opacity', 'fontSize', 'fontWeight', 'textAlign', 'textDecoration', 'textTransform', 'cursor', 'zIndex' ];
+
+properties.forEach( function ( property ) {
+
+	const method = 'set' + property.substr( 0, 1 ).toUpperCase() + property.substr( 1, property.length );
+
+	UIElement.prototype[ method ] = function () {
+
+		this.setStyle( property, arguments );
+
+		return this;
+
+	};
+
+} );
+
+// events
+
+const events = [ 'KeyUp', 'KeyDown', 'MouseOver', 'MouseOut', 'Click', 'DblClick', 'Change', 'Input' ];
+
+events.forEach( function ( event ) {
+
+	const method = 'on' + event;
+
+	UIElement.prototype[ method ] = function ( callback ) {
+
+		this.dom.addEventListener( event.toLowerCase(), callback.bind( this ) );
+
+		return this;
+
+	};
+
+} );
+
+class UISpan extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'span' ) );
+
+	}
+
+}
+
+class UIDiv extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'div' ) );
+
+	}
+
+}
+
+class UIRow extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'Row';
+
+	}
+
+}
+
+class UIPanel extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'Panel';
+
+	}
+
+}
+
+class UIText extends UISpan {
+
+	constructor( text ) {
+
+		super();
+
+		this.dom.className = 'Text';
+		this.dom.style.cursor = 'default';
+		this.dom.style.display = 'inline-block';
+
+		this.setValue( text );
+
+	}
+
+	getValue() {
+
+		return this.dom.textContent;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			this.dom.textContent = value;
+
+		}
+
+		return this;
+
+	}
+
+}
+
+
+class UIInput extends UIElement {
+
+	constructor( text ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.className = 'Input';
+		this.dom.style.padding = '2px';
+		this.dom.style.border = '1px solid transparent';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.dom.addEventListener( 'keydown', function ( event ) {
+
+			event.stopPropagation();
+
+		} );
+
+		this.setValue( text );
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+		return this;
+
+	}
+
+}
+
+class UITextArea extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'textarea' ) );
+
+		this.dom.className = 'TextArea';
+		this.dom.style.padding = '2px';
+		this.dom.spellcheck = false;
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.dom.addEventListener( 'keydown', function ( event ) {
+
+			event.stopPropagation();
+
+			if ( event.keyCode === 9 ) {
+
+				event.preventDefault();
+
+				const cursor = this.selectionStart;
+
+				this.value = this.value.substring( 0, cursor ) + '\t' + this.value.substring( cursor );
+				this.selectionStart = cursor + 1;
+				this.selectionEnd = this.selectionStart;
+
+			}
+
+		} );
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+		return this;
+
+	}
+
+}
+
+class UISelect extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'select' ) );
+
+		this.dom.className = 'Select';
+		this.dom.style.padding = '2px';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+	}
+
+	setMultiple( boolean ) {
+
+		this.dom.multiple = boolean;
+
+		return this;
+
+	}
+
+	setOptions( options ) {
+
+		const selected = this.dom.value;
+
+		while ( this.dom.children.length > 0 ) {
+
+			this.dom.removeChild( this.dom.firstChild );
+
+		}
+
+		for ( const key in options ) {
+
+			const option = document.createElement( 'option' );
+			option.value = key;
+			option.innerHTML = options[ key ];
+			this.dom.appendChild( option );
+
+		}
+
+		this.dom.value = selected;
+
+		return this;
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	setValue( value ) {
+
+		value = String( value );
+
+		if ( this.dom.value !== value ) {
+
+			this.dom.value = value;
+
+		}
+
+		return this;
+
+	}
+
+}
+
+class UICheckbox extends UIElement {
+
+	constructor( boolean ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.className = 'Checkbox';
+		this.dom.type = 'checkbox';
+
+		this.setValue( boolean );
+
+	}
+
+	getValue() {
+
+		return this.dom.checked;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			this.dom.checked = value;
+
+		}
+
+		return this;
+
+	}
+
+}
+
+
+class UIColor extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.className = 'Color';
+		this.dom.style.width = '32px';
+		this.dom.style.height = '16px';
+		this.dom.style.border = '0px';
+		this.dom.style.padding = '2px';
+		this.dom.style.backgroundColor = 'transparent';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		try {
+
+			this.dom.type = 'color';
+			this.dom.value = '#ffffff';
+
+		} catch ( exception ) {}
+
+	}
+
+	getValue() {
+
+		return this.dom.value;
+
+	}
+
+	getHexValue() {
+
+		return parseInt( this.dom.value.substr( 1 ), 16 );
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+		return this;
+
+	}
+
+	setHexValue( hex ) {
+
+		this.dom.value = '#' + ( '000000' + hex.toString( 16 ) ).slice( - 6 );
+
+		return this;
+
+	}
+
+}
+
+class UINumber extends UIElement {
+
+	constructor( number ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.style.cursor = 'ns-resize';
+		this.dom.className = 'Number';
+		this.dom.value = '0.00';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.value = 0;
+
+		this.min = - Infinity;
+		this.max = Infinity;
+
+		this.precision = 2;
+		this.step = 1;
+		this.unit = '';
+		this.nudge = 0.01;
+
+		this.setValue( number );
+
+		const scope = this;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+
+		let distance = 0;
+		let onMouseDownValue = 0;
+
+		const pointer = { x: 0, y: 0 };
+		const prevPointer = { x: 0, y: 0 };
+
+		function onMouseDown( event ) {
+
+			event.preventDefault();
+
+			distance = 0;
+
+			onMouseDownValue = scope.value;
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+			document.addEventListener( 'mousemove', onMouseMove );
+			document.addEventListener( 'mouseup', onMouseUp );
+
+		}
+
+		function onMouseMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.clientX;
+			pointer.y = event.clientY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
+
+			}
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+		}
+
+		function onMouseUp() {
+
+			document.removeEventListener( 'mousemove', onMouseMove );
+			document.removeEventListener( 'mouseup', onMouseUp );
+
+			if ( Math.abs( distance ) < 2 ) {
+
+				scope.dom.focus();
+				scope.dom.select();
+
+			}
+
+		}
+
+		function onTouchStart( event ) {
+
+			if ( event.touches.length === 1 ) {
+
+				distance = 0;
+
+				onMouseDownValue = scope.value;
+
+				prevPointer.x = event.touches[ 0 ].pageX;
+				prevPointer.y = event.touches[ 0 ].pageY;
+
+				document.addEventListener( 'touchmove', onTouchMove );
+				document.addEventListener( 'touchend', onTouchEnd );
+
+			}
+
+		}
+
+		function onTouchMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.touches[ 0 ].pageX;
+			pointer.y = event.touches[ 0 ].pageY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) );
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
+
+			}
+
+			prevPointer.x = event.touches[ 0 ].pageX;
+			prevPointer.y = event.touches[ 0 ].pageY;
+
+		}
+
+		function onTouchEnd( event ) {
+
+			if ( event.touches.length === 0 ) {
+
+				document.removeEventListener( 'touchmove', onTouchMove );
+				document.removeEventListener( 'touchend', onTouchEnd );
+
+			}
+
+		}
+
+		function onChange() {
+
+			scope.setValue( scope.dom.value );
+
+		}
+
+		function onFocus() {
+
+			scope.dom.style.backgroundColor = '';
+			scope.dom.style.cursor = '';
+
+		}
+
+		function onBlur() {
+
+			scope.dom.style.backgroundColor = 'transparent';
+			scope.dom.style.cursor = 'ns-resize';
+
+		}
+
+		function onKeyDown( event ) {
+
+			event.stopPropagation();
+
+			switch ( event.keyCode ) {
+
+				case 13: // enter
+					scope.dom.blur();
+					break;
+
+				case 38: // up
+					event.preventDefault();
+					scope.setValue( scope.getValue() + scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+				case 40: // down
+					event.preventDefault();
+					scope.setValue( scope.getValue() - scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+			}
+
+		}
+
+		onBlur();
+
+		this.dom.addEventListener( 'keydown', onKeyDown );
+		this.dom.addEventListener( 'mousedown', onMouseDown );
+		this.dom.addEventListener( 'touchstart', onTouchStart );
+		this.dom.addEventListener( 'change', onChange );
+		this.dom.addEventListener( 'focus', onFocus );
+		this.dom.addEventListener( 'blur', onBlur );
+
+	}
+
+	getValue() {
+
+		return this.value;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			value = parseFloat( value );
+
+			if ( value < this.min ) value = this.min;
+			if ( value > this.max ) value = this.max;
+
+			this.value = value;
+			this.dom.value = value.toFixed( this.precision );
+
+			if ( this.unit !== '' ) this.dom.value += ' ' + this.unit;
+
+		}
+
+		return this;
+
+	}
+
+	setPrecision( precision ) {
+
+		this.precision = precision;
+
+		return this;
+
+	}
+
+	setStep( step ) {
+
+		this.step = step;
+
+		return this;
+
+	}
+
+	setNudge( nudge ) {
+
+		this.nudge = nudge;
+
+		return this;
+
+	}
+
+	setRange( min, max ) {
+
+		this.min = min;
+		this.max = max;
+
+		return this;
+
+	}
+
+	setUnit( unit ) {
+
+		this.unit = unit;
+
+		return this;
+
+	}
+
+}
+
+class UIInteger extends UIElement {
+
+	constructor( number ) {
+
+		super( document.createElement( 'input' ) );
+
+		this.dom.style.cursor = 'ns-resize';
+		this.dom.className = 'Number';
+		this.dom.value = '0';
+
+		this.dom.setAttribute( 'autocomplete', 'off' );
+
+		this.value = 0;
+
+		this.min = - Infinity;
+		this.max = Infinity;
+
+		this.step = 1;
+		this.nudge = 1;
+
+		this.setValue( number );
+
+		const scope = this;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+
+		let distance = 0;
+		let onMouseDownValue = 0;
+
+		const pointer = { x: 0, y: 0 };
+		const prevPointer = { x: 0, y: 0 };
+
+		function onMouseDown( event ) {
+
+			event.preventDefault();
+
+			distance = 0;
+
+			onMouseDownValue = scope.value;
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+			document.addEventListener( 'mousemove', onMouseMove );
+			document.addEventListener( 'mouseup', onMouseUp );
+
+		}
+
+		function onMouseMove( event ) {
+
+			const currentValue = scope.value;
+
+			pointer.x = event.clientX;
+			pointer.y = event.clientY;
+
+			distance += ( pointer.x - prevPointer.x ) - ( pointer.y - prevPointer.y );
+
+			let value = onMouseDownValue + ( distance / ( event.shiftKey ? 5 : 50 ) ) * scope.step;
+			value = Math.min( scope.max, Math.max( scope.min, value ) ) | 0;
+
+			if ( currentValue !== value ) {
+
+				scope.setValue( value );
+				scope.dom.dispatchEvent( changeEvent );
+
+			}
+
+			prevPointer.x = event.clientX;
+			prevPointer.y = event.clientY;
+
+		}
+
+		function onMouseUp() {
+
+			document.removeEventListener( 'mousemove', onMouseMove );
+			document.removeEventListener( 'mouseup', onMouseUp );
+
+			if ( Math.abs( distance ) < 2 ) {
+
+				scope.dom.focus();
+				scope.dom.select();
+
+			}
+
+		}
+
+		function onChange() {
+
+			scope.setValue( scope.dom.value );
+
+		}
+
+		function onFocus() {
+
+			scope.dom.style.backgroundColor = '';
+			scope.dom.style.cursor = '';
+
+		}
+
+		function onBlur() {
+
+			scope.dom.style.backgroundColor = 'transparent';
+			scope.dom.style.cursor = 'ns-resize';
+
+		}
+
+		function onKeyDown( event ) {
+
+			event.stopPropagation();
+
+			switch ( event.keyCode ) {
+
+				case 13: // enter
+					scope.dom.blur();
+					break;
+
+				case 38: // up
+					event.preventDefault();
+					scope.setValue( scope.getValue() + scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+				case 40: // down
+					event.preventDefault();
+					scope.setValue( scope.getValue() - scope.nudge );
+					scope.dom.dispatchEvent( changeEvent );
+					break;
+
+			}
+
+		}
+
+		onBlur();
+
+		this.dom.addEventListener( 'keydown', onKeyDown );
+		this.dom.addEventListener( 'mousedown', onMouseDown );
+		this.dom.addEventListener( 'change', onChange );
+		this.dom.addEventListener( 'focus', onFocus );
+		this.dom.addEventListener( 'blur', onBlur );
+
+	}
+
+	getValue() {
+
+		return this.value;
+
+	}
+
+	setValue( value ) {
+
+		if ( value !== undefined ) {
+
+			value = parseInt( value );
+
+			this.value = value;
+			this.dom.value = value;
+
+		}
+
+		return this;
+
+	}
+
+	setStep( step ) {
+
+		this.step = parseInt( step );
+
+		return this;
+
+	}
+
+	setNudge( nudge ) {
+
+		this.nudge = nudge;
+
+		return this;
+
+	}
+
+	setRange( min, max ) {
+
+		this.min = min;
+		this.max = max;
+
+		return this;
+
+	}
+
+}
+
+class UIBreak extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'br' ) );
+
+		this.dom.className = 'Break';
+
+	}
+
+}
+
+class UIHorizontalRule extends UIElement {
+
+	constructor() {
+
+		super( document.createElement( 'hr' ) );
+
+		this.dom.className = 'HorizontalRule';
+
+	}
+
+}
+
+class UIButton extends UIElement {
+
+	constructor( value ) {
+
+		super( document.createElement( 'button' ) );
+
+		this.dom.className = 'Button';
+		this.dom.textContent = value;
+
+	}
+
+}
+
+class UIProgress extends UIElement {
+
+	constructor( value ) {
+
+		super( document.createElement( 'progress' ) );
+
+		this.dom.value = value;
+
+	}
+
+	setValue( value ) {
+
+		this.dom.value = value;
+
+	}
+
+}
+
+class UITabbedPanel extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'TabbedPanel';
+
+		this.tabs = [];
+		this.panels = [];
+
+		this.tabsDiv = new UIDiv();
+		this.tabsDiv.setClass( 'Tabs' );
+
+		this.panelsDiv = new UIDiv();
+		this.panelsDiv.setClass( 'Panels' );
+
+		this.add( this.tabsDiv );
+		this.add( this.panelsDiv );
+
+		this.selected = '';
+
+	}
+
+	select( id ) {
+
+		let tab;
+		let panel;
+		const scope = this;
+
+		// Deselect current selection
+		if ( this.selected && this.selected.length ) {
+
+			tab = this.tabs.find( function ( item ) {
+
+				return item.dom.id === scope.selected;
+
+			} );
+			panel = this.panels.find( function ( item ) {
+
+				return item.dom.id === scope.selected;
+
+			} );
+
+			if ( tab ) {
+
+				tab.removeClass( 'selected' );
+
+			}
+
+			if ( panel ) {
+
+				panel.setDisplay( 'none' );
+
+			}
+
+		}
+
+		tab = this.tabs.find( function ( item ) {
+
+			return item.dom.id === id;
+
+		} );
+		panel = this.panels.find( function ( item ) {
+
+			return item.dom.id === id;
+
+		} );
+
+		if ( tab ) {
+
+			tab.addClass( 'selected' );
+
+		}
+
+		if ( panel ) {
+
+			panel.setDisplay( '' );
+
+		}
+
+		this.selected = id;
+
+		return this;
+
+	}
+
+	addTab( id, label, items ) {
+
+		const tab = new UITab( label, this );
+		tab.setId( id );
+		this.tabs.push( tab );
+		this.tabsDiv.add( tab );
+
+		const panel = new UIDiv();
+		panel.setId( id );
+		panel.add( items );
+		panel.setDisplay( 'none' );
+		this.panels.push( panel );
+		this.panelsDiv.add( panel );
+
+		this.select( id );
+
+	}
+
+}
+
+class UITab extends UIText {
+
+	constructor( text, parent ) {
+
+		super( text );
+
+		this.dom.className = 'Tab';
+
+		this.parent = parent;
+
+		const scope = this;
+
+		this.dom.addEventListener( 'click', function () {
+
+			scope.parent.select( scope.dom.id );
+
+		} );
+
+	}
+
+}
+
+class UIListbox extends UIDiv {
+
+	constructor() {
+
+		super();
+
+		this.dom.className = 'Listbox';
+		this.dom.tabIndex = 0;
+
+		this.items = [];
+		this.listitems = [];
+		this.selectedIndex = 0;
+		this.selectedValue = null;
+
+	}
+
+	setItems( items ) {
+
+		if ( Array.isArray( items ) ) {
+
+			this.items = items;
+
+		}
+
+		this.render();
+
+	}
+
+	render( ) {
+
+		while ( this.listitems.length ) {
+
+			const item = this.listitems[ 0 ];
+
+			item.dom.remove();
+
+			this.listitems.splice( 0, 1 );
+
+		}
+
+		for ( let i = 0; i < this.items.length; i ++ ) {
+
+			const item = this.items[ i ];
+
+			const listitem = new UIListbox.ListboxItem( this );
+			listitem.setId( item.id || `Listbox-${i}` );
+			listitem.setTextContent( item.name || item.type );
+			this.add( listitem );
+
+		}
+
+	}
+
+	add() {
+
+		const items = Array.from( arguments );
+
+		this.listitems = this.listitems.concat( items );
+
+		UIElement.prototype.add.apply( this, items );
+
+	}
+
+	selectIndex( index ) {
+
+		if ( index >= 0 && index < this.items.length ) {
+
+			this.setValue( this.listitems[ index ].getId() );
+
+		}
+
+		this.selectedIndex = index;
+
+	}
+
+	getValue() {
+
+		return this.selectedValue;
+
+	}
+
+	setValue( value ) {
+
+		for ( let i = 0; i < this.listitems.length; i ++ ) {
+
+			const element = this.listitems[ i ];
+
+			if ( element.getId() === value ) {
+
+				element.addClass( 'active' );
+
+			} else {
+
+				element.removeClass( 'active' );
+
+			}
+
+		}
+
+		this.selectedValue = value;
+
+		const changeEvent = document.createEvent( 'HTMLEvents' );
+		changeEvent.initEvent( 'change', true, true );
+		this.dom.dispatchEvent( changeEvent );
+
+	}
+
+}
+
+class ListboxItem extends UIDiv {
+
+	constructor( parent ) {
+
+		super();
+
+		this.dom.className = 'ListboxItem';
+
+		this.parent = parent;
+
+		const scope = this;
+
+		function onClick() {
+
+			if ( scope.parent ) {
+
+				scope.parent.setValue( scope.getId( ) );
+
+			}
+
+		}
+
+		this.dom.addEventListener( 'click', onClick );
+
+	}
+
+}
 
 class Config {
 	
@@ -61057,13 +60293,10 @@ module.exports = {
 	THREE,
 	History,
 	Loader,
-	ViewHelper,
-	ViewportInfo,
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
 	SetScaleCommand,
-	EditorControls,
 	Config,
 	UIPanel,
 	UIDiv,

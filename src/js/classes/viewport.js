@@ -144,7 +144,7 @@ class Viewport {
 			}
 		}
 		
-		/*
+		/**/
 		function onMouseDown( event ) {
 			// event.preventDefault();
 			const array = getMousePosition( container.dom, event.clientX, event.clientY );
@@ -170,7 +170,7 @@ class Viewport {
 		
 		container.dom.addEventListener( 'mousedown', onMouseDown );
 		container.dom.addEventListener( 'dblclick', onDoubleClick );
-		*/
+		
 		
 		// controls need to be added *after* main logic,
 		// otherwise controls.enabled doesn't work.

@@ -11,7 +11,7 @@
 			<Tool symbol="icon-pan"/>
 		</Options>
 		
-		<Tool symbol="icon-cog" />
+		<Tool symbol="icon-cog" state="disabled"/>
 	</Group>
 	<Group>
 		
