@@ -235,8 +235,10 @@ class Viewport {
 		}
 
 		function resize() {
+			let width = container.dom.offsetWidth,
+				height = container.dom.offsetHeight;
 			updateAspectRatio();
-			renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
+			renderer.setSize( width, height );
 			render();
 		}
 

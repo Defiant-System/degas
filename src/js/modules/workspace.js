@@ -14,30 +14,29 @@
 		editor = new Editor();
 		viewport = new Viewport(editor);
 
-		/*
+		let width = window.innerWidth,
+			height = window.innerHeight;
+
 		this.postProcessing = {
 			composer: new EffectComposer( renderer ),
 			renderPass: new RenderPass( editor.scene, editor.camera ),
-			outlinePass: new OutlinePass( new THREE.Vector2( window.innerWidth, window.innerHeight ), editor.scene, editor.camera ),
-			effectFXAA: new ShaderPass( FXAAShader ),
+			outlinePass: new OutlinePass( new THREE.Vector2( width, height ), editor.scene, editor.camera ),
+			// effectFXAA: new ShaderPass( FXAAShader ),
 		};
 		
-		this.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
+		// this.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
 
 		this.postProcessing.composer.addPass( this.postProcessing.renderPass );
 		this.postProcessing.composer.addPass( this.postProcessing.outlinePass );
-		this.postProcessing.composer.addPass( this.postProcessing.effectFXAA );
-
-		this.postProcessing.outlinePass.edgeStrength = Number( 3.0 );
-		this.postProcessing.outlinePass.edgeGlow = Number( 0.0 );
-		this.postProcessing.outlinePass.edgeThickness = Number( 1.0 );
-		this.postProcessing.outlinePass.pulsePeriod = Number( 0 );
-		this.postProcessing.outlinePass.usePatternTexture = false;
-
-		this.postProcessing.outlinePass.visibleEdgeColor.set( '#ffffff' );
-		this.postProcessing.outlinePass.hiddenEdgeColor.set( '#190a05' );
-		*/
-
+		// this.postProcessing.composer.addPass( this.postProcessing.effectFXAA );
+		// outline details
+		this.postProcessing.outlinePass.edgeStrength = 3.0;
+		this.postProcessing.outlinePass.edgeThickness = 1.0;
+		// outline color
+		this.postProcessing.outlinePass.visibleEdgeColor.set( '#ff9900' );
+		this.postProcessing.outlinePass.hiddenEdgeColor.set( '#2255cc' );
+		// set composer dimension
+		this.postProcessing.composer.setSize( width, height );
 
 		// append panel
 		this.els.workspace.append(viewport.container.dom);
@@ -102,10 +101,11 @@
 				return true;
 			case "add-mesh":
 				object = Self.getMesh(event.arg);
+				if (event.position) object.position.set(...event.position);
 				editor.addObject( object );
 				editor.select( object );
 
-				// Self.postProcessing.outlinePass.selectedObjects = [object];
+				Self.postProcessing.outlinePass.selectedObjects = [object];
 
 				viewport.viewInfo.update();
 				viewport.render();
