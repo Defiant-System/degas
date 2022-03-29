@@ -11,7 +11,7 @@ import { RenderPass } from './modules/threejs/examples/jsm/postprocessing/Render
 import { ShaderPass } from './modules/threejs/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js';
-
+import { GammaCorrectionShader } from './modules/threejs/examples/jsm/shaders/GammaCorrectionShader.js';
 
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
@@ -30,6 +30,7 @@ module.exports = {
 	ShaderPass,
 	OutlinePass,
 	FXAAShader,
+	GammaCorrectionShader,
 
 	TransformControls,
 	SetPositionCommand,

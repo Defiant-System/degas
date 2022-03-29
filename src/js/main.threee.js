@@ -10,6 +10,7 @@ const {
 	ShaderPass,
 	OutlinePass,
 	FXAAShader,
+	GammaCorrectionShader,
 
 	TransformControls,
 	SetPositionCommand,

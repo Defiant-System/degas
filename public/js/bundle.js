@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-65970eca.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-4575a895.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-f48d1757.js' );
+					const { TDSLoader } = await import( './TDSLoader-1edc4298.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-93694b74.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-1cec0412.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-39f1b765.js' );
+					const { AMFLoader } = await import( './AMFLoader-1d7fb91d.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-585d316f.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-369fe106.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-4ae25925.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a2f7acc4.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-0a83e0c2.js' );
+					const { FBXLoader } = await import( './FBXLoader-c22d0779.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-4ae25925.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-9a3ba639.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a2f7acc4.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-a30c9ecd.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-4ae25925.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-9a3ba639.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-a2f7acc4.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-a30c9ecd.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-14f6e35d.js' );
+					const { IFCLoader } = await import( './IFCLoader-bef880f9.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-cbec51a0.js' );
+					const { KMZLoader } = await import( './KMZLoader-a173935b.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-01b5ffbf.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-cfc33066.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-dc655d9d.js' );
+					const { MD2Loader } = await import( './MD2Loader-fc2507b8.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-5822c380.js' );
+					const { OBJLoader } = await import( './OBJLoader-0ce7b1ee.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-dfc697f4.js' );
+					const { PLYLoader } = await import( './PLYLoader-00615e8c.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-6a8c5df4.js' );
+					const { STLLoader } = await import( './STLLoader-c00d2160.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-249abcc4.js' );
+					const { SVGLoader } = await import( './SVGLoader-afe9706f.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-76540b4a.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-2f0d2e3c.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-65acd400.js' );
+					const { VTKLoader } = await import( './VTKLoader-9597d603.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-7a3f4d90.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-5dbd9004.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-3e0d2d3b.js' );
+					const { XYZLoader } = await import( './XYZLoader-ba2b7df1.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-79826464.js' );
-			const { OBJLoader } = await import( './OBJLoader-5822c380.js' );
+			const { MTLLoader } = await import( './MTLLoader-fa90ee3a.js' );
+			const { OBJLoader } = await import( './OBJLoader-0ce7b1ee.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-0a83e0c2.js' );
+					const { FBXLoader } = await import( './FBXLoader-c22d0779.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-4ae25925.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-9a3ba639.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a2f7acc4.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-a30c9ecd.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-4ae25925.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-9a3ba639.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a2f7acc4.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-a30c9ecd.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -60781,6 +60781,46 @@ const FXAAShader = {
 
 };
 
+/**
+ * Gamma Correction Shader
+ * http://en.wikipedia.org/wiki/gamma_correction
+ */
+
+const GammaCorrectionShader = {
+
+	uniforms: {
+
+		'tDiffuse': { value: null }
+
+	},
+
+	vertexShader: /* glsl */`
+
+		varying vec2 vUv;
+
+		void main() {
+
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+		}`,
+
+	fragmentShader: /* glsl */`
+
+		uniform sampler2D tDiffuse;
+
+		varying vec2 vUv;
+
+		void main() {
+
+			vec4 tex = texture2D( tDiffuse, vUv );
+
+			gl_FragColor = LinearTosRGB( tex );
+
+		}`
+
+};
+
 class Config {
 	
 	constructor() {
@@ -62678,6 +62718,7 @@ module.exports = {
 	ShaderPass,
 	OutlinePass,
 	FXAAShader,
+	GammaCorrectionShader,
 
 	TransformControls,
 	SetPositionCommand,

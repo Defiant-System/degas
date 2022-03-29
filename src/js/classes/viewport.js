@@ -218,7 +218,10 @@ class Viewport {
 			scene.add( grid );
 			renderer.setClearColor( 0x333333 );
 			renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
+
 			renderer.render( scene, editor.viewportCamera );
+			//APP.workspace.postProcessing.composer.render();
+			
 			scene.remove( grid );
 			if ( camera === editor.viewportCamera ) {
 				renderer.autoClear = false;
@@ -229,8 +232,6 @@ class Viewport {
 			}
 			endTime = performance.now();
 
-			// APP.workspace.postProcessing.composer.render();
-			
 			Self.viewInfo.updateFrametime( endTime - startTime );
 		}
 

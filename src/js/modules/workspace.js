@@ -22,6 +22,7 @@
 			renderPass: new RenderPass( editor.scene, editor.camera ),
 			outlinePass: new OutlinePass( new THREE.Vector2( width, height ), editor.scene, editor.camera ),
 			// effectFXAA: new ShaderPass( FXAAShader ),
+			gammaPass: new ShaderPass( GammaCorrectionShader ),
 		};
 		
 		// this.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
@@ -29,6 +30,7 @@
 		this.postProcessing.composer.addPass( this.postProcessing.renderPass );
 		this.postProcessing.composer.addPass( this.postProcessing.outlinePass );
 		// this.postProcessing.composer.addPass( this.postProcessing.effectFXAA );
+		this.postProcessing.composer.addPass( this.postProcessing.gammaPass );
 		// outline details
 		this.postProcessing.outlinePass.edgeStrength = 3.0;
 		this.postProcessing.outlinePass.edgeThickness = 1.0;
