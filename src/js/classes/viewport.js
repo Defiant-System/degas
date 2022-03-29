@@ -171,7 +171,6 @@ class Viewport {
 		container.dom.addEventListener( 'mousedown', onMouseDown );
 		container.dom.addEventListener( 'dblclick', onDoubleClick );
 		
-		
 		// controls need to be added *after* main logic,
 		// otherwise controls.enabled doesn't work.
 		const controls = new EditorControls( camera, container.dom );
@@ -184,10 +183,8 @@ class Viewport {
 		viewHelper.controls = controls;
 
 		// animations
-		const clock = new THREE.Clock(); // only used for animations
+		let clock = new THREE.Clock(); // only used for animations
 		function animate() {
-			requestAnimationFrame(animate);
-
 			const mixer = editor.mixer;
 			const delta = clock.getDelta();
 			let needsUpdate = false;
@@ -198,13 +195,18 @@ class Viewport {
 			if ( viewHelper.animating === true ) {
 				viewHelper.update( delta );
 				needsUpdate = true;
+			} else {
+				// reset animation clock
+				clock = new THREE.Clock();
 			}
 			if ( vr.currentSession !== null ) {
 				needsUpdate = true;
 			}
-			if ( needsUpdate === true ) render();
+			if ( needsUpdate === true ) {
+				render();
+				requestAnimationFrame(animate);
+			}
 		}
-
 
 		//
 		let startTime = 0;
@@ -239,10 +241,10 @@ class Viewport {
 		// public properties / methods
 		this.resize = resize;
 		this.render = render;
+		this.animate = animate;
 		this.viewInfo = viewInfo;
 		this.container = container;
 		this.grid = grid;
-		this.animate = animate;
 
 		this.selectObject = function(object) {
 			selectionBox.visible = false;

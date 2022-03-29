@@ -7,6 +7,7 @@ class ViewHelper extends THREE.Object3D {
 
 		super();
 
+		const Self = this;
 		const dom = container.dom;
 		const panel = new UIPanel();
 		panel.setId( 'viewHelper' );
@@ -158,6 +159,8 @@ class ViewHelper extends THREE.Object3D {
 				const object = intersection.object;
 				prepareAnimationData( object, this.controls.center );
 				this.animating = true;
+				// start animation
+				viewport.animate();
 				return true;
 			} else {
 				return false;
@@ -221,9 +224,6 @@ class ViewHelper extends THREE.Object3D {
 
 			dummy.lookAt( targetPosition );
 			q2.copy( dummy.quaternion );
-
-			// temp
-			viewport.animate();
 		}
 
 		function getAxisMaterial( color ) {
