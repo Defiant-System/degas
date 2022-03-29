@@ -1,16 +1,10 @@
 
-@import "./classes/Editor.js";
-@import "./classes/Viewport.js";
-@import "./classes/Viewport.VR.js";
-@import "./classes/Viewport.ViewportInfo.js";
-@import "./classes/Strings.js";
-
 // import libs
 const {
 	THREE,
 	History,
 	Loader,
-	ViewHelper,
+	// ViewHelper,
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
@@ -21,6 +15,14 @@ const {
 	UIDiv,
 	UIText,
 } = await window.fetch("~/js/bundle.js");
+
+
+@import "./classes/Editor.js";
+@import "./classes/Viewport.js";
+@import "./classes/Viewport.VR.js";
+@import "./classes/Viewport.ViewportInfo.js";
+@import "./classes/Viewport.ViewHelper.js";
+@import "./classes/Strings.js";
 
 
 let editor,
