@@ -17,6 +17,9 @@ const degas = {
 		setTimeout(() => {
 			this.dispatch({ type: "add-light", arg: "directionallight" });
 			this.dispatch({ type: "add-mesh", arg: "torusknot" });
+
+			this.workspace.dispatch({ type: "deselect" });
+			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 		}, 200);
 	},
 	dispatch(event) {

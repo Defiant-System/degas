@@ -3,9 +3,12 @@
 
 {
 	init() {
+		// fast references
 		this.els = {
 			workspace: window.find(".workspace"),
 		};
+
+		this.viewShadeMode = "solid";
 
 		// create editor + viewport
 		editor = new Editor();
@@ -21,6 +24,8 @@
 		let APP = degas,
 			Self = APP.workspace,
 			object,
+			name,
+			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -32,8 +37,17 @@
 				// resize viewport
 				viewport.resize();
 				break;
+			case "deselect":
+				editor.deselect();
+				break;
 			case "set-view-shade":
-				console.log(event);
+				if (["wireframe", "solid"].includes(event.arg)) {
+					value = event.arg === "wireframe";
+					editor.scene.children
+						.filter(item => item.material)
+						.map(mesh => mesh.material.wireframe = value);
+				}
+				viewport.render();
 				return true;
 			case "set-transform-control-mode":
 				viewport.transformControlsSetMode(event.arg);
