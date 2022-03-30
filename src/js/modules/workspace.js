@@ -103,17 +103,20 @@
 				return true;
 			case "add-mesh":
 				object = Self.getMesh(event.arg);
+				// apply argument value
 				if (event.position) object.position.set(...event.position);
 				editor.addObject( object );
 				editor.select( object );
-
-				Self.postProcessing.outlinePass.selectedObjects = [object];
-
 				viewport.viewInfo.update();
 				viewport.render();
+				if (APP.outlinePass) {
+					Self.postProcessing.outlinePass.selectedObjects = [object];
+				}
 				break;
 			case "add-light":
 				object = Self.getLight(event.arg);
+				// apply argument value
+				if (event.intensity) object.intensity = event.intensity;
 				editor.addObject( object );
 				editor.select( object );
 				viewport.viewInfo.update();
@@ -125,7 +128,7 @@
 		}
 	},
 	getLight(type) {
-		let intensity = .5,
+		let intensity = 1,
 			distance = 0,
 			color = 0xffffff,
 			light;

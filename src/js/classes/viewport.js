@@ -12,8 +12,6 @@ class Viewport {
 		container.add( viewInfo.container );
 
 		//
-		let pmremGenerator = null;
-
 		const camera = editor.camera;
 		const scene = editor.scene;
 		const sceneHelpers = editor.sceneHelpers;
@@ -36,11 +34,8 @@ class Viewport {
 		const viewHelper = new ViewHelper( camera, container );
 		const vr = new VR( editor );
 		const box = new THREE.Box3();
+		const selectionBox = new THREE.Box3Helper( box, 0xff9900 );
 
-		// this.viewHelper = viewHelper;
-		// this.vr = vr;
-
-		const selectionBox = new THREE.Box3Helper( box );
 		selectionBox.material.depthTest = THREE.AlwaysDepth;
 		selectionBox.material.transparent = true;
 		selectionBox.visible = false;

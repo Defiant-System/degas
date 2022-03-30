@@ -17,14 +17,14 @@ const degas = {
 
 		// temp
 		setTimeout(() => {
-			this.dispatch({ type: "add-light", arg: "directionallight" });
+			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .25 });
 			this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
 			this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
 			this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
 
 			this.workspace.dispatch({ type: "deselect" });
 			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
-		}, 200);
+		}, 100);
 	},
 	dispatch(event) {
 		let Self = degas,
