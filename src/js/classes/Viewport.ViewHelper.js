@@ -22,8 +22,36 @@ class ViewHelper extends THREE.Object3D {
 			this.handleClick( event );
 		} );
 
+		panel.dom.addEventListener( 'pointermove', function ( event ) {
+			let mouse = new THREE.Vector2();
+			let rect = dom.getBoundingClientRect();
+			let offsetX = rect.left + ( dom.offsetWidth - dim );
+			let offsetY = rect.top + ( dom.offsetHeight - dim );
+			
+			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
+			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
+			raycaster.setFromCamera( mouse, camera );
+			panel.removeClass("mouseHand");
+
+			let intersects = raycaster.intersectObjects( interactiveObjects );
+
+			if (intersects.length) {
+				Self.hoverHighlight = () => {
+					intersects[0].object.userData.originalMaterial = intersects[0].object.material;
+					intersects[0].object.material = hoverMaterial;
+					delete Self.hoverHighlight;
+				};
+				panel.addClass("mouseHand");
+				viewport.render();
+			}
+		} );
+
 		panel.dom.addEventListener( 'pointerdown', function ( event ) {
 			event.stopPropagation();
+		} );
+
+		panel.dom.addEventListener( 'pointerout', function ( event ) {
+			viewport.render();
 		} );
 
 		container.add( panel );
@@ -36,6 +64,7 @@ class ViewHelper extends THREE.Object3D {
 		const color1 = new THREE.Color( '#ff3653' );
 		const color2 = new THREE.Color( '#8adb00' );
 		const color3 = new THREE.Color( '#2c8fff' );
+		const color4 = new THREE.Color( '#ffffff' );
 		const interactiveObjects = [];
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
@@ -68,6 +97,8 @@ class ViewHelper extends THREE.Object3D {
 		const negZAxisHelper = new THREE.Sprite( getSpriteMaterial( color3 ) );
 		negZAxisHelper.userData.type = 'negZ';
 
+		const hoverMaterial = getSpriteMaterial( color4 );
+
 		posXAxisHelper.position.x = 1;
 		posYAxisHelper.position.y = 1;
 		posZAxisHelper.position.z = 1;
@@ -96,13 +127,20 @@ class ViewHelper extends THREE.Object3D {
 		const dim = 128;
 		const turnRate = 2 * Math.PI; // turn rate in angles per second
 
-		this.render = function ( renderer ) {
+		this.render = function ( renderer, fn ) {
 
 			this.quaternion.copy( editorCamera.quaternion ).invert();
 			this.updateMatrixWorld();
 
 			point.set( 0, 0, 1 );
 			point.applyQuaternion( editorCamera.quaternion );
+
+			interactiveObjects.map(item => {
+				if (item.userData.originalMaterial) {
+					item.material = item.userData.originalMaterial;
+					delete item.userData.originalMaterial;
+				}
+			});
 
 			if ( point.x >= 0 ) {
 				posXAxisHelper.material.opacity = 1;
@@ -125,6 +163,9 @@ class ViewHelper extends THREE.Object3D {
 				posZAxisHelper.material.opacity = 0.5;
 				negZAxisHelper.material.opacity = 1;
 			}
+
+			if (Self.hoverHighlight) Self.hoverHighlight();
+
 			//
 			const x = dom.offsetWidth - dim;
 			renderer.clearDepth();
