@@ -5,13 +5,6 @@ const {
 	History,
 	Loader,
 
-	EffectComposer,
-	RenderPass,
-	ShaderPass,
-	OutlinePass,
-	FXAAShader,
-	GammaCorrectionShader,
-
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
@@ -41,6 +34,6 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 
 let _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
-_DEFAULT_CAMERA.position.set( 4, 4, 5 );
+_DEFAULT_CAMERA.position.set( 5, 5, 6.5 );
 _DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
 

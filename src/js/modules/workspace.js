@@ -14,32 +14,6 @@
 		editor = new Editor();
 		viewport = new Viewport(editor);
 
-		let width = window.innerWidth,
-			height = window.innerHeight;
-
-		this.postProcessing = {
-			composer: new EffectComposer( renderer ),
-			renderPass: new RenderPass( editor.scene, editor.camera ),
-			outlinePass: new OutlinePass( new THREE.Vector2( width, height ), editor.scene, editor.camera ),
-			effectFXAA: new ShaderPass( FXAAShader ),
-			gammaPass: new ShaderPass( GammaCorrectionShader ),
-		};
-		
-		this.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
-
-		this.postProcessing.composer.addPass( this.postProcessing.renderPass );
-		this.postProcessing.composer.addPass( this.postProcessing.outlinePass );
-		this.postProcessing.composer.addPass( this.postProcessing.effectFXAA );
-		this.postProcessing.composer.addPass( this.postProcessing.gammaPass );
-		// outline details
-		this.postProcessing.outlinePass.edgeStrength = 3.0;
-		this.postProcessing.outlinePass.edgeThickness = 1.0;
-		// outline color
-		this.postProcessing.outlinePass.visibleEdgeColor.set( '#ff9900' );
-		this.postProcessing.outlinePass.hiddenEdgeColor.set( '#2255cc' );
-		// set composer dimension
-		this.postProcessing.composer.setSize( width, height );
-
 		// append panel
 		this.els.workspace.append(viewport.container.dom);
 		this.els.rendererCvs = this.els.workspace.append(renderer.domElement),
@@ -105,16 +79,13 @@
 				viewport.transformControlsSetMode(event.arg);
 				return true;
 			case "add-mesh":
-				object = Self.getMesh(event.arg);
+				object = event.object || Self.getMesh(event.arg);
 				// apply argument value
 				if (event.position) object.position.set(...event.position);
 				editor.addObject( object );
 				editor.select( object );
 				viewport.viewInfo.update();
 				viewport.render();
-				if (APP.outlinePass) {
-					Self.postProcessing.outlinePass.selectedObjects = [object];
-				}
 				break;
 			case "add-light":
 				object = Self.getLight(event.arg);

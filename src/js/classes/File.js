@@ -6,33 +6,28 @@ class File {
 		this._file = fsFile || new defiant.File();
 
 		// if new "empty" file
-		// if (!fsFile.blob) return;
+		if (!fsFile.blob) return;
 
 		switch (this._file.kind) {
 			case "obj":
 				let reader = new FileReader();
 				reader.addEventListener("load", async () => {
 
-					window.fetch("~/js/loaders/OBJLoader.js", { responseType: "text" })
-					.then(resp => {
+					if (!APP.Loaders.OBJLoader) {
 						let mod = {},
+							resp = await this.getLoader(),
 							code = `let module = mod; ${resp.data}`;
+						new Function("mod", "THREE", code).call({}, mod, THREE);
+						APP.Loaders.OBJLoader = mod.exports.OBJLoader;
+					}
+					let object = new APP.Loaders.OBJLoader().parse( reader.result );
 
-						let AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-						new AsyncFunction("mod", "THREE", code).call({}, mod, THREE)
-							.then(() => {
-								let { OBJLoader } = mod.exports,
-									object = new OBJLoader().parse( reader.result );
-								object.name = this._file.name;
+					object = object.children[0];
+					object.name = this._file.name;
 
-								editor.addObject( object );
-								editor.select( object );
-								viewport.viewInfo.update();
-								viewport.render();
-								
-							});
-					});
-
+					// pass along imported object to workspace
+					APP.workspace.dispatch({ type: "add-mesh", object });
+					
 				}, false);
 				reader.readAsText(this._file.blob);
 				break;
@@ -46,6 +41,10 @@ class File {
 			case "close-file":
 				break;
 		}
+	}
+
+	getLoader(callback) {
+		return window.fetch("~/js/loaders/OBJLoader.js", { responseType: "text" });
 	}
 
 	async toBlob(mime, quality) {

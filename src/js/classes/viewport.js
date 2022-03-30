@@ -213,12 +213,7 @@ class Viewport {
 			scene.add( grid );
 			renderer.setClearColor( 0x333333 );
 			renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
-
-			if (APP.outlinePass) {
-				APP.workspace.postProcessing.composer.render();
-			} else {
-				renderer.render( scene, editor.viewportCamera );
-			}
+			renderer.render( scene, editor.viewportCamera );
 			
 			scene.remove( grid );
 			if ( camera === editor.viewportCamera ) {
