@@ -1,6 +1,9 @@
 
 @import "./main.threee.js";
 
+@import "./classes/File.js";
+
+
 const degas = {
 	init() {
 		// fast references
@@ -17,7 +20,7 @@ const degas = {
 
 		// temp
 		setTimeout(() => {
-			// return;
+			return;
 			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .25 });
 			this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
 			this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
@@ -68,6 +71,8 @@ const degas = {
 				Self.els.content.removeClass("show-blank-view");
 				// resize renderer canvas
 				Self.workspace.dispatch({ type: "resize-workspace" });
+				// save reference to file
+				Self.file = new File(event.file);
 				break;
 			case "open-file":
 				window.dialog.open({
@@ -78,6 +83,8 @@ const degas = {
 			case "close-file":
 				// show blank view
 				Self.els.content.addClass("show-blank-view");
+				// call close method of file - will check for "is-dirty"
+				Self.file.dispatch(event);
 				break;
 			case "open-help":
 				defiant.shell("fs -u '~/help/index.md'");

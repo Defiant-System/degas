@@ -5,7 +5,7 @@
 		<i path="~/sample/tree.obj" preview="~/sample/tree.jpg"/>
 	</Samples>
 	<Recents>
-		<i path="/fs/Desktop/images/basketball.png"/>
-		<i path="/fs/Desktop/coast.jpg"/>
+		<!-- <i path="/fs/Desktop/images/basketball.png"/>
+		<i path="/fs/Desktop/coast.jpg"/> -->
 	</Recents>
 </Data>
