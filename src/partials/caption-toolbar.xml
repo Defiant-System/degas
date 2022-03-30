@@ -12,7 +12,7 @@
 			<Tool symbol="icon-pan" click="set-editor-control-state" arg="pan"/>
 		</Options>
 		
-		<Tool symbol="icon-cog" state="disabled"/>
+		<!-- <Tool symbol="icon-cog" state="disabled"/> -->
 	</Group>
 	<Group>
 		

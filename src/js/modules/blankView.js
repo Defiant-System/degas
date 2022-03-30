@@ -33,7 +33,8 @@
 				});
 
 				// temp
-				setTimeout(() => this.els.el.find(".sample:nth(0)").trigger("click"), 200);
+				// return;
+				setTimeout(() => this.els.el.find(".sample:nth(0)").trigger("click"), 100);
 			});
 	},
 	dispatch(event) {

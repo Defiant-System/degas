@@ -17,12 +17,13 @@ const degas = {
 
 		// temp
 		setTimeout(() => {
+			// return;
 			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .25 });
 			this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
 			this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
 			this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
 
-			this.workspace.dispatch({ type: "deselect" });
+			// this.workspace.dispatch({ type: "deselect" });
 			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 			
 			// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
@@ -31,6 +32,7 @@ const degas = {
 	dispatch(event) {
 		let Self = degas,
 			el;
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.init":
@@ -39,6 +41,14 @@ const degas = {
 				break;
 			case "window.resize":
 				Self.workspace.dispatch({ type: "resize-workspace" });
+				break;
+			case "window.keystroke":
+				switch (event.char) {
+					case "del":
+						editor.removeObject(editor.selected);
+						editor.deselect();
+						break;
+				}
 				break;
 			case "open.file":
 				event.open({ responseType: "blob" })
