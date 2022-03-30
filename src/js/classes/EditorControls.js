@@ -14,7 +14,7 @@ function EditorControls( object, domElement ) {
 	var delta = new THREE.Vector3();
 	var box = new THREE.Box3();
 	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
-	var state = STATE.NONE;
+	var state = STATE.ROTATE;
 	var center = this.center;
 	var normalMatrix = new THREE.Matrix3();
 	var pointer = new THREE.Vector2();

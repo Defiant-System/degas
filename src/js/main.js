@@ -25,7 +25,7 @@ const degas = {
 			this.workspace.dispatch({ type: "deselect" });
 			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 			
-			this.workspace.dispatch({ type: "set-editor-control-state", arg: "zoom" });
+			// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 		}, 100);
 	},
 	dispatch(event) {
