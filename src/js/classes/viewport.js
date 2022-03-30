@@ -268,6 +268,10 @@ class Viewport {
 			transformControls.setMode( mode );
 		};
 
+		this.editorControlsSetState = function(state) {
+			controls.setState( state );
+		};
+
 	}
 
 }

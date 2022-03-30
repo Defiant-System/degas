@@ -24,6 +24,8 @@ const degas = {
 
 			this.workspace.dispatch({ type: "deselect" });
 			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
+			
+			this.workspace.dispatch({ type: "set-editor-control-state", arg: "zoom" });
 		}, 100);
 	},
 	dispatch(event) {
@@ -75,6 +77,7 @@ const degas = {
 			case "add-light":
 			case "add-camera":
 			case "set-view-shade":
+			case "set-editor-control-state":
 			case "set-transform-control-mode":
 				return Self.workspace.dispatch(event);
 			default:

@@ -98,6 +98,9 @@
 				// render
 				viewport.render();
 				return true;
+			case "set-editor-control-state":
+				viewport.editorControlsSetState(event.arg.toUpperCase());
+				return true;
 			case "set-transform-control-mode":
 				viewport.transformControlsSetMode(event.arg);
 				return true;

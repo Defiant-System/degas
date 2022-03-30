@@ -54,7 +54,7 @@ function EditorControls( object, domElement ) {
 
 	this.zoom = function ( delta ) {
 		var distance = object.position.distanceTo( center );
-		delta.multiplyScalar( distance * scope.zoomSpeed );
+		delta.multiplyScalar( distance * scope.zoomSpeed * .1 );
 		if ( delta.length() > distance ) return;
 		delta.applyMatrix3( normalMatrix.getNormalMatrix( object.matrix ) );
 		object.position.add( delta );
@@ -109,13 +109,13 @@ function EditorControls( object, domElement ) {
 
 	// mouse
 	function onMouseDown( event ) {
-		if ( event.button === 0 ) {
-			state = STATE.ROTATE;
-		} else if ( event.button === 1 ) {
-			state = STATE.ZOOM;
-		} else if ( event.button === 2 ) {
-			state = STATE.PAN;
-		}
+		// if ( event.button === 0 ) {
+		// 	state = STATE.ROTATE;
+		// } else if ( event.button === 1 ) {
+		// 	state = STATE.ZOOM;
+		// } else if ( event.button === 2 ) {
+		// 	state = STATE.PAN;
+		// }
 		pointerOld.set( event.clientX, event.clientY );
 	}
 
@@ -134,9 +134,10 @@ function EditorControls( object, domElement ) {
 	}
 
 	function onMouseUp() {
-		state = STATE.NONE;
+		// state = STATE.NONE;
 	}
 
+	/*
 	function onMouseWheel( event ) {
 		if ( scope.enabled === false ) return;
 		event.preventDefault();
@@ -147,17 +148,22 @@ function EditorControls( object, domElement ) {
 	function contextmenu( event ) {
 		event.preventDefault();
 	}
+	*/
+
+	this.setState = function ( name ) {
+		state = STATE[name];
+	}
 
 	this.dispose = function () {
-		domElement.removeEventListener( 'contextmenu', contextmenu );
-		domElement.removeEventListener( 'dblclick', onMouseUp );
-		domElement.removeEventListener( 'wheel', onMouseWheel );
+		// domElement.removeEventListener( 'contextmenu', contextmenu );
+		// domElement.removeEventListener( 'dblclick', onMouseUp );
+		// domElement.removeEventListener( 'wheel', onMouseWheel );
 		domElement.removeEventListener( 'pointerdown', onPointerDown );
 	};
 
-	domElement.addEventListener( 'contextmenu', contextmenu );
-	domElement.addEventListener( 'dblclick', onMouseUp );
-	domElement.addEventListener( 'wheel', onMouseWheel );
+	// domElement.addEventListener( 'contextmenu', contextmenu );
+	// domElement.addEventListener( 'dblclick', onMouseUp );
+	// domElement.addEventListener( 'wheel', onMouseWheel );
 	domElement.addEventListener( 'pointerdown', onPointerDown );
 	
 }

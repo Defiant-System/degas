@@ -7,8 +7,9 @@
 		</Options>
 
 		<Options>
-			<Tool symbol="icon-zoom"/>
-			<Tool symbol="icon-pan"/>
+			<Tool symbol="icon-rotate" click="set-editor-control-state" arg="rotate" state="active"/>
+			<Tool symbol="icon-zoom" click="set-editor-control-state" arg="zoom"/>
+			<Tool symbol="icon-pan" click="set-editor-control-state" arg="pan"/>
 		</Options>
 		
 		<Tool symbol="icon-cog" state="disabled"/>
