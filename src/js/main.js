@@ -72,6 +72,8 @@ const degas = {
 				Self.file = new File(event.file);
 				break;
 			case "new-file":
+				if (editor !== undefined) editor.clear();
+				// create new empty file
 				file = new defiant.File({ kind: "obj" });
 				Self.dispatch({ type: "setup-workspace", file });
 				break;

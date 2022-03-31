@@ -63,7 +63,7 @@ class History {
 		if ( cmd !== undefined ) {
 			cmd.undo();
 			this.redos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
+			// this.editor.signals.historyChanged.dispatch( cmd );
 		}
 		return cmd;
 	}
@@ -83,7 +83,7 @@ class History {
 		if ( cmd !== undefined ) {
 			cmd.execute();
 			this.undos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
+			// this.editor.signals.historyChanged.dispatch( cmd );
 		}
 		return cmd;
 	}
@@ -131,14 +131,14 @@ class History {
 			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
 		}
 		// Select the last executed undo-command
-		this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
+		// this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
 	}
 
 	clear() {
 		this.undos = [];
 		this.redos = [];
 		this.idCounter = 0;
-		this.editor.signals.historyChanged.dispatch();
+		// this.editor.signals.historyChanged.dispatch();
 	}
 
 	goToState( id ) {
@@ -146,8 +146,8 @@ class History {
 			alert( 'Undo/Redo disabled while scene is playing.' );
 			return;
 		}
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.historyChanged.active = false;
 		let cmd = this.undos.length > 0 ? this.undos[ this.undos.length - 1 ] : undefined;	// next cmd to pop
 		if ( cmd === undefined || id > cmd.id ) {
 			cmd = this.redo();
@@ -161,10 +161,10 @@ class History {
 				this.undo();
 			}
 		}
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
-		this.editor.signals.historyChanged.dispatch( cmd );
+		// this.editor.signals.sceneGraphChanged.active = true;
+		// this.editor.signals.historyChanged.active = true;
+		// this.editor.signals.sceneGraphChanged.dispatch();
+		// this.editor.signals.historyChanged.dispatch( cmd );
 	}
 	
 	enableSerialization( id ) {
@@ -175,8 +175,8 @@ class History {
 		 * while also calling .toJSON() on them.
 		 */
 		this.goToState( - 1 );
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.historyChanged.active = false;
 
 		let cmd = this.redo();
 		while ( cmd !== undefined ) {
@@ -185,8 +185,8 @@ class History {
 			}
 			cmd = this.redo();
 		}
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
+		// this.editor.signals.sceneGraphChanged.active = true;
+		// this.editor.signals.historyChanged.active = true;
 		this.goToState( id );
 	}
 

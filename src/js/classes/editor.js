@@ -293,7 +293,7 @@ class Editor {
 
 	clear() {
 		this.history.clear();
-		this.storage.clear();
+		// this.storage.clear();
 		this.camera.copy( _DEFAULT_CAMERA );
 		this.scene.name = 'Scene';
 		this.scene.userData = {};

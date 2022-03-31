@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-d8b75cb0.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-a1d221ef.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-b4feb453.js' );
+					const { TDSLoader } = await import( './TDSLoader-947bbc30.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-9b160889.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-e209c4d5.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-e9784cae.js' );
+					const { AMFLoader } = await import( './AMFLoader-c3cf7879.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-d30552ee.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-8cb00c50.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-340c634d.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-752da96f.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-69fe208f.js' );
+					const { FBXLoader } = await import( './FBXLoader-8d55370e.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-340c634d.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-7981f14f.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-752da96f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-e239701e.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-340c634d.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-7981f14f.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-752da96f.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-e239701e.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-686ce226.js' );
+					const { IFCLoader } = await import( './IFCLoader-2ad23b33.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-a050ef5a.js' );
+					const { KMZLoader } = await import( './KMZLoader-a94d9263.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-dd94562a.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-2679ca04.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-55d3f38a.js' );
+					const { MD2Loader } = await import( './MD2Loader-a9a393a0.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-c42333d9.js' );
+					const { OBJLoader } = await import( './OBJLoader-7569eb04.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-5407e342.js' );
+					const { PLYLoader } = await import( './PLYLoader-240f350f.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-0585e5bf.js' );
+					const { STLLoader } = await import( './STLLoader-9f15f189.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-6361e1df.js' );
+					const { SVGLoader } = await import( './SVGLoader-0f32ce19.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-9f359b21.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-0283fea5.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-47fc013b.js' );
+					const { VTKLoader } = await import( './VTKLoader-ceac288c.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-352b3b49.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-67093c37.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-70f7185e.js' );
+					const { XYZLoader } = await import( './XYZLoader-6594c206.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-ea0bd9a6.js' );
-			const { OBJLoader } = await import( './OBJLoader-c42333d9.js' );
+			const { MTLLoader } = await import( './MTLLoader-61f4b246.js' );
+			const { OBJLoader } = await import( './OBJLoader-7569eb04.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-69fe208f.js' );
+					const { FBXLoader } = await import( './FBXLoader-8d55370e.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-340c634d.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-7981f14f.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-752da96f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-e239701e.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-340c634d.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-7981f14f.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-752da96f.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-e239701e.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -60260,7 +60260,7 @@ class History {
 		if ( cmd !== undefined ) {
 			cmd.undo();
 			this.redos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
+			// this.editor.signals.historyChanged.dispatch( cmd );
 		}
 		return cmd;
 	}
@@ -60280,7 +60280,7 @@ class History {
 		if ( cmd !== undefined ) {
 			cmd.execute();
 			this.undos.push( cmd );
-			this.editor.signals.historyChanged.dispatch( cmd );
+			// this.editor.signals.historyChanged.dispatch( cmd );
 		}
 		return cmd;
 	}
@@ -60328,14 +60328,14 @@ class History {
 			this.idCounter = ( cmdJSON.id > this.idCounter ) ? cmdJSON.id : this.idCounter; // set last used idCounter
 		}
 		// Select the last executed undo-command
-		this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
+		// this.editor.signals.historyChanged.dispatch( this.undos[ this.undos.length - 1 ] );
 	}
 
 	clear() {
 		this.undos = [];
 		this.redos = [];
 		this.idCounter = 0;
-		this.editor.signals.historyChanged.dispatch();
+		// this.editor.signals.historyChanged.dispatch();
 	}
 
 	goToState( id ) {
@@ -60343,8 +60343,8 @@ class History {
 			alert( 'Undo/Redo disabled while scene is playing.' );
 			return;
 		}
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.historyChanged.active = false;
 		let cmd = this.undos.length > 0 ? this.undos[ this.undos.length - 1 ] : undefined;	// next cmd to pop
 		if ( cmd === undefined || id > cmd.id ) {
 			cmd = this.redo();
@@ -60358,10 +60358,10 @@ class History {
 				this.undo();
 			}
 		}
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
-		this.editor.signals.sceneGraphChanged.dispatch();
-		this.editor.signals.historyChanged.dispatch( cmd );
+		// this.editor.signals.sceneGraphChanged.active = true;
+		// this.editor.signals.historyChanged.active = true;
+		// this.editor.signals.sceneGraphChanged.dispatch();
+		// this.editor.signals.historyChanged.dispatch( cmd );
 	}
 	
 	enableSerialization( id ) {
@@ -60372,8 +60372,8 @@ class History {
 		 * while also calling .toJSON() on them.
 		 */
 		this.goToState( - 1 );
-		this.editor.signals.sceneGraphChanged.active = false;
-		this.editor.signals.historyChanged.active = false;
+		// this.editor.signals.sceneGraphChanged.active = false;
+		// this.editor.signals.historyChanged.active = false;
 
 		let cmd = this.redo();
 		while ( cmd !== undefined ) {
@@ -60382,8 +60382,8 @@ class History {
 			}
 			cmd = this.redo();
 		}
-		this.editor.signals.sceneGraphChanged.active = true;
-		this.editor.signals.historyChanged.active = true;
+		// this.editor.signals.sceneGraphChanged.active = true;
+		// this.editor.signals.historyChanged.active = true;
 		this.goToState( id );
 	}
 
