@@ -340,4 +340,4 @@ class Strings {
 
 }
 
-// export { Strings };
+export { Strings };

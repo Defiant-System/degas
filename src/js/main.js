@@ -1,8 +1,6 @@
 
 @import "./main.threee.js";
 
-@import "./classes/File.js";
-
 
 const degas = {
 	Loaders: {},
@@ -28,7 +26,7 @@ const degas = {
 			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 			
 			// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
-		}, 500);
+		}, 150);
 	},
 	dispatch(event) {
 		let Self = degas,

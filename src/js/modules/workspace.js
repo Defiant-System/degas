@@ -9,16 +9,6 @@
 		};
 
 		this.viewShadeMode = "solid";
-
-		// create editor + viewport
-		editor = new Editor();
-		viewport = new Viewport(editor);
-
-		// append panel
-		this.els.workspace.append(viewport.container.dom);
-		this.els.rendererCvs = this.els.workspace.append(renderer.domElement),
-		
-		this.dispatch({ type: "resize-workspace" });
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -29,7 +19,19 @@
 			el;
 		// console.log(event);
 		switch (event.type) {
+			case "create-editor-viewport":
+				// create editor + viewport
+				editor = new Editor();
+				viewport = new Viewport(editor);
+				// append panel
+				Self.els.workspace.append(viewport.container.dom);
+				Self.els.rendererCvs = Self.els.workspace.append(renderer.domElement),
+				Self.dispatch({ type: "resize-workspace" });
+				break;
 			case "resize-workspace":
+				if (editor === undefined) {
+					Self.dispatch({ type: "create-editor-viewport" });
+				}
 				Self.els.rendererCvs.attr({
 					width: Self.els.workspace.prop("offsetWidth"),
 					height: Self.els.workspace.prop("offsetHeight"),

@@ -44,7 +44,7 @@ class File {
 	}
 
 	getLoader(callback) {
-		return window.fetch("~/js/loaders/OBJLoader.js", { responseType: "text" });
+		return window.fetch("~/js/OBJLoader.js", { responseType: "text" });
 	}
 
 	async toBlob(mime, quality) {

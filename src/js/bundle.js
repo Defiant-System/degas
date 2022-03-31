@@ -1,8 +1,11 @@
 
 import * as THREE from "./modules/threejs/build/three.module.js";
-
 import { Loader } from './modules/threejs/editor/js/Loader.js';
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
+
+import { VR } from "./classes/Viewport.VR.js";
+import { ViewHelper } from "./classes/Viewport.ViewHelper.js";
+import { Strings } from "./classes/Strings.js";
 
 import { TransformControls } from './classes/TransformControls.js';
 import { Config } from './classes/Config.js';
@@ -16,6 +19,10 @@ module.exports = {
 	THREE,
 	History,
 	Loader,
+
+	VR,
+	ViewHelper,
+	Strings,
 
 	TransformControls,
 	SetPositionCommand,

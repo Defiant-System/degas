@@ -5,6 +5,10 @@ const {
 	History,
 	Loader,
 
+	VR,
+	ViewHelper,
+	Strings,
+
 	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
@@ -19,10 +23,10 @@ const {
 @import "./classes/Editor.js";
 @import "./classes/EditorControls.js";
 @import "./classes/Viewport.js";
-@import "./classes/Viewport.VR.js";
 @import "./classes/Viewport.ViewportInfo.js";
-@import "./classes/Viewport.ViewHelper.js";
-@import "./classes/Strings.js";
+
+
+@import "./classes/File.js";
 
 
 let editor,

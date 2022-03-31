@@ -76,3 +76,5 @@ class VR {
 	}
 
 }
+
+export { VR };

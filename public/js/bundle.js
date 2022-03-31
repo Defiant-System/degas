@@ -50717,7 +50717,7 @@ if ( typeof window !== 'undefined' ) {
 
 }
 
-var THREE = /*#__PURE__*/Object.freeze({
+var THREE$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	ACESFilmicToneMapping: ACESFilmicToneMapping,
 	AddEquation: AddEquation,
@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-14dae494.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-17b303ab.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-3b756393.js' );
+					const { TDSLoader } = await import( './TDSLoader-7c2091d3.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-4f7075bc.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-63d38964.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-73a383e8.js' );
+					const { AMFLoader } = await import( './AMFLoader-da635726.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-2f3b1d3e.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-4fc6c16e.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-f36b4dc0.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a0fe4895.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-770f09b4.js' );
+					const { FBXLoader } = await import( './FBXLoader-e9bbdaa4.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-f36b4dc0.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-8668c1a4.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a0fe4895.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-c1e47f91.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-f36b4dc0.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-8668c1a4.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-a0fe4895.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-c1e47f91.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-df2e4675.js' );
+					const { IFCLoader } = await import( './IFCLoader-d87c7332.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-d5c820ec.js' );
+					const { KMZLoader } = await import( './KMZLoader-e511c6b1.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-410a7ca8.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-038b2d4b.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-488568ef.js' );
+					const { MD2Loader } = await import( './MD2Loader-6ad03b80.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-978a7bf7.js' );
+					const { OBJLoader } = await import( './OBJLoader-133f4754.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-6e636b9e.js' );
+					const { PLYLoader } = await import( './PLYLoader-9290847e.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-4550177e.js' );
+					const { STLLoader } = await import( './STLLoader-7c68dff7.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-1f139b24.js' );
+					const { SVGLoader } = await import( './SVGLoader-a8f0aaaf.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-ed081342.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-39f975af.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-7920f750.js' );
+					const { VTKLoader } = await import( './VTKLoader-7953a030.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-1ccf0d5c.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-29bead32.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-144016dd.js' );
+					const { XYZLoader } = await import( './XYZLoader-77643789.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-518f3a1b.js' );
-			const { OBJLoader } = await import( './OBJLoader-978a7bf7.js' );
+			const { MTLLoader } = await import( './MTLLoader-1f9debf2.js' );
+			const { OBJLoader } = await import( './OBJLoader-133f4754.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-770f09b4.js' );
+					const { FBXLoader } = await import( './FBXLoader-e9bbdaa4.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-f36b4dc0.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-8668c1a4.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a0fe4895.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-c1e47f91.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-f36b4dc0.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-8668c1a4.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-a0fe4895.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-c1e47f91.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -56865,6 +56865,723 @@ class ListboxItem extends UIDiv {
 
 		this.dom.addEventListener( 'click', onClick );
 
+	}
+
+}
+
+class VR {
+
+	constructor( editor ) {
+		let group = null;
+		let camera = null;
+		let renderer = null;
+		const intersectables = [];
+
+		this.currentSession = null;
+
+		const onSessionStarted = async ( session ) => {
+			const sidebar = document.getElementById( 'sidebar' );
+			sidebar.style.width = '300px';
+			sidebar.style.height = '700px';
+			//
+			if ( group === null ) {
+				group = new InteractiveGroup( renderer );
+				editor.sceneHelpers.add( group );
+
+				const mesh = new HTMLMesh( sidebar );
+				mesh.position.set( 1, 1.5, - 0.5 );
+				mesh.rotation.y = - 0.5;
+				mesh.scale.setScalar( 2 );
+				group.add( mesh );
+
+				intersectables.push( mesh );
+
+				// controllers
+				const geometry = new THREE.BufferGeometry();
+				geometry.setFromPoints( [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, - 5 ) ] );
+
+				const controller1 = renderer.xr.getController( 0 );
+				controller1.add( new THREE.Line( geometry ) );
+				group.add( controller1 );
+
+				const controller2 = renderer.xr.getController( 1 );
+				controller2.add( new THREE.Line( geometry ) );
+				group.add( controller2 );
+
+				//
+				const controllerModelFactory = new XRControllerModelFactory();
+				const controllerGrip1 = renderer.xr.getControllerGrip( 0 );
+				controllerGrip1.add( controllerModelFactory.createControllerModel( controllerGrip1 ) );
+				group.add( controllerGrip1 );
+
+				const controllerGrip2 = renderer.xr.getControllerGrip( 1 );
+				controllerGrip2.add( controllerModelFactory.createControllerModel( controllerGrip2 ) );
+				group.add( controllerGrip2 );
+
+			}
+
+			camera = editor.camera.clone();
+			group.visible = true;
+
+			this.currentSession = session;
+			this.currentSession.addEventListener( 'end', onSessionEnded );
+
+			await renderer.xr.setSession( this.currentSession );
+		};
+
+		const onSessionEnded = async () => {
+			const sidebar = document.getElementById( 'sidebar' );
+			sidebar.style.width = '';
+			sidebar.style.height = '';
+
+			//
+			editor.camera.copy( camera );
+			group.visible = false;
+
+			this.currentSession.removeEventListener( 'end', onSessionEnded );
+			this.currentSession = null;
+
+			await renderer.xr.setSession( null );
+		};
+	}
+
+}
+
+const vpTemp = new Vector4();
+
+class ViewHelper extends Object3D {
+
+	constructor( editorCamera, container ) {
+
+		super();
+
+		const Self = this;
+		const dom = container.dom;
+		const panel = new UIPanel();
+		panel.setId( 'viewHelper' );
+		panel.setPosition( 'absolute' );
+		// panel.setRight( '0px' );
+		// panel.setBottom( '0px' );
+		// panel.setHeight( '128px' );
+		// panel.setWidth( '128px' );
+
+		panel.dom.addEventListener( 'pointerup', ( event ) => {
+			event.stopPropagation();
+			this.handleClick( event );
+		} );
+
+		panel.dom.addEventListener( 'pointermove', function ( event ) {
+			let mouse = new Vector2();
+			let rect = dom.getBoundingClientRect();
+			let offsetX = rect.left + ( dom.offsetWidth - dim );
+			let offsetY = rect.top + ( dom.offsetHeight - dim );
+			
+			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
+			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
+			raycaster.setFromCamera( mouse, camera );
+			panel.removeClass("mouseHand");
+
+			let intersects = raycaster.intersectObjects( interactiveObjects );
+
+			if (intersects.length) {
+				Self.hoverHighlight = () => {
+					intersects[0].object.userData.originalMaterial = intersects[0].object.material;
+					intersects[0].object.material = hoverMaterial;
+					delete Self.hoverHighlight;
+				};
+				panel.addClass("mouseHand");
+				viewport.render();
+			}
+		} );
+
+		panel.dom.addEventListener( 'pointerdown', function ( event ) {
+			event.stopPropagation();
+		} );
+
+		panel.dom.addEventListener( 'pointerout', function ( event ) {
+			viewport.render();
+		} );
+
+		container.add( panel );
+
+
+		this.isViewHelper = true;
+		this.animating = false;
+		this.controls = null;
+
+		const color1 = new Color( '#ff3653' );
+		const color2 = new Color( '#8adb00' );
+		const color3 = new Color( '#2c8fff' );
+		const color4 = new Color( '#ffffff' );
+		const interactiveObjects = [];
+		const raycaster = new Raycaster();
+		const mouse = new Vector2();
+		const dummy = new Object3D();
+		const camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
+		camera.position.set( 0, 0, 2 );
+
+		const geometry = new BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
+		const xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
+		const yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
+		const zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
+
+		yAxis.rotation.z = Math.PI / 2;
+		zAxis.rotation.y = - Math.PI / 2;
+
+		this.add( xAxis );
+		this.add( zAxis );
+		this.add( yAxis );
+
+		const posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
+		posXAxisHelper.userData.type = 'posX';
+		const posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
+		posYAxisHelper.userData.type = 'posY';
+		const posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
+		posZAxisHelper.userData.type = 'posZ';
+		const negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
+		negXAxisHelper.userData.type = 'negX';
+		const negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
+		negYAxisHelper.userData.type = 'negY';
+		const negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
+		negZAxisHelper.userData.type = 'negZ';
+
+		const hoverMaterial = getSpriteMaterial( color4 );
+
+		posXAxisHelper.position.x = 1;
+		posYAxisHelper.position.y = 1;
+		posZAxisHelper.position.z = 1;
+		negXAxisHelper.position.x = - 1;
+		negXAxisHelper.scale.setScalar( 0.8 );
+		negYAxisHelper.position.y = - 1;
+		negYAxisHelper.scale.setScalar( 0.8 );
+		negZAxisHelper.position.z = - 1;
+		negZAxisHelper.scale.setScalar( 0.8 );
+
+		this.add( posXAxisHelper );
+		this.add( posYAxisHelper );
+		this.add( posZAxisHelper );
+		this.add( negXAxisHelper );
+		this.add( negYAxisHelper );
+		this.add( negZAxisHelper );
+
+		interactiveObjects.push( posXAxisHelper );
+		interactiveObjects.push( posYAxisHelper );
+		interactiveObjects.push( posZAxisHelper );
+		interactiveObjects.push( negXAxisHelper );
+		interactiveObjects.push( negYAxisHelper );
+		interactiveObjects.push( negZAxisHelper );
+
+		const point = new Vector3();
+		const dim = 128;
+		const turnRate = 2 * Math.PI; // turn rate in angles per second
+
+		this.render = function ( renderer, fn ) {
+
+			this.quaternion.copy( editorCamera.quaternion ).invert();
+			this.updateMatrixWorld();
+
+			point.set( 0, 0, 1 );
+			point.applyQuaternion( editorCamera.quaternion );
+
+			interactiveObjects.map(item => {
+				if (item.userData.originalMaterial) {
+					item.material = item.userData.originalMaterial;
+					delete item.userData.originalMaterial;
+				}
+			});
+
+			if ( point.x >= 0 ) {
+				posXAxisHelper.material.opacity = 1;
+				negXAxisHelper.material.opacity = 0.5;
+			} else {
+				posXAxisHelper.material.opacity = 0.5;
+				negXAxisHelper.material.opacity = 1;
+			}
+			if ( point.y >= 0 ) {
+				posYAxisHelper.material.opacity = 1;
+				negYAxisHelper.material.opacity = 0.5;
+			} else {
+				posYAxisHelper.material.opacity = 0.5;
+				negYAxisHelper.material.opacity = 1;
+			}
+			if ( point.z >= 0 ) {
+				posZAxisHelper.material.opacity = 1;
+				negZAxisHelper.material.opacity = 0.5;
+			} else {
+				posZAxisHelper.material.opacity = 0.5;
+				negZAxisHelper.material.opacity = 1;
+			}
+
+			if (Self.hoverHighlight) Self.hoverHighlight();
+
+			//
+			const x = dom.offsetWidth - dim;
+			renderer.clearDepth();
+			renderer.getViewport( vpTemp );
+			renderer.setViewport( x, 0, dim, dim );
+			renderer.render( this, camera );
+			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
+		};
+
+		const targetPosition = new Vector3();
+		const targetQuaternion = new Quaternion();
+		const q1 = new Quaternion();
+		const q2 = new Quaternion();
+		let radius = 0;
+
+		this.handleClick = function ( event ) {
+
+			if ( this.animating === true ) return false;
+
+			const rect = dom.getBoundingClientRect();
+			const offsetX = rect.left + ( dom.offsetWidth - dim );
+			const offsetY = rect.top + ( dom.offsetHeight - dim );
+			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
+			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
+
+			raycaster.setFromCamera( mouse, camera );
+
+			const intersects = raycaster.intersectObjects( interactiveObjects );
+
+			if ( intersects.length > 0 ) {
+				const intersection = intersects[ 0 ];
+				const object = intersection.object;
+				prepareAnimationData( object, this.controls.center );
+				this.animating = true;
+				// start animation
+				viewport.animate();
+				return true;
+			} else {
+				return false;
+			}
+		};
+
+		this.update = function ( delta ) {
+			const step = delta * turnRate;
+			const focusPoint = this.controls.center;
+
+			// animate position by doing a slerp and then scaling the position on the unit sphere
+			q1.rotateTowards( q2, step );
+			editorCamera.position.set( 0, 0, 1 ).applyQuaternion( q1 ).multiplyScalar( radius ).add( focusPoint );
+
+			// animate orientation
+			editorCamera.quaternion.rotateTowards( targetQuaternion, step );
+
+			if ( q1.angleTo( q2 ) === 0 ) {
+				this.animating = false;
+			}
+		};
+
+		function prepareAnimationData( object, focusPoint ) {
+			switch ( object.userData.type ) {
+				case 'posX':
+					targetPosition.set( 1, 0, 0 );
+					targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
+					break;
+				case 'posY':
+					targetPosition.set( 0, 1, 0 );
+					targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
+					break;
+				case 'posZ':
+					targetPosition.set( 0, 0, 1 );
+					targetQuaternion.setFromEuler( new Euler() );
+					break;
+				case 'negX':
+					targetPosition.set( - 1, 0, 0 );
+					targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
+					break;
+				case 'negY':
+					targetPosition.set( 0, - 1, 0 );
+					targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
+					break;
+				case 'negZ':
+					targetPosition.set( 0, 0, - 1 );
+					targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
+					break;
+				default:
+					console.error( 'ViewHelper: Invalid axis.' );
+
+			}
+
+			//
+			radius = editorCamera.position.distanceTo( focusPoint );
+			targetPosition.multiplyScalar( radius ).add( focusPoint );
+
+			dummy.position.copy( focusPoint );
+			dummy.lookAt( editorCamera.position );
+			q1.copy( dummy.quaternion );
+
+			dummy.lookAt( targetPosition );
+			q2.copy( dummy.quaternion );
+		}
+
+		function getAxisMaterial( color ) {
+			return new MeshBasicMaterial( { color: color, toneMapped: false } );
+		}
+
+		function getSpriteMaterial( color, text = null ) {
+			const canvas = document.createElement( 'canvas' );
+			canvas.width = 64;
+			canvas.height = 64;
+
+			const context = canvas.getContext( '2d' );
+			context.beginPath();
+			context.arc( 32, 32, 16, 0, 2 * Math.PI );
+			context.closePath();
+			context.fillStyle = color.getStyle();
+			context.fill();
+
+			if ( text !== null ) {
+				context.font = '24px Arial';
+				context.textAlign = 'center';
+				context.fillStyle = '#000000';
+				context.fillText( text, 32, 41 );
+			}
+			const texture = new CanvasTexture( canvas );
+
+			return new SpriteMaterial( { map: texture, toneMapped: false } );
+		}
+	}
+
+}
+
+class Strings {
+	
+	constructor(config) {
+		this.language = config.getKey( 'language' );
+
+		this.values = {
+			en: {
+				'menubar/file': 'File',
+				'menubar/file/new': 'New',
+				'menubar/file/import': 'Import',
+				'menubar/file/export/geometry': 'Export Geometry',
+				'menubar/file/export/object': 'Export Object',
+				'menubar/file/export/scene': 'Export Scene',
+				'menubar/file/export/dae': 'Export DAE',
+				'menubar/file/export/drc': 'Export DRC',
+				'menubar/file/export/glb': 'Export GLB',
+				'menubar/file/export/gltf': 'Export GLTF',
+				'menubar/file/export/obj': 'Export OBJ',
+				'menubar/file/export/ply': 'Export PLY',
+				'menubar/file/export/ply_binary': 'Export PLY (Binary)',
+				'menubar/file/export/stl': 'Export STL',
+				'menubar/file/export/stl_binary': 'Export STL (Binary)',
+				'menubar/file/export/usdz': 'Export USDZ',
+				'menubar/file/publish': 'Publish',
+
+				'menubar/edit': 'Edit',
+				'menubar/edit/undo': 'Undo (Ctrl+Z)',
+				'menubar/edit/redo': 'Redo (Ctrl+Shift+Z)',
+				'menubar/edit/clear_history': 'Clear History',
+				'menubar/edit/center': 'Center',
+				'menubar/edit/clone': 'Clone',
+				'menubar/edit/delete': 'Delete (Del)',
+				'menubar/edit/fixcolormaps': 'Fix Color Maps',
+
+				'menubar/add': 'Add',
+				'menubar/add/group': 'Group',
+				'menubar/add/plane': 'Plane',
+				'menubar/add/box': 'Box',
+				'menubar/add/circle': 'Circle',
+				'menubar/add/cylinder': 'Cylinder',
+				'menubar/add/ring': 'Ring',
+				'menubar/add/sphere': 'Sphere',
+				'menubar/add/dodecahedron': 'Dodecahedron',
+				'menubar/add/icosahedron': 'Icosahedron',
+				'menubar/add/octahedron': 'Octahedron',
+				'menubar/add/tetrahedron': 'Tetrahedron',
+				'menubar/add/torus': 'Torus',
+				'menubar/add/tube': 'Tube',
+				'menubar/add/torusknot': 'TorusKnot',
+				'menubar/add/lathe': 'Lathe',
+				'menubar/add/sprite': 'Sprite',
+				'menubar/add/pointlight': 'PointLight',
+				'menubar/add/spotlight': 'SpotLight',
+				'menubar/add/directionallight': 'DirectionalLight',
+				'menubar/add/hemispherelight': 'HemisphereLight',
+				'menubar/add/ambientlight': 'AmbientLight',
+				'menubar/add/perspectivecamera': 'PerspectiveCamera',
+				'menubar/add/orthographiccamera': 'OrthographicCamera',
+
+				'menubar/status/autosave': 'autosave',
+
+				'menubar/play': 'Play',
+				'menubar/play/stop': 'Stop',
+				'menubar/play/play': 'Play',
+
+				'menubar/examples': 'Examples',
+				'menubar/examples/Arkanoid': 'Arkanoid',
+				'menubar/examples/Camera': 'Camera',
+				'menubar/examples/Particles': 'Particles',
+				'menubar/examples/Pong': 'Pong',
+				'menubar/examples/Shaders': 'Shaders',
+
+				'menubar/view': 'View',
+				'menubar/view/fullscreen': 'Fullscreen',
+
+				'menubar/help': 'Help',
+				'menubar/help/source_code': 'Source Code',
+				'menubar/help/icons': 'Icon Pack',
+				'menubar/help/about': 'About',
+				'menubar/help/manual': 'Manual',
+
+				'sidebar/animations': 'Animations',
+				'sidebar/animations/play': 'Play',
+				'sidebar/animations/stop': 'Stop',
+				'sidebar/animations/timescale': 'Time Scale',
+
+				'sidebar/scene': 'Scene',
+				'sidebar/scene/background': 'Background',
+				'sidebar/scene/environment': 'Environment',
+				'sidebar/scene/fog': 'Fog',
+
+				'sidebar/properties/object': 'Object',
+				'sidebar/properties/geometry': 'Geometry',
+				'sidebar/properties/material': 'Material',
+				'sidebar/properties/script': 'Script',
+
+				'sidebar/object/type': 'Type',
+				'sidebar/object/new': 'New',
+				'sidebar/object/uuid': 'UUID',
+				'sidebar/object/name': 'Name',
+				'sidebar/object/position': 'Position',
+				'sidebar/object/rotation': 'Rotation',
+				'sidebar/object/scale': 'Scale',
+				'sidebar/object/fov': 'Fov',
+				'sidebar/object/left': 'Left',
+				'sidebar/object/right': 'Right',
+				'sidebar/object/top': 'Top',
+				'sidebar/object/bottom': 'Bottom',
+				'sidebar/object/near': 'Near',
+				'sidebar/object/far': 'Far',
+				'sidebar/object/intensity': 'Intensity',
+				'sidebar/object/color': 'Color',
+				'sidebar/object/groundcolor': 'Ground Color',
+				'sidebar/object/distance': 'Distance',
+				'sidebar/object/angle': 'Angle',
+				'sidebar/object/penumbra': 'Penumbra',
+				'sidebar/object/decay': 'Decay',
+				'sidebar/object/shadow': 'Shadow',
+				'sidebar/object/shadowBias': 'Shadow Bias',
+				'sidebar/object/shadowNormalBias': 'Shadow Normal Bias',
+				'sidebar/object/shadowRadius': 'Shadow Radius',
+				'sidebar/object/cast': 'cast',
+				'sidebar/object/receive': 'receive',
+				'sidebar/object/visible': 'Visible',
+				'sidebar/object/frustumcull': 'Frustum Cull',
+				'sidebar/object/renderorder': 'Render Order',
+				'sidebar/object/userdata': 'User data',
+
+				'sidebar/geometry/type': 'Type',
+				'sidebar/geometry/new': 'New',
+				'sidebar/geometry/uuid': 'UUID',
+				'sidebar/geometry/name': 'Name',
+				'sidebar/geometry/bounds': 'Bounds',
+				'sidebar/geometry/show_vertex_normals': 'Show Vertex Normals',
+
+				'sidebar/geometry/box_geometry/width': 'Width',
+				'sidebar/geometry/box_geometry/height': 'Height',
+				'sidebar/geometry/box_geometry/depth': 'Depth',
+				'sidebar/geometry/box_geometry/widthseg': 'Width Seg',
+				'sidebar/geometry/box_geometry/heightseg': 'Height Seg',
+				'sidebar/geometry/box_geometry/depthseg': 'Depth Seg',
+
+				'sidebar/geometry/buffer_geometry/attributes': 'Attributes',
+				'sidebar/geometry/buffer_geometry/index': 'index',
+
+				'sidebar/geometry/circle_geometry/radius': 'Radius',
+				'sidebar/geometry/circle_geometry/segments': 'Segments',
+				'sidebar/geometry/circle_geometry/thetastart': 'Theta start',
+				'sidebar/geometry/circle_geometry/thetalength': 'Theta length',
+
+				'sidebar/geometry/cylinder_geometry/radiustop': 'Radius top',
+				'sidebar/geometry/cylinder_geometry/radiusbottom': 'Radius bottom',
+				'sidebar/geometry/cylinder_geometry/height': 'Height',
+				'sidebar/geometry/cylinder_geometry/radialsegments': 'Radial segments',
+				'sidebar/geometry/cylinder_geometry/heightsegments': 'Height segments',
+				'sidebar/geometry/cylinder_geometry/openended': 'Open ended',
+
+				'sidebar/geometry/extrude_geometry/curveSegments': 'Curve Segments',
+				'sidebar/geometry/extrude_geometry/steps': 'Steps',
+				'sidebar/geometry/extrude_geometry/depth': 'Depth',
+				'sidebar/geometry/extrude_geometry/bevelEnabled': 'Bevel?',
+				'sidebar/geometry/extrude_geometry/bevelThickness': 'Thickness',
+				'sidebar/geometry/extrude_geometry/bevelSize': 'Size',
+				'sidebar/geometry/extrude_geometry/bevelOffset': 'Offset',
+				'sidebar/geometry/extrude_geometry/bevelSegments': 'Segments',
+				'sidebar/geometry/extrude_geometry/shape': 'Convert to Shape',
+
+				'sidebar/geometry/dodecahedron_geometry/radius': 'Radius',
+				'sidebar/geometry/dodecahedron_geometry/detail': 'Detail',
+
+				'sidebar/geometry/icosahedron_geometry/radius': 'Radius',
+				'sidebar/geometry/icosahedron_geometry/detail': 'Detail',
+
+				'sidebar/geometry/octahedron_geometry/radius': 'Radius',
+				'sidebar/geometry/octahedron_geometry/detail': 'Detail',
+
+				'sidebar/geometry/tetrahedron_geometry/radius': 'Radius',
+				'sidebar/geometry/tetrahedron_geometry/detail': 'Detail',
+
+				'sidebar/geometry/lathe_geometry/segments': 'Segments',
+				'sidebar/geometry/lathe_geometry/phistart': 'Phi start (°)',
+				'sidebar/geometry/lathe_geometry/philength': 'Phi length (°)',
+				'sidebar/geometry/lathe_geometry/points': 'Points',
+
+				'sidebar/geometry/plane_geometry/width': 'Width',
+				'sidebar/geometry/plane_geometry/height': 'Height',
+				'sidebar/geometry/plane_geometry/widthsegments': 'Width segments',
+				'sidebar/geometry/plane_geometry/heightsegments': 'Height segments',
+
+				'sidebar/geometry/ring_geometry/innerRadius': 'Inner radius',
+				'sidebar/geometry/ring_geometry/outerRadius': 'Outer radius',
+				'sidebar/geometry/ring_geometry/thetaSegments': 'Theta segments',
+				'sidebar/geometry/ring_geometry/phiSegments': 'Phi segments',
+				'sidebar/geometry/ring_geometry/thetastart': 'Theta start',
+				'sidebar/geometry/ring_geometry/thetalength': 'Theta length',
+
+				'sidebar/geometry/shape_geometry/curveSegments': 'Curve Segments',
+				'sidebar/geometry/shape_geometry/extrude': 'Extrude',
+
+				'sidebar/geometry/sphere_geometry/radius': 'Radius',
+				'sidebar/geometry/sphere_geometry/widthsegments': 'Width segments',
+				'sidebar/geometry/sphere_geometry/heightsegments': 'Height segments',
+				'sidebar/geometry/sphere_geometry/phistart': 'Phi start',
+				'sidebar/geometry/sphere_geometry/philength': 'Phi length',
+				'sidebar/geometry/sphere_geometry/thetastart': 'Theta start',
+				'sidebar/geometry/sphere_geometry/thetalength': 'Theta length',
+
+				'sidebar/geometry/torus_geometry/radius': 'Radius',
+				'sidebar/geometry/torus_geometry/tube': 'Tube',
+				'sidebar/geometry/torus_geometry/radialsegments': 'Radial segments',
+				'sidebar/geometry/torus_geometry/tubularsegments': 'Tubular segments',
+				'sidebar/geometry/torus_geometry/arc': 'Arc',
+
+				'sidebar/geometry/torusKnot_geometry/radius': 'Radius',
+				'sidebar/geometry/torusKnot_geometry/tube': 'Tube',
+				'sidebar/geometry/torusKnot_geometry/tubularsegments': 'Tubular segments',
+				'sidebar/geometry/torusKnot_geometry/radialsegments': 'Radial segments',
+				'sidebar/geometry/torusKnot_geometry/p': 'P',
+				'sidebar/geometry/torusKnot_geometry/q': 'Q',
+
+				'sidebar/geometry/tube_geometry/path': 'Path',
+				'sidebar/geometry/tube_geometry/radius': 'Radius',
+				'sidebar/geometry/tube_geometry/tube': 'Tube',
+				'sidebar/geometry/tube_geometry/tubularsegments': 'Tubular segments',
+				'sidebar/geometry/tube_geometry/radialsegments': 'Radial segments',
+				'sidebar/geometry/tube_geometry/closed': 'Closed',
+				'sidebar/geometry/tube_geometry/curvetype': 'Curve Type',
+				'sidebar/geometry/tube_geometry/tension': 'Tension',
+
+				'sidebar/material/new': 'New',
+				'sidebar/material/copy': 'Copy',
+				'sidebar/material/paste': 'Paste',
+				'sidebar/material/slot': 'Slot',
+				'sidebar/material/type': 'Type',
+				'sidebar/material/uuid': 'UUID',
+				'sidebar/material/name': 'Name',
+				'sidebar/material/program': 'Program',
+				'sidebar/material/info': 'Info',
+				'sidebar/material/vertex': 'Vert',
+				'sidebar/material/fragment': 'Frag',
+				'sidebar/material/color': 'Color',
+				'sidebar/material/depthPacking': 'Depth Packing',
+				'sidebar/material/roughness': 'Roughness',
+				'sidebar/material/metalness': 'Metalness',
+				'sidebar/material/reflectivity': 'Reflectivity',
+				'sidebar/material/emissive': 'Emissive',
+				'sidebar/material/specular': 'Specular',
+				'sidebar/material/shininess': 'Shininess',
+				'sidebar/material/clearcoat': 'Clearcoat',
+				'sidebar/material/clearcoatroughness': 'Clearcoat Roughness',
+				'sidebar/material/transmission': 'Transmission',
+				'sidebar/material/attenuationDistance': 'Attenuation Distance',
+				'sidebar/material/attenuationColor': 'Attenuation Color',
+				'sidebar/material/thickness': 'Thickness',
+				'sidebar/material/vertexcolors': 'Vertex Colors',
+				'sidebar/material/matcap': 'Matcap',
+				'sidebar/material/map': 'Map',
+				'sidebar/material/alphamap': 'Alpha Map',
+				'sidebar/material/bumpmap': 'Bump Map',
+				'sidebar/material/normalmap': 'Normal Map',
+				'sidebar/material/clearcoatnormalmap': 'Clearcoat Normal Map',
+				'sidebar/material/displacementmap': 'Displace Map',
+				'sidebar/material/roughnessmap': 'Rough. Map',
+				'sidebar/material/metalnessmap': 'Metal. Map',
+				'sidebar/material/specularmap': 'Specular Map',
+				'sidebar/material/envmap': 'Env Map',
+				'sidebar/material/lightmap': 'Light Map',
+				'sidebar/material/aomap': 'AO Map',
+				'sidebar/material/emissivemap': 'Emissive Map',
+				'sidebar/material/gradientmap': 'Gradient Map',
+				'sidebar/material/side': 'Side',
+				'sidebar/material/size': 'Size',
+				'sidebar/material/sizeAttenuation': 'Size Attenuation',
+				'sidebar/material/flatShading': 'Flat Shading',
+				'sidebar/material/blending': 'Blending',
+				'sidebar/material/opacity': 'Opacity',
+				'sidebar/material/transparent': 'Transparent',
+				'sidebar/material/alphatest': 'Alpha Test',
+				'sidebar/material/depthtest': 'Depth Test',
+				'sidebar/material/depthwrite': 'Depth Write',
+				'sidebar/material/wireframe': 'Wireframe',
+
+				'sidebar/script': 'Script',
+				'sidebar/script/new': 'New',
+				'sidebar/script/edit': 'Edit',
+				'sidebar/script/remove': 'Remove',
+
+				'sidebar/project': 'Project',
+				'sidebar/project/title': 'Title',
+				'sidebar/project/editable': 'Editable',
+				'sidebar/project/vr': 'VR',
+				'sidebar/project/renderer': 'Renderer',
+				'sidebar/project/antialias': 'Antialias',
+				'sidebar/project/shadows': 'Shadows',
+				'sidebar/project/physicallyCorrectLights': 'Physical lights',
+				'sidebar/project/toneMapping': 'Tone mapping',
+				'sidebar/project/materials': 'Materials',
+				'sidebar/project/Assign': 'Assign',
+
+				'sidebar/project/video': 'Video',
+				'sidebar/project/resolution': 'Resolution',
+				'sidebar/project/duration': 'Duration',
+				'sidebar/project/render': 'Render',
+
+				'sidebar/settings': 'Settings',
+				'sidebar/settings/language': 'Language',
+
+				'sidebar/settings/shortcuts': 'Shortcuts',
+				'sidebar/settings/shortcuts/translate': 'Translate',
+				'sidebar/settings/shortcuts/rotate': 'Rotate',
+				'sidebar/settings/shortcuts/scale': 'Scale',
+				'sidebar/settings/shortcuts/undo': 'Undo',
+				'sidebar/settings/shortcuts/focus': 'Focus',
+
+				'sidebar/settings/viewport': 'Viewport',
+				'sidebar/settings/viewport/grid': 'Grid',
+				'sidebar/settings/viewport/helpers': 'Helpers',
+
+				'sidebar/history': 'History',
+				'sidebar/history/persistent': 'persistent',
+
+				'toolbar/translate': 'Translate',
+				'toolbar/rotate': 'Rotate',
+				'toolbar/scale': 'Scale',
+				'toolbar/local': 'Local',
+
+				'viewport/info/objects': 'Objects',
+				'viewport/info/vertices': 'Vertices',
+				'viewport/info/triangles': 'Triangles',
+				'viewport/info/frametime': 'Frametime'
+
+			}
+		};
+	}
+
+	getKey( key ) {
+		return this.values[ this.language ][ key ] || '???';
 	}
 
 }
@@ -60290,9 +61007,13 @@ class SetScaleCommand extends Command {
 }
 
 module.exports = {
-	THREE,
+	THREE: THREE$1,
 	History,
 	Loader,
+
+	VR,
+	ViewHelper,
+	Strings,
 
 	TransformControls,
 	SetPositionCommand,

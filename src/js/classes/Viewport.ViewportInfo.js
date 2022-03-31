@@ -58,4 +58,4 @@ class ViewportInfo {
 
 }
 
-// export { ViewportInfo };
+export { ViewportInfo };
