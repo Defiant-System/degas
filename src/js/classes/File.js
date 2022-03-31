@@ -15,7 +15,7 @@ class File {
 
 					if (!APP.Loaders.OBJLoader) {
 						let mod = {},
-							resp = await this.getLoader(),
+							resp = await this.getLoader("OBJLoader"),
 							code = `let module = mod; ${resp.data}`;
 						new Function("mod", "THREE", code).call({}, mod, THREE);
 						APP.Loaders.OBJLoader = mod.exports.OBJLoader;
@@ -43,8 +43,8 @@ class File {
 		}
 	}
 
-	getLoader(callback) {
-		return window.fetch("~/js/OBJLoader.js", { responseType: "text" });
+	getLoader(name) {
+		return window.fetch(`~/js/${name}.js`, { responseType: "text" });
 	}
 
 	async toBlob(mime, quality) {

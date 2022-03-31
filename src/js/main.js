@@ -16,7 +16,6 @@ const degas = {
 
 		// temp
 		// return;
-
 		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
 		
 		this.dispatch({ type: "new-file" });
