@@ -1,28 +1,7 @@
 
-import {
-	Vector4,
-	Object3D,
-	Vector2,
-	Color,
-	Raycaster,
-	OrthographicCamera,
-	BoxGeometry,
-	Mesh,
-	Sprite,
-	Vector3,
-	Quaternion,
-	Euler,
-	MeshBasicMaterial,
-	CanvasTexture,
-	SpriteMaterial
-} from '../modules/threejs/build/three.module.js';
+const vpTemp = new THREE.Vector4();
 
-import { UIPanel } from '../modules/threejs/editor/js/libs/ui.js';
-
-
-const vpTemp = new Vector4();
-
-class ViewHelper extends Object3D {
+class ViewHelper extends THREE.Object3D {
 
 	constructor( editorCamera, container ) {
 
@@ -44,7 +23,7 @@ class ViewHelper extends Object3D {
 		} );
 
 		panel.dom.addEventListener( 'pointermove', function ( event ) {
-			let mouse = new Vector2();
+			let mouse = new THREE.Vector2();
 			let rect = dom.getBoundingClientRect();
 			let offsetX = rect.left + ( dom.offsetWidth - dim );
 			let offsetY = rect.top + ( dom.offsetHeight - dim );
@@ -82,21 +61,21 @@ class ViewHelper extends Object3D {
 		this.animating = false;
 		this.controls = null;
 
-		const color1 = new Color( '#ff3653' );
-		const color2 = new Color( '#8adb00' );
-		const color3 = new Color( '#2c8fff' );
-		const color4 = new Color( '#ffffff' );
+		const color1 = new THREE.Color( '#ff3653' );
+		const color2 = new THREE.Color( '#8adb00' );
+		const color3 = new THREE.Color( '#2c8fff' );
+		const color4 = new THREE.Color( '#ffffff' );
 		const interactiveObjects = [];
-		const raycaster = new Raycaster();
-		const mouse = new Vector2();
-		const dummy = new Object3D();
-		const camera = new OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
+		const raycaster = new THREE.Raycaster();
+		const mouse = new THREE.Vector2();
+		const dummy = new THREE.Object3D();
+		const camera = new THREE.OrthographicCamera( - 2, 2, 2, - 2, 0, 4 );
 		camera.position.set( 0, 0, 2 );
 
-		const geometry = new BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
-		const xAxis = new Mesh( geometry, getAxisMaterial( color1 ) );
-		const yAxis = new Mesh( geometry, getAxisMaterial( color2 ) );
-		const zAxis = new Mesh( geometry, getAxisMaterial( color3 ) );
+		const geometry = new THREE.BoxGeometry( 0.8, 0.05, 0.05 ).translate( 0.4, 0, 0 );
+		const xAxis = new THREE.Mesh( geometry, getAxisMaterial( color1 ) );
+		const yAxis = new THREE.Mesh( geometry, getAxisMaterial( color2 ) );
+		const zAxis = new THREE.Mesh( geometry, getAxisMaterial( color3 ) );
 
 		yAxis.rotation.z = Math.PI / 2;
 		zAxis.rotation.y = - Math.PI / 2;
@@ -105,17 +84,17 @@ class ViewHelper extends Object3D {
 		this.add( zAxis );
 		this.add( yAxis );
 
-		const posXAxisHelper = new Sprite( getSpriteMaterial( color1, 'X' ) );
+		const posXAxisHelper = new THREE.Sprite( getSpriteMaterial( color1, 'X' ) );
 		posXAxisHelper.userData.type = 'posX';
-		const posYAxisHelper = new Sprite( getSpriteMaterial( color2, 'Y' ) );
+		const posYAxisHelper = new THREE.Sprite( getSpriteMaterial( color2, 'Y' ) );
 		posYAxisHelper.userData.type = 'posY';
-		const posZAxisHelper = new Sprite( getSpriteMaterial( color3, 'Z' ) );
+		const posZAxisHelper = new THREE.Sprite( getSpriteMaterial( color3, 'Z' ) );
 		posZAxisHelper.userData.type = 'posZ';
-		const negXAxisHelper = new Sprite( getSpriteMaterial( color1 ) );
+		const negXAxisHelper = new THREE.Sprite( getSpriteMaterial( color1 ) );
 		negXAxisHelper.userData.type = 'negX';
-		const negYAxisHelper = new Sprite( getSpriteMaterial( color2 ) );
+		const negYAxisHelper = new THREE.Sprite( getSpriteMaterial( color2 ) );
 		negYAxisHelper.userData.type = 'negY';
-		const negZAxisHelper = new Sprite( getSpriteMaterial( color3 ) );
+		const negZAxisHelper = new THREE.Sprite( getSpriteMaterial( color3 ) );
 		negZAxisHelper.userData.type = 'negZ';
 
 		const hoverMaterial = getSpriteMaterial( color4 );
@@ -144,7 +123,7 @@ class ViewHelper extends Object3D {
 		interactiveObjects.push( negYAxisHelper );
 		interactiveObjects.push( negZAxisHelper );
 
-		const point = new Vector3();
+		const point = new THREE.Vector3();
 		const dim = 128;
 		const turnRate = 2 * Math.PI; // turn rate in angles per second
 
@@ -196,10 +175,10 @@ class ViewHelper extends Object3D {
 			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
 		};
 
-		const targetPosition = new Vector3();
-		const targetQuaternion = new Quaternion();
-		const q1 = new Quaternion();
-		const q2 = new Quaternion();
+		const targetPosition = new THREE.Vector3();
+		const targetQuaternion = new THREE.Quaternion();
+		const q1 = new THREE.Quaternion();
+		const q2 = new THREE.Quaternion();
 		let radius = 0;
 
 		this.handleClick = function ( event ) {
@@ -249,27 +228,27 @@ class ViewHelper extends Object3D {
 			switch ( object.userData.type ) {
 				case 'posX':
 					targetPosition.set( 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI * 0.5, 0 ) );
+					targetQuaternion.setFromEuler( new THREE.Euler( 0, Math.PI * 0.5, 0 ) );
 					break;
 				case 'posY':
 					targetPosition.set( 0, 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( - Math.PI * 0.5, 0, 0 ) );
+					targetQuaternion.setFromEuler( new THREE.Euler( - Math.PI * 0.5, 0, 0 ) );
 					break;
 				case 'posZ':
 					targetPosition.set( 0, 0, 1 );
-					targetQuaternion.setFromEuler( new Euler() );
+					targetQuaternion.setFromEuler( new THREE.Euler() );
 					break;
 				case 'negX':
 					targetPosition.set( - 1, 0, 0 );
-					targetQuaternion.setFromEuler( new Euler( 0, - Math.PI * 0.5, 0 ) );
+					targetQuaternion.setFromEuler( new THREE.Euler( 0, - Math.PI * 0.5, 0 ) );
 					break;
 				case 'negY':
 					targetPosition.set( 0, - 1, 0 );
-					targetQuaternion.setFromEuler( new Euler( Math.PI * 0.5, 0, 0 ) );
+					targetQuaternion.setFromEuler( new THREE.Euler( Math.PI * 0.5, 0, 0 ) );
 					break;
 				case 'negZ':
 					targetPosition.set( 0, 0, - 1 );
-					targetQuaternion.setFromEuler( new Euler( 0, Math.PI, 0 ) );
+					targetQuaternion.setFromEuler( new THREE.Euler( 0, Math.PI, 0 ) );
 					break;
 				default:
 					console.error( 'ViewHelper: Invalid axis.' );
@@ -289,7 +268,7 @@ class ViewHelper extends Object3D {
 		}
 
 		function getAxisMaterial( color ) {
-			return new MeshBasicMaterial( { color: color, toneMapped: false } );
+			return new THREE.MeshBasicMaterial( { color: color, toneMapped: false } );
 		}
 
 		function getSpriteMaterial( color, text = null ) {
@@ -310,9 +289,9 @@ class ViewHelper extends Object3D {
 				context.fillStyle = '#000000';
 				context.fillText( text, 32, 41 );
 			}
-			const texture = new CanvasTexture( canvas );
+			const texture = new THREE.CanvasTexture( canvas );
 
-			return new SpriteMaterial( { map: texture, toneMapped: false } );
+			return new THREE.SpriteMaterial( { map: texture, toneMapped: false } );
 		}
 	}
 

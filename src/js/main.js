@@ -15,18 +15,19 @@ const degas = {
 			.map(i => this[i].init(this));
 
 		// temp
-		setTimeout(() => {
-			this.dispatch({ type: "new-file" });
-			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
-			this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
-			this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
-			this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
+		// return;
 
-			// this.workspace.dispatch({ type: "deselect" });
-			// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
-			
-			// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
-		}, 150);
+		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
+		
+		this.dispatch({ type: "new-file" });
+		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
+		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
+
+		// this.workspace.dispatch({ type: "deselect" });
+		// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
+		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 	},
 	dispatch(event) {
 		let Self = degas,

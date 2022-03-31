@@ -24,17 +24,12 @@
 			.then(() => {
 				// add recent files in to data-section
 				xSamples.parentNode.append(this.xRecent);
-
 				// render blank view
 				window.render({
 					template: "blank-view",
 					match: `//Data`,
 					target: this.els.el,
 				});
-
-				// temp
-				return;
-				setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
 			});
 	},
 	dispatch(event) {
