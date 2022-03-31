@@ -11,6 +11,12 @@
 			<Tool symbol="icon-zoom" click="set-editor-control-state" arg="zoom"/>
 			<Tool symbol="icon-pan" click="set-editor-control-state" arg="pan"/>
 		</Options>
+
+		<Options>
+			<Tool symbol="icon-select-vertex" />
+			<Tool symbol="icon-select-line" />
+			<Tool symbol="icon-select-face" />
+		</Options>
 		
 		<!-- <Tool symbol="icon-cog" state="disabled"/> -->
 	</Group>
