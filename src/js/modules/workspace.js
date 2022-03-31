@@ -43,36 +43,7 @@
 				editor.deselect();
 				break;
 			case "set-view-shade":
-				switch (event.arg) {
-					case "wireframe":
-						value = mesh => {
-							mesh.material.wireframe = true;
-							// mesh.material.vertexColors = true;
-							mesh.material.flatShading = false;
-							mesh.material.needsUpdate = true;
-						};
-						break;
-					case "solid":
-						value = mesh => {
-							mesh.material.wireframe = false;
-							// mesh.material.vertexColors = false;
-							mesh.material.flatShading = false;
-							mesh.material.needsUpdate = true;
-						};
-						break;
-					case "flat":
-						value = mesh => {
-							mesh.material.wireframe = false;
-							// mesh.material.vertexColors = false;
-							mesh.material.flatShading = true;
-							mesh.material.needsUpdate = true;
-						};
-						break;
-					case "material": return;
-				}
-				editor.scene.children.filter(item => item.material).map(value);
-				// render
-				viewport.render();
+				
 				return true;
 			case "set-editor-control-state":
 				viewport.editorControlsSetState(event.arg.toUpperCase());
@@ -145,12 +116,20 @@
 	getMesh(type) {
 		let sprite,
 			path,
+			material,
+			edges,
 			geometry,
 			mesh;
 		switch (type) {
 			case "box":
 				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
+				// material = new THREE.MeshStandardMaterial();
+				// mesh = new THREE.Mesh( geometry, material );
+
+				edges = new THREE.EdgesGeometry(geometry);
+				material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+				mesh = new THREE.LineSegments( edges, material );
+
 				mesh.name = 'Box';
 				break;
 			case "circle":
@@ -160,7 +139,12 @@
 				break;
 			case "cylinder":
 				geometry = new THREE.CylinderGeometry( 1, 1, 1, 8, 1, false, 0, Math.PI * 2 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
+				// mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
+
+				edges = new THREE.EdgesGeometry(geometry);
+				material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+				mesh = new THREE.LineSegments( edges, material );
+				
 				mesh.name = 'Cylinder';
 				break;
 			case "dodecahedron":
@@ -185,7 +169,7 @@
 				break;
 			case "plane":
 				geometry = new THREE.PlaneGeometry( 1, 1, 1, 1 );
-				const material = new THREE.MeshStandardMaterial();
+				material = new THREE.MeshStandardMaterial();
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Plane';
 				break;
@@ -216,6 +200,18 @@
 			case "torusknot":
 				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
 				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
+
+				// edges = new THREE.EdgesGeometry(geometry);
+				// material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+				// mesh = new THREE.LineSegments( edges, material );
+				
+				mesh.name = 'TorusKnot';
+				break;
+			case "torusknot2":
+				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
+				material = new THREE.MeshBasicMaterial({ color: 0xdd7700, side: THREE.BackSide });
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.scale.multiplyScalar(1.025);
 				mesh.name = 'TorusKnot';
 				break;
 			case "tube":

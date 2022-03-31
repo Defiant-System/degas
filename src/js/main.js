@@ -20,12 +20,16 @@ const degas = {
 		
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
-		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
 
-		// this.workspace.dispatch({ type: "deselect" });
-		// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
+		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [0, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "torusknot2", position: [0, 0, 0] });
+
+		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-3.5, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "icosahedron", position: [0, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
+
+		this.workspace.dispatch({ type: "deselect" });
+		this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 	},
 	dispatch(event) {
