@@ -44,6 +44,20 @@
 				break;
 			case "set-view-shade":
 				
+				editor.scene.children
+					.filter(child => child.type === "Mesh")
+					.map(child => {
+						let edges = new THREE.EdgesGeometry(child.geometry),
+							material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
+							mesh = new THREE.LineSegments(edges, material);
+
+						mesh.position.set(...child.position.toArray());
+						editor.addObject(mesh);
+						child.visible = false;
+					});
+				// render
+				viewport.render();
+
 				return true;
 			case "set-editor-control-state":
 				viewport.editorControlsSetState(event.arg.toUpperCase());
@@ -73,6 +87,99 @@
 				console.log(event);
 				break;
 		}
+	},
+	getMesh(type) {
+		let material = new THREE.MeshStandardMaterial(),
+			sprite,
+			path,
+			edges,
+			geometry,
+			mesh;
+		switch (type) {
+			case "box":
+				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Box';
+				break;
+			case "circle":
+				geometry = new THREE.CircleGeometry( 1, 8, 0, Math.PI * 2 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Circle';
+				break;
+			case "cylinder":
+				geometry = new THREE.CylinderGeometry( 1, 1, 2, 12, 1, false, 0, Math.PI * 2 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Cylinder';
+				break;
+			case "dodecahedron":
+				geometry = new THREE.DodecahedronGeometry( 1, 0 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Dodecahedron';
+				break;
+			case "icosahedron":
+				geometry = new THREE.IcosahedronGeometry( 1, 0 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Icosahedron';
+				break;
+			case "lathe":
+				geometry = new THREE.LatheGeometry();
+				material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Lathe';
+				break;
+			case "octahedron":
+				geometry = new THREE.OctahedronGeometry( 1, 0 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Octahedron';
+				break;
+			case "plane":
+				geometry = new THREE.PlaneGeometry( 1, 1, 1, 1 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Plane';
+				break;
+			case "ring":
+				geometry = new THREE.RingGeometry( 0.5, 1, 8, 1, 0, Math.PI * 2 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Ring';
+				break;
+			case "sphere":
+				geometry = new THREE.SphereGeometry( 1, 32, 16, 0, Math.PI * 2, 0, Math.PI );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Sphere';
+				break;
+			case "sprite":
+				material = new THREE.SpriteMaterial();
+				sprite = new THREE.Sprite( material );
+				sprite.name = 'Sprite';
+				break;
+			case "tetrahedron":
+				geometry = new THREE.TetrahedronGeometry( 1, 0 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Tetrahedron';
+				break;
+			case "torus":
+				geometry = new THREE.TorusGeometry( 1, 0.4, 8, 6, Math.PI * 2 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Torus';
+				break;
+			case "torusknot":
+				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'TorusKnot';
+				break;
+			case "tube":
+				path = new THREE.CatmullRomCurve3( [
+					new THREE.Vector3( 2, 2, - 2 ),
+					new THREE.Vector3( 2, - 2, - 0.6666666666666667 ),
+					new THREE.Vector3( - 2, - 2, 0.6666666666666667 ),
+					new THREE.Vector3( - 2, 2, 2 )
+				] );
+				geometry = new THREE.TubeGeometry( path, 64, 1, 8, false );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = 'Tube';
+				break;
+		}
+		return mesh;
 	},
 	getLight(type) {
 		let intensity = 1,
@@ -112,120 +219,5 @@
 				break;
 		}
 		return light;
-	},
-	getMesh(type) {
-		let sprite,
-			path,
-			material,
-			edges,
-			geometry,
-			mesh;
-		switch (type) {
-			case "box":
-				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
-				// material = new THREE.MeshStandardMaterial();
-				// mesh = new THREE.Mesh( geometry, material );
-
-				edges = new THREE.EdgesGeometry(geometry);
-				material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
-				mesh = new THREE.LineSegments( edges, material );
-
-				mesh.name = 'Box';
-				break;
-			case "circle":
-				geometry = new THREE.CircleGeometry( 1, 8, 0, Math.PI * 2 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Circle';
-				break;
-			case "cylinder":
-				geometry = new THREE.CylinderGeometry( 1, 1, 1, 8, 1, false, 0, Math.PI * 2 );
-				// mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-
-				edges = new THREE.EdgesGeometry(geometry);
-				material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
-				mesh = new THREE.LineSegments( edges, material );
-				
-				mesh.name = 'Cylinder';
-				break;
-			case "dodecahedron":
-				geometry = new THREE.DodecahedronGeometry( 1, 0 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Dodecahedron';
-				break;
-			case "icosahedron":
-				geometry = new THREE.IcosahedronGeometry( 1, 0 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Icosahedron';
-				break;
-			case "lathe":
-				geometry = new THREE.LatheGeometry();
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial( { side: THREE.DoubleSide } ) );
-				mesh.name = 'Lathe';
-				break;
-			case "octahedron":
-				geometry = new THREE.OctahedronGeometry( 1, 0 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Octahedron';
-				break;
-			case "plane":
-				geometry = new THREE.PlaneGeometry( 1, 1, 1, 1 );
-				material = new THREE.MeshStandardMaterial();
-				mesh = new THREE.Mesh( geometry, material );
-				mesh.name = 'Plane';
-				break;
-			case "ring":
-				geometry = new THREE.RingGeometry( 0.5, 1, 8, 1, 0, Math.PI * 2 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Ring';
-				break;
-			case "sphere":
-				geometry = new THREE.SphereGeometry( 1, 32, 16, 0, Math.PI * 2, 0, Math.PI );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Sphere';
-				break;
-			case "sprite":
-				sprite = new THREE.Sprite( new THREE.SpriteMaterial() );
-				sprite.name = 'Sprite';
-				break;
-			case "tetrahedron":
-				geometry = new THREE.TetrahedronGeometry( 1, 0 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Tetrahedron';
-				break;
-			case "torus":
-				geometry = new THREE.TorusGeometry( 1, 0.4, 8, 6, Math.PI * 2 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Torus';
-				break;
-			case "torusknot":
-				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-
-				// edges = new THREE.EdgesGeometry(geometry);
-				// material = new THREE.LineBasicMaterial({ color: 0x00ff00 });
-				// mesh = new THREE.LineSegments( edges, material );
-				
-				mesh.name = 'TorusKnot';
-				break;
-			case "torusknot2":
-				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
-				material = new THREE.MeshBasicMaterial({ color: 0xdd7700, side: THREE.BackSide });
-				mesh = new THREE.Mesh( geometry, material );
-				mesh.scale.multiplyScalar(1.025);
-				mesh.name = 'TorusKnot';
-				break;
-			case "tube":
-				path = new THREE.CatmullRomCurve3( [
-					new THREE.Vector3( 2, 2, - 2 ),
-					new THREE.Vector3( 2, - 2, - 0.6666666666666667 ),
-					new THREE.Vector3( - 2, - 2, 0.6666666666666667 ),
-					new THREE.Vector3( - 2, 2, 2 )
-				] );
-				geometry = new THREE.TubeGeometry( path, 64, 1, 8, false );
-				mesh = new THREE.Mesh( geometry, new THREE.MeshStandardMaterial() );
-				mesh.name = 'Tube';
-				break;
-		}
-		return mesh;
 	}
 }

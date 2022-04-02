@@ -44,7 +44,7 @@ class File {
 	}
 
 	getLoader(name) {
-		return window.fetch(`~/js/${name}.js`, { responseType: "text" });
+		return window.fetch("~/loaders/"+ name +".js", { responseType: "text" });
 	}
 
 	async toBlob(mime, quality) {

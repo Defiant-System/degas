@@ -3,8 +3,9 @@ import * as THREE from "./modules/threejs/build/three.module.js";
 import { Loader } from './modules/threejs/editor/js/Loader.js';
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
-import { Strings } from "./classes/Strings.js";
+import { LineMaterial } from './modules/threejs/examples/jsm/lines/LineMaterial.js';
 
+import { Strings } from "./classes/Strings.js";
 import { TransformControls } from './classes/TransformControls.js';
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
@@ -18,6 +19,8 @@ module.exports = {
 	History,
 	Loader,
 
+	LineMaterial,
+	
 	Strings,
 	TransformControls,
 	SetPositionCommand,

@@ -255,8 +255,18 @@ class Editor {
 		if ( object !== null ) {
 			uuid = object.uuid;
 		}
+
+		if (this.selected && this.selected.material) {
+			// unhighlight selected, if any
+			this.selected.material.color.setHex(Settings.wireframe.default);
+		}
+
 		this.selected = object;
 		this.config.setKey( 'selected', uuid );
+		
+		if (this.selected && this.selected.material) {
+			this.selected.material.color.setHex(Settings.wireframe.highlight);
+		}
 
 		viewport.selectObject(object);
 	}
@@ -279,6 +289,10 @@ class Editor {
 	}
 
 	deselect() {
+		if (this.selected && this.selected.material) {
+			// unhighlight selected, if any
+			this.selected.material.color.setHex(Settings.wireframe.default);
+		}
 		this.select( null );
 	}
 

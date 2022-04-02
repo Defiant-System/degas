@@ -34,7 +34,7 @@ class Viewport {
 		const viewHelper = new ViewHelper( camera, container );
 		const vr = new VR( editor );
 		const box = new THREE.Box3();
-		const selectionBox = new THREE.Box3Helper( box, 0xff9900 );
+		const selectionBox = new THREE.Box3Helper( box, Settings.wireframe.highlight );
 
 		selectionBox.material.depthTest = THREE.AlwaysDepth;
 		selectionBox.material.transparent = true;
@@ -245,13 +245,13 @@ class Viewport {
 		this.grid = grid;
 
 		this.selectObject = function(object) {
-			selectionBox.visible = false;
+			// selectionBox.visible = false;
 			transformControls.detach();
 
 			if ( object !== null && object !== scene && object !== camera ) {
 				box.setFromObject( object, true );
 				if ( box.isEmpty() === false ) {
-					selectionBox.visible = true;
+					// selectionBox.visible = true;
 				}
 				transformControls.attach( object );
 			}

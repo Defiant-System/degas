@@ -5,6 +5,8 @@ const {
 	History,
 	Loader,
 
+	LineMaterial,
+	
 	Strings,
 	TransformControls,
 	SetPositionCommand,
