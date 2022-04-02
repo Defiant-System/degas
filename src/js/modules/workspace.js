@@ -23,6 +23,32 @@
 				// create editor + viewport
 				editor = new Editor();
 				viewport = new Viewport(editor);
+
+
+				let width = window.innerWidth,
+					height = window.innerHeight;
+				Self.postProcessing = {
+					composer: new EffectComposer( renderer ),
+					renderPass: new RenderPass( editor.scene, editor.camera ),
+					outlinePass: new OutlinePass( new THREE.Vector2( width, height ), editor.scene, editor.camera ),
+					effectFXAA: new ShaderPass( FXAAShader ),
+					gammaPass: new ShaderPass( GammaCorrectionShader ),
+				};
+				Self.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
+				Self.postProcessing.composer.addPass( Self.postProcessing.renderPass );
+				Self.postProcessing.composer.addPass( Self.postProcessing.outlinePass );
+				Self.postProcessing.composer.addPass( Self.postProcessing.effectFXAA );
+				Self.postProcessing.composer.addPass( Self.postProcessing.gammaPass );
+				// outline details
+				Self.postProcessing.outlinePass.edgeStrength = 3.0;
+				Self.postProcessing.outlinePass.edgeThickness = 1.0;
+				// outline color
+				Self.postProcessing.outlinePass.visibleEdgeColor.set( '#ff9900' );
+				Self.postProcessing.outlinePass.hiddenEdgeColor.set( '#2255cc' );
+				// set composer dimension
+				Self.postProcessing.composer.setSize( width, height );
+
+
 				// append panel
 				Self.els.workspace.append(viewport.container.dom);
 				Self.els.rendererCvs = Self.els.workspace.append(renderer.domElement),
@@ -44,19 +70,34 @@
 				break;
 			case "set-view-shade":
 				
+				let oneDone = false;
+
 				editor.scene.children
 					.filter(child => child.type === "Mesh")
 					.map(child => {
-						let edges = new THREE.EdgesGeometry(child.geometry),
-							material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
-							mesh = new THREE.LineSegments(edges, material);
+						if (oneDone) return;
+						oneDone = true;
 
-						mesh.position.set(...child.position.toArray());
-						editor.addObject(mesh);
+						let clone = child.geometry.clone(),
+							edges = new THREE.EdgesGeometry(clone),
+							material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
+							object = new THREE.LineSegments(edges, material);
+
+						object.position.set(...child.position.toArray());
+						object.rotation.set(...child.rotation.toArray());
+						object.scale.set(...child.scale.toArray());
+
+						editor.scene.add(object);
+						editor.scene.remove(child);
 						// child.visible = false;
-						
-						child.position.set(...child.position.toArray());
+						// child.material.transparent = true;
+						// child.material.opacity = .25;
 					});
+
+				// editor.camera.aspect = APP.els.content[0].offsetWidth / APP.els.content[0].offsetHeight;
+				// editor.camera.updateProjectionMatrix();
+				// renderer.setSize( APP.els.content[0].offsetWidth, APP.els.content[0].offsetHeight );
+
 				// render
 				viewport.render();
 
@@ -99,8 +140,13 @@
 			mesh;
 		switch (type) {
 			case "box":
-				geometry = new THREE.BoxGeometry( .5, .5, .5, 1, 1, 1 );
+				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
 				mesh = new THREE.Mesh( geometry, material );
+
+				// let edges = new THREE.EdgesGeometry(geometry);
+				// material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default });
+				// mesh = new THREE.LineSegments(edges, material);
+
 				mesh.name = 'Box';
 				break;
 			case "circle":

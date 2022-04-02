@@ -3,7 +3,12 @@ import * as THREE from "./modules/threejs/build/three.module.js";
 import { Loader } from './modules/threejs/editor/js/Loader.js';
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
-import { LineMaterial } from './modules/threejs/examples/jsm/lines/LineMaterial.js';
+import { EffectComposer } from './modules/threejs/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './modules/threejs/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from './modules/threejs/examples/jsm/postprocessing/ShaderPass.js';
+import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/OutlinePass.js';
+import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js';
+import { GammaCorrectionShader } from './modules/threejs/examples/jsm/shaders/GammaCorrectionShader.js';
 
 import { Strings } from "./classes/Strings.js";
 import { TransformControls } from './classes/TransformControls.js';
@@ -19,7 +24,12 @@ module.exports = {
 	History,
 	Loader,
 
-	LineMaterial,
+	EffectComposer,
+	RenderPass,
+	ShaderPass,
+	OutlinePass,
+	FXAAShader,
+	GammaCorrectionShader,
 	
 	Strings,
 	TransformControls,

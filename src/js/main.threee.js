@@ -5,7 +5,12 @@ const {
 	History,
 	Loader,
 
-	LineMaterial,
+	EffectComposer,
+	RenderPass,
+	ShaderPass,
+	OutlinePass,
+	FXAAShader,
+	GammaCorrectionShader,
 	
 	Strings,
 	TransformControls,
