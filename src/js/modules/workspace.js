@@ -54,6 +54,8 @@
 						mesh.position.set(...child.position.toArray());
 						editor.addObject(mesh);
 						child.visible = false;
+						
+						child.position.set(...child.position.toArray());
 					});
 				// render
 				viewport.render();
@@ -97,7 +99,7 @@
 			mesh;
 		switch (type) {
 			case "box":
-				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
+				geometry = new THREE.BoxGeometry( .5, .5, .5, 1, 1, 1 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Box';
 				break;
@@ -158,7 +160,7 @@
 				mesh.name = 'Tetrahedron';
 				break;
 			case "torus":
-				geometry = new THREE.TorusGeometry( 1, 0.4, 8, 6, Math.PI * 2 );
+				geometry = new THREE.TorusGeometry( 1, 0.4, 8, 24, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Torus';
 				break;

@@ -140,6 +140,25 @@ class Viewport {
 		}
 		
 		/**/
+		function onMouseMove( event ) {
+			const position = new THREE.Vector2();
+			const array = getMousePosition( container.dom, event.clientX, event.clientY );
+			position.fromArray( array );
+			const intersects = getIntersects( position, scene.children );
+
+			if (Self.hoverObject && ((intersects.length && intersects[0].object !== Self.hoverObject) || !intersects.length)) {
+				Self.hoverObject.material.color.setHex(Settings.wireframe.default);
+				delete Self.hoverObject;
+				render();
+			}
+
+			if (intersects.length > 0 && intersects[0].object !== Self.hoverObject) {
+				Self.hoverObject = intersects[0].object;
+				Self.hoverObject.material.color.setHex(Settings.wireframe.hover);
+				render();
+			}
+		}
+
 		function onMouseDown( event ) {
 			// event.preventDefault();
 			const array = getMousePosition( container.dom, event.clientX, event.clientY );
@@ -163,6 +182,7 @@ class Viewport {
 			}
 		}
 		
+		container.dom.addEventListener( 'mousemove', onMouseMove );
 		container.dom.addEventListener( 'mousedown', onMouseDown );
 		container.dom.addEventListener( 'dblclick', onDoubleClick );
 		
