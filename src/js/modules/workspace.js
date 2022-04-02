@@ -53,7 +53,7 @@
 
 						mesh.position.set(...child.position.toArray());
 						editor.addObject(mesh);
-						child.visible = false;
+						// child.visible = false;
 						
 						child.position.set(...child.position.toArray());
 					});

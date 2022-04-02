@@ -289,10 +289,6 @@ class Editor {
 	}
 
 	deselect() {
-		if (this.selected && this.selected.material) {
-			// unhighlight selected, if any
-			this.selected.material.color.setHex(Settings.wireframe.default);
-		}
 		this.select( null );
 	}
 

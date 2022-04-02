@@ -152,7 +152,7 @@ class Viewport {
 				render();
 			}
 
-			if (intersects.length > 0 && intersects[0].object !== Self.hoverObject) {
+			if (intersects.length > 0 && intersects[0].object !== editor.selected && intersects[0].object !== Self.hoverObject) {
 				Self.hoverObject = intersects[0].object;
 				Self.hoverObject.material.color.setHex(Settings.wireframe.hover);
 				render();
