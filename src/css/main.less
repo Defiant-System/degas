@@ -124,12 +124,24 @@ content {
 }
 
 .sidebar {
-	background: #eee;
-	border-left: 1px solid #bbb;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	right: -270px;
 	width: 270px;
+	display: flex;
+	flex-direction: column;
+	background: #333;
+	border-left: 1px solid #222;
 	transition: right @sidebar_speed;
+
+	.children {
+		background: #3d3d3d;
+		height: 240px;
+		border-bottom: 1px solid #222;
+	}
+
+	.properties {
+		flex: 1;
+	}
 }

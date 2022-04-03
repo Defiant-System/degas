@@ -14,6 +14,9 @@ const degas = {
 		// fast references
 		this.els = {
 			content: window.find("content"),
+			toolbar: {
+				sidebar: window.find(`.toolbar-tool_[data-click="toggle-sidebar"]`),
+			}
 		};
 		// init all sub-objects
 		Object.keys(this)
@@ -26,6 +29,7 @@ const degas = {
 		// temp
 		// return;
 		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
+		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 150);
 		
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
@@ -94,6 +98,9 @@ const degas = {
 				});
 				break;
 			case "close-file":
+				if (Self.els.content.hasClass("show-sidebar")) {
+					Self.els.toolbar.sidebar.trigger("click");
+				}
 				// show blank view
 				Self.els.content.addClass("show-blank-view");
 				// call close method of file - will check for "is-dirty"
