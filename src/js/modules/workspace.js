@@ -6,6 +6,12 @@
 		// fast references
 		this.els = {
 			workspace: window.find(".workspace"),
+			toolbar: {
+				wireframe: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="wireframe"]`),
+				flat: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="flat"]`),
+				solid: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="solid"]`),
+				material: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="material"]`),
+			}
 		};
 
 		this.viewShadeMode = "solid";
@@ -24,7 +30,7 @@
 				editor = new Editor();
 				viewport = new Viewport(editor);
 
-
+				/*
 				let width = window.innerWidth,
 					height = window.innerHeight;
 				Self.postProcessing = {
@@ -47,7 +53,7 @@
 				Self.postProcessing.outlinePass.hiddenEdgeColor.set( '#2255cc' );
 				// set composer dimension
 				Self.postProcessing.composer.setSize( width, height );
-
+				*/
 
 				// append panel
 				Self.els.workspace.append(viewport.container.dom);
@@ -69,7 +75,10 @@
 				editor.deselect();
 				break;
 			case "set-view-shade":
-				
+				el = Self.els.toolbar[event.arg];
+				el.parent().find(".tool-active_").removeClass("tool-active_");
+				el.addClass("tool-active_");
+
 				editor.scene.children
 					.filter(child => child.type === "Mesh")
 					.map(child => {
@@ -84,9 +93,10 @@
 
 						editor.scene.add(object);
 						// editor.scene.remove(child);
+						
 						child.visible = false;
 						// child.material.transparent = true;
-						// child.material.opacity = .25;
+						// child.material.opacity = 0.125;
 					});
 
 				// render
@@ -133,11 +143,6 @@
 			case "box":
 				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
 				mesh = new THREE.Mesh( geometry, material );
-
-				// let edges = new THREE.EdgesGeometry(geometry);
-				// material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default });
-				// mesh = new THREE.LineSegments(edges, material);
-
 				mesh.name = 'Box';
 				break;
 			case "circle":

@@ -11,11 +11,6 @@ class ViewHelper extends THREE.Object3D {
 		const dom = container.dom;
 		const panel = new UIPanel();
 		panel.setId( 'viewHelper' );
-		panel.setPosition( 'absolute' );
-		// panel.setRight( '0px' );
-		// panel.setBottom( '0px' );
-		// panel.setHeight( '128px' );
-		// panel.setWidth( '128px' );
 
 		panel.dom.addEventListener( 'pointerup', ( event ) => {
 			event.stopPropagation();

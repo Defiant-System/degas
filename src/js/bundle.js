@@ -11,7 +11,6 @@ import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js
 import { GammaCorrectionShader } from './modules/threejs/examples/jsm/shaders/GammaCorrectionShader.js';
 
 import { Strings } from "./classes/Strings.js";
-import { TransformControls } from './classes/TransformControls.js';
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
 import { SetPositionCommand } from './classes/commands/SetPositionCommand.js';
@@ -32,7 +31,6 @@ module.exports = {
 	GammaCorrectionShader,
 	
 	Strings,
-	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
 	SetScaleCommand,

@@ -13,7 +13,6 @@ const {
 	GammaCorrectionShader,
 	
 	Strings,
-	TransformControls,
 	SetPositionCommand,
 	SetRotationCommand,
 	SetScaleCommand,
@@ -26,6 +25,7 @@ const {
 
 @import "./classes/Editor.js";
 @import "./classes/EditorControls.js";
+@import "./classes/TransformControls.js";
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.VR.js";
 @import "./classes/Viewport.ViewHelper.js";
@@ -44,6 +44,6 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 
 let _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
-_DEFAULT_CAMERA.position.set( 6, 3, 6.5 );
+_DEFAULT_CAMERA.position.set( 3, 3, 4.5 );
 _DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
 

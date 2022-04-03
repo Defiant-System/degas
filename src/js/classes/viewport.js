@@ -163,13 +163,12 @@ class Viewport {
 				let object = intersects[ 0 ].object;
 				let p1 = object.position.clone().add( new THREE.Vector3(3, 3, 6) ),
 					p2 = object.position.clone();
-				
 				// update camera position & lookAt
 				camera.position.set( ...p1.toArray() );
 				camera.lookAt(p2);
 				// update controls center
 				controls.center.set( ...p2.toArray() );
-
+				
 				render();
 			}
 		}
