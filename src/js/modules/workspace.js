@@ -94,6 +94,10 @@
 						editor.scene.add(object);
 						// editor.scene.remove(child);
 						
+						if (editor.selected === child) {
+							editor.select( object );
+						}
+						
 						child.visible = false;
 						// child.material.transparent = true;
 						// child.material.opacity = 0.125;
