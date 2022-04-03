@@ -17,11 +17,20 @@
 		// console.log(event);
 		switch (event.type) {
 			case "toggle-sidebar":
-				value = Self.els.content.hasClass("show-sidebar");
-				Self.els.content.toggleClass("show-sidebar", value);
-
-				setTimeout(() => viewport.resize(), 230);
-
+				let animStop = false,
+					resizeAnim = () => {
+						if (animStop) return;
+						requestAnimationFrame(resizeAnim);
+						viewport.resize();
+					};
+				// start resize animation
+				resizeAnim();
+				// schedule stopper
+				name = (Self.els.content.hasClass("show-sidebar")) ? "!show-sidebar" : "show-sidebar";
+				Self.els.content.cssSequence(name, "transitionend", el => {
+					if (!el.hasClass("sidebar")) return;
+					animStop = true;
+				});
 				return !value;
 		}
 	}
