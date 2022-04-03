@@ -2,7 +2,10 @@
 @import "blankView";
 
 // applies wot window body
-background: transparent;
+background: #333;
+
+
+@sidebar_speed: 220ms;
 
 
 content {
@@ -18,6 +21,16 @@ content {
 
 		.blank-view { display: block; }
 		.workspace { display: none; }
+	}
+
+	&.show-sidebar {
+		.workspace {
+			right: 270px;
+		}
+
+		.sidebar {
+			right: 0;
+		}
 	}
 
 	&.cover:after {
@@ -53,6 +66,7 @@ content {
     left: 0;
     right: 0;
     bottom: 0;
+	transition: right @sidebar_speed;
     
 	#viewport {
 		position: absolute;
@@ -107,4 +121,15 @@ content {
 			cursor: pointer;
 		}
 	}
+}
+
+.sidebar {
+	background: #eee;
+	border-left: 1px solid #bbb;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: -270px;
+	width: 270px;
+	transition: right @sidebar_speed;
 }

@@ -103,6 +103,8 @@ const degas = {
 				defiant.shell("fs -u '~/help/index.md'");
 				break;
 			// proxy event
+			case "toggle-sidebar":
+				return Self.sidebar.dispatch(event);
 			case "add-mesh":
 			case "add-light":
 			case "add-camera":
