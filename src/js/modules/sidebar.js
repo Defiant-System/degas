@@ -26,7 +26,8 @@
 				// start resize animation
 				resizeAnim();
 				// schedule stopper
-				name = (Self.els.content.hasClass("show-sidebar")) ? "!show-sidebar" : "show-sidebar";
+				value = Self.els.content.hasClass("show-sidebar");
+				name = value ? "!show-sidebar" : "show-sidebar";
 				Self.els.content.cssSequence(name, "transitionend", el => {
 					if (!el.hasClass("sidebar")) return;
 					animStop = true;
