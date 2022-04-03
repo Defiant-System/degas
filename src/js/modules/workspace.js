@@ -70,14 +70,9 @@
 				break;
 			case "set-view-shade":
 				
-				let oneDone = false;
-
 				editor.scene.children
 					.filter(child => child.type === "Mesh")
 					.map(child => {
-						if (oneDone) return;
-						oneDone = true;
-
 						let clone = child.geometry.clone(),
 							edges = new THREE.EdgesGeometry(clone),
 							material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
@@ -88,15 +83,11 @@
 						object.scale.set(...child.scale.toArray());
 
 						editor.scene.add(object);
-						editor.scene.remove(child);
-						// child.visible = false;
+						// editor.scene.remove(child);
+						child.visible = false;
 						// child.material.transparent = true;
 						// child.material.opacity = .25;
 					});
-
-				// editor.camera.aspect = APP.els.content[0].offsetWidth / APP.els.content[0].offsetHeight;
-				// editor.camera.updateProjectionMatrix();
-				// renderer.setSize( APP.els.content[0].offsetWidth, APP.els.content[0].offsetHeight );
 
 				// render
 				viewport.render();

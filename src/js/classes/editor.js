@@ -12,7 +12,7 @@ class Editor {
 
 		this.scene = new THREE.Scene();
 		this.scene.name = 'Scene';
-		// this.scene.background = new THREE.Color( 0xf0f0f0 );
+		this.scene.background = new THREE.Color( 0x333333 );
 		this.sceneHelpers = new THREE.Scene();
 
 		this.object = {};

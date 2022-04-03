@@ -98,7 +98,7 @@ class Viewport {
 		// object picking
 		const raycaster = new THREE.Raycaster();
 		raycaster.params.Line.threshold = 0.1;
-		
+
 		const mouse = new THREE.Vector2();
 
 		// events
@@ -140,26 +140,6 @@ class Viewport {
 				render();
 			}
 		}
-		
-		/**/
-		function onMouseMove( event ) {
-			const position = new THREE.Vector2();
-			const array = getMousePosition( container.dom, event.clientX, event.clientY );
-			position.fromArray( array );
-			const intersects = getIntersects( position, scene.children );
-
-			if (Self.hoverObject && ((intersects.length && intersects[0].object !== Self.hoverObject) || !intersects.length)) {
-				Self.hoverObject.material.color.setHex(Settings.wireframe.default);
-				delete Self.hoverObject;
-				render();
-			}
-
-			if (intersects.length > 0 && intersects[0].object !== editor.selected && intersects[0].object !== Self.hoverObject) {
-				Self.hoverObject = intersects[0].object;
-				Self.hoverObject.material.color.setHex(Settings.wireframe.hover);
-				render();
-			}
-		}
 
 		function onMouseDown( event ) {
 			// event.preventDefault();
@@ -180,11 +160,20 @@ class Viewport {
 			onDoubleClickPosition.fromArray( array );
 			const intersects = getIntersects( onDoubleClickPosition, scene.children );
 			if ( intersects.length > 0 ) {
-				const intersect = intersects[ 0 ];
+				let object = intersects[ 0 ].object;
+				let p1 = object.position.clone().add( new THREE.Vector3(3, 3, 6) ),
+					p2 = object.position.clone();
+				
+				// update camera position & lookAt
+				camera.position.set( ...p1.toArray() );
+				camera.lookAt(p2);
+				// update controls center
+				controls.center.set( ...p2.toArray() );
+
+				render();
 			}
 		}
 		
-		container.dom.addEventListener( 'mousemove', onMouseMove );
 		container.dom.addEventListener( 'mousedown', onMouseDown );
 		container.dom.addEventListener( 'dblclick', onDoubleClick );
 		
@@ -233,7 +222,7 @@ class Viewport {
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
 			scene.add( grid );
-			renderer.setClearColor( 0x333333 );
+			// renderer.setClearColor( 0x333333 );
 			renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
 
 			if (APP.outlinePass) {

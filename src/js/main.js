@@ -3,7 +3,6 @@
 
 const Settings = {
 	wireframe: {
-		hover: 0x00ff00,
 		default: 0x010101,
 		highlight: 0xff6600,
 	},
