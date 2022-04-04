@@ -61,6 +61,9 @@ content {
 		&.icon-arrow    { background-image: url(~/icons/icon-arrow.png); }
 		&.icon-group    { background-image: url(~/icons/icon-group.png); }
 		&.icon-cog      { background-image: url(~/icons/icon-cog.png); }
+		&.icon-tools    { background-image: url(~/icons/icon-tools.png); }
+		&.icon-material { background-image: url(~/icons/icon-material.png); }
+		&.icon-texture  { background-image: url(~/icons/icon-texture.png); }
 		&.icon-eye-on   { background-image: url(~/icons/icon-eye-on.png); }
 		&.icon-eye-off  { background-image: url(~/icons/icon-eye-off.png); }
 		&.icon-scene    { background-image: url(~/icons/icon-scene.png); }
@@ -209,22 +212,40 @@ content {
 			width: 25px;
 
 			> div {
-				background-color: #393939;
+				background-color: #363636;
 				border-radius: 5px 0 0 5px;
 				margin: 0 1px 2px 0;
 				padding: 5px 4px;
 				width: 24px;
 				height: 27px;
+				cursor: pointer;
+
+				&:hover:not(.active) {
+					background-color: #424242;
+
+					i:not(.icon-texture) {
+						filter: drop-shadow(0 1px 0 #333) opacity(1);
+					}
+				}
 
 				i {
 					background-size: 15px 15px;
-					filter: drop-shadow(0 1px 0 #333);
+					filter: grayscale(1) opacity(.5) drop-shadow(0 1px 0 #333);
+
+					&.icon-texture {
+						filter: grayscale(1) opacity(.5);
+					}
 				}
 
 				&.active {
 					background-color: #424242;
 					width: 25px;
 					margin-right: 0;
+					cursor: default;
+
+					i:not(.icon-texture) {
+						filter: drop-shadow(0 1px 0 #333);
+					}
 				}
 			}
 		}
