@@ -153,8 +153,23 @@ content {
 		background: #3d3d3d;
 		padding: 2px 0 0 1px;
 		height: 240px;
-		// border-bottom: 1px solid #222;
 		margin-bottom: 1px;
+		display: flex;
+		flex-direction: column;
+
+		.head {
+			height: 23px;
+			padding: 3px 0 0 2px;
+			background-color: #494949;
+			text-shadow: 0 1px 0 #333;
+		}
+
+		.body {
+			flex: 1;
+			overflow: auto;
+			padding: 2px 3px;
+			border-radius: 0 0 3px 0;
+		}
 
 		[class*="icon-"],
 		[class^="icon-"] {
@@ -279,11 +294,51 @@ content {
 				.body {
 					flex: 1;
 					overflow: auto;
-					padding: 2px 3px;
+					padding: 7px 5px;
 					background-color: #494949;
 					box-shadow: 0 1px 0 #393939;
 					border-radius: 0 0 3px 0;
 				}
+			}
+		}
+	}
+
+	fieldset {
+		position: relative;
+		margin-bottom: 5px;
+
+		legend {
+			position: absolute;
+			padding: 4px 0 3px;
+			text-shadow: 0 1px 0 #333;
+		}
+
+		div {
+			position: relative;
+			background: #555;
+			margin: 0 5px 1px 83px;
+			padding: 4px 0 3px;
+			text-align: center;
+
+			&:before {
+				content: attr(data-label);
+				position: absolute;
+				top: 0;
+				left: -53px;
+				width: 47px;
+				padding: inherit;
+				text-align: right;
+				font-size: 90%;
+				line-height: 1.1;
+				text-shadow: 0 1px 0 #333;
+			}
+
+			&:nth-child(2) {
+				border-radius: 5px 5px 0 0;
+			}
+
+			&:nth-child(4) {
+				border-radius: 0 0 5px 5px;
 			}
 		}
 	}
