@@ -59,6 +59,8 @@ content {
 		&.icon-clipboard   { background-image: url(~/icons/icon-clipboard.png); }
 
 		&.icon-arrow    { background-image: url(~/icons/icon-arrow.png); }
+		&.icon-group    { background-image: url(~/icons/icon-group.png); }
+		&.icon-cog      { background-image: url(~/icons/icon-cog.png); }
 		&.icon-eye-on   { background-image: url(~/icons/icon-eye-on.png); }
 		&.icon-eye-off  { background-image: url(~/icons/icon-eye-off.png); }
 		&.icon-scene    { background-image: url(~/icons/icon-scene.png); }
@@ -139,7 +141,7 @@ content {
 	width: 270px;
 	display: flex;
 	flex-direction: column;
-	background: #333;
+	background: #303030;
 	border-left: 1px solid #222;
 	transition: right @sidebar_speed;
 
@@ -148,7 +150,8 @@ content {
 		color: #aaa;
 		padding: 2px 0 0 1px;
 		height: 240px;
-		border-bottom: 1px solid #222;
+		// border-bottom: 1px solid #222;
+		margin-bottom: 1px;
 
 		[class*="icon-"],
 		[class^="icon-"] {
@@ -160,7 +163,7 @@ content {
 		.icon-arrow {
 			width: 13px;
 			height: 13px;
-			filter: drop-shadow(0 1px 0 #222);
+			filter: none;
 		}
 
 		.icon-eye-on,
@@ -171,12 +174,16 @@ content {
 			width: 15px;
 			height: 15px;
 			opacity: .65;
+
+			&.icon-eye-on {
+				opacity: 0;
+			}
 		}
 
 		.row {
 			position: relative;
-			min-height: 19px;
-			padding: 1px 0 0 2px;
+			min-height: 20px;
+			padding: 2px 0 0 2px;
 
 			&:hover {
 				> span {
@@ -196,5 +203,35 @@ content {
 
 	.properties {
 		flex: 1;
+		display: flex;
+
+		.tabs {
+			width: 25px;
+
+			> div {
+				background-color: #393939;
+				border-radius: 5px 0 0 5px;
+				margin: 0 1px 2px 0;
+				padding: 5px 4px;
+				width: 24px;
+				height: 27px;
+
+				i {
+					background-size: 15px 15px;
+					filter: drop-shadow(0 1px 0 #333);
+				}
+
+				&.active {
+					background-color: #424242;
+					width: 25px;
+					margin-right: 0;
+				}
+			}
+		}
+
+		.tab-body {
+			flex: 1;
+			background: #424242;
+		}
 	}
 }
