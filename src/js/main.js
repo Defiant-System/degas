@@ -132,6 +132,7 @@ const degas = {
 	sidebar: @import "sidebar/index.js",
 	blankView: @import "modules/blankView.js",
 	workspace: @import "modules/workspace.js",
+	colorpicker: @import "modules/colorpicker.js",
 };
 
 const APP = degas;
