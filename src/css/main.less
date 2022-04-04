@@ -145,12 +145,12 @@ content {
 	display: flex;
 	flex-direction: column;
 	background: #303030;
+	color: #aaa;
 	border-left: 1px solid #222;
 	transition: right @sidebar_speed;
 
 	.tree {
 		background: #3d3d3d;
-		color: #aaa;
 		padding: 2px 0 0 1px;
 		height: 240px;
 		// border-bottom: 1px solid #222;
@@ -229,6 +229,7 @@ content {
 				}
 
 				i {
+					pointer-events: none;
 					background-size: 15px 15px;
 					filter: grayscale(1) opacity(.5) drop-shadow(0 1px 0 #333);
 
@@ -253,6 +254,37 @@ content {
 		.tab-body {
 			flex: 1;
 			background: #424242;
+			position: relative;
+
+			> div[data-section] {
+				display: none;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+
+				&.active {
+					display: flex;
+					flex-direction: column;
+					padding: 4px;
+				}
+
+				.head {
+					height: 23px;
+					padding: 3px 0 0 2px;
+					text-shadow: 0 1px 0 #333;
+				}
+
+				.body {
+					flex: 1;
+					overflow: auto;
+					padding: 2px 3px;
+					background-color: #494949;
+					box-shadow: 0 1px 0 #393939;
+					border-radius: 0 0 3px 0;
+				}
+			}
 		}
 	}
 }

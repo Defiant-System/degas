@@ -72,17 +72,24 @@
 
 		</div>
 		<div class="properties">
-			<div class="tabs">
-				<div class="active"><i class="icon-camera"></i></div>
-				<div><i class="icon-light"></i></div>
-				<div><i class="icon-tools"></i></div>
-				<div><i class="icon-material"></i></div>
-				<div><i class="icon-group"></i></div>
-				<div><i class="icon-cog"></i></div>
-				<div><i class="icon-texture"></i></div>
+			<div class="tabs" data-click="select-sidebar-tab">
+				<div data-name="camera"><i class="icon-camera"></i></div>
+				<div data-name="light"><i class="icon-light"></i></div>
+				<div data-name="modifiers"><i class="icon-tools"></i></div>
+				<div data-name="material"><i class="icon-material"></i></div>
+				<div data-name="files"><i class="icon-group"></i></div>
+				<div data-name="settings"><i class="icon-cog"></i></div>
+				<div data-name="texture"><i class="icon-texture"></i></div>
 			</div>
 			<div class="tab-body">
 				<!-- item proeperties goes here -->
+				@import "sidebar/camera.htm"
+				@import "sidebar/light.htm"
+				@import "sidebar/modifiers.htm"
+				@import "sidebar/material.htm"
+				@import "sidebar/files.htm"
+				@import "sidebar/settings.htm"
+				@import "sidebar/texture.htm"
 			</div>
 		</div>
 	</div>
