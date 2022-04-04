@@ -129,7 +129,7 @@ const degas = {
 				}
 		}
 	},
-	sidebar: @import "modules/sidebar.js",
+	sidebar: @import "sidebar/index.js",
 	blankView: @import "modules/blankView.js",
 	workspace: @import "modules/workspace.js",
 };

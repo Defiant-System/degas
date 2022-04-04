@@ -47,6 +47,21 @@
 				value.parent().find("> div[data-section].active").removeClass("active");
 				value.addClass("active");
 				break;
+			default:
+				if (event.el) {
+					el = event.el;
+					el = el.data("section") ? el : el.parents(`div[data-section]`);
+					if (el.length) Self[el.data("section")].dispatch(event);
+				}
 		}
-	}
+	},
+	tree: @import "./tree.js",
+	light: @import "./light.js",
+	files: @import "./files.js",
+	camera: @import "./camera.js",
+	modifiers: @import "./modifiers.js",
+	material: @import "./material.js",
+	settings: @import "./settings.js",
+	texture: @import "./texture.js",
+	object: @import "./object.js",
 }
