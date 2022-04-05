@@ -52,6 +52,8 @@
 				Self.els.content.addClass("cover hideMouse");
 				// collect event info
 				let el = $(event.target).find(".cursor"),
+					radius = 74,
+					TAU = Math.PI * 2,
 					offset = {
 						left: event.offsetX,
 						top: event.offsetY,
@@ -67,19 +69,21 @@
 					el,
 					click,
 					offset,
+					radius,
+					TAU,
+					mod: (a, n) => (a % n + n) % n,
 					limit: (left, top) => {
-						var r = 73,
-							distance = (p1, p2) => Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2)),
-							dist = distance([left, top], [r, r]),
+						var distance = (p1, p2) => Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2)),
+							dist = distance([left, top], [radius, radius]),
 							rad;
-						if (dist <= r) return { left, top };
+						if (dist <= radius) return { left, top };
 						else {
-							left = left - r;
-							top = top - r;
+							left = left - radius;
+							top = top - radius;
 							rad = Math.atan2(top, left);
 							return {
-								left: Math.cos(rad) * r + r,
-								top: Math.sin(rad) * r + r
+								left: Math.round(Math.cos(rad) * radius + radius),
+								top: Math.round(Math.sin(rad) * radius + radius),
 							}
 						}
 					},
@@ -90,7 +94,10 @@
 			case "mousemove":
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
 					left = event.clientX + Drag.offset.left - Drag.click.x,
-					limited = Drag.limit(left, top);
+					limited = Drag.limit(left, top),
+					x = Drag.radius - limited.left,
+					y = Drag.radius - limited.top,
+					hue = Drag.mod(Math.atan2(-y, -x) * (360 / Drag.TAU) - 90, 360);
 
 				Drag.el.css(limited);
 				break;
