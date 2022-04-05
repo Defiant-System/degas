@@ -33,6 +33,7 @@ const {
 
 
 @import "./classes/File.js";
+@import "./modules/color.js";
 
 
 let editor,
