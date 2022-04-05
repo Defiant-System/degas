@@ -169,18 +169,50 @@
 
 fieldset {
 	position: relative;
-	margin-bottom: 5px;
+
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
 
 	&.color-group {
 		div {
 			margin: 0 29px 1px 0;
 			border-radius: 0;
-			text-align: right;
+			text-align: left;
 			padding-right: 7px;
+			overflow: hidden;
+			color: #fff;
 
 			&:before {
+				left: 0;
+				bottom: 0;
+				width: calc( var(--value) * 100% );
+				background: #547ec0;
+			}
+
+			&:after {
+				content: attr(data-value);
+				position: absolute;
+				top: 0;
+				right: 0;
+				padding: inherit;
+				text-align: right;
+				// font-size: 90%;
+				// line-height: 1.1;
+				text-shadow: 0 1px 0 rgba(0,0,0,.35);
+			}
+
+			b {
+				position: relative;
+				top: 0;
 				left: 7px;
+				width: 47px;
+				padding: inherit;
 				text-align: left;
+				font-size: 90%;
+				font-weight: 400;
+				line-height: 1.1;
+				text-shadow: 0 1px 0 rgba(0,0,0,.35);
 			}
 
 			&:nth-child(1) {
@@ -248,13 +280,16 @@ fieldset {
 		background: #666;
 		color: #aaa;
 		font-size: 13px;
-		text-shadow: 0 1px 0 #222;
+		text-align: center;
 		padding: 3px 5px 2px;
 		margin-right: 1px;
+		cursor: pointer;
 
 		&.active {
 			background: #999;
 			color: #eee;
+			text-shadow: 0 1px 0 #222;
+			cursor: default;
 		}
 
 		&:first-child {
@@ -270,10 +305,45 @@ fieldset {
 
 .group-body {
 	> div {
+		position: relative;
 		display: none;
 
 		&:nth-child(1) {
 			display: block;
+		}
+
+		.btn {
+			background: #555;
+			border-radius: 4px;
+			padding: 3px;
+			cursor: pointer;
+
+			&:hover:not(.disabled) {
+				background: #547ec0;
+			}
+
+			&.disabled {
+				opacity: .5;
+				cursor: default;
+
+				[class*="icon-"],
+				[class^="icon-"] {
+					opacity: .5;
+				}
+			}
+
+			&.pipette {
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				[class*="icon-"],
+				[class^="icon-"] {
+					width: 15px;
+					height: 15px;
+					filter: invert(100%) drop-shadow(0 1px 0 #222);
+				}
+			}
 		}
 	}
 }
