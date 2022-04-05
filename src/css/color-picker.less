@@ -1,12 +1,14 @@
 
 .color-picker {
-	background: rgba(40,40,40,.85);
+	background: rgba(30,30,30,.40);
+	backdrop-filter: blur(17px);
 	position: absolute;
 	top: 430px;
 	left: 980px;
 	width: 191px;
-	border-radius: 5px;
-	padding: 9px;
+	padding: 9px 9px 7px;
+	border-radius: 6px;
+	box-shadow: 0 1px 13px rgba(0,0,0,.25);
 	z-index: 199;
 
 	.wheel {
@@ -52,6 +54,44 @@
 			height: 6px;
 			border: 1px solid #000;
 			border-radius: 9px;
+		}
+	}
+
+	.palette {
+		font-size: 0;
+
+		span {
+			position: relative;
+			display: inline-block;
+			width: 28px;
+			height: 17px;
+			margin: 0 1px 1px 0;
+			cursor: pointer;
+
+			&:nth-child(1) { border-radius: 3px 0 0; }
+			&:nth-child(6) { border-radius: 0 3px 0 0; }
+			&:nth-last-child(6) { border-radius: 0 0 0 3px; }
+			&:nth-last-child(1) { border-radius: 0 0 3px 0; }
+
+			&:nth-child(6n) {
+				margin-right: 0;
+			}
+
+			&.active {
+				cursor: default;
+
+				&:after {
+ 					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					border-radius: inherit;
+					box-shadow: 0 0 0 2px #fff;
+					z-index: 2;
+				}
+			}
 		}
 	}
 }

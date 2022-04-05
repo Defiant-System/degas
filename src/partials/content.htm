@@ -12,89 +12,91 @@
 	</div>
 
 	<div class="sidebar" data-area="sidebar">
-		<div class="tree" data-section="tree" data-click="handle-tree-event">
-			<!-- scene tree goes here -->
-			<div class="row">
-				<i class="icon-arrow"></i>
-				<i class="icon-scene"></i>
-				<span>Scene</span>
+		<div class="wrapper">
+			<div class="tree" data-section="tree" data-click="handle-tree-event">
+				<!-- scene tree goes here -->
+				<div class="row">
+					<i class="icon-arrow"></i>
+					<i class="icon-scene"></i>
+					<span>Scene</span>
 
-				<div class="children">
-					<div class="row">
-						<i class="icon-arrow" data-click="toggle-expand"></i>
-						<i class="icon-camera"></i>
-						<span>Camera</span>
-						<i class="icon-eye-on" data-click="toggle-visibility"></i>
-					</div>
+					<div class="children">
+						<div class="row">
+							<i class="icon-arrow" data-click="toggle-expand"></i>
+							<i class="icon-camera"></i>
+							<span>Camera</span>
+							<i class="icon-eye-on" data-click="toggle-visibility"></i>
+						</div>
 
-					<div class="row">
-						<i class="icon-arrow" data-click="toggle-expand"></i>
-						<i class="icon-light"></i>
-						<span>Light</span>
-						<i class="icon-eye-on" data-click="toggle-visibility"></i>
-					</div>
+						<div class="row">
+							<i class="icon-arrow" data-click="toggle-expand"></i>
+							<i class="icon-light"></i>
+							<span>Light</span>
+							<i class="icon-eye-on" data-click="toggle-visibility"></i>
+						</div>
 
-					<div class="row">
-						<i class="icon-arrow" data-click="toggle-expand"></i>
-						<i class="icon-group"></i>
-						<span>Group</span>
-						<i class="icon-eye-on" data-click="toggle-visibility"></i>
+						<div class="row">
+							<i class="icon-arrow" data-click="toggle-expand"></i>
+							<i class="icon-group"></i>
+							<span>Group</span>
+							<i class="icon-eye-on" data-click="toggle-visibility"></i>
 
-						<div class="children">
-							<div class="row">
-								<i class="icon-arrow" data-click="toggle-expand"></i>
-								<i class="icon-mesh"></i>
-								<span>Box</span>
-								<i class="icon-eye-on" data-click="toggle-visibility"></i>
-							</div>
+							<div class="children">
+								<div class="row">
+									<i class="icon-arrow" data-click="toggle-expand"></i>
+									<i class="icon-mesh"></i>
+									<span>Box</span>
+									<i class="icon-eye-on" data-click="toggle-visibility"></i>
+								</div>
 
-							<div class="row">
-								<i class="icon-arrow" data-click="toggle-expand"></i>
-								<i class="icon-mesh"></i>
-								<span>Sphere</span>
-								<i class="icon-eye-on" data-click="toggle-visibility"></i>
-							</div>
+								<div class="row">
+									<i class="icon-arrow" data-click="toggle-expand"></i>
+									<i class="icon-mesh"></i>
+									<span>Sphere</span>
+									<i class="icon-eye-on" data-click="toggle-visibility"></i>
+								</div>
 
-							<div class="row">
-								<i class="icon-arrow" data-click="toggle-expand"></i>
-								<i class="icon-mesh"></i>
-								<span>Torus Knot</span>
-								<i class="icon-eye-on" data-click="toggle-visibility"></i>
+								<div class="row">
+									<i class="icon-arrow" data-click="toggle-expand"></i>
+									<i class="icon-mesh"></i>
+									<span>Torus Knot</span>
+									<i class="icon-eye-on" data-click="toggle-visibility"></i>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<i class="icon-arrow" data-click="toggle-expand"></i>
-						<i class="icon-mesh"></i>
-						<span>Mesh</span>
-						<i class="icon-eye-off" data-click="toggle-visibility"></i>
+						<div class="row">
+							<i class="icon-arrow" data-click="toggle-expand"></i>
+							<i class="icon-mesh"></i>
+							<span>Mesh</span>
+							<i class="icon-eye-off" data-click="toggle-visibility"></i>
+						</div>
 					</div>
 				</div>
-			</div>
 
-		</div>
-		<div class="properties">
-			<div class="tabs" data-click="select-sidebar-tab">
-				<div title="Camera Properties." data-name="camera"><i class="icon-camera"></i></div>
-				<div title="Light Properties." data-name="light"><i class="icon-light"></i></div>
-				<div title="Modifiers." data-name="modifiers"><i class="icon-tools"></i></div>
-				<div title="Material Properties." data-name="material"><i class="icon-material"></i></div>
-				<div title="Files." data-name="files"><i class="icon-group"></i></div>
-				<div title="Settings." data-name="settings"><i class="icon-cog"></i></div>
-				<div title="Texture Properties." data-name="texture"><i class="icon-texture"></i></div>
-				<div title="Object Properties." data-name="object"><i class="icon-object"></i></div>
 			</div>
-			<div class="tab-body">
-				<!-- item proeperties goes here -->
-				@import "sidebar/camera.htm"
-				@import "sidebar/light.htm"
-				@import "sidebar/modifiers.htm"
-				@import "sidebar/material.htm"
-				@import "sidebar/files.htm"
-				@import "sidebar/settings.htm"
-				@import "sidebar/texture.htm"
-				@import "sidebar/object.htm"
+			<div class="properties">
+				<div class="tabs" data-click="select-sidebar-tab">
+					<div title="Camera Properties." data-name="camera"><i class="icon-camera"></i></div>
+					<div title="Light Properties." data-name="light"><i class="icon-light"></i></div>
+					<div title="Modifiers." data-name="modifiers"><i class="icon-tools"></i></div>
+					<div title="Material Properties." data-name="material"><i class="icon-material"></i></div>
+					<div title="Files." data-name="files"><i class="icon-group"></i></div>
+					<div title="Settings." data-name="settings"><i class="icon-cog"></i></div>
+					<div title="Texture Properties." data-name="texture"><i class="icon-texture"></i></div>
+					<div title="Object Properties." data-name="object"><i class="icon-object"></i></div>
+				</div>
+				<div class="tab-body">
+					<!-- item proeperties goes here -->
+					@import "sidebar/camera.htm"
+					@import "sidebar/light.htm"
+					@import "sidebar/modifiers.htm"
+					@import "sidebar/material.htm"
+					@import "sidebar/files.htm"
+					@import "sidebar/settings.htm"
+					@import "sidebar/texture.htm"
+					@import "sidebar/object.htm"
+				</div>
 			</div>
 		</div>
 	</div>
