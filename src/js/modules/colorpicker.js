@@ -52,8 +52,8 @@
 				// collect event info
 				let el = $(event.target).find(".cursor"),
 					offset = {
-						left: event.offsetX - 5,
-						top: event.offsetY - 5,
+						left: event.offsetX,
+						top: event.offsetY,
 					},
 					click = {
 						x: event.clientX,
@@ -62,14 +62,36 @@
 				// move cursor
 				el.css(offset);
 				// create drag
-				Self.drag = { el, click, offset };
+				Self.drag = {
+					el,
+					click,
+					offset,
+					limit: (left, top) => {
+						var r = 73,
+							distance = (p1, p2) => Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2)),
+							dist = distance([left, top], [r, r]),
+							rad;
+						if (dist <= r) return { left, top };
+						else {
+							left = left - r;
+							top = top - r;
+							rad = Math.atan2(top, left);
+							return {
+								left: Math.cos(rad) * r + r,
+								top: Math.sin(rad) * r + r
+							}
+						}
+					},
+				};
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.doWheel);
 				break;
 			case "mousemove":
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
-					left = event.clientX + Drag.offset.left - Drag.click.x;
-				Drag.el.css({ top, left });
+					left = event.clientX + Drag.offset.left - Drag.click.x,
+					limited = Drag.limit(left, top);
+
+				Drag.el.css(limited);
 				break;
 			case "mouseup":
 				// reset drag object
@@ -93,8 +115,8 @@
 					offset = { top: event.offsetY - 3 },
 					click = { y: event.clientY },
 					constrain = {
-						minY: -3,
-						maxY: +Self.els.range.prop("offsetHeight") - 3,
+						minY: 0,
+						maxY: +Self.els.range.prop("offsetHeight"),
 					},
 					_max = Math.max,
 					_min = Math.min;
