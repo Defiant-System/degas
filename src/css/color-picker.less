@@ -24,18 +24,26 @@
 		border-bottom: 7px solid rgba(30,30,30,.30);
 	}
 
-	.wheel {
-		background-size: 150px auto;
-		background-repeat: no-repeat;
-		background-position: 50% 50%;
-		background-image: url(~/img/sprite.png);
+	.wrapper {
 		position: relative;
 		display: inline-block;
+		background: #000;
 		width: 148px;
 		height: 148px;
 		border-radius: 50%;
-		border: 1px solid #000;
 		margin-right: 7px;
+
+		.wheel {
+			background-size: 150px auto;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			background-image: url(~/img/sprite.png);
+			width: inherit;
+			height: inherit;
+			border-radius: inherit;
+			box-shadow: inset 0 0 0 1px #000;
+			pointer-events: none;
+		}
 
 		.cursor {
 			background: #fff;
@@ -63,7 +71,7 @@
 		.cursor {
 			background: #fff;
 			position: absolute;
-			top: 67px;
+			top: 0;
 			left: -3px;
 			right: -3px;
 			height: 6px;

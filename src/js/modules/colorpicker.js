@@ -8,11 +8,12 @@
 			doc: $(document),
 			content: window.find("content"),
 			el: window.find(".color-picker"),
+			wrapper: window.find(".color-picker .wrapper"),
 			wheel: window.find(".color-picker .wheel"),
 			range: window.find(".color-picker .range"),
 		};
 		// bind event handlers
-		this.els.wheel.on("mousedown", this.doWheel);
+		this.els.wrapper.on("mousedown", this.doWrapper);
 		this.els.range.on("mousedown", this.doRange);
 	},
 	dispatch(event) {
@@ -40,7 +41,7 @@
 				break;
 		}
 	},
-	doWheel(event) {
+	doWrapper(event) {
 		let Self = degas.colorpicker,
 			Drag = Self.drag;
 		switch(event.type) {
@@ -84,7 +85,7 @@
 					},
 				};
 				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.doWheel);
+				Self.els.doc.on("mousemove mouseup", Self.doWrapper);
 				break;
 			case "mousemove":
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
@@ -97,7 +98,7 @@
 				// reset drag object
 				delete Self.drag;
 				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.doWheel);
+				Self.els.doc.off("mousemove mouseup", Self.doWrapper);
 				break;
 		}
 	},
@@ -112,6 +113,7 @@
 				Self.els.content.addClass("cover hideMouse");
 				// collect event info
 				let el = $(event.target).find(".cursor"),
+					target = Self.els.wheel,
 					offset = { top: event.offsetY - 3 },
 					click = { y: event.clientY },
 					constrain = {
@@ -123,13 +125,15 @@
 				// move cursor
 				el.css(offset);
 				// create drag
-				Self.drag = { el, click, offset, constrain, _min, _max };
+				Self.drag = { el, target, click, offset, constrain, _min, _max };
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.doRange);
 				break;
 			case "mousemove":
-				let top = Drag._min(Drag._max(event.clientY + Drag.offset.top - Drag.click.y, Drag.constrain.minY), Drag.constrain.maxY);
+				let top = Drag._min(Drag._max(event.clientY + Drag.offset.top - Drag.click.y, Drag.constrain.minY), Drag.constrain.maxY),
+					opacity = 1 - (top / Drag.constrain.maxY);
 				Drag.el.css({ top });
+				Drag.target.css({ opacity });
 				break;
 			case "mouseup":
 				// reset drag object
