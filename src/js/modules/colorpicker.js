@@ -43,18 +43,19 @@
 
 				let rgb = Color.parseRgb(value),
 					hsv = Color.rgbToHsv(rgb),
-					radius = 74 * (hsv.s / 100),
-					rad = (hsv.h + 90) * (Math.PI / 180),
-					top = Math.round(Math.sin(rad) * radius + radius),
-					left = Math.round(Math.cos(rad) * radius + radius),
+					radius = 74,
+					sat = radius * (hsv.s / 100),
+					rad = hsv.h * (Math.PI / 180),
+					top = hsv.s === 0 ? radius : Math.round(Math.sin(rad) * sat + radius),
+					left = hsv.s === 0 ? radius : Math.round(Math.cos(rad) * sat + radius),
 					height = +Self.els.range.prop("offsetHeight"),
 					opacity;
-
+				// wheel cursor
 				Self.els.wrapper.find(".cursor").css({ top, left });
-
+				// saturation cursor
 				top = Math.round(height * ((100 - hsv.v) / 100));
 				Self.els.range.find(".cursor").css({ top });
-
+				// wheel opacity
 				opacity = 1 - (top / height);
 				Self.els.wheel.css({ opacity });
 				break;
