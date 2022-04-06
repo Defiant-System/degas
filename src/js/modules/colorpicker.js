@@ -3,6 +3,8 @@
 
 {
 	init() {
+		let rgba = window.find(".color-picker .rgba .color-group > div"),
+			hsva = window.find(".color-picker .hsva .color-group > div");
 		// fast references
 		this.els = {
 			doc: $(document),
@@ -11,6 +13,18 @@
 			wrapper: window.find(".color-picker .wrapper"),
 			wheel: window.find(".color-picker .wheel"),
 			range: window.find(".color-picker .range"),
+			groupRGBA: {
+				R: rgba.get(0),
+				G: rgba.get(1),
+				B: rgba.get(2),
+				A: rgba.get(3),
+			},
+			groupHSVA: {
+				H: hsva.get(0),
+				S: hsva.get(1),
+				V: hsva.get(2),
+				A: hsva.get(3),
+			},
 		};
 		// bind event handlers
 		this.els.wrapper.on("mousedown", this.doWrapper);
@@ -74,6 +88,7 @@
 				let el = $(event.target).find(".cursor"),
 					radius = 74,
 					TAU = Math.PI * 2,
+					group = Self.els.groupHSVA,
 					offset = {
 						left: event.offsetX,
 						top: event.offsetY,
@@ -90,6 +105,7 @@
 					click,
 					offset,
 					radius,
+					group,
 					TAU,
 					mod: (a, n) => (a % n + n) % n,
 					limit: (left, top) => {
@@ -117,9 +133,14 @@
 					limited = Drag.limit(left, top),
 					x = Drag.radius - limited.left,
 					y = Drag.radius - limited.top,
-					hue = Drag.mod(Math.atan2(-y, -x) * (360 / Drag.TAU) - 90, 360);
+					hue = Drag.mod(Math.atan2(-y, -x) * (360 / Drag.TAU), 360),
+					value;
 
 				Drag.el.css(limited);
+
+				value = (hue / 360).toFixed(3);
+				Drag.group.H.data({ value }).css({ "--value": value });
+
 				break;
 			case "mouseup":
 				// reset drag object
