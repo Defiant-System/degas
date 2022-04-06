@@ -108,9 +108,9 @@
 					group,
 					TAU,
 					mod: (a, n) => (a % n + n) % n,
+					distance: (left, top) => Math.sqrt(Math.pow(left - radius, 2) + Math.pow(top - radius, 2)),
 					limit: (left, top) => {
-						var distance = (p1, p2) => Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2)),
-							dist = distance([left, top], [radius, radius]),
+						var dist = Self.drag.distance(left, top),
 							rad;
 						if (dist <= radius) return { left, top };
 						else {
@@ -134,13 +134,15 @@
 					x = Drag.radius - limited.left,
 					y = Drag.radius - limited.top,
 					hue = Drag.mod(Math.atan2(-y, -x) * (360 / Drag.TAU), 360),
+					sat = Self.drag.distance(left, top),
 					value;
-
+				// cursor position
 				Drag.el.css(limited);
-
+				// fields
 				value = (hue / 360).toFixed(3);
 				Drag.group.H.data({ value }).css({ "--value": value });
-
+				value = (sat / Drag.radius).toFixed(3);
+				Drag.group.S.data({ value }).css({ "--value": value });
 				break;
 			case "mouseup":
 				// reset drag object
@@ -161,6 +163,7 @@
 				Self.els.content.addClass("cover hideMouse");
 				// collect event info
 				let el = $(event.target).find(".cursor"),
+					group = Self.els.groupHSVA,
 					target = Self.els.wheel,
 					offset = { top: event.offsetY - 3 },
 					click = { y: event.clientY },
@@ -173,15 +176,21 @@
 				// move cursor
 				el.css(offset);
 				// create drag
-				Self.drag = { el, target, click, offset, constrain, _min, _max };
+				Self.drag = { el, target, group, click, offset, constrain, _min, _max };
 				// bind event
 				Self.els.doc.on("mousemove mouseup", Self.doRange);
 				break;
 			case "mousemove":
 				let top = Drag._min(Drag._max(event.clientY + Drag.offset.top - Drag.click.y, Drag.constrain.minY), Drag.constrain.maxY),
-					opacity = 1 - (top / Drag.constrain.maxY);
+					opacity = 1 - (top / Drag.constrain.maxY),
+					value;
+				// cursor position
 				Drag.el.css({ top });
+				// wheel opacity
 				Drag.target.css({ opacity });
+				// fields
+				value = (opacity / 1).toFixed(3);
+				Drag.group.V.data({ value }).css({ "--value": value });
 				break;
 			case "mouseup":
 				// reset drag object
