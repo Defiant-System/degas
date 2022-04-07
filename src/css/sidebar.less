@@ -91,6 +91,7 @@
 	.properties {
 		flex: 1;
 		display: flex;
+		font-size: 12px;
 
 		.tabs {
 			width: 25px;
@@ -178,18 +179,18 @@
 	background: #555;
 	min-height: 21px;
 	margin: 0 3px 5px 83px;
-	border-radius: 5px;
+	border-radius: 3px;
 
 	&:before {
 		content: attr(data-label);
 		white-space: nowrap;
 		position: absolute;
-		top: 0;
+		top: 2px;
 		left: -83px;
 		width: 77px;
 		padding: inherit;
 		text-align: right;
-		font-size: 90%;
+		// font-size: 90%;
 		line-height: 1.75;
 		text-shadow: 0 1px 0 #333;
 	}
@@ -229,7 +230,7 @@
 		}
 
 		span {
-			padding: 4px 0 0 5px;
+			padding: 6px 19px 0 5px;
 			display: block;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -238,7 +239,22 @@
 	}
 
 	&.text {
-		display: none;
+		padding: 0;
+
+		input {
+			background: transparent;
+			color: inherit;
+			border: 0;
+			outline: none;
+			box-shadow: 0 0 0;
+			font-family: inherit;
+			font-size: inherit;
+
+			&:focus,
+			&:active {
+				box-shadow: 0 0 0;
+			}
+		}
 	}
 
 	&.checkbox {
@@ -248,10 +264,11 @@
 		border-radius: 2px;
 
 		&:before {
+			top: 1px;
 			left: 23px;
 			width: 117px;
 			text-align: left;
-			line-height: 1.6;
+			line-height: 1.5;
 		}
 
 		&[data-checked="1"]:after {
@@ -313,7 +330,7 @@ fieldset {
 				width: 47px;
 				padding: inherit;
 				text-align: left;
-				font-size: 90%;
+				// font-size: 90%;
 				font-weight: 400;
 				line-height: 1.1;
 				text-shadow: 0 1px 0 rgba(0,0,0,.35);
@@ -359,7 +376,7 @@ fieldset {
 			width: 47px;
 			padding: inherit;
 			text-align: right;
-			font-size: 90%;
+			// font-size: 90%;
 			line-height: 1.1;
 			text-shadow: 0 1px 0 #333;
 		}
