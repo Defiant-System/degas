@@ -179,7 +179,6 @@
 	min-height: 21px;
 	margin: 0 3px 5px 83px;
 	border-radius: 5px;
-	// overflow: hidden;
 
 	&:before {
 		content: attr(data-label);
@@ -213,6 +212,59 @@
 			bottom: 0;
 			border-radius: inherit;
 			background: linear-gradient(90deg, var( --color ) 0%, var( --color ) 50%, var( --opacity ) 50%, var( --opacity ) 100%);
+		}
+	}
+
+	&.select {
+		&:after {
+			content: "";
+			background: url(~/icons/icon-sort.png) 50% 50% no-repeat;
+			background-size: 13px 13px;
+			position: absolute;
+			top: 4px;
+			right: 3px;
+			width: 13px;
+			height: 13px;
+			filter: drop-shadow(0 1px 0 #333);
+		}
+
+		span {
+			padding: 4px 0 0 5px;
+			display: block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+	&.text {
+		display: none;
+	}
+
+	&.checkbox {
+		min-height: 18px;
+		width: 18px;
+		height: 18px;
+		border-radius: 2px;
+
+		&:before {
+			left: 23px;
+			width: 117px;
+			text-align: left;
+			line-height: 1.6;
+		}
+
+		&[data-checked="1"]:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 5px;
+			width: 5px;
+			height: 11px;
+			border-bottom: 3px solid #888;
+			border-right: 3px solid #888;
+			transform: rotate(40deg);
+			box-shadow: 1px 1px 0 #333;
 		}
 	}
 }
