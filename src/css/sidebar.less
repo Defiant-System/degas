@@ -177,9 +177,9 @@
 	position: relative;
 	background: #555;
 	min-height: 21px;
-	margin: 0 3px 1px 83px;
+	margin: 0 3px 5px 83px;
 	border-radius: 5px;
-	overflow: hidden;
+	// overflow: hidden;
 
 	&:before {
 		content: attr(data-label);
@@ -211,7 +211,8 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			background: linear-gradient(90deg, var( --color-1 ) 0%, var( --color-1 ) 50%, var( --color-2 ) 50%, var( --color-2 ) 100%);
+			border-radius: inherit;
+			background: linear-gradient(90deg, var( --color ) 0%, var( --color ) 50%, var( --opacity ) 50%, var( --opacity ) 100%);
 		}
 	}
 }
