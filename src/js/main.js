@@ -27,7 +27,7 @@ const degas = {
 		this.outlinePass = false;
 
 		// temp
-		// return;
+		return;
 		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
 		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 150);
 		
@@ -39,7 +39,7 @@ const degas = {
 		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [2.5, 0, 0] });
 
 		// this.workspace.dispatch({ type: "deselect" });
-		this.dispatch({ type: "set-view-shade", arg: "wireframe" });
+		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 	},
 	dispatch(event) {
@@ -105,6 +105,7 @@ const degas = {
 				if (Self.els.content.hasClass("show-sidebar")) {
 					Self.els.toolbar.sidebar.trigger("click");
 				}
+				editor.clear();
 				// show blank view
 				Self.els.content.addClass("show-blank-view");
 				// call close method of file - will check for "is-dirty"

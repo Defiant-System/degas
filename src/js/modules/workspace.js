@@ -79,33 +79,52 @@
 				el.parent().find(".tool-active_").removeClass("tool-active_");
 				el.addClass("tool-active_");
 
-				editor.scene.children
-					.filter(child => child.type === "Mesh")
-					.map(child => {
-						let clone = child.geometry.clone(),
-							edges = new THREE.EdgesGeometry(clone),
-							material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
-							object = new THREE.LineSegments(edges, material);
+				switch (event.arg) {
+					case "wireframe":
+						editor.scene.children
+							.filter(child => child.type === "Mesh")
+							.map(child => {
+								let clone = child.geometry.clone(),
+									edges = new THREE.EdgesGeometry(clone),
+									material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
+									object = new THREE.LineSegments(edges, material);
 
-						object.position.set(...child.position.toArray());
-						object.rotation.set(...child.rotation.toArray());
-						object.scale.set(...child.scale.toArray());
+								object.position.set(...child.position.toArray());
+								object.rotation.set(...child.rotation.toArray());
+								object.scale.set(...child.scale.toArray());
 
-						editor.scene.add(object);
-						// editor.scene.remove(child);
-						
-						if (editor.selected === child) {
-							editor.select( object );
-						}
-						
-						child.visible = false;
-						// child.material.transparent = true;
-						// child.material.opacity = 0.125;
-					});
+								editor.scene.add(object);
+								// editor.scene.remove(child);
+								if (editor.selected === child) {
+									editor.select( object );
+								}
+								child.visible = false;
+								// child.material.transparent = true;
+								// child.material.opacity = 0.125;
+							});
+						break;
+					case "flat":
+						editor.scene.children
+							.filter(child => child.type === "Mesh")
+							.map(child => {
+								child.material.wireframe = false;
+								child.material.flatShading = true;
+								child.material.needsUpdate = true;
+							});
+						break;
+					case "solid":
+						editor.scene.children
+							.filter(child => child.type === "Mesh")
+							.map(child => {
+								child.material.wireframe = false;
+								child.material.flatShading = false;
+								child.material.needsUpdate = true;
+							});
+						break;
+				}
 
 				// render
 				viewport.render();
-
 				return true;
 			case "set-editor-control-state":
 				viewport.editorControlsSetState(event.arg.toUpperCase());

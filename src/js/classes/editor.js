@@ -258,15 +258,17 @@ class Editor {
 		}
 
 		if (this.selected && this.selected.material) {
+			let material = this.selected.material;
 			// unhighlight selected, if any
-			this.selected.material.color.setHex(Settings.wireframe.default);
+			if (!material.length) this.selected.material.color.setHex(Settings.wireframe.default);
 		}
 
 		this.selected = object;
 		this.config.setKey( 'selected', uuid );
 		
 		if (this.selected && this.selected.material) {
-			this.selected.material.color.setHex(Settings.wireframe.highlight);
+			let material = this.selected.material;
+			if (!material.length) this.selected.material.color.setHex(Settings.wireframe.highlight);
 		}
 
 		viewport.selectObject(object);
@@ -308,7 +310,7 @@ class Editor {
 		this.camera.copy( _DEFAULT_CAMERA );
 		this.scene.name = 'Scene';
 		this.scene.userData = {};
-		this.scene.background = null;
+		// this.scene.background = null;
 		this.scene.environment = null;
 		this.scene.fog = null;
 
