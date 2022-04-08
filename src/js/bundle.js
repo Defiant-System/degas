@@ -18,8 +18,15 @@ import { SetRotationCommand } from './classes/commands/SetRotationCommand.js';
 import { SetScaleCommand } from './classes/commands/SetScaleCommand.js';
 
 
+// custom THREE.js "dispose"
+THREE_dispose = () => {
+	delete window.__THREE__;
+};
+
+
 module.exports = {
 	THREE,
+	THREE_dispose,
 	History,
 	Loader,
 

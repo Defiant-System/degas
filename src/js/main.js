@@ -64,6 +64,10 @@ const degas = {
 						break;
 				}
 				break;
+			case "window.close":
+				// clears "window.__THREE__"
+				THREE_dispose();
+				break;
 			case "open.file":
 				event.open({ responseType: "blob" })
 					.then(file => Self.dispatch({ type: "prepare-file", file }));
