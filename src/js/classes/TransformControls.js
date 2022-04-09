@@ -1,4 +1,4 @@
-// import {
+
 let BoxGeometry = THREE.BoxGeometry,
 	BufferGeometry = THREE.BufferGeometry,
 	CylinderGeometry = THREE.CylinderGeometry,
@@ -18,7 +18,7 @@ let BoxGeometry = THREE.BoxGeometry,
 	SphereGeometry = THREE.SphereGeometry,
 	TorusGeometry = THREE.TorusGeometry,
 	Vector3 = THREE.Vector3;
-// } from '../modules/threejs/build/three.module.js';
+
 
 const _raycaster = new Raycaster();
 const _tempVector = new Vector3();
