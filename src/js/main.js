@@ -27,9 +27,12 @@ const degas = {
 		this.outlinePass = false;
 
 		// temp
+		setTimeout(() => this.els.content.find(".sample:nth(1)").trigger("click"), 150);
+		setTimeout(() => {
+			this.els.toolbar.sidebar.trigger("click");
+			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
+		}, 300);
 		return;
-		// setTimeout(() => this.els.el.find(".sample:nth(1)").trigger("click"), 150);
-		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 150);
 		
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });

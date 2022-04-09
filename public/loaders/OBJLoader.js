@@ -850,4 +850,4 @@ class OBJLoader extends THREE.Loader {
 
 }
 
-module.exports = { OBJLoader };
+export { OBJLoader };

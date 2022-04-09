@@ -13,20 +13,28 @@ class File {
 				let reader = new FileReader();
 				reader.addEventListener("load", async () => {
 
-					if (!APP.Loaders.OBJLoader) {
+					await Promise.all(["MTLLoader", "OBJLoader"].map(async item => {
 						let mod = {},
-							resp = await this.getLoader("OBJLoader"),
-							code = `let module = mod; ${resp.data}`;
-						new Function("mod", "THREE", code).call({}, mod, THREE);
-						APP.Loaders.OBJLoader = mod.exports.OBJLoader;
-					}
-					let object = new APP.Loaders.OBJLoader().parse( reader.result );
+							resp = await this.getLoader(item),
+							rx = new RegExp(`export { ${item} }`),
+							str = resp.data.replace(rx, `module.exports = { ${item} };`),
+							code = `let module = mod; ${str}`;
 
-					object = object.children[0];
-					object.name = this._file.name;
+						new Function("mod", "THREE", code).call({}, mod, THREE);
+						APP.Loaders[item] = mod.exports[item];
+
+					}));
+
+					let materials = await new APP.Loaders.MTLLoader().loadAsync("~/sample/sword_scimitar.mtl");
+					let group = await new APP.Loaders.OBJLoader()
+					    .setMaterials(materials)
+					    .loadAsync("~/sample/sword_scimitar.obj")
+					
+					// object = object.children[0];
+					// object.name = this._file.name;
 
 					// pass along imported object to workspace
-					APP.workspace.dispatch({ type: "add-mesh", object });
+					APP.workspace.dispatch({ type: "add-mesh", object: group });
 					
 				}, false);
 				reader.readAsText(this._file.blob);
