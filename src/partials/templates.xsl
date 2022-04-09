@@ -35,10 +35,7 @@
 		<div class="sample">
 			<xsl:attribute name="style">background-image: url(<xsl:value-of select="@preview"/>);</xsl:attribute>
 			<xsl:attribute name="data-url"><xsl:value-of select="@path"/></xsl:attribute>
-			<span class="name"><xsl:call-template name="substring-after-last">
-				<xsl:with-param name="string" select="@path" />
-				<xsl:with-param name="delimiter" select="'/'" />
-			</xsl:call-template></span>
+			<span class="name"><xsl:value-of select="@name"/></span>
 		</div>
 	</xsl:for-each>
 </xsl:template>

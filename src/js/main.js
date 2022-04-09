@@ -67,6 +67,7 @@ const degas = {
 			case "window.close":
 				// clears "window.__THREE__"
 				THREE_dispose();
+				renderer.dispose();
 				break;
 			case "open.file":
 				event.open({ responseType: "blob" })
