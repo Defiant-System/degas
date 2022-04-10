@@ -69,4 +69,26 @@
 </xsl:template>
 
 
+<xsl:template name="tree">
+	<xsl:for-each select="./*">
+		<div class="row">
+			<xsl:if test="@expanded = 1">
+				<xsl:attribute name="class">row expanded</xsl:attribute>
+			</xsl:if>
+			<div class="item">
+				<i class="icon-arrow" data-click="toggle-expand"></i>
+				<i><xsl:attribute name="class">icon-<xsl:value-of select="@icon"/></xsl:attribute></i>
+				<span><xsl:value-of select="@name"/></span>
+				<i class="icon-eye-on" data-click="toggle-visibility"></i>
+			</div>
+			<xsl:if test="@expanded">
+				<div class="children">
+					<xsl:call-template name="tree"/>
+				</div>
+			</xsl:if>
+		</div>
+	</xsl:for-each>
+</xsl:template>
+
+
 </xsl:stylesheet>

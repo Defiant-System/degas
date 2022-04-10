@@ -8,6 +8,10 @@
 			content: window.find("content"),
 			sidebar: window.find(".sidebar"),
 		};
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init(this));
 		// temp
 		this.els.sidebar.find(".properties .tabs > div:nth(0)").trigger("click");
 	},

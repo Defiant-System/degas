@@ -3,7 +3,16 @@
 
 {
 	init() {
-
+		// fast references
+		this.els = {
+			el: window.find(".sidebar .tree"),
+		};
+		// render blank view
+		window.render({
+			template: "tree",
+			match: `//Tree`,
+			target: this.els.el,
+		});
 	},
 	dispatch(event) {
 		let APP = degas,
