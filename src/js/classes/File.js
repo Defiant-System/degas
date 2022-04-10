@@ -25,10 +25,10 @@ class File {
 
 					}));
 
-					let materials = await new APP.Loaders.MTLLoader().loadAsync("~/sample/sword_scimitar.mtl");
+					let materials = await new APP.Loaders.MTLLoader().loadAsync(`~/sample/${this._file.name}.mtl`);
 					let group = await new APP.Loaders.OBJLoader()
 					    .setMaterials(materials)
-					    .loadAsync("~/sample/sword_scimitar.obj")
+					    .loadAsync(`~/sample/${this._file.name}.obj`)
 					
 					// object = object.children[0];
 					// object.name = this._file.name;

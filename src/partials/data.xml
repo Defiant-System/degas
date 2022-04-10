@@ -1,8 +1,8 @@
 <Data>
 	<Samples>
 		<i name="sedan.obj" path="~/sample/sedan.obj" preview="~/sample/sedan.jpg"/>
-		<i name="sword.obj" path="~/sample/sword_scimitar.obj" preview="~/sample/sword_scimitar.jpg"/>
-		<i name="palm.obj" path="~/sample/palm_detailed_long.obj" preview="~/sample/palm_detailed_long.jpg"/>
+		<i name="tower.obj" path="~/sample/tower.obj" preview="~/sample/tower.jpg"/>
+		<i name="sword.obj" path="~/sample/sword.obj" preview="~/sample/sword.jpg"/>
 	</Samples>
 	<Recents>
 		<!-- <i path="/fs/Desktop/images/basketball.png"/>

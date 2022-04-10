@@ -26,8 +26,9 @@ const degas = {
 		// TODO: fix outline instead of selection box
 		this.outlinePass = false;
 
+		return;
 		// temp
-		setTimeout(() => this.els.content.find(".sample:nth(1)").trigger("click"), 150);
+		setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 150);
 		setTimeout(() => {
 			this.els.toolbar.sidebar.trigger("click");
 			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
