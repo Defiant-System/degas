@@ -27,7 +27,6 @@ const degas = {
 		this.outlinePass = false;
 
 		// temp
-		return;
 		setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 100);
 		setTimeout(() => {
 			this.workspace.dispatch({ type: "deselect" });
