@@ -25,16 +25,16 @@ class File {
 
 					}));
 
-					let materials = await new APP.Loaders.MTLLoader().loadAsync(`~/sample/${this._file.name}.mtl`);
-					let group = await new APP.Loaders.OBJLoader()
-					    .setMaterials(materials)
-					    .loadAsync(`~/sample/${this._file.name}.obj`)
-					
-					// object = object.children[0];
-					// object.name = this._file.name;
-
+					let filepath = this._file.xNode ? `${this._file.dir + this._file.name}.mtl` : `~/sample/${this._file.name}.mtl`;
+					let materials = await new APP.Loaders.MTLLoader().loadAsync(filepath),
+						object = await new APP.Loaders.OBJLoader()
+								    .setMaterials(materials)
+								    .parse(reader.result);
+								    // .loadAsync(`~/sample/${this._file.name}.obj`);
+					// set object name as file name
+					object.name = this._file.name;
 					// pass along imported object to workspace
-					APP.workspace.dispatch({ type: "add-mesh", object: group });
+					APP.workspace.dispatch({ type: "add-mesh", object });
 					
 				}, false);
 				reader.readAsText(this._file.blob);

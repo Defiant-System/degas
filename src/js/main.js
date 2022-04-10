@@ -26,12 +26,13 @@ const degas = {
 		// TODO: fix outline instead of selection box
 		this.outlinePass = false;
 
-		return;
 		// temp
-		setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 150);
+		return;
+		setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 100);
 		setTimeout(() => {
+			this.workspace.dispatch({ type: "deselect" });
 			this.els.toolbar.sidebar.trigger("click");
-			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
+			this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
 		}, 300);
 		return;
 		
