@@ -77,18 +77,23 @@
 			</xsl:if>
 			<div class="item">
 				<xsl:choose>
-					<xsl:when test="@expanded"><i class="icon-arrow" data-click="toggle-expand"></i></xsl:when>
-					<xsl:otherwise>
-						<i class="icon-blank"></i>
-					</xsl:otherwise>
+					<xsl:when test="@expanded"><i class="icon-arrow" data-type="toggle-expand"></i></xsl:when>
+					<xsl:otherwise><i class="icon-blank"></i></xsl:otherwise>
 				</xsl:choose>
 				<i><xsl:attribute name="class">icon-<xsl:value-of select="@icon"/></xsl:attribute></i>
 				<span><xsl:value-of select="@name"/></span>
-				<i class="icon-eye-on" data-click="toggle-visibility"></i>
+				<i data-type="toggle-visibility">
+					<xsl:attribute name="class"><xsl:choose>
+						<xsl:when test="@hidden = 1">icon-eye-off</xsl:when>
+						<xsl:otherwise>icon-eye-on</xsl:otherwise>
+					</xsl:choose></xsl:attribute>
+				</i>
 			</div>
 			<xsl:if test="@expanded">
 				<div class="children">
-					<xsl:call-template name="tree"/>
+					<div>
+						<xsl:call-template name="tree"/>
+					</div>
 				</div>
 			</xsl:if>
 		</div>

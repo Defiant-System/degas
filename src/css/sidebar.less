@@ -45,6 +45,7 @@
 			width: 15px;
 			height: 15px;
 			filter: drop-shadow(0 1px 0 #333);
+			margin-right: 2px;
 		}
 
 		.icon-blank,
@@ -52,7 +53,7 @@
 			width: 13px;
 			height: 13px;
 			filter: none;
-			margin-right: 2px;
+			transition: transform 130ms;
 		}
 
 		.icon-eye-on,
@@ -71,7 +72,6 @@
 		}
 
 		.row {
-			position: relative;
 			min-height: 20px;
 			padding: 2px 0 0 2px;
 
@@ -79,18 +79,27 @@
 				> .item:nth-child(1) .icon-arrow {
 					transform: rotate(90deg);
 				}
+
+				> .children {
+					max-height: 500px;
+					
+					> div {
+						margin-top: 0;
+					}
+				}
 			}
 
 			&.selected {
 				> .item:nth-child(1) > span {
-					background: #111;
-					color: #ddd;
+					background: #222;
+					color: #ccc;
 				}
 			}
 
 			.item {
+				position: relative;
 				pointer-events: none;
-				
+
 				&:hover {
 					> span {
 						color: #fff;
@@ -101,14 +110,28 @@
 					}
 				}
 
+				[data-type] {
+					pointer-events: all;
+				}
+
 				span {
-					padding: 2px 3px 1px;
+					position: relative;
+					top: 1px;
+					padding: 2px 3px;
 					border-radius: 2px;
 				}
 			}
 
 			.children {
 				padding-left: 13px;
+				overflow: hidden;
+				max-height: 0;
+				transition: max-height 250ms ease-in-out;
+
+				> div {
+					margin-top: -100%;
+					transition: margin-top 250ms ease-in-out;
+				}
 			}
 		}
 	}

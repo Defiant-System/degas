@@ -15,24 +15,38 @@
 		});
 
 		// temp
-		setTimeout(() => this.els.el.find(".row:nth(5)").trigger("click"), 100);
+		// setTimeout(() => this.els.el.find(".row:nth(5)").trigger("click"), 100);
+		// setTimeout(() => this.els.el.find(".row:nth(3) .icon-arrow").trigger("click"), 100);
 	},
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.sidebar.tree,
+			name,
+			value,
 			el;
 		// console.log(event);
 		switch(event.type) {
 			case "handle-tree-event":
 				el = $(event.target);
+				if (el.data("type")) {
+					return Self.dispatch({ ...event, type: el.data("type") });
+				}
 				el.parents(".tree").find(".selected").removeClass("selected");
 				el.addClass("selected");
+				// TODO: focus / select on object
 				break;
 			case "toggle-expand":
-				console.log(event);
+				el = $(event.target).parents(".row:first");
+				if (el.hasClass("expanded")) {
+					el.removeClass("expanded");
+				} else {
+					el.addClass("expanded");
+				}
 				break;
 			case "toggle-visibility":
-				console.log(event);
+				el = $(event.target);
+				if (el.hasClass("icon-eye-on")) el.prop({ className: "icon-eye-off" });
+				else el.prop({ className: "icon-eye-on" });
 				break;
 		}
 	}
