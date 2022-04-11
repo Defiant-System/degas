@@ -450,7 +450,7 @@ function getPointer( event ) {
 }
 
 function onPointerHover( event ) {
-	if ( ! this.enabled ) return;
+	if ( ! this.enabled || viewport.viewHelper.controls._mousedown ) return;
 	switch ( event.pointerType ) {
 		case 'mouse':
 		case 'pen':

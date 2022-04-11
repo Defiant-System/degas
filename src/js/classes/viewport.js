@@ -257,6 +257,7 @@ class Viewport {
 		this.animate = animate;
 		this.viewInfo = viewInfo;
 		this.container = container;
+		this.viewHelper = viewHelper;
 		this.grid = grid;
 
 		this.selectObject = function(object) {

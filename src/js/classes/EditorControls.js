@@ -7,6 +7,7 @@ function EditorControls( object, domElement ) {
 	this.panSpeed = 0.002;
 	this.zoomSpeed = 0.1;
 	this.rotationSpeed = 0.005;
+	this._mousedown = false;
 
 	// internals
 	var scope = this;
@@ -116,6 +117,7 @@ function EditorControls( object, domElement ) {
 		// } else if ( event.button === 2 ) {
 		// 	state = STATE.PAN;
 		// }
+		scope._mousedown = true;
 		pointerOld.set( event.clientX, event.clientY );
 	}
 
@@ -135,6 +137,7 @@ function EditorControls( object, domElement ) {
 
 	function onMouseUp() {
 		// state = STATE.NONE;
+		scope._mousedown = false;
 	}
 
 	/*

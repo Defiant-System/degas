@@ -13,8 +13,6 @@
 				material: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="material"]`),
 			}
 		};
-
-		this.viewShadeMode = "solid";
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -84,6 +82,10 @@
 						editor.scene.children
 							.filter(child => child.type === "Mesh")
 							.map(child => {
+								console.log( child );
+								child.material.wireframe = true;
+								child.material.flatShading = true;
+								/*
 								let clone = child.geometry.clone(),
 									edges = new THREE.EdgesGeometry(clone),
 									material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
@@ -101,6 +103,7 @@
 								child.visible = false;
 								// child.material.transparent = true;
 								// child.material.opacity = 0.125;
+								*/
 							});
 						break;
 					case "flat":
