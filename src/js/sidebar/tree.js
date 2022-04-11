@@ -13,6 +13,9 @@
 			match: `//Tree`,
 			target: this.els.el,
 		});
+
+		// temp
+		setTimeout(() => this.els.el.find(".row:nth(5)").trigger("click"), 100);
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -20,6 +23,11 @@
 			el;
 		// console.log(event);
 		switch(event.type) {
+			case "handle-tree-event":
+				el = $(event.target);
+				el.parents(".tree").find(".selected").removeClass("selected");
+				el.addClass("selected");
+				break;
 			case "toggle-expand":
 				console.log(event);
 				break;

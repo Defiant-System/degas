@@ -44,14 +44,15 @@
 		[class^="icon-"] {
 			width: 15px;
 			height: 15px;
-			margin-right: 3px;
 			filter: drop-shadow(0 1px 0 #333);
 		}
 
+		.icon-blank,
 		.icon-arrow {
 			width: 13px;
 			height: 13px;
 			filter: none;
+			margin-right: 2px;
 		}
 
 		.icon-eye-on,
@@ -80,7 +81,16 @@
 				}
 			}
 
+			&.selected {
+				> .item:nth-child(1) > span {
+					background: #111;
+					color: #ddd;
+				}
+			}
+
 			.item {
+				pointer-events: none;
+				
 				&:hover {
 					> span {
 						color: #fff;
@@ -89,6 +99,11 @@
 					> .icon-eye-off {
 						opacity: 1;
 					}
+				}
+
+				span {
+					padding: 2px 3px 1px;
+					border-radius: 2px;
 				}
 			}
 

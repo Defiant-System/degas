@@ -76,7 +76,12 @@
 				<xsl:attribute name="class">row expanded</xsl:attribute>
 			</xsl:if>
 			<div class="item">
-				<i class="icon-arrow" data-click="toggle-expand"></i>
+				<xsl:choose>
+					<xsl:when test="@expanded"><i class="icon-arrow" data-click="toggle-expand"></i></xsl:when>
+					<xsl:otherwise>
+						<i class="icon-blank"></i>
+					</xsl:otherwise>
+				</xsl:choose>
 				<i><xsl:attribute name="class">icon-<xsl:value-of select="@icon"/></xsl:attribute></i>
 				<span><xsl:value-of select="@name"/></span>
 				<i class="icon-eye-on" data-click="toggle-visibility"></i>
