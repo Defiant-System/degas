@@ -37,11 +37,8 @@
 				break;
 			case "toggle-expand":
 				el = $(event.target).parents(".row:first");
-				if (el.hasClass("expanded")) {
-					el.removeClass("expanded");
-				} else {
-					el.addClass("expanded");
-				}
+				if (el.hasClass("expanded")) el.removeClass("expanded");
+				else el.addClass("expanded");
 				break;
 			case "toggle-visibility":
 				el = $(event.target);
