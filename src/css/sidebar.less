@@ -75,8 +75,12 @@
 		.row {
 			min-height: 20px;
 			padding: 2px 0 0 2px;
+			background: rgba(0,0,0,0);
+			transition: background 250ms;
 
 			&.expanded {
+				background: rgba(1,0,0,0);
+
 				> .item:nth-child(1) .icon-arrow {
 					transform: rotate(90deg);
 				}

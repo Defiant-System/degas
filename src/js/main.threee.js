@@ -5,13 +5,6 @@ const {
 	History,
 	Loader,
 
-	EffectComposer,
-	RenderPass,
-	ShaderPass,
-	OutlinePass,
-	FXAAShader,
-	GammaCorrectionShader,
-	
 	Strings,
 	SetPositionCommand,
 	SetRotationCommand,

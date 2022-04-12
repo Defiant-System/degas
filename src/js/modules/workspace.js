@@ -28,31 +28,6 @@
 				editor = new Editor();
 				viewport = new Viewport(editor);
 
-				/*
-				let width = window.innerWidth,
-					height = window.innerHeight;
-				Self.postProcessing = {
-					composer: new EffectComposer( renderer ),
-					renderPass: new RenderPass( editor.scene, editor.camera ),
-					outlinePass: new OutlinePass( new THREE.Vector2( width, height ), editor.scene, editor.camera ),
-					effectFXAA: new ShaderPass( FXAAShader ),
-					gammaPass: new ShaderPass( GammaCorrectionShader ),
-				};
-				Self.postProcessing.effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
-				Self.postProcessing.composer.addPass( Self.postProcessing.renderPass );
-				Self.postProcessing.composer.addPass( Self.postProcessing.outlinePass );
-				Self.postProcessing.composer.addPass( Self.postProcessing.effectFXAA );
-				Self.postProcessing.composer.addPass( Self.postProcessing.gammaPass );
-				// outline details
-				Self.postProcessing.outlinePass.edgeStrength = 3.0;
-				Self.postProcessing.outlinePass.edgeThickness = 1.0;
-				// outline color
-				Self.postProcessing.outlinePass.visibleEdgeColor.set( '#ff9900' );
-				Self.postProcessing.outlinePass.hiddenEdgeColor.set( '#2255cc' );
-				// set composer dimension
-				Self.postProcessing.composer.setSize( width, height );
-				*/
-
 				// append panel
 				Self.els.workspace.append(viewport.container.dom);
 				Self.els.rendererCvs = Self.els.workspace.append(renderer.domElement),
@@ -85,7 +60,7 @@
 								let edges = new THREE.EdgesGeometry(mesh.geometry),
 									material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
 									outline = new THREE.LineSegments(edges, material);
-console.log( mesh );
+
 								mesh.add(outline);
 								mesh.material.visible = false;
 								mesh.material.flatShading = false;
