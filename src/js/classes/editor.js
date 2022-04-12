@@ -257,6 +257,10 @@ class Editor {
 			uuid = object.uuid;
 		}
 
+		if ( object && object.type === "LineSegments" ) {
+			object = object.parent;
+		}
+
 		if (this.selected && this.selected.material) {
 			let material = this.selected.material;
 			// unhighlight selected, if any

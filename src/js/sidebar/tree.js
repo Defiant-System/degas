@@ -37,8 +37,20 @@
 				break;
 			case "toggle-expand":
 				el = $(event.target).parents(".row:first");
-				if (el.hasClass("expanded")) el.removeClass("expanded");
-				else el.addClass("expanded");
+				if (el.hasClass("expanded")) {
+					el.removeClass("expanded");
+				} else {
+					if (!el.find(".children").length) {
+						// render blank view
+						window.render({
+							template: "tree-branch",
+							match: `//Tree//*[@id="${el.data("id")}"]`,
+							append: el,
+						});
+					}
+					// delay "animation" to next tick - wait for render finish
+					requestAnimationFrame(() => el.addClass("expanded"));
+				}
 				break;
 			case "toggle-visibility":
 				el = $(event.target);

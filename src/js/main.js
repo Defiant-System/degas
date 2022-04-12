@@ -42,7 +42,7 @@ const degas = {
 		this.dispatch({ type: "add-mesh", arg: "torus", position: [0, 0, 0] });
 
 		this.els.toolbar.sidebar.trigger("click");
-		// this.workspace.dispatch({ type: "deselect" });
+		this.workspace.dispatch({ type: "deselect" });
 		this.dispatch({ type: "set-view-shade", arg: "wireframe" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 	},

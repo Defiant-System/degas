@@ -80,48 +80,40 @@
 				switch (event.arg) {
 					case "wireframe":
 						editor.scene.children
-							.filter(child => child.type === "Mesh")
-							.map(child => {
-								console.log( child );
-								child.material.wireframe = true;
-								child.material.flatShading = true;
-								/*
-								let clone = child.geometry.clone(),
-									edges = new THREE.EdgesGeometry(clone),
+							.filter(mesh => mesh.type === "Mesh")
+							.map(mesh => {
+								let edges = new THREE.EdgesGeometry(mesh.geometry),
 									material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
-									object = new THREE.LineSegments(edges, material);
+									outline = new THREE.LineSegments(edges, material);
 
-								object.position.set(...child.position.toArray());
-								object.rotation.set(...child.rotation.toArray());
-								object.scale.set(...child.scale.toArray());
-
-								editor.scene.add(object);
-								// editor.scene.remove(child);
-								if (editor.selected === child) {
-									editor.select( object );
-								}
-								child.visible = false;
-								// child.material.transparent = true;
-								// child.material.opacity = 0.125;
-								*/
+								mesh.add(outline);
+								mesh.material.visible = false;
+								mesh.material.flatShading = false;
+								mesh.material.needsUpdate = true;
 							});
 						break;
 					case "flat":
 						editor.scene.children
-							.filter(child => child.type === "Mesh")
-							.map(child => {
-								child.material.wireframe = false;
-								child.material.flatShading = true;
-								child.material.needsUpdate = true;
+							.filter(mesh => mesh.type === "Mesh")
+							.map(mesh => {
+								// delete potential line segments
+								mesh.children.map(c => mesh.remove(c));
+
+								mesh.material.visible = true;
+								mesh.material.flatShading = true;
+								mesh.material.needsUpdate = true;
 							});
 						break;
 					case "solid":
 						editor.scene.children
-							.filter(child => child.type === "Mesh")
-							.map(child => {
-								child.material.wireframe = false;
-								child.material.flatShading = false;
-								child.material.needsUpdate = true;
+							.filter(mesh => mesh.type === "Mesh")
+							.map(mesh => {
+								// delete potential line segments
+								mesh.children.map(c => mesh.remove(c));
+								
+								mesh.material.visible = true;
+								mesh.material.flatShading = false;
+								mesh.material.needsUpdate = true;
 							});
 						break;
 				}

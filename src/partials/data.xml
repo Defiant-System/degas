@@ -11,15 +11,15 @@
 </Data>
 
 <Tree>
-	<i icon="scene" name="Scene" expanded="1">
-		<i icon="camera" name="Camera" hidden="1" />
-		<i icon="light" name="Light" />
-		<i icon="group" name="Car" expanded="1">
-			<i icon="mesh" name="Body" expanded="0" />
-			<i icon="mesh" name="Tire Left Front" expanded="0" />
-			<i icon="mesh" name="Tire Right Front" expanded="0" />
-			<i icon="mesh" name="Tire Left Back" expanded="0" />
-			<i icon="mesh" name="Tire Right Back" expanded="0" />
+	<i id="1" icon="scene" name="Scene" expanded="1">
+		<i id="2" icon="camera" name="Camera" visible="0" />
+		<i id="3" icon="light" name="Light" />
+		<i id="4" icon="group" name="Car" expanded="0">
+			<i id="5" icon="mesh" name="Body" expanded="0" />
+			<i id="6" icon="mesh" name="Tire Left Front" expanded="0" />
+			<i id="7" icon="mesh" name="Tire Right Front" expanded="0" />
+			<i id="8" icon="mesh" name="Tire Left Back" expanded="0" />
+			<i id="9" icon="mesh" name="Tire Right Back" expanded="0" />
 		</i>
 	</i>
 </Tree>

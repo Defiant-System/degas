@@ -72,6 +72,7 @@
 <xsl:template name="tree">
 	<xsl:for-each select="./*">
 		<div class="row">
+			<xsl:attribute name="data-id"><xsl:value-of select="@id"/></xsl:attribute>
 			<xsl:if test="@expanded = 1">
 				<xsl:attribute name="class">row expanded</xsl:attribute>
 			</xsl:if>
@@ -84,20 +85,25 @@
 				<span><xsl:value-of select="@name"/></span>
 				<i data-type="toggle-visibility">
 					<xsl:attribute name="class"><xsl:choose>
-						<xsl:when test="@hidden = 1">icon-eye-off</xsl:when>
+						<xsl:when test="@visible = 0">icon-eye-off</xsl:when>
 						<xsl:otherwise>icon-eye-on</xsl:otherwise>
 					</xsl:choose></xsl:attribute>
 				</i>
 			</div>
-			<xsl:if test="@expanded">
-				<div class="children">
-					<div>
-						<xsl:call-template name="tree"/>
-					</div>
-				</div>
+			<xsl:if test="@expanded = 1">
+				<xsl:call-template name="tree-branch"/>
 			</xsl:if>
 		</div>
 	</xsl:for-each>
+</xsl:template>
+
+
+<xsl:template name="tree-branch">
+	<div class="children">
+		<div>
+			<xsl:call-template name="tree"/>
+		</div>
+	</div>
 </xsl:template>
 
 
