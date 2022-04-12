@@ -41,7 +41,7 @@ const degas = {
 		this.workspace.dispatch({ type: "deselect" });
 		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
-		// setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);
+		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);
 	},
 	dispatch(event) {
 		let Self = degas,
