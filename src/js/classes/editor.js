@@ -264,7 +264,12 @@ class Editor {
 		if (this.selected && this.selected.material) {
 			let material = this.selected.material;
 			// unhighlight selected, if any
-			if (!material.length) this.selected.material.color.setHex(Settings.wireframe.default);
+			if (!material.length) {
+				// let color = this.selected.userData._color || Settings.wireframe.default;
+				// this.selected.material.color.setHex(color);
+				// delete reference
+				// delete this.selected.userData._color;
+			}
 		}
 
 		this.selected = object;
@@ -272,7 +277,11 @@ class Editor {
 		
 		if (this.selected && this.selected.material) {
 			let material = this.selected.material;
-			if (!material.length) this.selected.material.color.setHex(Settings.wireframe.highlight);
+			if (!material.length) {
+				// remember object color
+				// this.selected.userData._color = this.selected.material.color;
+				// this.selected.material.color.setHex(Settings.wireframe.highlight);
+			}
 		}
 
 		viewport.selectObject(object);

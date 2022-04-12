@@ -85,7 +85,7 @@
 								let edges = new THREE.EdgesGeometry(mesh.geometry),
 									material = new THREE.LineBasicMaterial({ color: Settings.wireframe.default }),
 									outline = new THREE.LineSegments(edges, material);
-
+console.log( mesh );
 								mesh.add(outline);
 								mesh.material.visible = false;
 								mesh.material.flatShading = false;
@@ -151,7 +151,7 @@
 		}
 	},
 	getMesh(type) {
-		let material = new THREE.MeshStandardMaterial(),
+		let material = new THREE.MeshStandardMaterial({ color: 0xffffff }),
 			sprite,
 			path,
 			edges,

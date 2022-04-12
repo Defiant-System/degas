@@ -267,7 +267,8 @@ class Viewport {
 			if ( object !== null && object !== scene && object !== camera ) {
 				box.setFromObject( object, true );
 				if ( box.isEmpty() === false ) {
-					// selectionBox.visible = true;
+					// TODO: replace with OUTLINE
+					selectionBox.visible = true;
 				}
 				transformControls.attach( object );
 			}
