@@ -25,7 +25,7 @@ const degas = {
 		
 		// TODO: fix outline instead of selection box
 		this.outlinePass = false;
-		
+
 		// temp
 		// setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 100);
 		// setTimeout(() => {
@@ -42,8 +42,8 @@ const degas = {
 		this.dispatch({ type: "add-mesh", arg: "torus", position: [0, 0, 0] });
 
 		this.els.toolbar.sidebar.trigger("click");
-		// this.workspace.dispatch({ type: "deselect" });
-		// this.dispatch({ type: "set-view-shade", arg: "wireframe" });
+		this.workspace.dispatch({ type: "deselect" });
+		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 	},
 	dispatch(event) {

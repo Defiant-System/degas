@@ -261,7 +261,7 @@ class Viewport {
 		this.grid = grid;
 
 		this.selectObject = function(object) {
-			// selectionBox.visible = false;
+			selectionBox.visible = false;
 			transformControls.detach();
 
 			if ( object !== null && object !== scene && object !== camera ) {

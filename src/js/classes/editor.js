@@ -261,29 +261,9 @@ class Editor {
 			object = object.parent;
 		}
 
-		if (this.selected && this.selected.material) {
-			let material = this.selected.material;
-			// unhighlight selected, if any
-			if (!material.length) {
-				// let color = this.selected.userData._color || Settings.wireframe.default;
-				// this.selected.material.color.setHex(color);
-				// delete reference
-				// delete this.selected.userData._color;
-			}
-		}
-
 		this.selected = object;
 		this.config.setKey( 'selected', uuid );
 		
-		if (this.selected && this.selected.material) {
-			let material = this.selected.material;
-			if (!material.length) {
-				// remember object color
-				// this.selected.userData._color = this.selected.material.color;
-				// this.selected.material.color.setHex(Settings.wireframe.highlight);
-			}
-		}
-
 		viewport.selectObject(object);
 	}
 
