@@ -57,4 +57,23 @@
 		<Menu type="divider"/>
 		<Menu name="License"/>
 	</Menu>
+
+	<Menu for="scene-background">
+		<Menu name="None" click="select-scene-bg" check-group="scene-bg" is-checked="1"/>
+		<Menu name="Color" click="select-scene-bg" check-group="scene-bg"/>
+		<Menu name="Texture" click="select-scene-bg" check-group="scene-bg"/>
+		<Menu name="Equirect" click="select-scene-bg" check-group="scene-bg"/>
+	</Menu>
+
+	<Menu for="scene-environment">
+		<Menu name="None" click="select-scene-env" check-group="scene-env" is-checked="1"/>
+		<Menu name="Equirect" click="select-scene-env" check-group="scene-env"/>
+		<Menu name="Model Viewer" click="select-scene-env" check-group="scene-env"/>
+	</Menu>
+
+	<Menu for="scene-fog">
+		<Menu name="None" click="select-scene-fog" check-group="scene-fog" is-checked="1"/>
+		<Menu name="Linear" click="select-scene-fog" check-group="scene-fog"/>
+		<Menu name="Exponential" click="select-scene-fog" check-group="scene-fog"/>
+	</Menu>
 </MenuBar>

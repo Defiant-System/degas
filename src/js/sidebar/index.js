@@ -60,6 +60,7 @@
 		}
 	},
 	tree: @import "./tree.js",
+	scene: @import "./scene.js",
 	light: @import "./light.js",
 	files: @import "./files.js",
 	camera: @import "./camera.js",
