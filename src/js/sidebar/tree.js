@@ -18,6 +18,16 @@
 		// setTimeout(() => this.els.el.find(".row:nth(5)").trigger("click"), 100);
 		// setTimeout(() => this.els.el.find(".row:nth(3) .icon-arrow").trigger("click"), 100);
 
+		// setTimeout(() => {
+		// 	this.dispatch({ type: "remove", id: "3" });
+		// }, 1300);
+
+
+		// setTimeout(() => {
+		// 	this.dispatch({ type: "rename", id: "3", name: "Apple" });
+		// }, 1300);
+
+		/*
 		setTimeout(() => {
 			let node = {
 					id: 10,
@@ -30,16 +40,21 @@
 					]
 				};
 			this.dispatch({
-				type: "add-tree-node",
+				type: "add",
 				insert: "before",
 				id: "3",
 				node
 			});
 		}, 300);
+		*/
 	},
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.sidebar.tree,
+			xInsert,
+			xAnchorId,
+			xAnchor,
+			xNode,
 			name,
 			value,
 			el;
@@ -76,7 +91,7 @@
 				if (el.hasClass("icon-eye-on")) el.prop({ className: "icon-eye-off" });
 				else el.prop({ className: "icon-eye-on" });
 				break;
-			case "add-tree-node":
+			case "add":
 				let str = [],
 					xParse = node => {
 						let expand = node.expanded !== undefined ? `expanded="${node.expanded}"` : "";
@@ -87,10 +102,10 @@
 				// parse node
 				xParse(event.node);
 
-				let xInsert = event.insert || "append",
-					xAnchorId = event.id || window.bluePrint.selectSingleNode(`//Tree//i`).getAttribute("id"),
-					xAnchor = window.bluePrint.selectSingleNode(`//Tree//i[@id="${xAnchorId}"]`),
-					xNode = $.xmlFromString(`<data>${str.join("\n")}</data>`).selectSingleNode(`//data/i`);
+				xInsert = event.insert || "append";
+				xAnchorId = event.id || window.bluePrint.selectSingleNode(`//Tree//i`).getAttribute("id");
+				xAnchor = window.bluePrint.selectSingleNode(`//Tree//i[@id="${xAnchorId}"]`);
+				xNode = $.xmlFromString(`<data>${str.join("\n")}</data>`).selectSingleNode(`//data/i`);
 				switch (xInsert) {
 					case "before":
 						xAnchor.parentNode.insertBefore(xNode, xAnchor);
@@ -125,7 +140,19 @@
 						});
 				}
 				break;
-			case "remove-tree-node":
+			case "rename":
+				// rename xml node
+				xNode = window.bluePrint.selectSingleNode(`//Tree//i[@id="${event.id}"]`);
+				xNode.setAttribute("name", event.name);
+				// rename html node
+				Self.els.el.find(`.row[data-id="${event.id}"] > .item > span`).html(event.name);
+				break;
+			case "remove":
+				// remove xml node
+				xNode = window.bluePrint.selectSingleNode(`//Tree//i[@id="${event.id}"]`);
+				xNode.parentNode.removeChild(xNode);
+				// remove html node
+				Self.els.el.find(`.row[data-id="${event.id}"]`).remove();
 				break;
 		}
 	}
