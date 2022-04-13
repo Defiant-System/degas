@@ -127,8 +127,9 @@ const degas = {
 			case "set-transform-control-mode":
 				return Self.workspace.dispatch(event);
 			default:
-				if (event.el) {
-					let pEl = event.el.parents(`div[data-area]`);
+				el = event.el || (event.origin ? event.origin.el : null);
+				if (el) {
+					let pEl = el.parents(`div[data-area]`);
 					if (pEl.length) {
 						let name = pEl.data("area");
 						Self[name].dispatch(event);

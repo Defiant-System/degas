@@ -8,17 +8,18 @@
 		<div class="field select" data-label="Background" data-menu="scene-background">
 			<span>None</span>
 		</div>
+		<div>
+			<div class="hidden-fields" data-fields="Color">
+				<div class="field color" data-label="Color" style="--color: #ff9900; --opacity: #ff9900a0;"></div>
+			</div>
 
-		<div class="hidden-fields show">
-			<div class="field color" data-label="Color" style="--color: #ff9900; --opacity: #ff9900a0;"></div>
-		</div>
+			<div class="hidden-fields" data-fields="Texture">
+				<div class="field image" data-label="Texture" data-open="Open&#8230;" style1="--image: url(/fs/Desktop/coast.jpg?w=232&h=148)"></div>
+			</div>
 
-		<div class="hidden-fields show">
-			<div class="field image" data-label="Texture" data-open="Open&#8230;" style="--image: url(/fs/Desktop/coast.jpg?w=232&h=148)"></div>
-		</div>
-
-		<div class="hidden-fields show">
-			<div class="field image" data-label="Equirect" data-open="Open&#8230;"></div>
+			<div class="hidden-fields" data-fields="Equirect">
+				<div class="field image" data-label="Equirect" data-open="Open&#8230;"></div>
+			</div>
 		</div>
 		<!-- Scene BG - END -->
 		
@@ -27,12 +28,34 @@
 		<div class="field select" data-label="Environment" data-menu="scene-environment">
 			<span>None</span>
 		</div>
+		<div>
+			<div class="hidden-fields" data-fields="Equirect">
+				<div class="field image" data-label="Equirect" data-open="Open&#8230;"></div>
+			</div>
+		</div>
 		<!-- Scene ENV - END -->
 		
 
 		<!-- Scene FOG - START -->
 		<div class="field select" data-label="Fog" data-menu="scene-fog">
 			<span>None</span>
+		</div>
+		<div>
+			<div class="hidden-fields" data-fields="Linear">
+				<div class="field color" data-label="Color" style="--color: #ff9900; --opacity: #ff9900a0;"></div>
+				<fieldset>
+					<legend>Linear</legend>
+					<div data-label="Near">0.01</div>
+					<div data-label="Far">50.00</div>
+				</fieldset>
+			</div>
+
+			<div class="hidden-fields" data-fields="Exponential">
+				<div class="field color" data-label="Color" style="--color: #ff9900; --opacity: #ff9900a0;"></div>
+				<div class="field number" data-label="Exponential" style="--value: 45%;">
+					<span>0.048</span>
+				</div>
+			</div>
 		</div>
 		<!-- Scene FOG - END -->
 

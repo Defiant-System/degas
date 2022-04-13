@@ -52,8 +52,8 @@
 				value.addClass("active");
 				break;
 			default:
-				if (event.el) {
-					el = event.el;
+				el = event.el || (event.origin ? event.origin.el : null);
+				if (el) {
 					el = el.data("section") ? el : el.parents(`div[data-section]`);
 					if (el.length) Self[el.data("section")].dispatch(event);
 				}
