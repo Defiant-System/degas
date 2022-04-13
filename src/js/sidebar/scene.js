@@ -30,6 +30,12 @@
 				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
 				if (el.length) el.addClass("show");
 				break;
+			case "select-image":
+				window.dialog.open({
+					jpg: item => console.log(item),
+					png: item => console.log(item),
+				});
+				break;
 		}
 	}
 }

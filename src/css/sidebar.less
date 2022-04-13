@@ -286,41 +286,76 @@
 		background-size: 14px 14px, 14px 14px;
 		transform: scaleX(1) scaleY(1) scaleZ(1);
 		position: relative;
-		height: 144px;
-		// height: 97px;
+		// height: 144px;
+		height: 43px;
 
-		&:before {
+		&:after {
 			content: "";
+			background-color: rgba(255,255,255,.35);
+			background-size: 13px 13px;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			background-image: url(~/icons/icon-resize.png);
+			position: absolute;
+			bottom: 5px;
+			right: 5px;
+			width: 17px;
+			height: 17px;
+			border-radius: 50%;
+			z-index: 3;
+		}
+
+		&:hover {
+			span:after {
+				opacity: 1;
+			}
+		}
+
+		span {
+			background-size: 0 0;
 			position: absolute;
 			top: 0;
 			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: 1;
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: 50% 50%;
-			background-image: var( --image );
+			right: 0;
+			bottom: 0;
 			border-radius: inherit;
-		}
 
-		&:after {
-			content: attr(data-open);
-			backdrop-filter: blur(5px);
-			background-color: rgba(255,255,255,.45);
-			background-image: url(~/icons/icon-folder-open.png);
-			background-position: 7px 2px;
-			background-repeat: no-repeat;
-			background-size: 17px 17px;
-			position: absolute;
-			bottom: 7px;
-			left: 50%;
-			z-index: 2;
-			transform: translateX(-50%);
-			padding: 5px 7px 4px 29px;
-			border-radius: 13px;
-			color: #222;
-			cursor: pointer;
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 1;
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: 50% 50%;
+				background-image: inherit;
+				border-radius: inherit;
+				box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+			}
+
+			&:after {
+				content: attr(data-open);
+				backdrop-filter: blur(5px);
+				background-color: rgba(255,255,255,.45);
+				background-image: url(~/icons/icon-folder-open.png);
+				background-position: 7px 2px;
+				background-repeat: no-repeat;
+				background-size: 17px 17px;
+				position: absolute;
+				top: 7px;
+				left: 50%;
+				z-index: 2;
+				transform: translateX(-50%);
+				padding: 5px 7px 4px 29px;
+				border-radius: 13px;
+				color: #222;
+				cursor: pointer;
+				opacity: 0;
+				transition: opacity 120ms ease-in-out;
+			}
 		}
 	}
 
