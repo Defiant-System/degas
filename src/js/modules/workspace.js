@@ -195,7 +195,7 @@
 				mesh.name = 'Tetrahedron';
 				break;
 			case "torus":
-				geometry = new THREE.TorusGeometry( 1, 0.4, 8, 24, Math.PI * 2 );
+				geometry = new THREE.TorusGeometry( 1, 0.4, 12, 24, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Torus';
 				break;

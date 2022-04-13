@@ -71,34 +71,39 @@
 
 <xsl:template name="tree">
 	<xsl:for-each select="./*">
-		<div class="row">
-			<xsl:attribute name="data-id"><xsl:value-of select="@id"/></xsl:attribute>
-			<xsl:if test="@expanded = 1">
-				<xsl:attribute name="class">row expanded</xsl:attribute>
-			</xsl:if>
-			<div class="item">
-				<xsl:choose>
-					<xsl:when test="@expanded"><i class="icon-arrow" data-type="toggle-expand"></i></xsl:when>
-					<xsl:otherwise><i class="icon-blank"></i></xsl:otherwise>
-				</xsl:choose>
-				<i><xsl:attribute name="class">icon-<xsl:value-of select="@icon"/></xsl:attribute></i>
-				<span><xsl:value-of select="@name"/></span>
-				<i data-type="toggle-visibility">
-					<xsl:attribute name="class"><xsl:choose>
-						<xsl:when test="@visible = 0">icon-eye-off</xsl:when>
-						<xsl:otherwise>icon-eye-on</xsl:otherwise>
-					</xsl:choose></xsl:attribute>
-				</i>
-			</div>
-			<xsl:if test="@expanded = 1">
-				<xsl:call-template name="tree-branch"/>
-			</xsl:if>
-		</div>
+		<xsl:call-template name="tree-node"/>
 	</xsl:for-each>
 </xsl:template>
 
 
-<xsl:template name="tree-branch">
+<xsl:template name="tree-node">
+	<div class="row">
+		<xsl:attribute name="data-id"><xsl:value-of select="@id"/></xsl:attribute>
+		<xsl:if test="@expanded = 1">
+			<xsl:attribute name="class">row expanded</xsl:attribute>
+		</xsl:if>
+		<div class="item">
+			<xsl:choose>
+				<xsl:when test="@expanded"><i class="icon-arrow" data-type="toggle-expand"></i></xsl:when>
+				<xsl:otherwise><i class="icon-blank"></i></xsl:otherwise>
+			</xsl:choose>
+			<i><xsl:attribute name="class">icon-<xsl:value-of select="@icon"/></xsl:attribute></i>
+			<span><xsl:value-of select="@name"/></span>
+			<i data-type="toggle-visibility">
+				<xsl:attribute name="class"><xsl:choose>
+					<xsl:when test="@visible = 0">icon-eye-off</xsl:when>
+					<xsl:otherwise>icon-eye-on</xsl:otherwise>
+				</xsl:choose></xsl:attribute>
+			</i>
+		</div>
+		<xsl:if test="@expanded = 1">
+			<xsl:call-template name="tree-children"/>
+		</xsl:if>
+	</div>
+</xsl:template>
+
+
+<xsl:template name="tree-children">
 	<div class="children">
 		<div>
 			<xsl:call-template name="tree"/>
