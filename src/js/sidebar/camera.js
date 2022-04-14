@@ -11,7 +11,11 @@
 			el;
 		// console.log(event);
 		switch(event.type) {
-			case "test-event":
+			case "select-image":
+				window.dialog.open({
+					jpg: item => console.log(item),
+					png: item => console.log(item),
+				});
 				break;
 		}
 	}
