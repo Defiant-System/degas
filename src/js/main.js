@@ -119,6 +119,7 @@ const degas = {
 			// proxy event
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
+			case "show-view-grid":
 			case "add-mesh":
 			case "add-light":
 			case "add-camera":

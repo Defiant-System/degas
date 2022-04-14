@@ -59,6 +59,7 @@
 				}
 		}
 	},
+	UI: @import "./UI.js",
 	tree: @import "./tree.js",
 	scene: @import "./scene.js",
 	light: @import "./light.js",

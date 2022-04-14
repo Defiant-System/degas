@@ -33,6 +33,10 @@
 				Self.els.rendererCvs = Self.els.workspace.append(renderer.domElement),
 				Self.dispatch({ type: "resize-workspace" });
 				break;
+			case "show-view-grid":
+				viewport.grid.visible = event.checked === 1;
+				viewport.render();
+				break;
 			case "resize-workspace":
 				if (editor === undefined) {
 					Self.dispatch({ type: "create-editor-viewport" });
@@ -92,7 +96,6 @@
 							});
 						break;
 				}
-
 				// render
 				viewport.render();
 				return true;

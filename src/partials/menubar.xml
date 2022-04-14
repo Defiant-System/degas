@@ -22,8 +22,10 @@
 		<Menu name="Paste"/>
 		<Menu name="Select All"/>
 	</Menu>
-	<Menu name="Add">
-		<Menu name="Mesh">
+	<Menu name="View">
+		<Menu name="Show Grid" click="show-view-grid" check-group="show-view-grid" is-checked="1"/>
+		<Menu type="divider"/>
+		<Menu name="Add Mesh&#8230;">
 			<Menu name="Box" click="add-mesh" arg="box"/>
 			<Menu name="Circle" click="add-mesh" arg="circle"/>
 			<Menu name="Cylinder" click="add-mesh" arg="cylinder"/>
@@ -40,17 +42,19 @@
 			<Menu name="Torusknot" click="add-mesh" arg="torusknot"/>
 			<Menu name="Tube" click="add-mesh" arg="tube"/>
 		</Menu>
-		<Menu name="Light">
+		<Menu name="Add Light&#8230;">
 			<Menu name="AmbientLight" click="add-light" arg="ambientlight"/>
 			<Menu name="DirectionalLight" click="add-light" arg="directionallight"/>
 			<Menu name="HemisphereLight" click="add-light" arg="hemispherelight"/>
 			<Menu name="PointLight" click="add-light" arg="pointlight"/>
 			<Menu name="SpotLight" click="add-light" arg="spotlight"/>
 		</Menu>
-		<Menu name="Camera">
+		<Menu name="Add Camera&#8230;">
 			<Menu name="OrthographicCamera" click="add-camera" arg="orthographiccamera"/>
 			<Menu name="PerspectiveCamera" click="add-camera" arg="perspectivecamera"/>
 		</Menu>
+		<Menu type="divider"/>
+		<Menu name="Fullscreen"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
