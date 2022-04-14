@@ -5,15 +5,56 @@
 	init() {
 		// fast references
 		this.els = {
+			doc: $(document),
 			content: window.find("content"),
 			sidebar: window.find(".sidebar"),
+			resize: window.find(".sidebar .view-resize"),
 		};
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
+		// bind event handlers
+		this.els.resize.on("mousedown", this.resizeTree);
 		// temp
-		this.els.sidebar.find(".properties .tabs > div:nth(0)").trigger("click");
+		this.els.sidebar.find(".properties .tabs > div:nth(1)").trigger("click");
+	},
+	resizeTree(event) {
+		let APP = degas,
+			Self = APP.sidebar,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover APP UI
+				APP.els.content.addClass("cover hideMouse");
+				// info about DnD event
+				let el = Self.els.sidebar.find(".tree");
+
+				Self.drag = {
+					el,
+					offset: +el.prop("offsetHeight"),
+					clickY: event.clientY,
+					min: 100,
+					max: 260,
+					_max: Math.max,
+					_min: Math.min,
+				};
+				// bind event handlers
+				Self.els.doc.on("mousemove mouseup", Self.resizeTree);
+				break;
+			case "mousemove":
+				let height = Drag._min(Drag._max(Drag.offset - Drag.clickY + event.clientY, Drag.min), Drag.max);
+				Drag.el.css({ height });
+				break;
+			case "mouseup":
+				// uncover APP UI
+				APP.els.content.removeClass("cover hideMouse");
+				// unbind event handlers
+				Self.els.doc.off("mousemove mouseup", Self.resizeTree);
+				break;
+		}
 	},
 	dispatch(event) {
 		let APP = degas,
