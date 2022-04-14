@@ -120,6 +120,8 @@ const degas = {
 			case "toggle-sidebar":
 				return Self.sidebar.dispatch(event);
 			case "show-view-grid":
+			case "show-view-info":
+			case "show-view-helper":
 			case "add-mesh":
 			case "add-light":
 			case "add-camera":

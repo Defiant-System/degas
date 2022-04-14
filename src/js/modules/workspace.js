@@ -37,6 +37,14 @@
 				viewport.grid.visible = event.checked === 1;
 				viewport.render();
 				break;
+			case "show-view-info":
+				Self.els.workspace.find("#viewInfo").toggleClass("hidden", event.checked === 1);
+				break;
+			case "show-view-helper":
+				Self.els.workspace.find("#viewHelper").toggleClass("hidden", event.checked === 1);
+				viewport.viewHelper.visible = event.checked === 1;
+				viewport.render();
+				break;
 			case "resize-workspace":
 				if (editor === undefined) {
 					Self.dispatch({ type: "create-editor-viewport" });

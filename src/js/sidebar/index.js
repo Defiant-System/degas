@@ -8,18 +8,20 @@
 			doc: $(document),
 			content: window.find("content"),
 			sidebar: window.find(".sidebar"),
-			resize: window.find(".sidebar .view-resize"),
+			wrapper: window.find(".sidebar .wrapper"),
+			hResize: window.find(".sidebar .view-hori-resize"),
+			vResize: window.find(".sidebar .view-vert-resize"),
 		};
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 		// bind event handlers
-		this.els.resize.on("mousedown", this.resizeTree);
+		this.els.vResize.on("mousedown", this.resizeTree);
 		// temp
 		this.els.sidebar.find(".properties .tabs > div:nth(1)").trigger("click");
 	},
-	resizeTree(event) {
+	resizeSidebar(event) {
 		let APP = degas,
 			Self = APP.sidebar,
 			Drag = Self.drag;
@@ -34,25 +36,17 @@
 
 				Self.drag = {
 					el,
-					offset: +el.prop("offsetHeight"),
-					clickY: event.clientY,
-					min: 100,
-					max: 260,
-					_max: Math.max,
-					_min: Math.min,
 				};
 				// bind event handlers
-				Self.els.doc.on("mousemove mouseup", Self.resizeTree);
+				Self.els.doc.on("mousemove mouseup", Self.resizeSidebar);
 				break;
 			case "mousemove":
-				let height = Drag._min(Drag._max(Drag.offset - Drag.clickY + event.clientY, Drag.min), Drag.max);
-				Drag.el.css({ height });
 				break;
 			case "mouseup":
 				// uncover APP UI
 				APP.els.content.removeClass("cover hideMouse");
 				// unbind event handlers
-				Self.els.doc.off("mousemove mouseup", Self.resizeTree);
+				Self.els.doc.off("mousemove mouseup", Self.resizeSidebar);
 				break;
 		}
 	},
@@ -98,6 +92,43 @@
 					el = el.data("section") ? el : el.parents(`div[data-section]`);
 					if (el.length) Self[el.data("section")].dispatch(event);
 				}
+		}
+	},
+	resizeTree(event) {
+		let APP = degas,
+			Self = APP.sidebar,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// cover APP UI
+				APP.els.content.addClass("cover hideMouse");
+				// info about DnD event
+				let el = Self.els.sidebar.find(".tree");
+
+				Self.drag = {
+					el,
+					offset: +el.prop("offsetHeight"),
+					clickY: event.clientY,
+					min: 100,
+					max: 260,
+					_max: Math.max,
+					_min: Math.min,
+				};
+				// bind event handlers
+				Self.els.doc.on("mousemove mouseup", Self.resizeTree);
+				break;
+			case "mousemove":
+				let height = Drag._min(Drag._max(Drag.offset - Drag.clickY + event.clientY, Drag.min), Drag.max);
+				Drag.el.css({ height });
+				break;
+			case "mouseup":
+				// uncover APP UI
+				APP.els.content.removeClass("cover hideMouse");
+				// unbind event handlers
+				Self.els.doc.off("mousemove mouseup", Self.resizeTree);
+				break;
 		}
 	},
 	UI: @import "./UI.js",

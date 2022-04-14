@@ -29,14 +29,14 @@ content {
 	}
 
 	&.show-sidebar {
-		background: rgba(1,0,0,0);
+		background: rgba(1,0,0,0); // cssSequence stopper
 
 		.workspace {
-			right: 270px;
+			right: var( --sidebar-width );
 		}
 
 		.sidebar {
-			width: 270px;
+			width: var( --sidebar-width );
 		}
 	}
 
@@ -147,6 +147,12 @@ content {
 
 		&.mouseHand {
 			cursor: pointer;
+		}
+	}
+
+	.Panel {
+		&.hidden {
+			display: none;
 		}
 	}
 }

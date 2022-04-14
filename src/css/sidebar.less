@@ -1,4 +1,15 @@
 
+.view-hori-resize {
+	background: transparent;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: -2px;
+	width: 3px;
+	z-index: 99;
+	cursor: ew-resize;
+}
+
 .sidebar {
 	position: absolute;
 	top: 0;
@@ -12,12 +23,12 @@
 	.wrapper {
 		display: flex;
 		flex-direction: column;
-		width: 270px;
+		width: var( --sidebar-width );
 		height: 100%;
 		background: #303030;
 		color: #aaa;
 
-		> .view-resize {
+		> .view-vert-resize {
 			position: relative;
 			width: 100%;
 			height: 1px;
