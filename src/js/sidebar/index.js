@@ -8,15 +8,15 @@
 			doc: $(document),
 			content: window.find("content"),
 			sidebar: window.find(".sidebar"),
-			wrapper: window.find(".sidebar .wrapper"),
-			hResize: window.find(".sidebar .view-hori-resize"),
 			vResize: window.find(".sidebar .view-vert-resize"),
+			hResize: window.find("content .view-hori-resize"),
 		};
 		// init all sub-objects
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
 		// bind event handlers
+		this.els.hResize.on("mousedown", this.resizeSidebar);
 		this.els.vResize.on("mousedown", this.resizeTree);
 		// temp
 		this.els.sidebar.find(".properties .tabs > div:nth(1)").trigger("click");
@@ -32,17 +32,29 @@
 				// cover APP UI
 				APP.els.content.addClass("cover hideMouse");
 				// info about DnD event
-				let el = Self.els.sidebar.find(".tree");
+				let el = Self.els.content.addClass("resizing"),
+					offset = +Self.els.sidebar.find(".tree").prop("offsetWidth");
 
 				Self.drag = {
 					el,
+					offset,
+					clickX: event.clientX,
+					min: 270,
+					max: 400,
+					_max: Math.max,
+					_min: Math.min,
 				};
 				// bind event handlers
 				Self.els.doc.on("mousemove mouseup", Self.resizeSidebar);
 				break;
 			case "mousemove":
+				let width = Drag._min(Drag._max(Drag.offset + Drag.clickX - event.clientX, Drag.min), Drag.max);
+				Drag.el.css({ "--sidebar-width": `${width}px` });
+				// resize viewport
+				viewport.resize();
 				break;
 			case "mouseup":
+				Drag.el.removeClass("resizing");
 				// uncover APP UI
 				APP.els.content.removeClass("cover hideMouse");
 				// unbind event handlers

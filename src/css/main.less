@@ -28,6 +28,15 @@ content {
 		.workspace { display: none; }
 	}
 
+	&.resizing {
+		transition-duration: 0s;
+
+		.workspace,
+		.sidebar {
+			transition-duration: 0s;
+		}
+	}
+
 	&.show-sidebar {
 		background: rgba(1,0,0,0); // cssSequence stopper
 
