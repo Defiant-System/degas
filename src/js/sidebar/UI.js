@@ -29,6 +29,9 @@
 						if (pEl.data("checked")) pEl.removeAttr("data-checked");
 						else pEl.data({ checked: 1 });
 						break;
+					case pEl.hasClass("color"):
+						APP.colorpicker.dispatch({ type: "show", el: pEl });
+						break;
 				}
 				break;
 			case "bind-event-handlers":

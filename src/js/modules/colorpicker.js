@@ -38,6 +38,9 @@
 			el;
 		// console.log(event);
 		switch(event.type) {
+			case "show":
+				Self.els.el.addClass("show");
+				break;
 			case "group-head":
 				el = $(event.target);
 				value = el.index();
