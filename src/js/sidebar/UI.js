@@ -32,8 +32,7 @@
 				// info about DnD event
 				let doc = $(document),
 					el = $(event.target);
-
-				return console.log( event );
+				if (!el.hasClass("field") && !el.hasClass("image")) return;
 
 				Self.drag = {
 					el,
