@@ -17,6 +17,8 @@
 					png: item => console.log(item),
 				});
 				break;
+			case "set-color-type":
+				break;
 		}
 	}
 }

@@ -14,10 +14,25 @@
 			el;
 		// console.log(event);
 		switch(event.type) {
-			case "bind-event-handlers":
-				APP.sidebar.els.sidebar.on("mousedown", ".field.image", Self.resizeImagePreview);
+			case "mousedown":
+				el = $(event.target);
+				pEl = event.el || (el.hasClass("field") ? el : el.parents(".field"));
+				// console.log(pEl);
+				switch (true) {
+					case pEl.hasClass("image"):
+						return Self.resizeImagePreview(event);
+					case pEl.hasClass("options"):
+						pEl.find(".active").removeClass("active");
+						el.addClass("active");
+						break;
+					case pEl.hasClass("checkbox"):
+						if (pEl.data("checked")) pEl.removeAttr("data-checked");
+						else pEl.data({ checked: 1 });
+						break;
+				}
 				break;
-			case "unbind-event-handlers":
+			case "bind-event-handlers":
+				APP.sidebar.els.sidebar.on("mousedown", ".field", Self.dispatch);
 				break;
 		}
 	},
@@ -38,7 +53,7 @@
 					el,
 					offset: +el.prop("offsetHeight"),
 					clickY: event.clientY,
-					min: 31,
+					min: 37,
 					max: 109,
 					_max: Math.max,
 					_min: Math.min,
