@@ -4,6 +4,10 @@
 {
 	init() {
 		this.dispatch({ type: "bind-event-handlers" });
+
+		// temp
+		// let el = window.find(`div[data-section="camera"] .field.color`);
+		// setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 100);
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -19,6 +23,8 @@
 				pEl = event.el || (el.hasClass("field") ? el : el.parents(".field"));
 				// console.log(pEl);
 				switch (true) {
+					case pEl.hasClass("number"):
+						return Self.numberInput(event);
 					case pEl.hasClass("image"):
 						return Self.resizeImagePreview(event);
 					case pEl.hasClass("options"):
@@ -36,6 +42,24 @@
 				break;
 			case "bind-event-handlers":
 				APP.sidebar.els.sidebar.on("mousedown", ".field", Self.dispatch);
+				break;
+		}
+	},
+	numberInput(event) {
+		let APP = degas,
+			Self = APP.sidebar.UI,
+			Drag = Self.drag;
+		switch (event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// info about DnD event
+				let doc = $(document),
+					el = $(event.target);
+				break;
+			case "mousemove":
+				break;
+			case "mouseup":
 				break;
 		}
 	},

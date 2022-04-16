@@ -1,15 +1,11 @@
 
 .color-picker {
 	display: none;
-	background: rgba(30,30,30,.40);
-	backdrop-filter: blur(17px);
 	position: absolute;
-	top: 94px;
-	left: 1011px;
+	top: 424px;
+	left: 1001px;
 	width: 191px;
 	padding: 9px 9px 7px;
-	border-radius: 6px;
-	box-shadow: 0 1px 13px rgba(0,0,0,.25);
 	z-index: 199;
 
 	&.show {
@@ -18,15 +14,27 @@
 
 	&:before {
 		content: "";
+		background: rgba(30,30,30,.40);
+		backdrop-filter: blur(17px);
 		position: absolute;
-		bottom: -7px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: 6px;
+		box-shadow: 0 1px 3px rgba(0,0,0,.45);
+	}
+
+	&:after {
+		content: "";
+		background: rgba(30,30,30,.40);
+		backdrop-filter: blur(17px);
+		position: absolute;
+		top: -11px;
 		left: 50%;
-		width: 0;
-		height: 0;
-		margin-left: -4px;
-		border-left: 7px solid transparent;
-		border-right: 7px solid transparent;
-		border-top: 7px solid rgba(30,30,30,.30);
+		width: 19px;
+		height: 11px;
+		clip-path: polygon(50% 0, 0 100%, 100% 100%);
 	}
 
 	.wrapper {

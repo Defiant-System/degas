@@ -4,7 +4,7 @@
 		.st0{fill:#f9f9f9;}
 		.st1{fill:#ececec;}
 		.st2{fill:#ccc;}
-		.st3{fill:none;stroke:#f90;}
+		.st3{fill:none;stroke:#f90;stroke-width:1.5;}
 	</style>
 	<path id="path2987" class="st0" d="M27.5,2L4.8,13.3l22.7,11.3l22.7-11.3L27.5,2z"/>
 	<path id="path2989" class="st1" d="M27.5,24.7V53l22.7-11.3V13.3L27.5,24.7z"/>
