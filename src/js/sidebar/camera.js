@@ -18,6 +18,13 @@
 				});
 				break;
 			case "set-color-type":
+				console.log(event);
+				break;
+			case "set-compression":
+			case "set-location":
+			case "set-rotation":
+			case "set-scale":
+				console.log(event);
 				break;
 		}
 	}

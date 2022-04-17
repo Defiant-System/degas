@@ -57,16 +57,18 @@
 				let doc = $(document),
 					el = $(event.target),
 					vEl = el.find("span"),
-					val = el.css("--value") || +vEl.html(),
-					offset = parseInt(val, 10),
+					val = (el.css("--value") || vEl.html()).match(/[\d\.]+/),
+					offset = +val[0],
 					min = +el.data("min"),
 					max = +el.data("max"),
 					step = +el.data("step"),
 					dec = step < 1 ? el.data("step").split(".")[1].length : 0,
-					suffix = vEl.html().match(/[\d\. ]+?(\D+)$/);
+					suffix = vEl.html().match(/[\d\. ]+?(\D+)$/),
+					name = el.parents("[data-section]").data("section"),
+					etChange = el.data("change"),
+					fnChange = APP.sidebar[name].dispatch;
 				// clean up + fallback
 				suffix = suffix ? suffix[1].trim() : "";
-				// return console.log( offset );
 				// data for move event
 				Self.drag = {
 					el,
@@ -81,6 +83,8 @@
 					_max: Math.max,
 					_min: Math.min,
 					_round: Math.round,
+					etChange,
+					fnChange,
 					doc,
 				};
 				// cover APP UI
@@ -89,15 +93,22 @@
 				Self.drag.doc.on("mousemove mouseup", Self.numberInput);
 				break;
 			case "mousemove":
-				let diff = Drag.clickX - event.clientX;
+				let diff = Drag.clickX - event.clientX,
+					value;
 				if (Drag.min !== Drag.max) {
-					let value = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max);
-					Drag.el.css({ "--value": `${Drag._round(value)}%` });
+					let width = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max);
+					value = width.toFixed(Drag.dec);
+					Drag.el.css({ "--value": `${Drag._round(width)}%` });
+					Drag.vEl.html(`${value} ${Drag.suffix}`.trim());
+				} else {
+					let sVal = Drag.offset - (diff * Drag.step),
+						sValue = Drag.step * Drag._round(sVal / Drag.step);
+					value = sValue.toFixed(Drag.dec);
+					Drag.vEl.html(`${value} ${Drag.suffix}`.trim());
 				}
-
-				let sVal = Drag.offset - (diff * Drag.step),
-					sValue = Drag.step * Drag._round(sVal / Drag.step);
-				Drag.vEl.html(`${sValue.toFixed(Drag.dec)} ${Drag.suffix}`.trim());
+				if (Drag.etChange) {
+					Drag.fnChange({ type: Drag.etChange, value: +value });
+				}
 				break;
 			case "mouseup":
 				// uncover APP UI

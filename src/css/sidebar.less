@@ -508,6 +508,30 @@
 
 	&.number {
 		// overflow: hidden;
+
+		&[data-min][data-max] {
+			&:after {
+				display: none;
+			}
+
+			span {
+				position: absolute;
+				height: 100%;
+				overflow: hidden;
+				border-radius: inherit;
+		
+				&:before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					width: var( --value );
+					z-index: -1;
+					background: #69d;
+				}
+			}
+		}
 		
 		&:after {
 			content: "";
@@ -621,7 +645,7 @@ fieldset {
 	&.color-group {
 		padding: 1px 0;
 
-		div {
+		div.field.number {
 			margin: 0 29px 1px 0;
 			border-radius: 0;
 			text-align: left;
@@ -638,6 +662,7 @@ fieldset {
 
 			&:after {
 				content: attr(data-value);
+				background: transparent;
 				position: absolute;
 				top: 0;
 				right: 0;
@@ -648,11 +673,17 @@ fieldset {
 				text-shadow: 0 1px 0 rgba(0,0,0,.35);
 			}
 
+			&[data-value="0.000"] {
+				&:before { background: transparent; }
+				&:after { width: auto; }
+			}
+
 			b {
 				position: relative;
 				top: 0;
 				left: 7px;
 				width: 47px;
+				z-index: 2;
 				padding: inherit;
 				text-align: left;
 				// font-size: 90%;

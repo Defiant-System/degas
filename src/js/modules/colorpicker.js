@@ -7,7 +7,6 @@
 			hsva = window.find(".color-picker .hsva .color-group > div");
 		// fast references
 		this.els = {
-			doc: $(document),
 			content: window.find("content"),
 			el: window.find(".color-picker"),
 			wrapper: window.find(".color-picker .wrapper"),
@@ -27,17 +26,27 @@
 			},
 		};
 		// bind event handlers
-		this.els.wrapper.on("mousedown", this.doWrapper);
-		this.els.range.on("mousedown", this.doRange);
+		this.els.el.on("mousedown", this.dispatch);
 	},
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.colorpicker,
 			name,
 			value,
+			pEl,
 			el;
 		// console.log(event);
 		switch(event.type) {
+			case "mousedown":
+				// dispatch mousedown event
+				el = $(event.target);
+				pEl = event.el || (el.hasClass("field") ? el : el.parents(".field"));
+				switch (true) {
+					case el.hasClass("wrapper"): return Self.doWrapper(event);
+					case el.hasClass("range"): return Self.doRange(event);
+					case pEl.hasClass("number"): return Self.doField(event);
+				}
+				break;
 			case "show":
 				Self.els.el.addClass("show");
 				break;
@@ -78,6 +87,55 @@
 				break;
 		}
 	},
+	doField(event) {
+		let Self = degas.colorpicker,
+			Drag = Self.drag;
+		switch(event.type) {
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+				// info about DnD event
+				let doc = $(document),
+					el = $(event.target);
+				// data for move event
+				Self.drag = {
+					el,
+					offset: +el.css("--value"),
+					clickX: event.clientX,
+					dec: 3,
+					min: 0,
+					max: 1,
+					step: 0.004,
+					_max: Math.max,
+					_min: Math.min,
+					_round: Math.round,
+					doc,
+				};
+				// cover APP UI
+				APP.els.content.addClass("cover hideMouse");
+				// bind event handlers
+				Self.drag.doc.on("mousemove mouseup", Self.doField);
+				break;
+			case "mousemove":
+				let diff = Drag.clickX - event.clientX,
+					sVal = Drag.offset - (diff * Drag.step),
+					sValue = Drag._min(Drag._max(Drag.step * Drag._round(sVal / Drag.step), Drag.min), Drag.max),
+					value = sValue.toFixed(Drag.dec);
+				// let width = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max),
+				// 	value = width.toFixed(Drag.dec);
+				Drag.el
+					.data({ value })
+					.css({ "--value": value });
+				// Drag.vEl.html(`${value} ${Drag.suffix}`.trim());
+				break;
+			case "mouseup":
+				// uncover APP UI
+				APP.els.content.removeClass("cover hideMouse");
+				// unbind event handlers
+				Self.drag.doc.off("mousemove mouseup", Self.doField);
+				break;
+		}
+	},
 	doWrapper(event) {
 		let Self = degas.colorpicker,
 			Drag = Self.drag;
@@ -88,7 +146,8 @@
 				// cover layout
 				Self.els.content.addClass("cover hideMouse");
 				// collect event info
-				let el = $(event.target).find(".cursor"),
+				let doc = $(document),
+					el = $(event.target).find(".cursor"),
 					radius = 74,
 					TAU = Math.PI * 2,
 					group = Self.els.groupHSVA,
@@ -126,9 +185,10 @@
 							}
 						}
 					},
+					doc,
 				};
 				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.doWrapper);
+				Self.drag.doc.on("mousemove mouseup", Self.doWrapper);
 				break;
 			case "mousemove":
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
@@ -148,10 +208,12 @@
 				Drag.group.S.data({ value }).css({ "--value": value });
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.content.removeClass("cover hideMouse");
+				// unbind event
+				Self.drag.doc.off("mousemove mouseup", Self.doWrapper);
 				// reset drag object
 				delete Self.drag;
-				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.doWrapper);
 				break;
 		}
 	},
@@ -165,7 +227,8 @@
 				// cover layout
 				Self.els.content.addClass("cover hideMouse");
 				// collect event info
-				let el = $(event.target).find(".cursor"),
+				let doc = $(document),
+					el = $(event.target).find(".cursor"),
 					group = Self.els.groupHSVA,
 					target = Self.els.wheel,
 					offset = { top: event.offsetY - 3 },
@@ -179,9 +242,9 @@
 				// move cursor
 				el.css(offset);
 				// create drag
-				Self.drag = { el, target, group, click, offset, constrain, _min, _max };
+				Self.drag = { el, target, group, click, offset, constrain, _min, _max, doc };
 				// bind event
-				Self.els.doc.on("mousemove mouseup", Self.doRange);
+				Self.drag.doc.on("mousemove mouseup", Self.doRange);
 				break;
 			case "mousemove":
 				let top = Drag._min(Drag._max(event.clientY + Drag.offset.top - Drag.click.y, Drag.constrain.minY), Drag.constrain.maxY),
@@ -196,10 +259,12 @@
 				Drag.group.V.data({ value }).css({ "--value": value });
 				break;
 			case "mouseup":
+				// uncover layout
+				Self.els.content.removeClass("cover hideMouse");
+				// unbind event
+				Self.drag.doc.off("mousemove mouseup", Self.doRange);
 				// reset drag object
 				delete Self.drag;
-				// unbind event
-				Self.els.doc.off("mousemove mouseup", Self.doRange);
 				break;
 		}
 	}
