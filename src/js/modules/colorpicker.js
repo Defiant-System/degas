@@ -85,6 +85,17 @@
 				opacity = 1 - (top / height);
 				Self.els.wheel.css({ opacity });
 				break;
+			case "set-rgba-R": break;
+			case "set-rgba-G": break;
+			case "set-rgba-B": break;
+			case "set-rgba-A": break;
+			case "set-hsva-H":
+				value = Math.round(event.value * 360);
+				console.log( value );
+				break;
+			case "set-hsva-S": break;
+			case "set-hsva-V": break;
+			case "set-hsva-A": break;
 		}
 	},
 	doField(event) {
@@ -100,12 +111,9 @@
 				// data for move event
 				Self.drag = {
 					el,
+					changeType: el.data("change"),
 					offset: +el.css("--value"),
 					clickX: event.clientX,
-					dec: 3,
-					min: 0,
-					max: 1,
-					step: 0.004,
 					_max: Math.max,
 					_min: Math.min,
 					_round: Math.round,
@@ -117,16 +125,15 @@
 				Self.drag.doc.on("mousemove mouseup", Self.doField);
 				break;
 			case "mousemove":
-				let diff = Drag.clickX - event.clientX,
-					sVal = Drag.offset - (diff * Drag.step),
-					sValue = Drag._min(Drag._max(Drag.step * Drag._round(sVal / Drag.step), Drag.min), Drag.max),
-					value = sValue.toFixed(Drag.dec);
-				// let width = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max),
-				// 	value = width.toFixed(Drag.dec);
+				let step = 0.003,
+					sVal = Drag.offset - ((Drag.clickX - event.clientX) * step),
+					sValue = Drag._min(Drag._max(step * Drag._round(sVal / step), 0), 1),
+					value = sValue.toFixed(3);
 				Drag.el
 					.data({ value })
 					.css({ "--value": value });
-				// Drag.vEl.html(`${value} ${Drag.suffix}`.trim());
+				// forward value to dispatch
+				Self.dispatch({ type: Drag.changeType, value });
 				break;
 			case "mouseup":
 				// uncover APP UI

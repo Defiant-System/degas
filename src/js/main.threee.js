@@ -13,6 +13,9 @@ const {
 	UIPanel,
 	UIDiv,
 	UIText,
+
+	VR,
+	ViewportInfo,
 } = await window.fetch("~/js/bundle.js");
 
 
@@ -20,9 +23,7 @@ const {
 @import "./classes/EditorControls.js";
 @import "./classes/TransformControls.js";
 @import "./classes/Viewport.js";
-@import "./classes/Viewport.VR.js";
 @import "./classes/Viewport.ViewHelper.js";
-@import "./classes/Viewport.ViewportInfo.js";
 
 
 @import "./classes/File.js";

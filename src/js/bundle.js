@@ -10,6 +10,9 @@ import { SetPositionCommand } from './classes/commands/SetPositionCommand.js';
 import { SetRotationCommand } from './classes/commands/SetRotationCommand.js';
 import { SetScaleCommand } from './classes/commands/SetScaleCommand.js';
 
+import { VR } from './classes/Viewport.VR.js';
+import { ViewportInfo } from './classes/Viewport.ViewportInfo.js';
+
 
 // custom THREE.js "dispose"
 THREE_dispose = () => {
@@ -31,4 +34,7 @@ module.exports = {
 	UIPanel,
 	UIDiv,
 	UIText,
+
+	VR,
+	ViewportInfo,
 };

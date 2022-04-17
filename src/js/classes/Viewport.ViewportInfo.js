@@ -1,4 +1,6 @@
 
+import { UIPanel, UIDiv, UIText } from '../modules/threejs/editor/js/libs/ui.js';
+
 class ViewportInfo {
 
 	constructor(editor) {
@@ -26,11 +28,12 @@ class ViewportInfo {
 		row.add( new UIText( editor.strings.getKey( 'viewport/info/frametime' ) ), this.frametimeText );
 		container.add( row );
 		
+		this.editor = editor;
 		this.container = container;
 	}
 
 	update() {
-		const scene = editor.scene;
+		const scene = this.editor.scene;
 		let objects = 0, vertices = 0, triangles = 0;
 		for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
 			const object = scene.children[ i ];
