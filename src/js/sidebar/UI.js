@@ -57,22 +57,26 @@
 				let doc = $(document),
 					el = $(event.target),
 					vEl = el.find("span"),
-					offset = parseInt(el.css("--value"), 10),
+					val = el.css("--value") || +vEl.html(),
+					offset = parseInt(val, 10),
 					min = +el.data("min"),
 					max = +el.data("max"),
 					step = +el.data("step"),
-					suffix = vEl.html().match(/[\d\. ]+?(.+)$/);
-				
-				return console.log( suffix );
-				
+					dec = step < 1 ? el.data("step").split(".")[1].length : 0,
+					suffix = vEl.html().match(/[\d\. ]+?(\D+)$/);
+				// clean up + fallback
+				suffix = suffix ? suffix[1].trim() : "";
+				// return console.log( offset );
+				// data for move event
 				Self.drag = {
 					el,
 					vEl,
 					min,
 					max,
 					step,
-					offset,
+					dec,
 					suffix,
+					offset,
 					clickX: event.clientX,
 					_max: Math.max,
 					_min: Math.min,
@@ -85,10 +89,15 @@
 				Self.drag.doc.on("mousemove mouseup", Self.numberInput);
 				break;
 			case "mousemove":
-				let value = Drag._min(Drag._max(Drag.offset - Drag.clickX + event.clientX, Drag.min), Drag.max);
-				Drag.el.css({ "--value": `${Drag._round(value)}%` });
+				let diff = Drag.clickX - event.clientX;
+				if (Drag.min !== Drag.max) {
+					let value = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max);
+					Drag.el.css({ "--value": `${Drag._round(value)}%` });
+				}
 
-				Drag.vEl.html(`${Drag._round(value) + Drag.suffix}`);
+				let sVal = Drag.offset - (diff * Drag.step),
+					sValue = Drag.step * Drag._round(sVal / Drag.step);
+				Drag.vEl.html(`${sValue.toFixed(Drag.dec)} ${Drag.suffix}`.trim());
 				break;
 			case "mouseup":
 				// uncover APP UI
