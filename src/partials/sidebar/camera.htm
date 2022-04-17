@@ -6,24 +6,28 @@
 		
 		<fieldset data-click="testing">
 			<legend>Location</legend>
-			<div data-label="X">0 m</div>
-			<div data-label="Y">0 m</div>
-			<div data-label="Z">0 m</div>
+			<div data-label="X" data-step="0.01"><span>0 m</span></div>
+			<div data-label="Y" data-step="0.01"><span>0 m</span></div>
+			<div data-label="Z" data-step="0.01"><span>0 m</span></div>
 		</fieldset>
 		
 		<fieldset>
 			<legend>Rotation</legend>
-			<div data-label="X">0 °</div>
-			<div data-label="Y">0 °</div>
-			<div data-label="Z">0 °</div>
+			<div data-label="X" data-step="0.1"><span>0 °</span></div>
+			<div data-label="Y" data-step="0.1"><span>0 °</span></div>
+			<div data-label="Z" data-step="0.1"><span>0 °</span></div>
 		</fieldset>
 		
 		<fieldset>
 			<legend>Scale</legend>
-			<div data-label="X">1.000</div>
-			<div data-label="Y">1.000</div>
-			<div data-label="Z">1.000</div>
+			<div data-label="X" data-step="0.01"><span>1.00</span></div>
+			<div data-label="Y" data-step="0.01"><span>1.00</span></div>
+			<div data-label="Z" data-step="0.01"><span>1.00</span></div>
 		</fieldset>
+
+		<div class="field number" data-label="Compression" data-min="0" data-max="100" data-step="5" style="--value: 35%;">
+			<span>35 %</span>
+		</div>
 
 		<div class="field color" data-label="Base Color" style="--color: #ff9900; --opacity: #ff990070;"></div>
 		
@@ -43,10 +47,6 @@
 
 		<div class="field text" data-label="Name">
 			<input type="text" value="Directional Light"/>
-		</div>
-
-		<div class="field number" data-label="Compression" data-min="0" data-max="100" data-step="1" style="--value: 35%;">
-			<span>35%</span>
 		</div>
 
 		<div class="field textarea" data-label="Name">

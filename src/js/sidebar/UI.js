@@ -55,11 +55,46 @@
 				event.preventDefault();
 				// info about DnD event
 				let doc = $(document),
-					el = $(event.target);
+					el = $(event.target),
+					vEl = el.find("span"),
+					offset = parseInt(el.css("--value"), 10),
+					min = +el.data("min"),
+					max = +el.data("max"),
+					step = +el.data("step"),
+					suffix = vEl.html().match(/[\d\. ]+?(.+)$/);
+				
+				return console.log( suffix );
+				
+				Self.drag = {
+					el,
+					vEl,
+					min,
+					max,
+					step,
+					offset,
+					suffix,
+					clickX: event.clientX,
+					_max: Math.max,
+					_min: Math.min,
+					_round: Math.round,
+					doc,
+				};
+				// cover APP UI
+				APP.els.content.addClass("cover hideMouse");
+				// bind event handlers
+				Self.drag.doc.on("mousemove mouseup", Self.numberInput);
 				break;
 			case "mousemove":
+				let value = Drag._min(Drag._max(Drag.offset - Drag.clickX + event.clientX, Drag.min), Drag.max);
+				Drag.el.css({ "--value": `${Drag._round(value)}%` });
+
+				Drag.vEl.html(`${Drag._round(value) + Drag.suffix}`);
 				break;
 			case "mouseup":
+				// uncover APP UI
+				APP.els.content.removeClass("cover hideMouse");
+				// unbind event handlers
+				Self.drag.doc.off("mousemove mouseup", Self.numberInput);
 				break;
 		}
 	},
