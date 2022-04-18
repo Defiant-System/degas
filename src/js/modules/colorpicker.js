@@ -36,7 +36,8 @@
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
 		// temp
-		this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
+		this.dispatch({ type: "select-palette-color", value: "rgba(255,0,0,1)" });
+		// this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -134,6 +135,23 @@
 				// TODO
 				break;
 			case "set-RGBA":
+				// fields
+				tau = Math.PI * 2;
+				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
+				sat = Self.distance(event.left, event.top);
+				value = event.opacity;
+				rgb = Color.hsvToRgb({
+					h: hue,
+					s: sat,
+					v: value,
+				});
+
+				value = (rgb.r / 255).toFixed(3);
+				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
+				value = (rgb.g / 255).toFixed(3);
+				Self.els.groupRGBA.G.data({ value }).css({ "--value": value });
+				value = (rgb.b / 255).toFixed(3);
+				Self.els.groupRGBA.B.data({ value }).css({ "--value": value });
 				break;
 			case "set-hsva-H":
 			case "set-hsva-S":
@@ -229,6 +247,10 @@
 				let doc = $(document),
 					el = $(event.target).find(".cursor"),
 					group = Self.els.groupHSVA,
+					dim = {
+						top: parseInt(Self.els.rCursor.css("top"), 10),
+						height: parseInt(Self.els.range.css("height"), 10),
+					},
 					offset = {
 						left: event.offsetX,
 						top: event.offsetY,
@@ -249,6 +271,7 @@
 					offset,
 					group,
 					mode,
+					opacity: (1-(dim.top / dim.height)) * 100,
 					limit: (left, top) => {
 						var dist = Self.distance(left, top),
 							rad;
@@ -273,11 +296,12 @@
 					left = event.clientX + Drag.offset.left - Drag.click.x,
 					limited = Drag.limit(left, top),
 					x = Self.radius - limited.left,
-					y = Self.radius - limited.top;
+					y = Self.radius - limited.top,
+					opacity = Drag.opacity;
 				// cursor position
 				Drag.el.css(limited);
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, x, y, top, left });
+				Self.dispatch({ type: `set-${Drag.mode}`, x, y, top, left, opacity });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -309,15 +333,22 @@
 						minY: 0,
 						maxY: +Self.els.range.prop("offsetHeight"),
 					},
+					wheel = {
+						top: parseInt(Self.els.wCursor.css("top"), 10),
+						left: parseInt(Self.els.wCursor.css("left"), 10),
+					},
 					_max = Math.max,
 					_min = Math.min,
 					mode = Self.mode;
+				// more calc
+				wheel.x = Self.radius - wheel.left;
+				wheel.y = wheel.top - Self.radius;
 				// color mode
 				if (Self.mode === "HSVA") mode = "hsVa";
 				// move cursor
 				el.css(offset);
 				// create drag
-				Self.drag = { el, target, group, click, offset, constrain, _min, _max, doc };
+				Self.drag = { el, target, group, click, offset, constrain, mode, wheel, _min, _max, doc };
 				// bind event
 				Self.drag.doc.on("mousemove mouseup", Self.doRange);
 				break;
@@ -330,7 +361,7 @@
 				// wheel opacity
 				Drag.target.css({ opacity });
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, opacity });
+				Self.dispatch({ type: `set-${Drag.mode}`, opacity, ...Drag.wheel });
 				break;
 			case "mouseup":
 				// uncover layout
