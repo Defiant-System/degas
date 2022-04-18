@@ -27,6 +27,8 @@
 		};
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
+		// temp
+		this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -61,12 +63,14 @@
 				el.find(`> div:nth(${value})`).addClass("active");
 				break;
 			case "select-palette-color":
-				el = $(event.target);
-				el.parent().find(".active").removeClass("active");
-				el.addClass("active");
-
-				value = el.css("background-color");
-
+				if (event.value) {
+					value = event.value;
+				} else {
+					el = $(event.target);
+					el.parent().find(".active").removeClass("active");
+					el.addClass("active");
+					value = el.css("background-color");
+				}
 				let rgb = Color.parseRgb(value),
 					hsv = Color.rgbToHsv(rgb),
 					radius = 74,
@@ -79,11 +83,23 @@
 				// wheel cursor
 				Self.els.wrapper.find(".cursor").css({ top, left });
 				// saturation cursor
-				top = Math.round(height * ((100 - hsv.v) / 100));
-				Self.els.range.find(".cursor").css({ top });
+				let rTop = Math.round(height * ((100 - hsv.v) / 100));
+				Self.els.range.find(".cursor").css({ top: rTop });
 				// wheel opacity
-				opacity = 1 - (top / height);
+				opacity = 1 - (rTop / height);
 				Self.els.wheel.css({ opacity });
+				// this will change fields
+				let fakeEvent = {
+						target: Self.els.wrapper[0],
+						clientX: 0,
+						clientY: 0,
+						offsetX: left,
+						offsetY: top,
+						preventDefault: a => a,
+					};
+				Self.doWrapper({ ...fakeEvent, type: "mousedown" });
+				Self.doWrapper({ ...fakeEvent, type: "mousemove" });
+				Self.doWrapper({ ...fakeEvent, type: "mouseup" });
 				break;
 			case "set-rgba-R": break;
 			case "set-rgba-G": break;
@@ -91,7 +107,7 @@
 			case "set-rgba-A": break;
 			case "set-hsva-H":
 				value = Math.round(event.value * 360);
-				console.log( value );
+				// console.log( value );
 				break;
 			case "set-hsva-S": break;
 			case "set-hsva-V": break;
