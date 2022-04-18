@@ -12,6 +12,8 @@
 			wrapper: window.find(".color-picker .wrapper"),
 			wheel: window.find(".color-picker .wheel"),
 			range: window.find(".color-picker .range"),
+			wCursor: window.find(".color-picker .wrapper .cursor"),
+			rCursor: window.find(".color-picker .range .cursor"),
 			groupRGBA: {
 				R: rgba.get(0),
 				G: rgba.get(1),
@@ -33,6 +35,15 @@
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.colorpicker,
+			radius = 74,
+			rgb,
+			hsv,
+			sat,
+			rad,
+			top,
+			left,
+			height,
+			opacity,
 			name,
 			value,
 			pEl,
@@ -62,56 +73,67 @@
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
 				break;
+			case "set-palette-hsv":
 			case "select-palette-color":
-				if (event.value) {
+				if (event.hsv) {
+					hsv = event.hsv;
+				} else if (event.value) {
 					value = event.value;
+					rgb = Color.parseRgb(value);
+					hsv = Color.rgbToHsv(rgb);
 				} else {
 					el = $(event.target);
 					el.parent().find(".active").removeClass("active");
 					el.addClass("active");
 					value = el.css("background-color");
+					rgb = Color.parseRgb(value);
+					hsv = Color.rgbToHsv(rgb);
 				}
-				let rgb = Color.parseRgb(value),
-					hsv = Color.rgbToHsv(rgb),
-					radius = 74,
-					sat = radius * (hsv.s / 100),
-					rad = hsv.h * (Math.PI / 180),
-					top = hsv.s === 0 ? radius : Math.round(Math.sin(rad) * sat + radius),
-					left = hsv.s === 0 ? radius : Math.round(Math.cos(rad) * sat + radius),
-					height = +Self.els.range.prop("offsetHeight"),
-					opacity;
+				sat = radius * (hsv.s / 100);
+				rad = hsv.h * (Math.PI / 180);
+				top = hsv.s === 0 ? radius : Math.round(Math.sin(rad) * sat + radius);
+				left = hsv.s === 0 ? radius : Math.round(Math.cos(rad) * sat + radius);
+				height = +Self.els.range.prop("offsetHeight");
 				// wheel cursor
-				Self.els.wrapper.find(".cursor").css({ top, left });
+				Self.els.wCursor.css({ top, left });
 				// saturation cursor
 				let rTop = Math.round(height * ((100 - hsv.v) / 100));
-				Self.els.range.find(".cursor").css({ top: rTop });
+				Self.els.rCursor.css({ top: rTop });
 				// wheel opacity
 				opacity = 1 - (rTop / height);
 				Self.els.wheel.css({ opacity });
+				
 				// this will change fields
-				let fakeEvent = {
-						target: Self.els.wrapper[0],
-						clientX: 0,
-						clientY: 0,
-						offsetX: left,
-						offsetY: top,
-						preventDefault: a => a,
-					};
-				Self.doWrapper({ ...fakeEvent, type: "mousedown" });
-				Self.doWrapper({ ...fakeEvent, type: "mousemove" });
-				Self.doWrapper({ ...fakeEvent, type: "mouseup" });
+				if (!event.hsv) {
+					let fakeEvent = {
+							target: Self.els.wrapper[0],
+							clientX: 0,
+							clientY: 0,
+							offsetX: left,
+							offsetY: top,
+							preventDefault: a => a,
+						};
+					Self.doWrapper({ ...fakeEvent, type: "mousedown" });
+					Self.doWrapper({ ...fakeEvent, type: "mousemove" });
+					Self.doWrapper({ ...fakeEvent, type: "mouseup" });
+				}
 				break;
 			case "set-rgba-R": break;
 			case "set-rgba-G": break;
 			case "set-rgba-B": break;
 			case "set-rgba-A": break;
 			case "set-hsva-H":
-				value = Math.round(event.value * 360);
-				// console.log( value );
+			case "set-hsva-S":
+			case "set-hsva-V":
+				hsv = {
+					h: +Self.els.groupHSVA.H.data("value") * 360,
+					s: +Self.els.groupHSVA.S.data("value") * 100,
+					v: +Self.els.groupHSVA.V.data("value") * 100,
+				};
+				Self.dispatch({ type: "set-palette-hsv", hsv });
 				break;
-			case "set-hsva-S": break;
-			case "set-hsva-V": break;
-			case "set-hsva-A": break;
+			case "set-hsva-A":
+				break;
 		}
 	},
 	doField(event) {
