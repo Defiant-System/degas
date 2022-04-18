@@ -27,6 +27,12 @@
 				A: hsva.get(3),
 			},
 		};
+		// default color mode
+		this.mode = "RGBA";
+		// this.mode = "HSVA";
+		this.radius = 74;
+		// click on the right "tab"
+		this.els.el.find(`.group-head span[data-id="${this.mode}"]`).trigger("click");
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
 		// temp
@@ -35,11 +41,12 @@
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.colorpicker,
-			radius = 74,
 			rgb,
 			hsv,
+			hue,
 			sat,
 			rad,
+			tau,
 			top,
 			left,
 			height,
@@ -68,7 +75,9 @@
 				value = el.index();
 				el.parent().find(".active").removeClass("active");
 				el.addClass("active");
-
+				// set mode
+				Self.mode = el.data("id");
+				// show right "body"
 				el = el.parent().nextAll(".group-body:first");
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
@@ -89,10 +98,10 @@
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
 				}
-				sat = radius * (hsv.s / 100);
+				sat = Self.radius * (hsv.s / 100);
 				rad = hsv.h * (Math.PI / 180);
-				top = hsv.s === 0 ? radius : Math.round(Math.sin(rad) * sat + radius);
-				left = hsv.s === 0 ? radius : Math.round(Math.cos(rad) * sat + radius);
+				top = hsv.s === 0 ? Self.radius : Math.round(Math.sin(rad) * sat + Self.radius);
+				left = hsv.s === 0 ? Self.radius : Math.round(Math.cos(rad) * sat + Self.radius);
 				height = +Self.els.range.prop("offsetHeight");
 				// wheel cursor
 				Self.els.wCursor.css({ top, left });
@@ -118,10 +127,14 @@
 					Self.doWrapper({ ...fakeEvent, type: "mouseup" });
 				}
 				break;
-			case "set-rgba-R": break;
-			case "set-rgba-G": break;
-			case "set-rgba-B": break;
-			case "set-rgba-A": break;
+			case "set-rgba-R":
+			case "set-rgba-G":
+			case "set-rgba-B":
+			case "set-rgba-A":
+				// TODO
+				break;
+			case "set-RGBA":
+				break;
 			case "set-hsva-H":
 			case "set-hsva-S":
 			case "set-hsva-V":
@@ -133,6 +146,22 @@
 				Self.dispatch({ type: "set-palette-hsv", hsv });
 				break;
 			case "set-hsva-A":
+				// TODO
+				break;
+			case "set-HSva":
+				// fields
+				tau = Math.PI * 2;
+				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
+				sat = Self.distance(event.left, event.top);
+				value = (hue / 360).toFixed(3);
+				Self.els.groupHSVA.H.data({ value }).css({ "--value": value });
+				value = (sat / Self.radius).toFixed(3);
+				Self.els.groupHSVA.S.data({ value }).css({ "--value": value });
+				break;
+			case "set-hsVa":
+				// fields
+				value = (event.opacity / 1).toFixed(3);
+				Self.els.groupHSVA.V.data({ value }).css({ "--value": value });
 				break;
 		}
 	},
@@ -181,6 +210,12 @@
 				break;
 		}
 	},
+	mod(a, n) {
+		return (a % n + n) % n;
+	},
+	distance(left, top) {
+		return Math.sqrt(Math.pow(left - this.radius, 2) + Math.pow(top - this.radius, 2));
+	},
 	doWrapper(event) {
 		let Self = degas.colorpicker,
 			Drag = Self.drag;
@@ -193,8 +228,6 @@
 				// collect event info
 				let doc = $(document),
 					el = $(event.target).find(".cursor"),
-					radius = 74,
-					TAU = Math.PI * 2,
 					group = Self.els.groupHSVA,
 					offset = {
 						left: event.offsetX,
@@ -203,7 +236,10 @@
 					click = {
 						x: event.clientX,
 						y: event.clientY,
-					};
+					},
+					mode = Self.mode;
+				// color mode
+				if (Self.mode === "HSVA") mode = "HSva";
 				// move cursor
 				el.css(offset);
 				// create drag
@@ -211,22 +247,19 @@
 					el,
 					click,
 					offset,
-					radius,
 					group,
-					TAU,
-					mod: (a, n) => (a % n + n) % n,
-					distance: (left, top) => Math.sqrt(Math.pow(left - radius, 2) + Math.pow(top - radius, 2)),
+					mode,
 					limit: (left, top) => {
-						var dist = Self.drag.distance(left, top),
+						var dist = Self.distance(left, top),
 							rad;
-						if (dist <= radius) return { left, top };
+						if (dist <= Self.radius) return { left, top };
 						else {
-							left = left - radius;
-							top = top - radius;
+							left = left - Self.radius;
+							top = top - Self.radius;
 							rad = Math.atan2(top, left);
 							return {
-								left: Math.round(Math.cos(rad) * radius + radius),
-								top: Math.round(Math.sin(rad) * radius + radius),
+								left: Math.round(Math.cos(rad) * Self.radius + Self.radius),
+								top: Math.round(Math.sin(rad) * Self.radius + Self.radius),
 							}
 						}
 					},
@@ -239,18 +272,12 @@
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
 					left = event.clientX + Drag.offset.left - Drag.click.x,
 					limited = Drag.limit(left, top),
-					x = Drag.radius - limited.left,
-					y = Drag.radius - limited.top,
-					hue = Drag.mod(Math.atan2(-y, -x) * (360 / Drag.TAU), 360),
-					sat = Self.drag.distance(left, top),
-					value;
+					x = Self.radius - limited.left,
+					y = Self.radius - limited.top;
 				// cursor position
 				Drag.el.css(limited);
-				// fields
-				value = (hue / 360).toFixed(3);
-				Drag.group.H.data({ value }).css({ "--value": value });
-				value = (sat / Drag.radius).toFixed(3);
-				Drag.group.S.data({ value }).css({ "--value": value });
+				// update fields
+				Self.dispatch({ type: `set-${Drag.mode}`, x, y, top, left });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -283,7 +310,10 @@
 						maxY: +Self.els.range.prop("offsetHeight"),
 					},
 					_max = Math.max,
-					_min = Math.min;
+					_min = Math.min,
+					mode = Self.mode;
+				// color mode
+				if (Self.mode === "HSVA") mode = "hsVa";
 				// move cursor
 				el.css(offset);
 				// create drag
@@ -299,9 +329,8 @@
 				Drag.el.css({ top });
 				// wheel opacity
 				Drag.target.css({ opacity });
-				// fields
-				value = (opacity / 1).toFixed(3);
-				Drag.group.V.data({ value }).css({ "--value": value });
+				// update fields
+				Self.dispatch({ type: `set-${Drag.mode}`, opacity });
 				break;
 			case "mouseup":
 				// uncover layout
