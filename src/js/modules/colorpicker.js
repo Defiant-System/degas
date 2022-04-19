@@ -39,7 +39,7 @@
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
 		// temp
-		this.dispatch({ type: "set-palette-hex", hex: "#aa0000" });
+		// this.dispatch({ type: "set-palette-hex", hex: "#aa0000" });
 		// this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
 	},
 	dispatch(event) {
@@ -71,8 +71,14 @@
 					case pEl.hasClass("number"): return Self.doField(event);
 				}
 				break;
-			case "show":
-				Self.els.el.addClass("show");
+			case "focus-color-field":
+				let rect = window.getBoundingClientRect(event.el[0]);
+				Self.els.el
+					.css({
+						top: rect.top + 25,
+						left: rect.left - 21,
+					})
+					.addClass("show");
 				break;
 			case "group-head":
 				el = $(event.target);
