@@ -3,17 +3,20 @@
 
 {
 	init() {
-		let rgba = window.find(".color-picker .rgba .color-group > div"),
-			hsva = window.find(".color-picker .hsva .color-group > div");
+		let el = window.find(".color-picker"),
+			wrapper = el.find(".wrapper"),
+			range = el.find(".range"),
+			rgba = el.find(".rgba .color-group > div"),
+			hsva = el.find(".hsva .color-group > div");
 		// fast references
 		this.els = {
 			content: window.find("content"),
-			el: window.find(".color-picker"),
-			wrapper: window.find(".color-picker .wrapper"),
-			wheel: window.find(".color-picker .wheel"),
-			range: window.find(".color-picker .range"),
-			wCursor: window.find(".color-picker .wrapper .cursor"),
-			rCursor: window.find(".color-picker .range .cursor"),
+			el,
+			wrapper,
+			range,
+			wheel: wrapper.find(".wheel"),
+			wCursor: wrapper.find(".cursor"),
+			rCursor: range.find(".cursor"),
 			groupRGBA: {
 				R: rgba.get(0),
 				G: rgba.get(1),
