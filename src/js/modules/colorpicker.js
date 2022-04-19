@@ -36,7 +36,7 @@
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
 		// temp
-		this.dispatch({ type: "set-palette-hex", hex: "#ff0000" });
+		this.dispatch({ type: "set-palette-hex", hex: "#aa0000" });
 		// this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
 	},
 	dispatch(event) {
@@ -141,15 +141,13 @@
 				// fields
 				tau = Math.PI * 2;
 				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
-				sat = Math.min(Self.radius, Self.distance(event.left, event.top));
+				sat = Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100;
 				value = event.opacity;
 				rgb = Color.hsvToRgb({
 					h: hue,
 					s: sat,
 					v: value,
 				});
-				console.log( hue, sat, value );
-
 				value = (rgb.r / 255).toFixed(3);
 				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
 				value = (rgb.g / 255).toFixed(3);
