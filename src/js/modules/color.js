@@ -2,12 +2,16 @@
 const Color = {
 	clamp: (num, min, max) => Math.min(Math.max(num, min), max),
 	intToHex: i => i.toString(16).padStart(2, '0'),
+	hexToHsv(hex) {
+		let rgb = this.hexToRgb(hex);
+		return this.rgbToHsv(rgb);
+	},
 	hexToRgb(hex) {
 		let r = parseInt(hex.substr(1,2), 16),
 			g = parseInt(hex.substr(3,2), 16),
 			b = parseInt(hex.substr(5,2), 16),
 			a = parseInt(hex.substr(7,2) || "ff", 16) / 255;
-		return [r, g, b, a];
+		return { r, g, b, a };
 	},
 	parseRgb(str) {
 		let s = str.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\.\d]+)\)$/);

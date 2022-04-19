@@ -36,7 +36,7 @@
 		// bind event handlers
 		this.els.el.on("mousedown", this.dispatch);
 		// temp
-		this.dispatch({ type: "select-palette-color", value: "rgba(255,0,0,1)" });
+		this.dispatch({ type: "set-palette-hex", hex: "#ff0000" });
 		// this.dispatch({ type: "select-palette-color", value: "rgba(252,173,42,1)" });
 	},
 	dispatch(event) {
@@ -83,9 +83,12 @@
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
 				break;
+			case "set-palette-hex":
 			case "set-palette-hsv":
 			case "select-palette-color":
-				if (event.hsv) {
+				if (event.hex) {
+					hsv = Color.hexToHsv(event.hex);
+				} else if (event.hsv) {
 					hsv = event.hsv;
 				} else if (event.value) {
 					value = event.value;
@@ -138,13 +141,14 @@
 				// fields
 				tau = Math.PI * 2;
 				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
-				sat = Self.distance(event.left, event.top);
+				sat = Math.min(Self.radius, Self.distance(event.left, event.top));
 				value = event.opacity;
 				rgb = Color.hsvToRgb({
 					h: hue,
 					s: sat,
 					v: value,
 				});
+				console.log( hue, sat, value );
 
 				value = (rgb.r / 255).toFixed(3);
 				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
@@ -170,7 +174,7 @@
 				// fields
 				tau = Math.PI * 2;
 				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
-				sat = Self.distance(event.left, event.top);
+				sat = Math.min(Self.radius, Self.distance(event.left, event.top));
 				value = (hue / 360).toFixed(3);
 				Self.els.groupHSVA.H.data({ value }).css({ "--value": value });
 				value = (sat / Self.radius).toFixed(3);
@@ -301,7 +305,7 @@
 				// cursor position
 				Drag.el.css(limited);
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, x, y, top, left, opacity });
+				Self.dispatch({ type: `set-${Drag.mode}`, ...limited, x, y, opacity });
 				break;
 			case "mouseup":
 				// uncover layout
