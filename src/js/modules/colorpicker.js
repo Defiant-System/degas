@@ -45,6 +45,7 @@
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.colorpicker,
+			color,
 			rgb,
 			hsv,
 			hue,
@@ -72,11 +73,16 @@
 				}
 				break;
 			case "focus-color-field":
-				let rect = window.getBoundingClientRect(event.el[0]);
+				color = event.el.css("--color");
+				opacity = event.el.css("--opacity");
+				Self.dispatch({ type: "set-palette-hex", hex: color });
+				// console.log( color, opacity );
+
+				value = window.getBoundingClientRect(event.el[0]);
 				Self.els.el
 					.css({
-						top: rect.top + 25,
-						left: rect.left - 21,
+						top: value.top + 23,
+						left: value.left - 21,
 					})
 					.addClass("show");
 				break;
@@ -94,11 +100,14 @@
 				break;
 			case "set-palette-hex":
 			case "set-palette-hsv":
+			case "set-palette-rgb":
 			case "select-palette-color":
 				if (event.hex) {
 					hsv = Color.hexToHsv(event.hex);
 				} else if (event.hsv) {
 					hsv = event.hsv;
+				} else if (event.rgb) {
+					hsv = Color.rgbToHsv(event.rgb);
 				} else if (event.value) {
 					value = event.value;
 					rgb = Color.parseRgb(value);
@@ -126,7 +135,7 @@
 				Self.els.wheel.css({ opacity });
 				
 				// this will change fields
-				if (!event.hsv) {
+				if (!event.hsv && !event.rgb) {
 					let fakeEvent = {
 							target: Self.els.wrapper[0],
 							clientX: 0,
@@ -143,8 +152,14 @@
 			case "set-rgba-R":
 			case "set-rgba-G":
 			case "set-rgba-B":
+				rgb = {
+					r: +Self.els.groupRGBA.R.data("value") * 255,
+					g: +Self.els.groupRGBA.G.data("value") * 255,
+					b: +Self.els.groupRGBA.B.data("value") * 255,
+				};
+				Self.dispatch({ type: "set-palette-rgb", rgb });
+				break;
 			case "set-rgba-A":
-				// TODO
 				break;
 			case "set-RGBA":
 				// fields
@@ -157,11 +172,11 @@
 					s: sat,
 					v: value,
 				});
-				value = (rgb.r / 255).toFixed(3);
+				value = (rgb.r / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
-				value = (rgb.g / 255).toFixed(3);
+				value = (rgb.g / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.G.data({ value }).css({ "--value": value });
-				value = (rgb.b / 255).toFixed(3);
+				value = (rgb.b / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.B.data({ value }).css({ "--value": value });
 				break;
 			case "set-hsva-H":
@@ -182,14 +197,14 @@
 				tau = Math.PI * 2;
 				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
 				sat = Math.min(Self.radius, Self.distance(event.left, event.top));
-				value = (hue / 360).toFixed(3);
+				value = (hue / 360).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.H.data({ value }).css({ "--value": value });
-				value = (sat / Self.radius).toFixed(3);
+				value = (sat / Self.radius).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.S.data({ value }).css({ "--value": value });
 				break;
 			case "set-hsVa":
 				// fields
-				value = (event.opacity / 1).toFixed(3);
+				value = (event.opacity / 1).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.V.data({ value }).css({ "--value": value });
 				break;
 		}
