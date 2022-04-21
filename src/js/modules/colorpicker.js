@@ -31,6 +31,7 @@
 				A: hsva.get(3),
 			},
 		};
+		this.values = {};
 		// default color mode
 		this.mode = "palette";
 		// this.mode = "RGBA";
@@ -98,6 +99,9 @@
 				el = el.parent().nextAll(".group-body:first");
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
+				if (Self.values.hex) {
+					Self.dispatch({ type: "set-palette-hex", ...Self.values });
+				}
 				break;
 			case "set-palette-hex":
 			case "set-palette-hsv":
