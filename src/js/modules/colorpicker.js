@@ -368,7 +368,7 @@
 					mode = Self.mode;
 				// more calc
 				wheel.x = Self.radius - wheel.left;
-				wheel.y = wheel.top - Self.radius;
+				wheel.y = Self.radius - wheel.top;
 				// color mode
 				if (Self.mode === "HSVA") mode = "hsVa";
 				// move cursor
@@ -387,7 +387,7 @@
 				// wheel opacity
 				Drag.target.css({ opacity });
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, opacity, ...Drag.wheel });
+				Self.dispatch({ type: `set-${Drag.mode}`, opacity: opacity * 100, ...Drag.wheel });
 				break;
 			case "mouseup":
 				// uncover layout
