@@ -11,6 +11,7 @@
 		// fast references
 		this.els = {
 			content: window.find("content"),
+			palette: el.find(".palette"),
 			el,
 			wrapper,
 			range,
@@ -31,7 +32,8 @@
 			},
 		};
 		// default color mode
-		this.mode = "RGBA";
+		this.mode = "palette";
+		// this.mode = "RGBA";
 		// this.mode = "HSVA";
 		this.radius = 74;
 		// click on the right "tab"
@@ -73,18 +75,17 @@
 				}
 				break;
 			case "focus-color-field":
-				color = event.el.css("--color");
-				opacity = event.el.css("--opacity");
-				Self.dispatch({ type: "set-palette-hex", hex: color });
+				Self.values = {
+					hex: event.el.css("--color"),
+					opacity: event.el.css("--opacity"),
+				};
+				Self.dispatch({ type: "set-palette-hex", ...Self.values });
 				// console.log( color, opacity );
 
 				value = window.getBoundingClientRect(event.el[0]);
-				Self.els.el
-					.css({
-						top: value.top + 23,
-						left: value.left - 21,
-					})
-					.addClass("show");
+				top = value.top - (+Self.els.el.prop("offsetHeight") >> 1) + 12;
+				left = value.left - +Self.els.el.prop("offsetWidth") - 11;
+				Self.els.el.css({ top, left }).addClass("show");
 				break;
 			case "group-head":
 				el = $(event.target);
@@ -120,6 +121,9 @@
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
 				}
+
+				Self.values.hex = Color.hsvToHex(hsv);
+
 				sat = Self.radius * (hsv.s / 100);
 				rad = hsv.h * (Math.PI / 180);
 				top = hsv.s === 0 ? Self.radius : Math.round(Math.sin(rad) * sat + Self.radius);
@@ -286,6 +290,10 @@
 						y: event.clientY,
 					},
 					mode = Self.mode;
+				if (event.clientX !== 0 && event.clientY !== 0) {
+					// remove "active" indicator from palette
+					Self.els.palette.find(".active").removeClass("active");
+				}
 				// color mode
 				if (Self.mode === "HSVA") mode = "HSva";
 				// move cursor
@@ -366,6 +374,10 @@
 					_max = Math.max,
 					_min = Math.min,
 					mode = Self.mode;
+				if (event.clientX !== 0 && event.clientY !== 0) {
+					// remove "active" indicator from palette
+					Self.els.palette.find(".active").removeClass("active");
+				}
 				// more calc
 				wheel.x = Self.radius - wheel.left;
 				wheel.y = Self.radius - wheel.top;

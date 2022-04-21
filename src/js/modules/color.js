@@ -69,6 +69,18 @@ const Color = {
 			v: this.clamp(value * 100, 0, 100)
 		};
 	},
+	rgbToHex(rgb) {
+		let d = "0123456789abcdef".split(""),
+			hex = x => isNaN(x) ? "00" : d[(x-x%16)/16] + d[x%16],
+			r = hex(Math.round(rgb.r)),
+			g = hex(Math.round(rgb.g)),
+			b = hex(Math.round(rgb.b));
+		return `#${r}${g}${b}`;
+	},
+	hsvToHex(hsv) {
+		let rgb = this.hsvToRgb(hsv);
+		return this.rgbToHex(rgb);
+	},
 	hsvToHsl(hsv) {
 		let s = hsv.s / 100,
 			v = hsv.v / 100,

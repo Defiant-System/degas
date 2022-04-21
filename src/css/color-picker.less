@@ -1,20 +1,22 @@
 
 .color-picker {
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 	position: absolute;
-	// top: 424px;
-	// left: 1001px;
+	top: -999px;
+	left: -999px;
 	width: 191px;
 	padding: 9px 9px 7px;
 	z-index: 19;
 
 	&.show {
-		display: block;
+		opacity: 1;
+		visibility: visible;
 	}
 
 	&:before {
 		content: "";
-		background: rgba(30,30,30,.40);
+		background: rgba(30,30,30,.5);
 		backdrop-filter: blur(17px);
 		position: absolute;
 		top: 0;
@@ -27,14 +29,15 @@
 
 	&:after {
 		content: "";
-		background: rgba(30,30,30,.40);
+		background: rgba(30,30,30,.35);
 		backdrop-filter: blur(17px);
 		position: absolute;
-		top: -11px;
-		left: 50%;
-		width: 19px;
-		height: 11px;
-		clip-path: polygon(50% 0, 0 100%, 100% 100%);
+		right: -11px;
+		top: 50%;
+		width: 11px;
+		height: 19px;
+		margin-top: -10px;
+		clip-path: polygon(0 0, 0 100%, 100% 50%);
 	}
 
 	.wrapper {
