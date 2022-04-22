@@ -8,10 +8,11 @@
 	width: 191px;
 	padding: 9px 9px 7px;
 	z-index: 99;
+	transform-origin: 100% 50%;
 
 	&.show {
-		opacity: 1;
 		visibility: visible;
+		animation: popup-bubble 200ms linear forwards;
 	}
 
 	&:before {
@@ -143,4 +144,11 @@
 			}
 		}
 	}
+}
+
+
+@keyframes popup-bubble {
+	0%   { transform: scale(.25); opacity: 0; }
+	91%  { transform: scale(1.1); opacity: 1; }
+	100% { transform: scale(1); opacity: 1; }
 }
