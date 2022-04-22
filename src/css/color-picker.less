@@ -16,28 +16,29 @@
 
 	&:before {
 		content: "";
-		background: rgba(30,30,30,.5);
-		backdrop-filter: blur(17px);
+		background: #333;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		border-radius: 6px;
-		box-shadow: 0 1px 3px rgba(0,0,0,.45);
+		box-shadow: 0 1px 3px rgba(0,0,0,.45),
+					0 0 0 2px rgba(255,255,255,.31);
 	}
 
 	&:after {
 		content: "";
-		background: rgba(30,30,30,.35);
-		backdrop-filter: blur(17px);
 		position: absolute;
-		right: -11px;
 		top: 50%;
-		width: 11px;
+		right: -13px;
+		width: 13px;
 		height: 19px;
 		margin-top: -10px;
-		clip-path: polygon(0 0, 0 100%, 100% 50%);
+		background-size: 13px 19px;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		background-image: url(~/icons/icon-box-arrow-right.png);
 	}
 
 	.wrapper {
