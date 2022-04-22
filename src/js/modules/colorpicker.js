@@ -97,7 +97,8 @@
 				el = el.parent().nextAll(".group-body:first");
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
-				if (Self.origin.hex) {
+
+				if (Self.mode !== "palette" && Self.origin.hex) {
 					Self.dispatch({ type: "set-palette-hex", ...Self.origin });
 				}
 				break;
@@ -135,8 +136,7 @@
 					value = el.css("background-color");
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
-					// update origin event UI
-					Self.dispatch({ type: "update-origin", hsv });
+					// delete event.el;
 				}
 				if (!event.el) {
 					// update origin event UI
