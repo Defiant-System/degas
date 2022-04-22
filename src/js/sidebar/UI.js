@@ -7,7 +7,7 @@
 
 		// temp
 		let el = window.find(`div[data-section="camera"] .field.color`);
-		setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
+		// setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
 	},
 	dispatch(event) {
 		let APP = degas,

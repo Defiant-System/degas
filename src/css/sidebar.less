@@ -407,15 +407,29 @@
 		transform: scaleX(1) scaleY(1) scaleZ(1);
 		border-radius: 7px 3px 3px 7px;
 		
-		&:after {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			border-radius: 3px 0 0 3px;
-			background: linear-gradient(90deg, var( --color ) 0%, var( --color ) 50%, var( --opacity ) 50%, var( --opacity ) 100%);
+		b {
+			&:before {
+				content: "";
+				background: var( --color );
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 50%;
+				border-radius: 3px 0 0 3px;
+			}
+
+			&:after {
+				content: "";
+				opacity: var( --opacity );
+				background: var( --color );
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				width: 50%;
+				border-radius: 0 3px 3px 0;
+			}
 		}
 	}
 

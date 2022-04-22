@@ -31,12 +31,10 @@
 				A: hsva.get(3),
 			},
 		};
-		this.values = {};
 		// default color mode
-		this.mode = "palette";
-		// this.mode = "RGBA";
-		// this.mode = "HSVA";
+		this.mode = "HSVA";  // palette RGBA HSVA
 		this.radius = 74;
+		this.origin = {};
 		// click on the right "tab"
 		this.els.el.find(`.group-head span[data-id="${this.mode}"]`).trigger("click");
 		// bind event handlers
@@ -58,7 +56,6 @@
 			top,
 			left,
 			height,
-			opacity,
 			name,
 			value,
 			pEl,
@@ -76,16 +73,16 @@
 				}
 				break;
 			case "focus-color-field":
-				Self.values = {
+				Self.origin = {
+					el: event.el,
 					hex: event.el.css("--color"),
 					opacity: event.el.css("--opacity"),
 				};
-				Self.dispatch({ type: "set-palette-hex", ...Self.values });
-				// console.log( color, opacity );
+				Self.dispatch({ type: "set-palette-hex", ...Self.origin });
 
 				value = window.getBoundingClientRect(event.el[0]);
 				top = value.top - (+Self.els.el.prop("offsetHeight") >> 1) + 12;
-				left = value.left - +Self.els.el.prop("offsetWidth") - 11;
+				left = value.left - +Self.els.el.prop("offsetWidth") - 14;
 				Self.els.el.css({ top, left }).addClass("show");
 				break;
 			case "group-head":
@@ -99,9 +96,17 @@
 				el = el.parent().nextAll(".group-body:first");
 				el.find("> div.active").removeClass("active");
 				el.find(`> div:nth(${value})`).addClass("active");
-				if (Self.values.hex) {
-					Self.dispatch({ type: "set-palette-hex", ...Self.values });
+				if (Self.origin.hex) {
+					Self.dispatch({ type: "set-palette-hex", ...Self.origin });
 				}
+				break;
+			case "update-origin":
+				// set origin HEX value
+				Self.origin.hex = Color.hsvToHex(event.hsv);
+				Self.origin.el.css({
+					"--color": Self.origin.hex,
+					// "--opacity": Self.origin.hex +"80",
+				});
 				break;
 			case "set-palette-hex":
 			case "set-palette-hsv":
@@ -125,8 +130,8 @@
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
 				}
-
-				Self.values.hex = Color.hsvToHex(hsv);
+				// update origin event UI
+				Self.dispatch({ type: "update-origin", hsv });
 
 				sat = Self.radius * (hsv.s / 100);
 				rad = hsv.h * (Math.PI / 180);
@@ -139,8 +144,8 @@
 				let rTop = Math.round(height * ((100 - hsv.v) / 100));
 				Self.els.rCursor.css({ top: rTop });
 				// wheel opacity
-				opacity = 1 - (rTop / height);
-				Self.els.wheel.css({ opacity });
+				value = 1 - (rTop / height);
+				Self.els.wheel.css({ opacity: value });
 				
 				// this will change fields
 				if (!event.hsv && !event.rgb) {
@@ -172,20 +177,20 @@
 			case "set-RGBA":
 				// fields
 				tau = Math.PI * 2;
-				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
-				sat = Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100;
-				value = event.opacity;
-				rgb = Color.hsvToRgb({
-					h: hue,
-					s: sat,
-					v: value,
-				});
+				hsv = {
+					h: Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360),
+					s: Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100,
+					v: event.value * 100,
+				};
+				rgb = Color.hsvToRgb(hsv);
 				value = (rgb.r / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
 				value = (rgb.g / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.G.data({ value }).css({ "--value": value });
 				value = (rgb.b / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.B.data({ value }).css({ "--value": value });
+				// update origin event UI
+				Self.dispatch({ type: "update-origin", hsv });
 				break;
 			case "set-hsva-H":
 			case "set-hsva-S":
@@ -212,7 +217,7 @@
 				break;
 			case "set-hsVa":
 				// fields
-				value = (event.opacity / 1).toFixed(3); if (value < 0.005) value = "0.000";
+				value = (event.value / 1).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.V.data({ value }).css({ "--value": value });
 				break;
 		}
@@ -309,7 +314,7 @@
 					offset,
 					group,
 					mode,
-					opacity: (1-(dim.top / dim.height)) * 100,
+					value: (1-(dim.top / dim.height)) * 100,
 					limit: (left, top) => {
 						var dist = Self.distance(left, top),
 							rad;
@@ -335,11 +340,11 @@
 					limited = Drag.limit(left, top),
 					x = Self.radius - limited.left,
 					y = Self.radius - limited.top,
-					opacity = Drag.opacity;
+					value = Drag.value;
 				// cursor position
 				Drag.el.css(limited);
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, ...limited, x, y, opacity });
+				Self.dispatch({ type: `set-${Drag.mode}`, ...limited, x, y, value });
 				break;
 			case "mouseup":
 				// uncover layout
@@ -396,14 +401,13 @@
 				break;
 			case "mousemove":
 				let top = Drag._min(Drag._max(event.clientY + Drag.offset.top - Drag.click.y, Drag.constrain.minY), Drag.constrain.maxY),
-					opacity = 1 - (top / Drag.constrain.maxY),
-					value;
+					value = 1 - (top / Drag.constrain.maxY);
 				// cursor position
 				Drag.el.css({ top });
 				// wheel opacity
-				Drag.target.css({ opacity });
+				Drag.target.css({ opacity: value });
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, opacity: opacity * 100, ...Drag.wheel });
+				Self.dispatch({ type: `set-${Drag.mode}`, value, ...Drag.wheel });
 				break;
 			case "mouseup":
 				// uncover layout
