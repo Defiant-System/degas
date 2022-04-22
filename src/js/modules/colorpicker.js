@@ -32,7 +32,7 @@
 			},
 		};
 		// default color mode
-		this.mode = "HSVA";  // palette RGBA HSVA
+		this.mode = "RGBA";  // palette RGBA HSVA
 		this.radius = 74;
 		this.origin = {};
 		// click on the right "tab"
@@ -46,6 +46,7 @@
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.colorpicker,
+			opacity,
 			color,
 			rgb,
 			hsv,
@@ -76,7 +77,7 @@
 				Self.origin = {
 					el: event.el,
 					hex: event.el.css("--color"),
-					opacity: event.el.css("--opacity"),
+					opacity: +event.el.css("--opacity"),
 				};
 				Self.dispatch({ type: "set-palette-hex", ...Self.origin });
 
@@ -102,10 +103,15 @@
 				break;
 			case "update-origin":
 				// set origin HEX value
-				Self.origin.hex = Color.hsvToHex(event.hsv);
+				if (event.hsv) {
+					Self.origin.hex = Color.hsvToHex(event.hsv);
+				}
+				if (event.opacity) {
+					Self.origin.opacity = event.opacity;
+				}
 				Self.origin.el.css({
 					"--color": Self.origin.hex,
-					// "--opacity": Self.origin.hex +"80",
+					"--opacity": Self.origin.opacity,
 				});
 				break;
 			case "set-palette-hex":
@@ -130,9 +136,10 @@
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
 				}
-				// update origin event UI
-				Self.dispatch({ type: "update-origin", hsv });
-
+				if (!event.el) {
+					// update origin event UI
+					Self.dispatch({ type: "update-origin", hsv });
+				}
 				sat = Self.radius * (hsv.s / 100);
 				rad = hsv.h * (Math.PI / 180);
 				top = hsv.s === 0 ? Self.radius : Math.round(Math.sin(rad) * sat + Self.radius);
@@ -173,6 +180,8 @@
 				Self.dispatch({ type: "set-palette-rgb", rgb });
 				break;
 			case "set-rgba-A":
+				opacity = +Self.els.groupRGBA.A.data("value");
+				Self.dispatch({ type: "update-origin", opacity });
 				break;
 			case "set-RGBA":
 				// fields
@@ -201,24 +210,41 @@
 					v: +Self.els.groupHSVA.V.data("value") * 100,
 				};
 				Self.dispatch({ type: "set-palette-hsv", hsv });
+				Self.dispatch({ type: "update-origin", hsv });
 				break;
 			case "set-hsva-A":
-				// TODO
+				opacity = +Self.els.groupHSVA.A.data("value");
+				Self.dispatch({ type: "update-origin", opacity });
 				break;
 			case "set-HSva":
 				// fields
 				tau = Math.PI * 2;
-				hue = Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360);
-				sat = Math.min(Self.radius, Self.distance(event.left, event.top));
-				value = (hue / 360).toFixed(3); if (value < 0.005) value = "0.000";
+				hsv = {
+					h: Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360),
+					s: Math.min(Self.radius, Self.distance(event.left, event.top)),
+					v: +Self.els.groupHSVA.V.data("value") * 100,
+				};
+				value = (hsv.h / 360).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.H.data({ value }).css({ "--value": value });
-				value = (sat / Self.radius).toFixed(3); if (value < 0.005) value = "0.000";
+				value = (hsv.s / Self.radius).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.S.data({ value }).css({ "--value": value });
+				// ALPHA
+				value = Self.origin.opacity.toFixed(3);
+				Self.els.groupHSVA.A.data({ value }).css({ "--value": value });
+				// update origin event UI
+				Self.dispatch({ type: "update-origin", hsv });
 				break;
 			case "set-hsVa":
-				// fields
+				// hue saturation VALUE
 				value = (event.value / 1).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupHSVA.V.data({ value }).css({ "--value": value });
+				// update origin event UI
+				hsv = {
+					h: Math.round(+Self.els.groupHSVA.H.data("value") * 360),
+					s: Math.round(+Self.els.groupHSVA.S.data("value") * 100),
+					v: Math.round(+Self.els.groupHSVA.V.data("value") * 100),
+				};
+				Self.dispatch({ type: "update-origin", hsv });
 				break;
 		}
 	},

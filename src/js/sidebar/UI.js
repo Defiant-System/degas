@@ -6,8 +6,8 @@
 		this.dispatch({ type: "bind-event-handlers" });
 
 		// temp
-		let el = window.find(`div[data-section="camera"] .field.color`);
-		// setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
+		let el = window.find(`div[data-section="camera"] .field.color`).get(1);
+		setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
 	},
 	dispatch(event) {
 		let APP = degas,
