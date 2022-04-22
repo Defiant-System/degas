@@ -135,6 +135,8 @@
 					value = el.css("background-color");
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
+					// update origin event UI
+					Self.dispatch({ type: "update-origin", hsv });
 				}
 				if (!event.el) {
 					// update origin event UI
@@ -189,8 +191,9 @@
 				hsv = {
 					h: Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360),
 					s: Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100,
-					v: event.value * 100,
+					v: event.value,
 				};
+				if (hsv.v <= 1) hsv.v *= 100;
 				rgb = Color.hsvToRgb(hsv);
 				value = (rgb.r / 255).toFixed(3); if (value < 0.005) value = "0.000";
 				Self.els.groupRGBA.R.data({ value }).css({ "--value": value });
