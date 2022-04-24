@@ -32,7 +32,7 @@
 			},
 		};
 		// "settings"
-		this.mode = "RGBA";  // palette RGBA HSVA
+		this.mode = "HSVA";  // palette RGBA HSVA
 		this.radius = 74;
 		this.origin = {};
 		// click on the right "tab"
@@ -65,18 +65,22 @@
 			case "focus-color-field":
 				// closes color picker first, if already opened
 				if (Self.els.el.hasClass("show")) return;
+				el = event.el;
+				pEl = el.parents("[data-section]");
 				// collect info about source / origin element
 				Self.origin = {
-					el: event.el,
-					hex: event.el.cssProp("--color"),
-					opacity: +event.el.cssProp("--opacity"),
+					el,
+					hex: el.cssProp("--color").trim(),
+					opacity: +el.cssProp("--opacity").trim(),
+					sidebar: APP.sidebar[pEl.data("section")],
+					change: el.data("change"),
 				};
 				Self.origin.rgb = Color.hexToRgb(Self.origin.hex);
 				Self.origin.hsv = Color.hexToHsv(Self.origin.hex);
 				Self.dispatch({ type: `set-fields-${Self.mode}`, ...Self.origin });
 				Self.dispatch({ type: "set-wheel-range", ...Self.origin });
 
-				value = window.getBoundingClientRect(event.el[0]);
+				value = window.getBoundingClientRect(el[0]);
 				top = value.top - (+Self.els.el.prop("offsetHeight") >> 1) + 12;
 				left = value.left - +Self.els.el.prop("offsetWidth") - 14;
 				Self.els.el.css({ top, left }).addClass("show");
@@ -97,6 +101,11 @@
 				Self.origin.el.css({
 					"--color": Self.origin.hex,
 					"--opacity": Self.origin.opacity,
+				});
+				Self.origin.sidebar.dispatch({
+					type: Self.origin.change,
+					color: Self.origin.hex,
+					opacity: Self.origin.opacity,
 				});
 				break;
 			case "group-head":
@@ -205,6 +214,7 @@
 				break;
 			case "update-RGBA":
 			case "update-HSVA":
+			case "update-palette":
 				tau = Math.PI * 2;
 				Self.origin.hsv = {
 					h: Math.round(Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360)),

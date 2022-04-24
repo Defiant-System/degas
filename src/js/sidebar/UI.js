@@ -6,7 +6,7 @@
 		this.dispatch({ type: "bind-event-handlers" });
 
 		// temp
-		// let el = window.find(`div[data-section="camera"] .field.color`).get(1);
+		// let el = window.find(`div[data-section="scene"] .field.color`).get(0);
 		// setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
 	},
 	dispatch(event) {

@@ -36,6 +36,10 @@
 					png: item => console.log(item),
 				});
 				break;
+			case "set-scene-bg-color":
+				editor.scene.background.set(event.color);
+				viewport.render();
+				break;
 		}
 	}
 }
