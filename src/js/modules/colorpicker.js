@@ -63,10 +63,13 @@
 				}
 				break;
 			case "focus-color-field":
+				// closes color picker first, if already opened
+				if (Self.els.el.hasClass("show")) return;
+				// collect info about source / origin element
 				Self.origin = {
 					el: event.el,
-					hex: event.el.css("--color"),
-					opacity: +event.el.css("--opacity"),
+					hex: event.el.cssProp("--color"),
+					opacity: +event.el.cssProp("--opacity"),
 				};
 				Self.origin.rgb = Color.hexToRgb(Self.origin.hex);
 				Self.origin.hsv = Color.hexToHsv(Self.origin.hex);
