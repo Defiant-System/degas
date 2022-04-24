@@ -19,7 +19,7 @@
 		this.els.hResize.on("mousedown", this.resizeSidebar);
 		this.els.vResize.on("mousedown", this.resizeTree);
 		// temp
-		this.els.sidebar.find(".properties .tabs > div:nth(1)").trigger("click");
+		this.els.sidebar.find(".properties .tabs > div:nth(0)").trigger("click");
 	},
 	resizeSidebar(event) {
 		let APP = degas,

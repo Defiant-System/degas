@@ -21,7 +21,8 @@ class ViewHelper extends THREE.Object3D {
 			let mouse = new THREE.Vector2();
 			let rect = dom.getBoundingClientRect();
 			let offsetX = rect.left + ( dom.offsetWidth - dim );
-			let offsetY = rect.top + ( dom.offsetHeight - dim );
+			// let offsetY = rect.top + ( dom.offsetHeight - dim );
+			let offsetY = rect.top;
 			
 			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
 			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
@@ -56,9 +57,9 @@ class ViewHelper extends THREE.Object3D {
 		this.animating = false;
 		this.controls = null;
 
-		const color1 = new THREE.Color( '#ff3653' );
+		const color1 = new THREE.Color( '#ff1414' );
 		const color2 = new THREE.Color( '#8adb00' );
-		const color3 = new THREE.Color( '#2c8fff' );
+		const color3 = new THREE.Color( '#1212ff' );
 		const color4 = new THREE.Color( '#ffffff' );
 		const interactiveObjects = [];
 		const raycaster = new THREE.Raycaster();
@@ -163,9 +164,10 @@ class ViewHelper extends THREE.Object3D {
 
 			//
 			const x = dom.offsetWidth - dim;
+			const y = dom.offsetHeight - dim;
 			renderer.clearDepth();
 			renderer.getViewport( vpTemp );
-			renderer.setViewport( x, 0, dim, dim );
+			renderer.setViewport( x, y, dim, dim );
 			renderer.render( this, camera );
 			renderer.setViewport( vpTemp.x, vpTemp.y, vpTemp.z, vpTemp.w );
 		};
@@ -182,7 +184,8 @@ class ViewHelper extends THREE.Object3D {
 
 			const rect = dom.getBoundingClientRect();
 			const offsetX = rect.left + ( dom.offsetWidth - dim );
-			const offsetY = rect.top + ( dom.offsetHeight - dim );
+			// const offsetY = rect.top + ( dom.offsetHeight - dim );
+			const offsetY = rect.top;
 			mouse.x = ( ( event.clientX - offsetX ) / dim ) * 2 - 1;
 			mouse.y = - ( ( event.clientY - offsetY ) / dim ) * 2 + 1;
 

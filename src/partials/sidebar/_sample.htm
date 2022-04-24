@@ -1,0 +1,75 @@
+<div data-section="camera">
+	<div class="head">
+		Sample Fields
+	</div>
+	<div class="body">
+		
+		<fieldset data-click="testing">
+			<legend>Location</legend>
+			<div class="field number" data-label="X" data-step="0.01" data-change="set-location"><span>0 m</span></div>
+			<div class="field number" data-label="Y" data-step="0.01" data-change="set-location"><span>0 m</span></div>
+			<div class="field number" data-label="Z" data-step="0.01" data-change="set-location"><span>0 m</span></div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Rotation</legend>
+			<div class="field number" data-label="X" data-step="0.1" data-change="set-rotation"><span>0 °</span></div>
+			<div class="field number" data-label="Y" data-step="0.1" data-change="set-rotation"><span>0 °</span></div>
+			<div class="field number" data-label="Z" data-step="0.1" data-change="set-rotation"><span>0 °</span></div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Scale</legend>
+			<div class="field number" data-label="X" data-step="0.01" data-change="set-scale"><span>1.00</span></div>
+			<div class="field number" data-label="Y" data-step="0.01" data-change="set-scale"><span>1.00</span></div>
+			<div class="field number" data-label="Z" data-step="0.01" data-change="set-scale"><span>1.00</span></div>
+		</fieldset>
+
+		<div class="field number" data-label="Compression" data-min="0" data-max="100" data-step="5" data-change="set-compression" style="--value: 35%;">
+			<span>35 %</span>
+		</div>
+
+		<div class="field color" data-label="Base Color"><b></b></div>
+		
+		<div class="field color" data-label="Base Color" style="--color: #000066; --opacity: .65;"><b></b></div>
+		
+		<div class="field color" data-label="Base Color" style="--color: #009999; --opacity: .9;"><b></b></div>
+		
+		<div class="field image" data-label="Texture">
+			<span data-open="Open&#8230;"
+				style="background-image: url(/fs/Desktop/coast.jpg);"
+				data-click="select-image"></span>
+		</div>
+
+		<div class="field image" data-label="Environment">
+			<span data-open="Open&#8230;" data-click="select-image"></span>
+		</div>
+
+		<div class="field select" data-label="Blend Mode">
+			<span>Normal</span>
+		</div>
+
+		<div class="field text" data-label="Name">
+			<input type="text" value="Directional Light"/>
+		</div>
+
+		<div class="field textarea" data-label="Name">
+			<textarea>Some user defined data</textarea>
+		</div>
+
+		<div class="field checkbox" data-label="Backface Culling"></div>
+
+		<div class="field checkbox" data-label="Motion Blur" data-checked="1"></div>
+
+		<div class="field checkbox" data-label="Backface Culling"></div>
+
+		<div class="field button" data-label="Add"></div>
+
+		<div class="field options" data-label="Color" data-click="set-color-type">
+			<span>BW</span>
+			<span>RGB</span>
+			<span class="active">RGBA</span>
+		</div>
+
+	</div>
+</div>
