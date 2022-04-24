@@ -12,7 +12,12 @@
 
 	&.show {
 		visibility: visible;
-		animation: popup-bubble 200ms linear forwards;
+		animation: popup-show 120ms linear forwards;
+	}
+
+	&.hide {
+		visibility: visible;
+		animation: popup-hide 100ms linear forwards;
 	}
 
 	&:before {
@@ -147,8 +152,13 @@
 }
 
 
-@keyframes popup-bubble {
+@keyframes popup-show {
 	0%   { transform: scale(.25); opacity: 0; }
 	91%  { transform: scale(1.1); opacity: 1; }
 	100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes popup-hide {
+	0%   { transform: scale(1); opacity: 1; }
+	100% { transform: scale(.25); opacity: 0; }
 }

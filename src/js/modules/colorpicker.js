@@ -85,6 +85,17 @@
 				top = value.top - (+Self.els.el.prop("offsetHeight") >> 1) + 12;
 				left = value.left - +Self.els.el.prop("offsetWidth") - 14;
 				Self.els.el.css({ top, left }).addClass("show");
+
+				let doc = $(document),
+					func = event => {
+						if ($(event.target).parents(".color-picker").length) return;
+						Self.els.el
+							.cssSequence("hide", "animationend", el =>
+								el.css({ top: -1e3, left: -1e3 }).removeClass("show hide"));
+						doc.unbind("mousedown", func);
+					};
+				// capture next mousedown - if outside color picker hide, color picker
+				doc.bind("mousedown", func);
 				break;
 			case "group-head":
 				el = $(event.target);
