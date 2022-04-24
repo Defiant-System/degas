@@ -32,7 +32,7 @@
 			},
 		};
 		// default color mode
-		this.mode = "RGBA";  // palette RGBA HSVA
+		this.mode = "palette";  // palette RGBA HSVA
 		this.radius = 74;
 		this.origin = {};
 		// click on the right "tab"
@@ -137,6 +137,7 @@
 					rgb = Color.parseRgb(value);
 					hsv = Color.rgbToHsv(rgb);
 					// delete event.el;
+					Self.dispatch({ type: "update-origin", hsv });
 				}
 				if (!event.el) {
 					// update origin event UI
@@ -164,6 +165,7 @@
 							clientY: 0,
 							offsetX: left,
 							offsetY: top,
+							isFake: true,
 							preventDefault: a => a,
 						};
 					Self.doWrapper({ ...fakeEvent, type: "mousedown" });
@@ -189,8 +191,8 @@
 				// fields
 				tau = Math.PI * 2;
 				hsv = {
-					h: Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360),
-					s: Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100,
+					h: Math.round(Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360)),
+					s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100),
 					v: event.value,
 				};
 				if (hsv.v <= 1) hsv.v *= 100;
@@ -223,8 +225,9 @@
 				// fields
 				tau = Math.PI * 2;
 				hsv = {
-					h: Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360),
-					s: Math.min(Self.radius, Self.distance(event.left, event.top)),
+					h: Math.round(Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360)),
+					s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100),
+					// s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top))),
 					v: +Self.els.groupHSVA.V.data("value") * 100,
 				};
 				value = (hsv.h / 360).toFixed(3); if (value < 0.005) value = "0.000";
@@ -328,7 +331,7 @@
 						y: event.clientY,
 					},
 					mode = Self.mode;
-				if (event.clientX !== 0 && event.clientY !== 0) {
+				if (!event.isFake) {
 					// remove "active" indicator from palette
 					Self.els.palette.find(".active").removeClass("active");
 				}
@@ -373,7 +376,9 @@
 				// cursor position
 				Drag.el.css(limited);
 				// update fields
-				Self.dispatch({ type: `set-${Drag.mode}`, ...limited, x, y, value });
+				if (Drag.mode !== "palette") {
+					Self.dispatch({ type: `set-${Drag.mode}`, ...limited, x, y, value });
+				}
 				break;
 			case "mouseup":
 				// uncover layout
