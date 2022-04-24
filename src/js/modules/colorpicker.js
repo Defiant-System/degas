@@ -154,6 +154,9 @@
 					// update origin event UI
 					Self.dispatch({ type: "update-origin", hsv });
 				}
+
+				Self.dispatch({ type: "set-HSVA-fields", hsv });
+
 				sat = Self.radius * (hsv.s / 100);
 				rad = hsv.h * (Math.PI / 180);
 				top = hsv.s === 0 ? Self.radius : Math.round(Math.sin(rad) * sat + Self.radius);
@@ -180,8 +183,8 @@
 							preventDefault: a => a,
 						};
 					Self.doWrapper({ ...fakeEvent, type: "mousedown" });
-					Self.doWrapper({ ...fakeEvent, type: "mousemove" });
-					Self.doWrapper({ ...fakeEvent, type: "mouseup" });
+					// Self.doWrapper({ ...fakeEvent, type: "mousemove" });
+					// Self.doWrapper({ ...fakeEvent, type: "mouseup" });
 				}
 				break;
 			case "set-rgba-R":
@@ -232,13 +235,25 @@
 				opacity = +Self.els.groupHSVA.A.data("value");
 				Self.dispatch({ type: "update-origin", opacity });
 				break;
+			case "set-HSVA-fields":
+				hsv = event.hsv;
+				value = (hsv.h / 360).toFixed(3); if (value < 0.005) value = "0.000";
+				Self.els.groupHSVA.H.data({ value }).css({ "--value": value });
+				value = (hsv.s / Self.radius).toFixed(3); if (value < 0.005) value = "0.000";
+				Self.els.groupHSVA.S.data({ value }).css({ "--value": value });
+				value = (hsv.v / Self.radius).toFixed(3); if (value < 0.005) value = "0.000";
+				Self.els.groupHSVA.V.data({ value }).css({ "--value": value });
+				// ALPHA
+				value = Self.origin.opacity.toFixed(3);
+				Self.els.groupHSVA.A.data({ value }).css({ "--value": value });
+				break;
 			case "set-HSva":
 				// fields
 				tau = Math.PI * 2;
 				hsv = {
 					h: Math.round(Self.mod(Math.atan2(-event.y, -event.x) * (360 / tau), 360)),
-					s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100),
-					// s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top))),
+					// s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top)) / Self.radius * 100),
+					s: Math.round(Math.min(Self.radius, Self.distance(event.left, event.top))),
 					v: +Self.els.groupHSVA.V.data("value") * 100,
 				};
 				value = (hsv.h / 360).toFixed(3); if (value < 0.005) value = "0.000";
@@ -323,8 +338,6 @@
 			case "mousedown":
 				// prevent default behaviour
 				event.preventDefault();
-				// cover layout
-				Self.els.content.addClass("cover hideMouse");
 				// collect event info
 				let doc = $(document),
 					el = $(event.target).find(".cursor"),
@@ -378,8 +391,12 @@
 				};
 				// trigger update
 				Self.doWrapper({ type: "mousemove", clientY, clientX });
-				// bind event
-				Self.drag.doc.on("mousemove mouseup", Self.doWrapper);
+				if (!event.isFake) {
+					// cover layout
+					Self.els.content.addClass("cover hideMouse");
+					// bind event
+					Self.drag.doc.on("mousemove mouseup", Self.doWrapper);
+				}
 				break;
 			case "mousemove":
 				let top = event.clientY + Drag.offset.top - Drag.click.y,
