@@ -32,7 +32,7 @@
 			},
 		};
 		// default color mode
-		this.mode = "palette";  // palette RGBA HSVA
+		this.mode = "HSVA";  // palette RGBA HSVA
 		this.radius = 74;
 		this.origin = {};
 		// click on the right "tab"
@@ -318,6 +318,8 @@
 				let doc = $(document),
 					el = $(event.target).find(".cursor"),
 					group = Self.els.groupHSVA,
+					clientY = event.clientY,
+					clientX = event.clientX,
 					dim = {
 						top: parseInt(Self.els.rCursor.css("top"), 10),
 						height: parseInt(Self.els.range.css("height"), 10),
@@ -363,6 +365,8 @@
 					},
 					doc,
 				};
+				// trigger update
+				Self.doWrapper({ type: "mousemove", clientY, clientX });
 				// bind event
 				Self.drag.doc.on("mousemove mouseup", Self.doWrapper);
 				break;
@@ -405,7 +409,8 @@
 					group = Self.els.groupHSVA,
 					target = Self.els.wheel,
 					offset = { top: event.offsetY - 3 },
-					click = { y: event.clientY },
+					clientY = event.clientY,
+					click = { y: clientY },
 					constrain = {
 						minY: 0,
 						maxY: +Self.els.range.prop("offsetHeight"),
@@ -417,7 +422,7 @@
 					_max = Math.max,
 					_min = Math.min,
 					mode = Self.mode;
-				if (event.clientX !== 0 && event.clientY !== 0) {
+				if (event.clientX !== 0 && clientY !== 0) {
 					// remove "active" indicator from palette
 					Self.els.palette.find(".active").removeClass("active");
 				}
@@ -430,6 +435,8 @@
 				el.css(offset);
 				// create drag
 				Self.drag = { el, target, group, click, offset, constrain, mode, wheel, _min, _max, doc };
+				// trigger update
+				Self.doRange({ type: "mousemove", clientY });
 				// bind event
 				Self.drag.doc.on("mousemove mouseup", Self.doRange);
 				break;
