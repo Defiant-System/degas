@@ -30,22 +30,41 @@
 				pEl.find(".show").removeClass("show");
 				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
 				if (el.length) el.addClass("show");
+
+				// save default background color
+				if (!Self.defaultBackground) {
+					Self.defaultBackground = editor.scene.background.clone();
+				}
+				// if "none" is selected - Reset
+				if (event.arg === "none") {
+					let type = ["reset", ...event.type.split("-").slice(1)];
+					Self.dispatch({ type: type.join("-") });
+				}
 				break;
+			case "reset-scene-bg":
+				editor.scene.background = Self.defaultBackground;
+				viewport.render();
+				break;
+			case "reset-scene-env": break;
+			case "reset-scene-fog": break;
 			case "set-scene-bg-color":
 				editor.scene.background.set(event.color);
 				viewport.render();
 				break;
 			case "select-scene-texture-image":
+			case "select-scene-equirect-image":
 				func = item => new THREE.TextureLoader().load(item.path, texture => {
-					// set element thumbnail
-					event.el.css({ "background-image": `url(${item.path})` });
+					if (event.type.split("-")[2] === "equirect") {
+						texture.mapping = THREE.EquirectangularReflectionMapping;
+					}
 					// set scene background
 					editor.scene.background = texture;
 					viewport.render();
+					// set element thumbnail
+					event.el.css({ "background-image": `url(${item.path})` });
 				});
 				window.dialog.open({ png: func, jpg: func });
 				break;
-			case "select-scene-equirect-image": break;
 		}
 	}
 }
