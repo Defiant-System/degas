@@ -5,6 +5,8 @@ const {
 	History,
 	Loader,
 
+	RoomEnvironment,
+
 	Strings,
 	SetPositionCommand,
 	SetRotationCommand,

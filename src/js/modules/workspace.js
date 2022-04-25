@@ -137,7 +137,7 @@
 		}
 	},
 	getMesh(type) {
-		let material = new THREE.MeshStandardMaterial({ color: 0xffffff }),
+		let material = new THREE.MeshStandardMaterial({ color: 0xffffff, /* metalness: 1, roughness: 0 */ }),
 			sprite,
 			path,
 			edges,

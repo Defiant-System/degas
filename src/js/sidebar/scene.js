@@ -31,28 +31,23 @@
 				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
 				if (el.length) el.addClass("show");
 
-				// save default background color
-				if (!Self.defaultBackground) {
-					Self.defaultBackground = editor.scene.background.clone();
-				}
 				// if "none" is selected - Reset
-				if (event.arg === "none") {
-					let type = ["reset", ...event.type.split("-").slice(1)];
+				if (event.arg) {
+					let type = [event.arg, ...event.type.split("-").slice(1)];
 					Self.dispatch({ type: type.join("-") });
 				}
 				break;
+			// Scene Background
 			case "reset-scene-bg":
-				editor.scene.background = Self.defaultBackground;
+				editor.resetSceneBgColor();
 				viewport.render();
 				break;
-			case "reset-scene-env": break;
-			case "reset-scene-fog": break;
-			case "set-scene-bg-color":
+			case "set-bg-color":
 				editor.scene.background.set(event.color);
 				viewport.render();
 				break;
-			case "select-scene-texture-image":
-			case "select-scene-equirect-image":
+			case "select-bg-texture-image":
+			case "select-bg-equirect-image":
 				func = item => new THREE.TextureLoader().load(item.path, texture => {
 					if (event.type.split("-")[2] === "equirect") {
 						texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -65,6 +60,30 @@
 				});
 				window.dialog.open({ png: func, jpg: func });
 				break;
+			// Scene Environment
+			case "reset-scene-env":
+				editor.scene.environment = null;
+				viewport.render();
+				break;
+			case "model-viewer-scene-env":
+				let pmremGenerator = new THREE.PMREMGenerator( renderer );
+				pmremGenerator.compileEquirectangularShader();
+				editor.scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.04 ).texture;
+				viewport.render();
+				break;
+			case "select-environment-equirect-image":
+				func = item => new THREE.TextureLoader().load(item.path, texture => {
+					// set scene background
+					texture.mapping = THREE.EquirectangularReflectionMapping;
+					editor.scene.environment = texture;
+					viewport.render();
+					// set element thumbnail
+					event.el.css({ "background-image": `url(${item.path})` });
+				});
+				window.dialog.open({ png: func, jpg: func });
+				break;
+			// Scene Fog
+			case "reset-scene-fog": break;
 		}
 	}
 }

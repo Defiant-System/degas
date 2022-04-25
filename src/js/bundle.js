@@ -3,6 +3,8 @@ import * as THREE from "./modules/threejs/build/three.module.js";
 import { Loader } from './modules/threejs/editor/js/Loader.js';
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
+import { RoomEnvironment } from './modules/threejs/examples/jsm/environments/RoomEnvironment.js';
+
 import { Strings } from "./classes/Strings.js";
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
@@ -25,6 +27,8 @@ module.exports = {
 	THREE_dispose,
 	History,
 	Loader,
+
+	RoomEnvironment,
 
 	Strings,
 	SetPositionCommand,

@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-5734c568.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-7efbae82.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-f7e5c746.js' );
+					const { TDSLoader } = await import( './TDSLoader-f2c3eb89.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-d12eabe5.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-2b114811.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-0ff0d663.js' );
+					const { AMFLoader } = await import( './AMFLoader-1906ee49.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-3e6c08b7.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-2a78e352.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-5c699701.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-0ac70a8a.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-06d44f62.js' );
+					const { FBXLoader } = await import( './FBXLoader-7951fb38.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-5c699701.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-e1302f04.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-0ac70a8a.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-b16c3da6.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-5c699701.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-e1302f04.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-0ac70a8a.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-b16c3da6.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-d663ad01.js' );
+					const { IFCLoader } = await import( './IFCLoader-d2a7a928.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-52ffc287.js' );
+					const { KMZLoader } = await import( './KMZLoader-544ee487.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-618764f1.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-e88c8a48.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-5f4c2e2c.js' );
+					const { MD2Loader } = await import( './MD2Loader-09765e86.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-aef82a11.js' );
+					const { OBJLoader } = await import( './OBJLoader-87769899.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-e1cd4c52.js' );
+					const { PLYLoader } = await import( './PLYLoader-cae71352.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-7d78aa13.js' );
+					const { STLLoader } = await import( './STLLoader-2bcbf737.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-a87a4aa3.js' );
+					const { SVGLoader } = await import( './SVGLoader-417405ba.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-60f236a8.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-b2d24f4b.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-e82ab8f4.js' );
+					const { VTKLoader } = await import( './VTKLoader-912ba89f.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-01b1c726.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-af40daa0.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-91b9b5ba.js' );
+					const { XYZLoader } = await import( './XYZLoader-0e129733.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-bc195c81.js' );
-			const { OBJLoader } = await import( './OBJLoader-aef82a11.js' );
+			const { MTLLoader } = await import( './MTLLoader-340327ab.js' );
+			const { OBJLoader } = await import( './OBJLoader-87769899.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-06d44f62.js' );
+					const { FBXLoader } = await import( './FBXLoader-7951fb38.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-5c699701.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-e1302f04.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-0ac70a8a.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-b16c3da6.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-5c699701.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-e1302f04.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-0ac70a8a.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-b16c3da6.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -56866,6 +56866,116 @@ class ListboxItem extends UIDiv {
 		this.dom.addEventListener( 'click', onClick );
 
 	}
+
+}
+
+/**
+ * https://github.com/google/model-viewer/blob/master/packages/model-viewer/src/three-components/EnvironmentScene.ts
+ */
+
+class RoomEnvironment extends Scene {
+
+	constructor() {
+
+		super();
+
+		const geometry = new BoxGeometry();
+		geometry.deleteAttribute( 'uv' );
+
+		const roomMaterial = new MeshStandardMaterial( { side: BackSide } );
+		const boxMaterial = new MeshStandardMaterial();
+
+		const mainLight = new PointLight( 0xffffff, 5.0, 28, 2 );
+		mainLight.position.set( 0.418, 16.199, 0.300 );
+		this.add( mainLight );
+
+		const room = new Mesh( geometry, roomMaterial );
+		room.position.set( - 0.757, 13.219, 0.717 );
+		room.scale.set( 31.713, 28.305, 28.591 );
+		this.add( room );
+
+		const box1 = new Mesh( geometry, boxMaterial );
+		box1.position.set( - 10.906, 2.009, 1.846 );
+		box1.rotation.set( 0, - 0.195, 0 );
+		box1.scale.set( 2.328, 7.905, 4.651 );
+		this.add( box1 );
+
+		const box2 = new Mesh( geometry, boxMaterial );
+		box2.position.set( - 5.607, - 0.754, - 0.758 );
+		box2.rotation.set( 0, 0.994, 0 );
+		box2.scale.set( 1.970, 1.534, 3.955 );
+		this.add( box2 );
+
+		const box3 = new Mesh( geometry, boxMaterial );
+		box3.position.set( 6.167, 0.857, 7.803 );
+		box3.rotation.set( 0, 0.561, 0 );
+		box3.scale.set( 3.927, 6.285, 3.687 );
+		this.add( box3 );
+
+		const box4 = new Mesh( geometry, boxMaterial );
+		box4.position.set( - 2.017, 0.018, 6.124 );
+		box4.rotation.set( 0, 0.333, 0 );
+		box4.scale.set( 2.002, 4.566, 2.064 );
+		this.add( box4 );
+
+		const box5 = new Mesh( geometry, boxMaterial );
+		box5.position.set( 2.291, - 0.756, - 2.621 );
+		box5.rotation.set( 0, - 0.286, 0 );
+		box5.scale.set( 1.546, 1.552, 1.496 );
+		this.add( box5 );
+
+		const box6 = new Mesh( geometry, boxMaterial );
+		box6.position.set( - 2.193, - 0.369, - 5.547 );
+		box6.rotation.set( 0, 0.516, 0 );
+		box6.scale.set( 3.875, 3.487, 2.986 );
+		this.add( box6 );
+
+
+		// -x right
+		const light1 = new Mesh( geometry, createAreaLightMaterial( 50 ) );
+		light1.position.set( - 16.116, 14.37, 8.208 );
+		light1.scale.set( 0.1, 2.428, 2.739 );
+		this.add( light1 );
+
+		// -x left
+		const light2 = new Mesh( geometry, createAreaLightMaterial( 50 ) );
+		light2.position.set( - 16.109, 18.021, - 8.207 );
+		light2.scale.set( 0.1, 2.425, 2.751 );
+		this.add( light2 );
+
+		// +x
+		const light3 = new Mesh( geometry, createAreaLightMaterial( 17 ) );
+		light3.position.set( 14.904, 12.198, - 1.832 );
+		light3.scale.set( 0.15, 4.265, 6.331 );
+		this.add( light3 );
+
+		// +z
+		const light4 = new Mesh( geometry, createAreaLightMaterial( 43 ) );
+		light4.position.set( - 0.462, 8.89, 14.520 );
+		light4.scale.set( 4.38, 5.441, 0.088 );
+		this.add( light4 );
+
+		// -z
+		const light5 = new Mesh( geometry, createAreaLightMaterial( 20 ) );
+		light5.position.set( 3.235, 11.486, - 12.541 );
+		light5.scale.set( 2.5, 2.0, 0.1 );
+		this.add( light5 );
+
+		// +y
+		const light6 = new Mesh( geometry, createAreaLightMaterial( 100 ) );
+		light6.position.set( 0.0, 20.0, 0.0 );
+		light6.scale.set( 1.0, 0.1, 1.0 );
+		this.add( light6 );
+
+	}
+
+}
+
+function createAreaLightMaterial( intensity ) {
+
+	const material = new MeshBasicMaterial();
+	material.color.setScalar( intensity );
+	return material;
 
 }
 
@@ -59246,6 +59356,8 @@ module.exports = {
 	THREE_dispose,
 	History,
 	Loader,
+
+	RoomEnvironment,
 
 	Strings,
 	SetPositionCommand,
