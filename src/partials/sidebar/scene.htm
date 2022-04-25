@@ -49,16 +49,16 @@
 			<span>None</span>
 		</div>
 		<div>
-			<div class="hidden-fields show" data-fields="Linear">
-				<div class="field color" data-label="Color" data-change="set-linear-fog-color" style="--color: #bb00ff; --opacity: 1;"><b></b></div>
-				<div class="field number" data-label="Near" data-step="0.01" data-change="set-linear-fog-near"><span>0.01</span></div>
-				<div class="field number" data-label="Far" data-step="50.00" data-change="set-linear-fog-far"><span>50.00</span></div>
+			<div class="hidden-fields" data-fields="Linear">
+				<div class="field color" data-id="fog-linear-color" data-label="Color" data-change="set-linear-fog-color" style="--color: #bb00ff; --opacity: 1;"><b></b></div>
+				<div class="field number" data-id="fog-linear-near" data-label="Near" data-min="0" data-step="1" data-change="set-linear-fog-near"><span>1</span></div>
+				<div class="field number" data-id="fog-linear-far" data-label="Far" data-min="0" data-step="10" data-change="set-linear-fog-far"><span>5000</span></div>
 			</div>
 
 			<div class="hidden-fields" data-fields="Exponential">
-				<div class="field color" data-label="Color" data-change="set-exponential-fog-color" style="--color: #bb00ff; --opacity: 1;"><b></b></div>
-				<div class="field number" data-label="Exponential" data-min="0" data-max="100" data-step="1" data-change="set-exponential-fog-value" style="--value: 50%;">
-					<span>50</span>
+				<div class="field color" data-id="fog-color" data-label="Color" data-change="set-exponential-fog-color" style="--color: #bb00ff; --opacity: 1;"><b></b></div>
+				<div class="field number" data-id="fog-density" data-label="Density" data-min="1" data-max="100" data-step="1" data-change="set-exponential-fog-density" style="--value: 1%;">
+					<span>1</span>
 				</div>
 			</div>
 		</div>

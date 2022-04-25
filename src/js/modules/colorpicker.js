@@ -104,6 +104,7 @@
 				});
 				Self.origin.sidebar.dispatch({
 					type: Self.origin.change,
+					el: Self.origin.el, 
 					color: Self.origin.hex,
 					opacity: Self.origin.opacity,
 				});

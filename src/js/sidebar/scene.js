@@ -84,12 +84,38 @@
 				break;
 			// Scene Fog
 			case "reset-scene-fog":
+				editor.scene.fog = null;
+				viewport.render();
 				break;
-			case "set-linear-fog-color": break;
-			case "set-linear-fog-near": break;
-			case "set-linear-fog-far": break;
-			case "set-exponential-fog-color": break;
-			case "set-exponential-fog-value": break;
+			case "set-linear-fog-color":
+			case "set-linear-fog-near":
+			case "set-linear-fog-far":
+				pEl = event.el.parent();
+				let fogLinearColor = new THREE.Color( pEl.find(`.field[data-id="fog-linear-color"]`).cssProp("--color") ),
+					fogLinearNear = +pEl.find(`.field[data-id="fog-linear-near"]`).text() / 100,
+					fogLinearFar = +pEl.find(`.field[data-id="fog-linear-far"]`).text() / 100;
+				if (!editor.scene.fog) {
+					editor.scene.fog = new THREE.Fog( fogLinearColor, fogLinearNear, fogLinearFar );
+				} else {
+					editor.scene.fog.color.set(fogLinearColor);
+					editor.scene.fog.near = fogLinearNear;
+					editor.scene.fog.far = fogLinearFar;
+				}
+				viewport.render();
+				break;
+			case "set-exponential-fog-color":
+			case "set-exponential-fog-density":
+				pEl = event.el.parent();
+				let fogColor = new THREE.Color( pEl.find(`.field[data-id="fog-color"]`).cssProp("--color") ),
+					fogDensity = +pEl.find(`.field[data-id="fog-density"]`).text() / 1000;
+				if (!editor.scene.fog) {
+					editor.scene.fog = new THREE.FogExp2( fogColor, fogDensity );
+				} else {
+					editor.scene.fog.color.set(fogColor);
+					editor.scene.fog.density = fogDensity;
+				}
+				viewport.render();
+				break;
 		}
 	}
 }

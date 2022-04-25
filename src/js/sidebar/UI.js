@@ -59,8 +59,8 @@
 					vEl = el.find("span"),
 					val = (el.css("--value") || vEl.html()).match(/[\d\.]+/),
 					offset = +val[0],
-					min = +el.data("min"),
-					max = +el.data("max"),
+					min = el.data("min") ? +el.data("min") : undefined,
+					max = el.data("max") ? +el.data("max") : undefined,
 					step = +el.data("step"),
 					dec = step < 1 ? el.data("step").split(".")[1].length : 0,
 					suffix = vEl.html().match(/[\d\. ]+?(\D+)$/),
@@ -95,7 +95,7 @@
 			case "mousemove":
 				let diff = Drag.clickX - event.clientX,
 					value;
-				if (Drag.min !== Drag.max) {
+				if (Drag.min !== Drag.max && Drag.max !== undefined) {
 					let width = Drag._min(Drag._max(Drag.offset - diff, Drag.min), Drag.max);
 					value = width.toFixed(Drag.dec);
 					Drag.el.css({ "--value": `${Drag._round(width)}%` });
@@ -103,11 +103,12 @@
 				} else {
 					let sVal = Drag.offset - (diff * Drag.step),
 						sValue = Drag.step * Drag._round(sVal / Drag.step);
+					if (Drag.min !== undefined) sValue = Drag._max(sValue, Drag.min);
 					value = sValue.toFixed(Drag.dec);
 					Drag.vEl.html(`${value} ${Drag.suffix}`.trim());
 				}
 				if (Drag.etChange) {
-					Drag.fnChange({ type: Drag.etChange, value: +value });
+					Drag.fnChange({ type: Drag.etChange, el: Drag.el, value: +value });
 				}
 				break;
 			case "mouseup":
