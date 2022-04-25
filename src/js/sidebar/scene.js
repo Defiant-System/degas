@@ -83,7 +83,13 @@
 				window.dialog.open({ png: func, jpg: func });
 				break;
 			// Scene Fog
-			case "reset-scene-fog": break;
+			case "reset-scene-fog":
+				break;
+			case "set-linear-fog-color": break;
+			case "set-linear-fog-near": break;
+			case "set-linear-fog-far": break;
+			case "set-exponential-fog-color": break;
+			case "set-exponential-fog-value": break;
 		}
 	}
 }
