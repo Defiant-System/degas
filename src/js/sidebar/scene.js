@@ -13,6 +13,7 @@
 	dispatch(event) {
 		let APP = degas,
 			Self = APP.sidebar.scene,
+			func,
 			name,
 			value,
 			pEl,
@@ -30,16 +31,21 @@
 				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
 				if (el.length) el.addClass("show");
 				break;
-			case "select-image":
-				window.dialog.open({
-					jpg: item => console.log(item),
-					png: item => console.log(item),
-				});
-				break;
 			case "set-scene-bg-color":
 				editor.scene.background.set(event.color);
 				viewport.render();
 				break;
+			case "select-scene-texture-image":
+				func = item => new THREE.TextureLoader().load(item.path, texture => {
+					// set element thumbnail
+					event.el.css({ "background-image": `url(${item.path})` });
+					// set scene background
+					editor.scene.background = texture;
+					viewport.render();
+				});
+				window.dialog.open({ png: func, jpg: func });
+				break;
+			case "select-scene-equirect-image": break;
 		}
 	}
 }
