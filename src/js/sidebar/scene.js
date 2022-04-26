@@ -14,6 +14,7 @@
 		let APP = degas,
 			Self = APP.sidebar.scene,
 			func,
+			type,
 			name,
 			value,
 			pEl,
@@ -35,6 +36,10 @@
 				if (event.arg) {
 					let type = [event.arg, ...event.type.split("-").slice(1)];
 					Self.dispatch({ type: type.join("-") });
+				} else {
+					el = pEl.find(".field[data-change]:nth(0)");
+					type = el.data("change");
+					Self.dispatch({ type, el });
 				}
 				break;
 			// Scene Background
@@ -43,7 +48,9 @@
 				viewport.render();
 				break;
 			case "set-bg-color":
-				editor.scene.background.set(event.color);
+				pEl = event.el.parent();
+				value = pEl.find(`.field[data-id="bg-color"]`).cssProp("--color");
+				editor.scene.background.set(value);
 				viewport.render();
 				break;
 			case "select-bg-texture-image":
