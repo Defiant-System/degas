@@ -30,6 +30,8 @@
 				viewport.toggleSceneHelpers(event.checked);
 				viewport.render();
 				break;
+			case "viewport-toggle-antialiasing":
+				break;
 			case "select-tone-mapping":
 				name = event.xMenu.getAttribute("name");
 				event.origin.el.find("span:first").html(name);

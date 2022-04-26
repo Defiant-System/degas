@@ -5,8 +5,6 @@ const {
 	History,
 	Loader,
 
-	RoomEnvironment,
-
 	Strings,
 	SetPositionCommand,
 	SetRotationCommand,
@@ -18,6 +16,16 @@ const {
 
 	VR,
 	ViewportInfo,
+	RoomEnvironment,
+
+	BufferGeometryUtils,
+	LineSegmentsGeometry,
+	LineSegments2,
+	LineMaterial,
+	ConditionalEdgesGeometry,
+	ConditionalEdgesShader,
+	ConditionalLineSegmentsGeometry,
+	ConditionalLineMaterial,
 } = await window.fetch("~/js/bundle.js");
 
 

@@ -31,6 +31,7 @@ const degas = {
 		// 	this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
 		// }, 300);
 		
+		/**/
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
 
@@ -42,6 +43,7 @@ const degas = {
 		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);
+		
 	},
 	dispatch(event) {
 		let Self = degas,

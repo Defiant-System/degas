@@ -3,8 +3,6 @@ import * as THREE from "./modules/threejs/build/three.module.js";
 import { Loader } from './modules/threejs/editor/js/Loader.js';
 import { UIPanel, UIDiv, UIText } from './modules/threejs/editor/js/libs/ui.js';
 
-import { RoomEnvironment } from './modules/threejs/examples/jsm/environments/RoomEnvironment.js';
-
 import { Strings } from "./classes/Strings.js";
 import { Config } from './classes/Config.js';
 import { History } from './classes/History.js';
@@ -14,6 +12,18 @@ import { SetScaleCommand } from './classes/commands/SetScaleCommand.js';
 
 import { VR } from './classes/Viewport.VR.js';
 import { ViewportInfo } from './classes/Viewport.ViewportInfo.js';
+import { RoomEnvironment } from './modules/threejs/examples/jsm/environments/RoomEnvironment.js';
+
+
+import * as BufferGeometryUtils from "./modules/threejs/examples/jsm/utils/BufferGeometryUtils.js";
+import { LineSegmentsGeometry } from "./modules/threejs/examples/jsm/lines/LineSegmentsGeometry.js";
+import { LineSegments2 } from "./modules/threejs/examples/jsm/lines/LineSegments2.js";
+import { LineMaterial } from "./modules/threejs/examples/jsm/lines/LineMaterial.js";
+import { ConditionalEdgesGeometry } from "./modules/conditional-lines/ConditionalEdgesGeometry.js";
+import { ConditionalEdgesShader } from "./modules/conditional-lines/ConditionalEdgesShader.js";
+import { ConditionalLineSegmentsGeometry } from "./modules/conditional-lines/ConditionalLineSegmentsGeometry.js";
+import { ConditionalLineMaterial } from "./modules/conditional-lines/ConditionalLineMaterial.js";
+
 
 
 // custom THREE.js "dispose"
@@ -28,8 +38,6 @@ module.exports = {
 	History,
 	Loader,
 
-	RoomEnvironment,
-
 	Strings,
 	SetPositionCommand,
 	SetRotationCommand,
@@ -41,4 +49,14 @@ module.exports = {
 
 	VR,
 	ViewportInfo,
+	RoomEnvironment,
+
+	BufferGeometryUtils,
+	LineSegmentsGeometry,
+	LineSegments2,
+	LineMaterial,
+	ConditionalEdgesGeometry,
+	ConditionalEdgesShader,
+	ConditionalLineSegmentsGeometry,
+	ConditionalLineMaterial,
 };

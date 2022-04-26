@@ -1,0 +1,8 @@
+
+class Selection {
+
+	constructor(model) {
+		
+	}
+
+}
