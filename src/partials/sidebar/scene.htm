@@ -4,6 +4,51 @@
 	</div>
 	<div class="body">
 		
+		<fieldset>
+			<legend class="right">Viewport</legend>
+			<div class="field checkbox" data-checked="1" data-label="Show Grid"></div>
+			<div class="field checkbox" data-checked="1" data-label="Show Helpers"></div>
+		</fieldset>
+
+		<hr />
+		
+		<fieldset>
+			<legend class="right">Renderer</legend>
+			<div class="field checkbox" data-checked="1" data-label="Antialias"></div>
+			<div class="field checkbox" data-label="Physical Lights"></div>
+			<div class="field checkbox" data-label="Shadows"></div>
+
+			<!-- Tone Mapping - START -->
+			<div class="field select" data-label="Tone Mapping" data-menu="scene-tone-mapping">
+				<span>No</span>
+			</div>
+			<div>
+				<div class="hidden-fields" data-fields="Linear">
+					<div class="field number" data-id="tone-mapping" data-label="Density" data-min="0" data-max="10" data-step="0.1" data-change="set-linear-tone-mapping" style="--value: 1%;">
+						<span>1</span>
+					</div>
+				</div>
+				<div class="hidden-fields" data-fields="Reinhard">
+					<div class="field number" data-id="tone-mapping" data-label="Density" data-min="0" data-max="10" data-step="0.1" data-change="set-Reinhard-tone-mapping" style="--value: 1%;">
+						<span>1</span>
+					</div>
+				</div>
+				<div class="hidden-fields" data-fields="Cineaon">
+					<div class="field number" data-id="tone-mapping" data-label="Density" data-min="0" data-max="10" data-step="0.1" data-change="set-cineaon-tone-mapping" style="--value: 1%;">
+						<span>1</span>
+					</div>
+				</div>
+				<div class="hidden-fields" data-fields="Acesfilmic">
+					<div class="field number" data-id="tone-mapping" data-label="Density" data-min="0" data-max="10" data-step="0.1" data-change="set-acesfilmic-tone-mapping" style="--value: 1%;">
+						<span>1</span>
+					</div>
+				</div>
+			</div>
+			<!-- Tone Mapping - END -->
+		</fieldset>
+
+		<hr />
+
 		<!-- Scene BG - START -->
 		<div class="field select" data-label="Background" data-menu="scene-background">
 			<span>None</span>

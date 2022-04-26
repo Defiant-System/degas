@@ -21,6 +21,18 @@
 			el;
 		// console.log(event);
 		switch(event.type) {
+			// Scene Background
+			case "select-tone-mapping":
+				name = event.xMenu.getAttribute("name");
+				event.origin.el.find("span:first").html(name);
+				pEl = event.origin.el.nextAll("div:first");
+
+				pEl.find(".show").removeClass("show");
+				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
+				if (el.length) el.addClass("show");
+				
+				break;
+			// Scene Background
 			case "select-scene-bg":
 			case "select-scene-env":
 			case "select-scene-fog":
@@ -42,7 +54,6 @@
 					Self.dispatch({ type, el });
 				}
 				break;
-			// Scene Background
 			case "reset-scene-bg":
 				editor.resetSceneBgColor();
 				viewport.render();

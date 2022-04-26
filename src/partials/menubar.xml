@@ -82,4 +82,12 @@
 		<Menu name="Linear" click="select-scene-fog" check-group="scene-fog"/>
 		<Menu name="Exponential" click="select-scene-fog" check-group="scene-fog"/>
 	</Menu>
+
+	<Menu for="scene-tone-mapping">
+		<Menu name="No" click="select-tone-mapping" check-group="tone-mapping" arg="reset" is-checked="1"/>
+		<Menu name="Linear" click="select-tone-mapping" check-group="tone-mapping"/>
+		<Menu name="Reinhard" click="select-tone-mapping" check-group="tone-mapping"/>
+		<Menu name="Cineaon" click="select-tone-mapping" check-group="tone-mapping"/>
+		<Menu name="Acesfilmic" click="select-tone-mapping" check-group="tone-mapping"/>
+	</Menu>
 </MenuBar>
