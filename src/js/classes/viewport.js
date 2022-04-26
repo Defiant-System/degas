@@ -246,6 +246,10 @@ class Viewport {
 			render();
 		}
 
+		function toggleSceneHelpers(showHelpers) {
+			showSceneHelpers = showHelpers;
+		}
+
 		// public properties / methods
 		this.resize = resize;
 		this.render = render;
@@ -253,6 +257,7 @@ class Viewport {
 		this.viewInfo = viewInfo;
 		this.container = container;
 		this.viewHelper = viewHelper;
+		this.toggleSceneHelpers = toggleSceneHelpers;
 		this.grid = grid;
 
 		this.selectObject = function(object) {

@@ -34,6 +34,15 @@
 					case pEl.hasClass("checkbox"):
 						if (pEl.data("checked")) pEl.removeAttr("data-checked");
 						else pEl.data({ checked: 1 });
+
+						if (pEl.data("change")) {
+							name = pEl.parents("[data-section]").data("section");
+							APP.sidebar[name].dispatch({
+								type: pEl.data("change"),
+								checked: !!pEl.data("checked"),
+								el: pEl,
+							});
+						}
 						break;
 					case pEl.hasClass("color"):
 						APP.colorpicker.dispatch({ type: "focus-color-field", el: pEl });

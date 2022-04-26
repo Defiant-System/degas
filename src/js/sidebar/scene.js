@@ -22,6 +22,14 @@
 		// console.log(event);
 		switch(event.type) {
 			// Scene Background
+			case "viewport-toggle-view":
+				viewport.grid.visible = event.checked;
+				viewport.render();
+				break;
+			case "viewport-toggle-helpers":
+				viewport.toggleSceneHelpers(event.checked);
+				viewport.render();
+				break;
 			case "select-tone-mapping":
 				name = event.xMenu.getAttribute("name");
 				event.origin.el.find("span:first").html(name);
@@ -30,7 +38,7 @@
 				pEl.find(".show").removeClass("show");
 				el = pEl.find(`.hidden-fields[data-fields="${name}"]`);
 				if (el.length) el.addClass("show");
-				
+
 				break;
 			// Scene Background
 			case "select-scene-bg":
