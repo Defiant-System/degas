@@ -2,7 +2,7 @@
 class Selection {
 
 	constructor() {
-		this.thickness = 3;
+		this.thickness = 5;
 		this.useThickLines = true;
 		this.lineColor = 0xff6600;
 	}
