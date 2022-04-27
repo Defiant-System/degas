@@ -1113,4 +1113,4 @@ class TransformControlsPlane extends Mesh {
 
 TransformControlsPlane.prototype.isTransformControlsPlane = true;
 
-export { TransformControls, TransformControlsGizmo, TransformControlsPlane };
+// export { TransformControls, TransformControlsGizmo, TransformControlsPlane };

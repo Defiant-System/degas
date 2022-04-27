@@ -138,91 +138,92 @@
 	},
 	getMesh(type) {
 		let material = new THREE.MeshStandardMaterial({ color: 0xffffff, /* metalness: 1, roughness: 0 */ }),
-			sprite,
-			path,
-			edges,
 			geometry,
 			mesh;
 		switch (type) {
 			case "box":
-				geometry = new THREE.BoxGeometry( 1, 1, 1, 1, 1, 1 );
+				geometry = new THREE.BoxBufferGeometry( 1, 1, 1, 1, 1, 1 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Box';
 				break;
 			case "circle":
-				geometry = new THREE.CircleGeometry( 1, 8, 0, Math.PI * 2 );
+				geometry = new THREE.CircleBufferGeometry( 1, 8, 0, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Circle';
 				break;
 			case "cylinder":
-				geometry = new THREE.CylinderGeometry( 1, 1, 2, 12, 1, false, 0, Math.PI * 2 );
+				geometry = new THREE.CylinderBufferGeometry( 1, 1, 2, 12, 1, false, 0, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Cylinder';
 				break;
 			case "dodecahedron":
-				geometry = new THREE.DodecahedronGeometry( 1, 0 );
+				geometry = new THREE.DodecahedronBufferGeometry( 1, 0 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Dodecahedron';
 				break;
 			case "icosahedron":
-				geometry = new THREE.IcosahedronGeometry( 1, 0 );
+				geometry = new THREE.IcosahedronBufferGeometry( 1, 0 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Icosahedron';
 				break;
 			case "lathe":
-				geometry = new THREE.LatheGeometry();
+				let vec = [ new THREE.Vector2( 0, 1 ),
+							new THREE.Vector2( 1, 0 ),
+							new THREE.Vector2( 0, -1 ) ];
+				geometry = new THREE.LatheBufferGeometry( vec, 8 );
 				material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Lathe';
 				break;
 			case "octahedron":
-				geometry = new THREE.OctahedronGeometry( 1, 0 );
+				geometry = new THREE.OctahedronBufferGeometry( 1, 0 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Octahedron';
 				break;
 			case "plane":
-				geometry = new THREE.PlaneGeometry( 1, 1, 1, 1 );
+				geometry = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Plane';
 				break;
 			case "ring":
-				geometry = new THREE.RingGeometry( 0.5, 1, 8, 1, 0, Math.PI * 2 );
+				geometry = new THREE.RingBufferGeometry( 0.5, 1, 8, 1, 0, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Ring';
 				break;
 			case "sphere":
-				geometry = new THREE.SphereGeometry( 1, 32, 16, 0, Math.PI * 2, 0, Math.PI );
+				geometry = new THREE.SphereBufferGeometry( 1, 32, 16, 0, Math.PI * 2, 0, Math.PI );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Sphere';
 				break;
 			case "sprite":
 				material = new THREE.SpriteMaterial();
-				sprite = new THREE.Sprite( material );
-				sprite.name = 'Sprite';
+				mesh = new THREE.Sprite( material );
+				mesh.name = 'Sprite';
 				break;
 			case "tetrahedron":
-				geometry = new THREE.TetrahedronGeometry( 1, 0 );
+				geometry = new THREE.TetrahedronBufferGeometry( 1, 0 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Tetrahedron';
 				break;
 			case "torus":
-				geometry = new THREE.TorusGeometry( 1, 0.4, 12, 24, Math.PI * 2 );
+				geometry = new THREE.TorusBufferGeometry( 1, 0.4, 12, 24, Math.PI * 2 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Torus';
 				break;
 			case "torusknot":
-				geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8, 2, 3 );
+				geometry = new THREE.TorusKnotBufferGeometry( 1, 0.4, 64, 8, 2, 3 );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'TorusKnot';
 				break;
 			case "tube":
-				path = new THREE.CatmullRomCurve3( [
-					new THREE.Vector3( 2, 2, - 2 ),
-					new THREE.Vector3( 2, - 2, - 0.6666666666666667 ),
-					new THREE.Vector3( - 2, - 2, 0.6666666666666667 ),
-					new THREE.Vector3( - 2, 2, 2 )
+				let path = new THREE.CatmullRomCurve3( [
+					new THREE.Vector3( 1, 1, -1 ),
+					new THREE.Vector3( 1, -1, 0.6666666666666667 ),
+					new THREE.Vector3( -1, -1, 0.6666666666666667 ),
+					new THREE.Vector3( -1, 1, 1 )
 				] );
-				geometry = new THREE.TubeGeometry( path, 64, 1, 8, false );
+				geometry = new THREE.TubeBufferGeometry( path, 32, .5, 8, false );
+				material.side = THREE.DoubleSide;
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.name = 'Tube';
 				break;

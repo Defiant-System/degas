@@ -31,6 +31,7 @@ class Viewport {
 		grid2.material.vertexColors = false;
 		grid.add( grid2 );
 
+		const selection = new Selection();
 		const viewHelper = new ViewHelper( camera, container );
 		const vr = new VR( editor );
 		const box = new THREE.Box3();

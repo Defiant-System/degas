@@ -295,5 +295,4 @@ class ViewHelper extends THREE.Object3D {
 
 }
 
-export { ViewHelper };
-
+// export { ViewHelper };

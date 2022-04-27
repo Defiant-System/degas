@@ -34,7 +34,7 @@ const {
 @import "./classes/TransformControls.js";
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.ViewHelper.js";
-
+@import "./classes/Selection.js";
 
 @import "./classes/File.js";
 @import "./modules/color.js";
