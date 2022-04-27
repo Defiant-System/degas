@@ -1,25 +1,9 @@
-// import {
-let ShaderMaterial = THREE.ShaderMaterial,
-	UniformsLib = THREE.UniformsLib,
-	UniformsUtils = THREE.UniformsUtils,
-	Vector2 = THREE.Vector2;
-// } from '../threejs/build/three.module.js';
-/**
- * parameters = {
- *  color: <hex>,
- *  linewidth: <float>,
- *  dashed: <boolean>,
- *  dashScale: <float>,
- *  dashSize: <float>,
- *  gapSize: <float>,
- *  resolution: <Vector2>, // to be set by renderer
- * }
- */
 
-const uniforms = {
+
+const conditionalUniforms = {
 
 	linewidth: { value: 1 },
-	resolution: { value: new Vector2( 1, 1 ) },
+	resolution: { value: new THREE.Vector2( 1, 1 ) },
 	dashScale: { value: 1 },
 	dashSize: { value: 1 },
 	gapSize: { value: 1 }, // todo FIX - maybe change to totalSize
@@ -27,12 +11,12 @@ const uniforms = {
 
 };
 
-const shader = {
+const conditionalShader = {
 
-	uniforms: UniformsUtils.merge( [
-		UniformsLib.common,
-		UniformsLib.fog,
-		uniforms
+	uniforms: THREE.UniformsUtils.merge( [
+		THREE.UniformsLib.common,
+		THREE.UniformsLib.fog,
+		conditionalUniforms
 	] ),
 
 	vertexShader:
@@ -274,160 +258,89 @@ const shader = {
 		`
 };
 
-var ConditionalLineMaterial = function ( parameters ) {
 
-	ShaderMaterial.call( this, {
+class ConditionalLineMaterial extends THREE.ShaderMaterial {
 
-		type: 'ConditionalLineMaterial',
+	constructor( parameters ) {
+		
+		super( {
+			type: 'ConditionalLineMaterial',
+			uniforms: THREE.UniformsUtils.clone( conditionalShader.uniforms ),
+			vertexShader: conditionalShader.vertexShader,
+			fragmentShader: conditionalShader.fragmentShader,
+			clipping: true // required for clipping support
+		} );
 
-		uniforms: UniformsUtils.clone( shader.uniforms ),
+		this.dashed = false;
+		this.isConditionalLineMaterial = true;
 
-		vertexShader: shader.vertexShader,
-		fragmentShader: shader.fragmentShader,
-
-		clipping: true // required for clipping support
-
-	} );
-
-	this.dashed = false;
-
-	Object.defineProperties( this, {
-
-		color: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.diffuse.value;
-
+		Object.defineProperties( this, {
+			color: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.diffuse.value;
+				},
+				set: function ( value ) {
+					this.uniforms.diffuse.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.diffuse.value = value;
-
-			}
-
-		},
-
-		linewidth: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.linewidth.value;
-
+			linewidth: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.linewidth.value;
+				},
+				set: function ( value ) {
+					this.uniforms.linewidth.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.linewidth.value = value;
-
-			}
-
-		},
-
-		dashScale: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.dashScale.value;
-
+			dashScale: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.dashScale.value;
+				},
+				set: function ( value ) {
+					this.uniforms.dashScale.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.dashScale.value = value;
-
-			}
-
-		},
-
-		dashSize: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.dashSize.value;
-
+			dashSize: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.dashSize.value;
+				},
+				set: function ( value ) {
+					this.uniforms.dashSize.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.dashSize.value = value;
-
-			}
-
-		},
-
-		gapSize: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.gapSize.value;
-
+			gapSize: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.gapSize.value;
+				},
+				set: function ( value ) {
+					this.uniforms.gapSize.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.gapSize.value = value;
-
-			}
-
-		},
-
-		opacity: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.opacity.value;
-
+			opacity: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.opacity.value;
+				},
+				set: function ( value ) {
+					this.uniforms.opacity.value = value;
+				}
 			},
-
-			set: function ( value ) {
-
-				this.uniforms.opacity.value = value;
-
+			resolution: {
+				enumerable: true,
+				get: function () {
+					return this.uniforms.resolution.value;
+				},
+				set: function ( value ) {
+					this.uniforms.resolution.value.copy( value );
+				}
 			}
+		} );
 
-		},
+		this.setValues( parameters );
+	}
 
-		resolution: {
-
-			enumerable: true,
-
-			get: function () {
-
-				return this.uniforms.resolution.value;
-
-			},
-
-			set: function ( value ) {
-
-				this.uniforms.resolution.value.copy( value );
-
-			}
-
-		}
-
-	} );
-
-	this.setValues( parameters );
-
-};
-
-ConditionalLineMaterial.prototype = Object.create( ShaderMaterial.prototype );
-ConditionalLineMaterial.prototype.constructor = ConditionalLineMaterial;
-
-ConditionalLineMaterial.prototype.isConditionalLineMaterial = true;
-
-// export { ConditionalLineMaterial };
+}

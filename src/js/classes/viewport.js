@@ -269,14 +269,12 @@ class Viewport {
 				box.setFromObject( object, true );
 				if ( box.isEmpty() === false ) {
 					// TODO: replace with OUTLINE
-					selectionBox.visible = true;
+					// selectionBox.visible = true;
 				}
 				transformControls.attach( object );
 			}
 
-			let model = new THREE.Group();
-			model.add(object);
-			selection.add(model);
+			selection.add(object);
 
 			render();
 		};

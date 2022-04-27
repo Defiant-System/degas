@@ -4,12 +4,16 @@ class Selection {
 	constructor() {
 		this.thickness = 3;
 		this.useThickLines = true;
-		this.lineColor = 0xff9900;
+		this.lineColor = 0xff6600;
 	}
 
-	add(model) {
-		let clone = model.clone(),
+	add(object) {
+		let model = new THREE.Group(),
+			clone = model.clone(),
 			meshes = [];
+		
+		model.add(object.clone());
+		object.renderOrder = 2;
 
 		clone.traverse(child => child.isMesh ? meshes.push(child) : null);
 
@@ -28,18 +32,18 @@ class Selection {
 		});
 				
 		// init background model
-		let bgClone = model.clone();
-		bgClone.traverse(child => {
-			if (child.isMesh) {
-				child.material = new THREE.MeshBasicMaterial({ color: 0x0066dd });
-				child.material.polygonOffset = true;
-				child.material.polygonOffsetFactor = 1;
-				child.material.polygonOffsetUnits = 1;
-				child.receiveShadow = true;
-				child.renderOrder = 2;
-			}
-		});
-		editor.scene.add(bgClone);
+		// let bgClone = model.clone();
+		// bgClone.traverse(child => {
+		// 	if (child.isMesh) {
+		// 		child.material = new THREE.MeshBasicMaterial({ color: 0x0066dd });
+		// 		child.material.polygonOffset = true;
+		// 		child.material.polygonOffsetFactor = 1;
+		// 		child.material.polygonOffsetUnits = 1;
+		// 		child.receiveShadow = true;
+		// 		child.renderOrder = 2;
+		// 	}
+		// });
+		// editor.scene.add(bgClone);
 
 
 		// init conditional model
@@ -47,6 +51,7 @@ class Selection {
 		editor.scene.add(conClone);
 		meshes = [];
 		conClone.traverse(child => child.isMesh ? meshes.push(child) : null);
+		
 
 		meshes.map(mesh => {
 			let parent = mesh.parent;
@@ -76,7 +81,7 @@ class Selection {
 			parent.add(thickLines);
 		});
 
-		edges.CONDITIONAL.traverse(child => {
+		conClone.traverse(child => {
 			if (child.material && child.material.resolution) {
 				renderer.getSize(child.material.resolution);
 				child.material.resolution.multiplyScalar(window.devicePixelRatio);
