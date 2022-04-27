@@ -16,7 +16,10 @@ import { RoomEnvironment } from './modules/threejs/examples/jsm/environments/Roo
 
 
 import * as BufferGeometryUtils from "./modules/threejs/examples/jsm/utils/BufferGeometryUtils.js";
+import { LineSegmentsGeometry } from "./modules/threejs/examples/jsm/lines/LineSegmentsGeometry.js";
 import { LineSegments2 } from "./modules/threejs/examples/jsm/lines/LineSegments2.js";
+import { LineMaterial } from "./modules/threejs/examples/jsm/lines/LineMaterial.js";
+
 import { ConditionalEdgesGeometry } from "./modules/conditional-lines/ConditionalEdgesGeometry.js";
 import { ConditionalEdgesShader } from "./modules/conditional-lines/ConditionalEdgesShader.js";
 import { ConditionalLineSegmentsGeometry } from "./modules/conditional-lines/ConditionalLineSegmentsGeometry.js";
@@ -50,7 +53,10 @@ module.exports = {
 	RoomEnvironment,
 
 	BufferGeometryUtils,
+	LineSegmentsGeometry,
 	LineSegments2,
+	LineMaterial,
+	
 	ConditionalEdgesGeometry,
 	ConditionalEdgesShader,
 	ConditionalLineSegmentsGeometry,

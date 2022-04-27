@@ -21,20 +21,25 @@ class Selection {
 		group.add(object.clone());
 
 
-		// group.traverse(child => child.isMesh ? meshes.push(child) : null);
-		// meshes.map(mesh => {
-		// 	let parent = mesh.parent;
-		// 	let lineGeom = new THREE.EdgesGeometry(mesh.geometry, 90);
-		// 	let lineMat = new THREE.LineBasicMaterial({ color: this.lineColor });
-		// 	let line = new THREE.LineSegments(lineGeom, lineMat);
+		group.traverse(child => child.isMesh ? meshes.push(child) : null);
+		meshes.map(mesh => {
+			let parent = mesh.parent;
+			let lineGeom = new THREE.EdgesGeometry(mesh.geometry, 90);
+			let lineMat = new THREE.LineBasicMaterial({ color: this.lineColor });
+			let line = new THREE.LineSegments(lineGeom, lineMat);
 
-		// 	line.position.copy(mesh.position);
-		// 	line.scale.copy(mesh.scale);
-		// 	line.rotation.copy(mesh.rotation);
+			line.position.copy(mesh.position);
+			line.scale.copy(mesh.scale);
+			line.rotation.copy(mesh.rotation);
 
-		// 	parent.remove(mesh);
-		// 	parent.add(line);
-		// });
+			let thickLineGeom = new LineSegmentsGeometry().fromEdgesGeometry(lineGeom);
+			let thickLineMat = new LineMaterial({ color: this.lineColor, linewidth: this.thickness });
+			let thickLines = new LineSegments2(thickLineGeom, thickLineMat);
+
+			parent.remove(mesh);
+			parent.add(line);
+			parent.add(thickLines);
+		});
 
 
 		let clone = group.clone();

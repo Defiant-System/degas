@@ -19,7 +19,9 @@ const {
 	RoomEnvironment,
 
 	BufferGeometryUtils,
+	LineSegmentsGeometry,
 	LineSegments2,
+	LineMaterial,
 	
 	ConditionalEdgesGeometry,
 	ConditionalEdgesShader,
