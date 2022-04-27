@@ -19,9 +19,29 @@ class Selection {
 
 		// init conditional model
 		group.add(object.clone());
-		editor.scene.add(group);
 
-		group.traverse(child => child.isMesh ? meshes.push(child) : null);
+
+		// group.traverse(child => child.isMesh ? meshes.push(child) : null);
+		// meshes.map(mesh => {
+		// 	let parent = mesh.parent;
+		// 	let lineGeom = new THREE.EdgesGeometry(mesh.geometry, 90);
+		// 	let lineMat = new THREE.LineBasicMaterial({ color: this.lineColor });
+		// 	let line = new THREE.LineSegments(lineGeom, lineMat);
+
+		// 	line.position.copy(mesh.position);
+		// 	line.scale.copy(mesh.scale);
+		// 	line.rotation.copy(mesh.rotation);
+
+		// 	parent.remove(mesh);
+		// 	parent.add(line);
+		// });
+
+
+		let clone = group.clone();
+		editor.scene.add(clone);
+
+		meshes = [];
+		clone.traverse(child => child.isMesh ? meshes.push(child) : null);
 
 		meshes.map(mesh => {
 			let parent = mesh.parent;
@@ -51,7 +71,7 @@ class Selection {
 			parent.add(thickLines);
 		});
 
-		group.traverse(child => {
+		clone.traverse(child => {
 			if (child.material && child.material.resolution) {
 				renderer.getSize(child.material.resolution);
 				child.material.resolution.multiplyScalar(window.devicePixelRatio);
@@ -60,7 +80,7 @@ class Selection {
 			if (child.material) child.visible = child.isLineSegments2;
 		});
 
-		this.outline = group;
+		this.outline = clone;
 
 	}
 
