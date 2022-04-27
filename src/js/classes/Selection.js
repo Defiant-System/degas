@@ -7,51 +7,21 @@ class Selection {
 		this.lineColor = 0xff6600;
 	}
 
+	clear() {
+		if (this.outline) {
+			editor.scene.remove(this.outline);
+		}
+	}
+
 	add(object) {
-		let model = new THREE.Group(),
-			clone = model.clone(),
+		let group = new THREE.Group(),
 			meshes = [];
-		
-		model.add(object.clone());
-		object.renderOrder = 2;
-
-		clone.traverse(child => child.isMesh ? meshes.push(child) : null);
-
-		meshes.map(mesh => {
-			let parent = mesh.parent;
-			let lineGeom = new THREE.EdgesGeometry(mesh.geometry, 90);
-			let lineMat = new THREE.LineBasicMaterial({ color: this.lineColor });
-			let line = new THREE.LineSegments(lineGeom, lineMat);
-
-			line.position.copy(mesh.position);
-			line.scale.copy(mesh.scale);
-			line.rotation.copy(mesh.rotation);
-
-			parent.remove(mesh);
-			parent.add(line);
-		});
-				
-		// init background model
-		// let bgClone = model.clone();
-		// bgClone.traverse(child => {
-		// 	if (child.isMesh) {
-		// 		child.material = new THREE.MeshBasicMaterial({ color: 0x0066dd });
-		// 		child.material.polygonOffset = true;
-		// 		child.material.polygonOffsetFactor = 1;
-		// 		child.material.polygonOffsetUnits = 1;
-		// 		child.receiveShadow = true;
-		// 		child.renderOrder = 2;
-		// 	}
-		// });
-		// editor.scene.add(bgClone);
-
 
 		// init conditional model
-		let conClone = model.clone();
-		editor.scene.add(conClone);
-		meshes = [];
-		conClone.traverse(child => child.isMesh ? meshes.push(child) : null);
-		
+		group.add(object.clone());
+		editor.scene.add(group);
+
+		group.traverse(child => child.isMesh ? meshes.push(child) : null);
 
 		meshes.map(mesh => {
 			let parent = mesh.parent;
@@ -81,19 +51,17 @@ class Selection {
 			parent.add(thickLines);
 		});
 
-		conClone.traverse(child => {
+		group.traverse(child => {
 			if (child.material && child.material.resolution) {
 				renderer.getSize(child.material.resolution);
 				child.material.resolution.multiplyScalar(window.devicePixelRatio);
 				child.material.linewidth = this.thickness;
 			}
-			if (child.material) {
-				child.visible = child.isLineSegments2;
-			}
-		} );
+			if (child.material) child.visible = child.isLineSegments2;
+		});
 
-		// render
-		// viewport.render();
+		this.outline = group;
+
 	}
 
 }

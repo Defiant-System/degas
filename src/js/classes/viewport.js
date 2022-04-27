@@ -265,6 +265,8 @@ class Viewport {
 			selectionBox.visible = false;
 			transformControls.detach();
 
+			selection.clear();
+
 			if ( object !== null && object !== scene && object !== camera ) {
 				box.setFromObject( object, true );
 				if ( box.isEmpty() === false ) {
@@ -272,9 +274,9 @@ class Viewport {
 					// selectionBox.visible = true;
 				}
 				transformControls.attach( object );
+				
+				selection.add(object);
 			}
-
-			selection.add(object);
 
 			render();
 		};

@@ -35,8 +35,8 @@ const degas = {
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
 
-		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
-		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
 		this.dispatch({ type: "add-mesh", arg: "torus", position: [0, 0, 0] });
 
 		// this.workspace.dispatch({ type: "deselect" });
