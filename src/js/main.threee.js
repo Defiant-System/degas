@@ -19,13 +19,12 @@ const {
 	RoomEnvironment,
 
 	BufferGeometryUtils,
-	LineSegmentsGeometry,
 	LineSegments2,
-	LineMaterial,
+	
 	ConditionalEdgesGeometry,
 	ConditionalEdgesShader,
 	ConditionalLineSegmentsGeometry,
-	ConditionalLineMaterial,
+	// ConditionalLineMaterial,
 } = await window.fetch("~/js/bundle.js");
 
 
@@ -35,6 +34,7 @@ const {
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.ViewHelper.js";
 @import "./classes/Selection.js";
+@import "./modules/conditional-lines/ConditionalLineMaterial.js";
 
 @import "./classes/File.js";
 @import "./modules/color.js";

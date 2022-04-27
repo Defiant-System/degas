@@ -1,9 +1,9 @@
-import {
-	ShaderMaterial,
-	UniformsLib,
-	UniformsUtils,
-	Vector2
-} from '../threejs/build/three.module.js';
+// import {
+let ShaderMaterial = THREE.ShaderMaterial,
+	UniformsLib = THREE.UniformsLib,
+	UniformsUtils = THREE.UniformsUtils,
+	Vector2 = THREE.Vector2;
+// } from '../threejs/build/three.module.js';
 /**
  * parameters = {
  *  color: <hex>,
@@ -430,4 +430,4 @@ ConditionalLineMaterial.prototype.constructor = ConditionalLineMaterial;
 
 ConditionalLineMaterial.prototype.isConditionalLineMaterial = true;
 
-export { ConditionalLineMaterial };
+// export { ConditionalLineMaterial };

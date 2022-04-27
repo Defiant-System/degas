@@ -273,6 +273,11 @@ class Viewport {
 				}
 				transformControls.attach( object );
 			}
+
+			let model = new THREE.Group();
+			model.add(object);
+			selection.add(model);
+
 			render();
 		};
 

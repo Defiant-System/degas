@@ -35,11 +35,11 @@ const degas = {
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
 
-		this.dispatch({ type: "add-mesh", arg: "sprite", position: [-4, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "tetrahedron", position: [3, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "tube", position: [0, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "torus", position: [0, 0, 0] });
 
-		this.workspace.dispatch({ type: "deselect" });
+		// this.workspace.dispatch({ type: "deselect" });
 		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);

@@ -127,7 +127,7 @@
 				// apply argument value
 				if (event.intensity) object.intensity = event.intensity;
 				editor.addObject( object );
-				editor.select( object );
+				// editor.select( object );
 				viewport.viewInfo.update();
 				viewport.render();
 				break;
