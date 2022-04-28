@@ -2,52 +2,50 @@
 class Selection {
 
 	constructor() {
-		this.thickness = 5;
-		this.useThickLines = true;
+		this.scene = new THREE.Scene();
+		this.resetSceneBgColor();
+
+		this.thickness = 6;
 		this.lineColor = 0xff6600;
+	}
+
+	resetSceneBgColor() {
+		this.scene.background = new THREE.Color( 0x333333 );
 	}
 
 	clear() {
 		if (this.outline) {
-			editor.scene.remove(this.outline);
+			this.scene.remove(this.outline);
 		}
 	}
 
 	add(object) {
 		let group = new THREE.Group(),
-			meshes = [];
+			meshes = [],
+			clone;
 
 		// init conditional model
-		group.add(object.clone());
-
+		clone = object.clone();
+		group.add(clone);
 
 		group.traverse(child => child.isMesh ? meshes.push(child) : null);
 		meshes.map(mesh => {
 			let parent = mesh.parent;
 			let lineGeom = new THREE.EdgesGeometry(mesh.geometry, 90);
-			let lineMat = new THREE.LineBasicMaterial({ color: this.lineColor });
-			let line = new THREE.LineSegments(lineGeom, lineMat);
-
-			line.position.copy(mesh.position);
-			line.scale.copy(mesh.scale);
-			line.rotation.copy(mesh.rotation);
-
 			let thickLineGeom = new LineSegmentsGeometry().fromEdgesGeometry(lineGeom);
 			let thickLineMat = new LineMaterial({ color: this.lineColor, linewidth: this.thickness });
 			let thickLines = new LineSegments2(thickLineGeom, thickLineMat);
 
-			parent.remove(mesh);
-			parent.add(line);
 			parent.add(thickLines);
+			mesh.visible = false;
 		});
 
 
-		let clone = group.clone();
-		editor.scene.add(clone);
+		clone = group.clone();
+		this.scene.add(clone);
 
 		meshes = [];
 		clone.traverse(child => child.isMesh ? meshes.push(child) : null);
-
 		meshes.map(mesh => {
 			let parent = mesh.parent;
 
@@ -68,11 +66,11 @@ class Selection {
 			let thickLineGeom = new ConditionalLineSegmentsGeometry().fromConditionalEdgesGeometry(lineGeom);
 			let thickLineMat = new ConditionalLineMaterial({ color: this.lineColor });
 			let thickLines = new LineSegments2(thickLineGeom, thickLineMat);
+
 			thickLines.position.copy(mesh.position);
 			thickLines.scale.copy(mesh.scale);
 			thickLines.rotation.copy(mesh.rotation);
 
-			parent.remove(mesh);
 			parent.add(thickLines);
 		});
 
@@ -83,6 +81,8 @@ class Selection {
 				child.material.linewidth = this.thickness;
 			}
 			if (child.material) child.visible = child.isLineSegments2;
+			if (child.type === "Mesh") child.visible = false;
+
 		});
 
 		this.outline = clone;

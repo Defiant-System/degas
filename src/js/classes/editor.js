@@ -33,7 +33,7 @@ class Editor {
 	}
 
 	resetSceneBgColor() {
-		this.scene.background = new THREE.Color( 0x333333 );
+		// this.scene.background = new THREE.Color( 0x333333 );
 	}
 
 	setScene( scene ) {
