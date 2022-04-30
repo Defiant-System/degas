@@ -33,7 +33,7 @@ class Selection {
 			// mesh.visible = false;
 		});
 
-
+		/*
 		const material = new THREE.LineBasicMaterial({ color: 0x229922 });
 		const points = [
 			new THREE.Vector3( - 3, 0, 0 ),
@@ -43,7 +43,7 @@ class Selection {
 		const geometry = new THREE.BufferGeometry().setFromPoints( points );
 		const line = new THREE.Line( geometry, material );
 		editor.scene.add( line );
-
+		*/
 
 		clone = group.clone();
 		editor.scene.add(clone);
