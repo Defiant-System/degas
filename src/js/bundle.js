@@ -15,16 +15,10 @@ import { ViewportInfo } from './classes/Viewport.ViewportInfo.js';
 import { RoomEnvironment } from './modules/threejs/examples/jsm/environments/RoomEnvironment.js';
 
 
-import * as BufferGeometryUtils from "./modules/threejs/examples/jsm/utils/BufferGeometryUtils.js";
-import { LineSegmentsGeometry } from "./modules/threejs/examples/jsm/lines/LineSegmentsGeometry.js";
-import { LineSegments2 } from "./modules/threejs/examples/jsm/lines/LineSegments2.js";
-import { LineMaterial } from "./modules/threejs/examples/jsm/lines/LineMaterial.js";
-
-import { ConditionalEdgesGeometry } from "./modules/conditional-lines/ConditionalEdgesGeometry.js";
-import { ConditionalEdgesShader } from "./modules/conditional-lines/ConditionalEdgesShader.js";
-import { ConditionalLineSegmentsGeometry } from "./modules/conditional-lines/ConditionalLineSegmentsGeometry.js";
-// import { ConditionalLineMaterial } from "./modules/conditional-lines/ConditionalLineMaterial.js";
-
+import { EffectComposer } from './modules/threejs/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './modules/threejs/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from './modules/threejs/examples/jsm/postprocessing/ShaderPass.js';
+import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/OutlinePass.js';
 
 
 // custom THREE.js "dispose"
@@ -52,13 +46,8 @@ module.exports = {
 	ViewportInfo,
 	RoomEnvironment,
 
-	BufferGeometryUtils,
-	LineSegmentsGeometry,
-	LineSegments2,
-	LineMaterial,
-	
-	ConditionalEdgesGeometry,
-	ConditionalEdgesShader,
-	ConditionalLineSegmentsGeometry,
-	// ConditionalLineMaterial,
+	EffectComposer,
+	RenderPass,
+	ShaderPass,
+	OutlinePass,
 };

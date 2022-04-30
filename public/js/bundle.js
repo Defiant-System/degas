@@ -9653,7 +9653,7 @@ let _id$1 = 0;
 const _m1 = /*@__PURE__*/ new Matrix4();
 const _obj = /*@__PURE__*/ new Object3D();
 const _offset = /*@__PURE__*/ new Vector3();
-const _box$1$1 = /*@__PURE__*/ new Box3();
+const _box$1 = /*@__PURE__*/ new Box3();
 const _boxMorphTargets = /*@__PURE__*/ new Box3();
 const _vector$8 = /*@__PURE__*/ new Vector3();
 
@@ -9958,20 +9958,20 @@ class BufferGeometry extends EventDispatcher {
 				for ( let i = 0, il = morphAttributesPosition.length; i < il; i ++ ) {
 
 					const morphAttribute = morphAttributesPosition[ i ];
-					_box$1$1.setFromBufferAttribute( morphAttribute );
+					_box$1.setFromBufferAttribute( morphAttribute );
 
 					if ( this.morphTargetsRelative ) {
 
-						_vector$8.addVectors( this.boundingBox.min, _box$1$1.min );
+						_vector$8.addVectors( this.boundingBox.min, _box$1.min );
 						this.boundingBox.expandByPoint( _vector$8 );
 
-						_vector$8.addVectors( this.boundingBox.max, _box$1$1.max );
+						_vector$8.addVectors( this.boundingBox.max, _box$1.max );
 						this.boundingBox.expandByPoint( _vector$8 );
 
 					} else {
 
-						this.boundingBox.expandByPoint( _box$1$1.min );
-						this.boundingBox.expandByPoint( _box$1$1.max );
+						this.boundingBox.expandByPoint( _box$1.min );
+						this.boundingBox.expandByPoint( _box$1.max );
 
 					}
 
@@ -10020,7 +10020,7 @@ class BufferGeometry extends EventDispatcher {
 
 			const center = this.boundingSphere.center;
 
-			_box$1$1.setFromBufferAttribute( position );
+			_box$1.setFromBufferAttribute( position );
 
 			// process morph attributes if present
 
@@ -10033,16 +10033,16 @@ class BufferGeometry extends EventDispatcher {
 
 					if ( this.morphTargetsRelative ) {
 
-						_vector$8.addVectors( _box$1$1.min, _boxMorphTargets.min );
-						_box$1$1.expandByPoint( _vector$8 );
+						_vector$8.addVectors( _box$1.min, _boxMorphTargets.min );
+						_box$1.expandByPoint( _vector$8 );
 
-						_vector$8.addVectors( _box$1$1.max, _boxMorphTargets.max );
-						_box$1$1.expandByPoint( _vector$8 );
+						_vector$8.addVectors( _box$1.max, _boxMorphTargets.max );
+						_box$1.expandByPoint( _vector$8 );
 
 					} else {
 
-						_box$1$1.expandByPoint( _boxMorphTargets.min );
-						_box$1$1.expandByPoint( _boxMorphTargets.max );
+						_box$1.expandByPoint( _boxMorphTargets.min );
+						_box$1.expandByPoint( _boxMorphTargets.max );
 
 					}
 
@@ -10050,7 +10050,7 @@ class BufferGeometry extends EventDispatcher {
 
 			}
 
-			_box$1$1.getCenter( center );
+			_box$1.getCenter( center );
 
 			// second, try to find a boundingSphere with a radius smaller than the
 			// boundingSphere of the boundingBox: sqrt(3) smaller in the best case
@@ -28810,7 +28810,7 @@ class SpriteMaterial extends Material {
 
 SpriteMaterial.prototype.isSpriteMaterial = true;
 
-let _geometry;
+let _geometry$2;
 
 const _intersectPoint = /*@__PURE__*/ new Vector3();
 const _worldScale = /*@__PURE__*/ new Vector3();
@@ -28836,9 +28836,9 @@ class Sprite extends Object3D {
 
 		this.type = 'Sprite';
 
-		if ( _geometry === undefined ) {
+		if ( _geometry$2 === undefined ) {
 
-			_geometry = new BufferGeometry();
+			_geometry$2 = new BufferGeometry();
 
 			const float32Array = new Float32Array( [
 				- 0.5, - 0.5, 0, 0, 0,
@@ -28849,13 +28849,13 @@ class Sprite extends Object3D {
 
 			const interleavedBuffer = new InterleavedBuffer( float32Array, 5 );
 
-			_geometry.setIndex( [ 0, 1, 2,	0, 2, 3 ] );
-			_geometry.setAttribute( 'position', new InterleavedBufferAttribute( interleavedBuffer, 3, 0, false ) );
-			_geometry.setAttribute( 'uv', new InterleavedBufferAttribute( interleavedBuffer, 2, 3, false ) );
+			_geometry$2.setIndex( [ 0, 1, 2,	0, 2, 3 ] );
+			_geometry$2.setAttribute( 'position', new InterleavedBufferAttribute( interleavedBuffer, 3, 0, false ) );
+			_geometry$2.setAttribute( 'uv', new InterleavedBufferAttribute( interleavedBuffer, 2, 3, false ) );
 
 		}
 
-		this.geometry = _geometry;
+		this.geometry = _geometry$2;
 		this.material = ( material !== undefined ) ? material : new SpriteMaterial();
 
 		this.center = new Vector2( 0.5, 0.5 );
@@ -30078,8 +30078,8 @@ class Line extends Object3D {
 
 Line.prototype.isLine = true;
 
-const _start$2 = /*@__PURE__*/ new Vector3();
-const _end$2 = /*@__PURE__*/ new Vector3();
+const _start = /*@__PURE__*/ new Vector3();
+const _end = /*@__PURE__*/ new Vector3();
 
 class LineSegments extends Line {
 
@@ -30106,11 +30106,11 @@ class LineSegments extends Line {
 
 				for ( let i = 0, l = positionAttribute.count; i < l; i += 2 ) {
 
-					_start$2.fromBufferAttribute( positionAttribute, i );
-					_end$2.fromBufferAttribute( positionAttribute, i + 1 );
+					_start.fromBufferAttribute( positionAttribute, i );
+					_end.fromBufferAttribute( positionAttribute, i + 1 );
 
 					lineDistances[ i ] = ( i === 0 ) ? 0 : lineDistances[ i - 1 ];
-					lineDistances[ i + 1 ] = lineDistances[ i ] + _start$2.distanceTo( _end$2 );
+					lineDistances[ i + 1 ] = lineDistances[ i ] + _start.distanceTo( _end );
 
 				}
 
@@ -30207,7 +30207,7 @@ PointsMaterial.prototype.isPointsMaterial = true;
 
 const _inverseMatrix = /*@__PURE__*/ new Matrix4();
 const _ray = /*@__PURE__*/ new Ray();
-const _sphere$4 = /*@__PURE__*/ new Sphere();
+const _sphere = /*@__PURE__*/ new Sphere();
 const _position$2 = /*@__PURE__*/ new Vector3();
 
 class Points extends Object3D {
@@ -30247,11 +30247,11 @@ class Points extends Object3D {
 
 		if ( geometry.boundingSphere === null ) geometry.computeBoundingSphere();
 
-		_sphere$4.copy( geometry.boundingSphere );
-		_sphere$4.applyMatrix4( matrixWorld );
-		_sphere$4.radius += threshold;
+		_sphere.copy( geometry.boundingSphere );
+		_sphere.applyMatrix4( matrixWorld );
+		_sphere.radius += threshold;
 
-		if ( raycaster.ray.intersectsSphere( _sphere$4 ) === false ) return;
+		if ( raycaster.ray.intersectsSphere( _sphere ) === false ) return;
 
 		//
 
@@ -47870,8 +47870,8 @@ class DirectionalLightHelper extends Object3D {
 
 }
 
-const _vector$d = /*@__PURE__*/ new Vector3();
-const _camera = /*@__PURE__*/ new Camera();
+const _vector = /*@__PURE__*/ new Vector3();
+const _camera$2 = /*@__PURE__*/ new Camera();
 
 /**
  *	- shows frustum, line of sight and up of the camera
@@ -47998,44 +47998,44 @@ class CameraHelper extends LineSegments {
 		// we need just camera projection matrix inverse
 		// world matrix must be identity
 
-		_camera.projectionMatrixInverse.copy( this.camera.projectionMatrixInverse );
+		_camera$2.projectionMatrixInverse.copy( this.camera.projectionMatrixInverse );
 
 		// center / target
 
-		setPoint( 'c', pointMap, geometry, _camera, 0, 0, - 1 );
-		setPoint( 't', pointMap, geometry, _camera, 0, 0, 1 );
+		setPoint( 'c', pointMap, geometry, _camera$2, 0, 0, - 1 );
+		setPoint( 't', pointMap, geometry, _camera$2, 0, 0, 1 );
 
 		// near
 
-		setPoint( 'n1', pointMap, geometry, _camera, - w, - h, - 1 );
-		setPoint( 'n2', pointMap, geometry, _camera, w, - h, - 1 );
-		setPoint( 'n3', pointMap, geometry, _camera, - w, h, - 1 );
-		setPoint( 'n4', pointMap, geometry, _camera, w, h, - 1 );
+		setPoint( 'n1', pointMap, geometry, _camera$2, - w, - h, - 1 );
+		setPoint( 'n2', pointMap, geometry, _camera$2, w, - h, - 1 );
+		setPoint( 'n3', pointMap, geometry, _camera$2, - w, h, - 1 );
+		setPoint( 'n4', pointMap, geometry, _camera$2, w, h, - 1 );
 
 		// far
 
-		setPoint( 'f1', pointMap, geometry, _camera, - w, - h, 1 );
-		setPoint( 'f2', pointMap, geometry, _camera, w, - h, 1 );
-		setPoint( 'f3', pointMap, geometry, _camera, - w, h, 1 );
-		setPoint( 'f4', pointMap, geometry, _camera, w, h, 1 );
+		setPoint( 'f1', pointMap, geometry, _camera$2, - w, - h, 1 );
+		setPoint( 'f2', pointMap, geometry, _camera$2, w, - h, 1 );
+		setPoint( 'f3', pointMap, geometry, _camera$2, - w, h, 1 );
+		setPoint( 'f4', pointMap, geometry, _camera$2, w, h, 1 );
 
 		// up
 
-		setPoint( 'u1', pointMap, geometry, _camera, w * 0.7, h * 1.1, - 1 );
-		setPoint( 'u2', pointMap, geometry, _camera, - w * 0.7, h * 1.1, - 1 );
-		setPoint( 'u3', pointMap, geometry, _camera, 0, h * 2, - 1 );
+		setPoint( 'u1', pointMap, geometry, _camera$2, w * 0.7, h * 1.1, - 1 );
+		setPoint( 'u2', pointMap, geometry, _camera$2, - w * 0.7, h * 1.1, - 1 );
+		setPoint( 'u3', pointMap, geometry, _camera$2, 0, h * 2, - 1 );
 
 		// cross
 
-		setPoint( 'cf1', pointMap, geometry, _camera, - w, 0, 1 );
-		setPoint( 'cf2', pointMap, geometry, _camera, w, 0, 1 );
-		setPoint( 'cf3', pointMap, geometry, _camera, 0, - h, 1 );
-		setPoint( 'cf4', pointMap, geometry, _camera, 0, h, 1 );
+		setPoint( 'cf1', pointMap, geometry, _camera$2, - w, 0, 1 );
+		setPoint( 'cf2', pointMap, geometry, _camera$2, w, 0, 1 );
+		setPoint( 'cf3', pointMap, geometry, _camera$2, 0, - h, 1 );
+		setPoint( 'cf4', pointMap, geometry, _camera$2, 0, h, 1 );
 
-		setPoint( 'cn1', pointMap, geometry, _camera, - w, 0, - 1 );
-		setPoint( 'cn2', pointMap, geometry, _camera, w, 0, - 1 );
-		setPoint( 'cn3', pointMap, geometry, _camera, 0, - h, - 1 );
-		setPoint( 'cn4', pointMap, geometry, _camera, 0, h, - 1 );
+		setPoint( 'cn1', pointMap, geometry, _camera$2, - w, 0, - 1 );
+		setPoint( 'cn2', pointMap, geometry, _camera$2, w, 0, - 1 );
+		setPoint( 'cn3', pointMap, geometry, _camera$2, 0, - h, - 1 );
+		setPoint( 'cn4', pointMap, geometry, _camera$2, 0, h, - 1 );
 
 		geometry.getAttribute( 'position' ).needsUpdate = true;
 
@@ -48053,7 +48053,7 @@ class CameraHelper extends LineSegments {
 
 function setPoint( point, pointMap, geometry, camera, x, y, z ) {
 
-	_vector$d.set( x, y, z ).unproject( camera );
+	_vector.set( x, y, z ).unproject( camera );
 
 	const points = pointMap[ point ];
 
@@ -48063,7 +48063,7 @@ function setPoint( point, pointMap, geometry, camera, x, y, z ) {
 
 		for ( let i = 0, l = points.length; i < l; i ++ ) {
 
-			position.setXYZ( points[ i ], _vector$d.x, _vector$d.y, _vector$d.z );
+			position.setXYZ( points[ i ], _vector.x, _vector.y, _vector.z );
 
 		}
 
@@ -48071,7 +48071,7 @@ function setPoint( point, pointMap, geometry, camera, x, y, z ) {
 
 }
 
-const _box$4 = /*@__PURE__*/ new Box3();
+const _box = /*@__PURE__*/ new Box3();
 
 class BoxHelper extends LineSegments {
 
@@ -48105,14 +48105,14 @@ class BoxHelper extends LineSegments {
 
 		if ( this.object !== undefined ) {
 
-			_box$4.setFromObject( this.object );
+			_box.setFromObject( this.object );
 
 		}
 
-		if ( _box$4.isEmpty() ) return;
+		if ( _box.isEmpty() ) return;
 
-		const min = _box$4.min;
-		const max = _box$4.max;
+		const min = _box.min;
+		const max = _box.max;
 
 		/*
 			5____4
@@ -54678,7 +54678,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { Rhino3dmLoader } = await import( './3DMLoader-60951d14.js' );
+					const { Rhino3dmLoader } = await import( './3DMLoader-ab106fd8.js' );
 
 					const loader = new Rhino3dmLoader();
 					loader.setLibraryPath( '../examples/jsm/libs/rhino3dm/' );
@@ -54701,7 +54701,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { TDSLoader } = await import( './TDSLoader-fb95e5b1.js' );
+					const { TDSLoader } = await import( './TDSLoader-dd24d399.js' );
 
 					const loader = new TDSLoader();
 					const object = loader.parse( event.target.result );
@@ -54721,7 +54721,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { ThreeMFLoader } = await import( './3MFLoader-d0d0d57d.js' );
+					const { ThreeMFLoader } = await import( './3MFLoader-f454bf7c.js' );
 
 					const loader = new ThreeMFLoader();
 					const object = loader.parse( event.target.result );
@@ -54741,7 +54741,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { AMFLoader } = await import( './AMFLoader-0b2ea771.js' );
+					const { AMFLoader } = await import( './AMFLoader-64d1e981.js' );
 
 					const loader = new AMFLoader();
 					const amfobject = loader.parse( event.target.result );
@@ -54763,7 +54763,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { ColladaLoader } = await import( './ColladaLoader-03f1396b.js' );
+					const { ColladaLoader } = await import( './ColladaLoader-e361d94d.js' );
 
 					const loader = new ColladaLoader( manager );
 					const collada = loader.parse( contents );
@@ -54787,7 +54787,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-8458b416.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-96537ce3.js' );
 
 					const loader = new DRACOLoader();
 					loader.setDecoderPath( '../examples/js/libs/draco/' );
@@ -54832,7 +54832,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { FBXLoader } = await import( './FBXLoader-cbba16ca.js' );
+					const { FBXLoader } = await import( './FBXLoader-896efc80.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( contents );
@@ -54854,8 +54854,8 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { DRACOLoader } = await import( './DRACOLoader-8458b416.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-56ad59f8.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-96537ce3.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-2d36036b.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54895,8 +54895,8 @@ function Loader( editor ) {
 
 					} else {
 
-						const { DRACOLoader } = await import( './DRACOLoader-8458b416.js' );
-						const { GLTFLoader } = await import( './GLTFLoader-56ad59f8.js' );
+						const { DRACOLoader } = await import( './DRACOLoader-96537ce3.js' );
+						const { GLTFLoader } = await import( './GLTFLoader-2d36036b.js' );
 
 						const dracoLoader = new DRACOLoader();
 						dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -54984,7 +54984,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { IFCLoader } = await import( './IFCLoader-204228c3.js' );
+					const { IFCLoader } = await import( './IFCLoader-50d33e86.js' );
 
 					const loader = new IFCLoader();
 					loader.ifcManager.setWasmPath( '../../examples/jsm/loaders/ifc/' );
@@ -55007,7 +55007,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { KMZLoader } = await import( './KMZLoader-a474c2d0.js' );
+					const { KMZLoader } = await import( './KMZLoader-88058388.js' );
 
 					const loader = new KMZLoader();
 					const collada = loader.parse( event.target.result );
@@ -55030,7 +55030,7 @@ function Loader( editor ) {
 
 				reader.addEventListener( 'load', async function ( event ) {
 
-					const { LDrawLoader } = await import( './LDrawLoader-7cba7e16.js' );
+					const { LDrawLoader } = await import( './LDrawLoader-9b48e1d2.js' );
 
 					const loader = new LDrawLoader();
 					loader.setPath( '../../examples/models/ldraw/officialLibrary/' );
@@ -55059,7 +55059,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { MD2Loader } = await import( './MD2Loader-21278423.js' );
+					const { MD2Loader } = await import( './MD2Loader-ed959609.js' );
 
 					const geometry = new MD2Loader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55086,7 +55086,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { OBJLoader } = await import( './OBJLoader-b4777426.js' );
+					const { OBJLoader } = await import( './OBJLoader-0712ae80.js' );
 
 					const object = new OBJLoader().parse( contents );
 					object.name = filename;
@@ -55108,7 +55108,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { PLYLoader } = await import( './PLYLoader-1614693c.js' );
+					const { PLYLoader } = await import( './PLYLoader-fa188d6a.js' );
 
 					const geometry = new PLYLoader().parse( contents );
 					let object;
@@ -55147,7 +55147,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { STLLoader } = await import( './STLLoader-5041dec4.js' );
+					const { STLLoader } = await import( './STLLoader-b77be61c.js' );
 
 					const geometry = new STLLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55181,7 +55181,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { SVGLoader } = await import( './SVGLoader-f88a58f0.js' );
+					const { SVGLoader } = await import( './SVGLoader-8efb799f.js' );
 
 					const loader = new SVGLoader();
 					const paths = loader.parse( contents ).paths;
@@ -55233,7 +55233,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VOXLoader, VOXMesh } = await import( './VOXLoader-725bd902.js' );
+					const { VOXLoader, VOXMesh } = await import( './VOXLoader-0dede130.js' );
 
 					const chunks = new VOXLoader().parse( contents );
 
@@ -55266,7 +55266,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VTKLoader } = await import( './VTKLoader-b7ada802.js' );
+					const { VTKLoader } = await import( './VTKLoader-eb5a4780.js' );
 
 					const geometry = new VTKLoader().parse( contents );
 					const material = new MeshStandardMaterial();
@@ -55291,7 +55291,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { VRMLLoader } = await import( './VRMLLoader-defd67c4.js' );
+					const { VRMLLoader } = await import( './VRMLLoader-c61d4df9.js' );
 
 					const result = new VRMLLoader().parse( contents );
 
@@ -55312,7 +55312,7 @@ function Loader( editor ) {
 
 					const contents = event.target.result;
 
-					const { XYZLoader } = await import( './XYZLoader-b563daad.js' );
+					const { XYZLoader } = await import( './XYZLoader-b9ae0792.js' );
 
 					const geometry = new XYZLoader().parse( contents );
 
@@ -55442,8 +55442,8 @@ function Loader( editor ) {
 
 		if ( zip[ 'model.obj' ] && zip[ 'materials.mtl' ] ) {
 
-			const { MTLLoader } = await import( './MTLLoader-4e923f71.js' );
-			const { OBJLoader } = await import( './OBJLoader-b4777426.js' );
+			const { MTLLoader } = await import( './MTLLoader-b73c3739.js' );
+			const { OBJLoader } = await import( './OBJLoader-0712ae80.js' );
 
 			const materials = new MTLLoader().parse( strFromU8( zip[ 'materials.mtl' ] ) );
 			const object = new OBJLoader().setMaterials( materials ).parse( strFromU8( zip[ 'model.obj' ] ) );
@@ -55483,7 +55483,7 @@ function Loader( editor ) {
 
 				{
 
-					const { FBXLoader } = await import( './FBXLoader-cbba16ca.js' );
+					const { FBXLoader } = await import( './FBXLoader-896efc80.js' );
 
 					const loader = new FBXLoader( manager );
 					const object = loader.parse( file.buffer );
@@ -55498,8 +55498,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-8458b416.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-56ad59f8.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-96537ce3.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-2d36036b.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -55524,8 +55524,8 @@ function Loader( editor ) {
 
 				{
 
-					const { DRACOLoader } = await import( './DRACOLoader-8458b416.js' );
-					const { GLTFLoader } = await import( './GLTFLoader-56ad59f8.js' );
+					const { DRACOLoader } = await import( './DRACOLoader-96537ce3.js' );
+					const { GLTFLoader } = await import( './GLTFLoader-2d36036b.js' );
 
 					const dracoLoader = new DRACOLoader();
 					dracoLoader.setDecoderPath( '../examples/js/libs/draco/gltf/' );
@@ -59345,2205 +59345,442 @@ function createAreaLightMaterial( intensity ) {
 
 }
 
-function computeTangents( geometry ) {
-
-	geometry.computeTangents();
-	console.warn( 'THREE.BufferGeometryUtils: .computeTangents() has been removed. Use BufferGeometry.computeTangents() instead.' );
-
-}
-
 /**
-	 * @param  {Array<BufferGeometry>} geometries
-	 * @param  {Boolean} useGroups
-	 * @return {BufferGeometry}
-	 */
-function mergeBufferGeometries( geometries, useGroups = false ) {
-
-	const isIndexed = geometries[ 0 ].index !== null;
-
-	const attributesUsed = new Set( Object.keys( geometries[ 0 ].attributes ) );
-	const morphAttributesUsed = new Set( Object.keys( geometries[ 0 ].morphAttributes ) );
-
-	const attributes = {};
-	const morphAttributes = {};
-
-	const morphTargetsRelative = geometries[ 0 ].morphTargetsRelative;
-
-	const mergedGeometry = new BufferGeometry();
-
-	let offset = 0;
-
-	for ( let i = 0; i < geometries.length; ++ i ) {
-
-		const geometry = geometries[ i ];
-		let attributesCount = 0;
-
-		// ensure that all geometries are indexed, or none
-
-		if ( isIndexed !== ( geometry.index !== null ) ) {
-
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '. All geometries must have compatible attributes; make sure index attribute exists among all geometries, or in none of them.' );
-			return null;
-
-		}
-
-		// gather attributes, exit early if they're different
-
-		for ( const name in geometry.attributes ) {
-
-			if ( ! attributesUsed.has( name ) ) {
-
-				console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '. All geometries must have compatible attributes; make sure "' + name + '" attribute exists among all geometries, or in none of them.' );
-				return null;
-
-			}
-
-			if ( attributes[ name ] === undefined ) attributes[ name ] = [];
-
-			attributes[ name ].push( geometry.attributes[ name ] );
-
-			attributesCount ++;
-
-		}
-
-		// ensure geometries have the same number of attributes
-
-		if ( attributesCount !== attributesUsed.size ) {
-
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '. Make sure all geometries have the same number of attributes.' );
-			return null;
-
-		}
-
-		// gather morph attributes, exit early if they're different
-
-		if ( morphTargetsRelative !== geometry.morphTargetsRelative ) {
-
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '. .morphTargetsRelative must be consistent throughout all geometries.' );
-			return null;
-
-		}
-
-		for ( const name in geometry.morphAttributes ) {
-
-			if ( ! morphAttributesUsed.has( name ) ) {
-
-				console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '.  .morphAttributes must be consistent throughout all geometries.' );
-				return null;
-
-			}
-
-			if ( morphAttributes[ name ] === undefined ) morphAttributes[ name ] = [];
-
-			morphAttributes[ name ].push( geometry.morphAttributes[ name ] );
-
-		}
-
-		// gather .userData
-
-		mergedGeometry.userData.mergedUserData = mergedGeometry.userData.mergedUserData || [];
-		mergedGeometry.userData.mergedUserData.push( geometry.userData );
-
-		if ( useGroups ) {
-
-			let count;
-
-			if ( isIndexed ) {
-
-				count = geometry.index.count;
-
-			} else if ( geometry.attributes.position !== undefined ) {
-
-				count = geometry.attributes.position.count;
-
-			} else {
-
-				console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed with geometry at index ' + i + '. The geometry must have either an index or a position attribute' );
-				return null;
-
-			}
-
-			mergedGeometry.addGroup( offset, count, i );
-
-			offset += count;
-
-		}
-
-	}
-
-	// merge indices
-
-	if ( isIndexed ) {
-
-		let indexOffset = 0;
-		const mergedIndex = [];
-
-		for ( let i = 0; i < geometries.length; ++ i ) {
-
-			const index = geometries[ i ].index;
-
-			for ( let j = 0; j < index.count; ++ j ) {
-
-				mergedIndex.push( index.getX( j ) + indexOffset );
-
-			}
-
-			indexOffset += geometries[ i ].attributes.position.count;
-
-		}
-
-		mergedGeometry.setIndex( mergedIndex );
-
-	}
-
-	// merge attributes
-
-	for ( const name in attributes ) {
-
-		const mergedAttribute = mergeBufferAttributes( attributes[ name ] );
-
-		if ( ! mergedAttribute ) {
-
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed while trying to merge the ' + name + ' attribute.' );
-			return null;
-
-		}
-
-		mergedGeometry.setAttribute( name, mergedAttribute );
-
-	}
-
-	// merge morph attributes
-
-	for ( const name in morphAttributes ) {
-
-		const numMorphTargets = morphAttributes[ name ][ 0 ].length;
-
-		if ( numMorphTargets === 0 ) break;
-
-		mergedGeometry.morphAttributes = mergedGeometry.morphAttributes || {};
-		mergedGeometry.morphAttributes[ name ] = [];
-
-		for ( let i = 0; i < numMorphTargets; ++ i ) {
-
-			const morphAttributesToMerge = [];
-
-			for ( let j = 0; j < morphAttributes[ name ].length; ++ j ) {
-
-				morphAttributesToMerge.push( morphAttributes[ name ][ j ][ i ] );
-
-			}
-
-			const mergedMorphAttribute = mergeBufferAttributes( morphAttributesToMerge );
-
-			if ( ! mergedMorphAttribute ) {
-
-				console.error( 'THREE.BufferGeometryUtils: .mergeBufferGeometries() failed while trying to merge the ' + name + ' morphAttribute.' );
-				return null;
-
-			}
-
-			mergedGeometry.morphAttributes[ name ].push( mergedMorphAttribute );
-
-		}
-
-	}
-
-	return mergedGeometry;
-
-}
-
-/**
- * @param {Array<BufferAttribute>} attributes
- * @return {BufferAttribute}
+ * Full-screen textured quad shader
  */
-function mergeBufferAttributes( attributes ) {
 
-	let TypedArray;
-	let itemSize;
-	let normalized;
-	let arrayLength = 0;
+const CopyShader = {
 
-	for ( let i = 0; i < attributes.length; ++ i ) {
+	uniforms: {
 
-		const attribute = attributes[ i ];
+		'tDiffuse': { value: null },
+		'opacity': { value: 1.0 }
 
-		if ( attribute.isInterleavedBufferAttribute ) {
+	},
 
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferAttributes() failed. InterleavedBufferAttributes are not supported.' );
-			return null;
+	vertexShader: /* glsl */`
 
-		}
+		varying vec2 vUv;
 
-		if ( TypedArray === undefined ) TypedArray = attribute.array.constructor;
-		if ( TypedArray !== attribute.array.constructor ) {
+		void main() {
 
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferAttributes() failed. BufferAttribute.array must be of consistent array types across matching attributes.' );
-			return null;
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
-		}
+		}`,
 
-		if ( itemSize === undefined ) itemSize = attribute.itemSize;
-		if ( itemSize !== attribute.itemSize ) {
+	fragmentShader: /* glsl */`
 
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferAttributes() failed. BufferAttribute.itemSize must be consistent across matching attributes.' );
-			return null;
+		uniform float opacity;
 
-		}
+		uniform sampler2D tDiffuse;
 
-		if ( normalized === undefined ) normalized = attribute.normalized;
-		if ( normalized !== attribute.normalized ) {
+		varying vec2 vUv;
 
-			console.error( 'THREE.BufferGeometryUtils: .mergeBufferAttributes() failed. BufferAttribute.normalized must be consistent across matching attributes.' );
-			return null;
+		void main() {
 
-		}
+			vec4 texel = texture2D( tDiffuse, vUv );
+			gl_FragColor = opacity * texel;
 
-		arrayLength += attribute.array.length;
+		}`
+
+};
+
+class Pass$1 {
+
+	constructor() {
+
+		// if set to true, the pass is processed by the composer
+		this.enabled = true;
+
+		// if set to true, the pass indicates to swap read and write buffer after rendering
+		this.needsSwap = true;
+
+		// if set to true, the pass clears its buffer before rendering
+		this.clear = false;
+
+		// if set to true, the result of the pass is rendered to screen. This is set automatically by EffectComposer.
+		this.renderToScreen = false;
 
 	}
 
-	const array = new TypedArray( arrayLength );
-	let offset = 0;
+	setSize( /* width, height */ ) {}
 
-	for ( let i = 0; i < attributes.length; ++ i ) {
+	render( /* renderer, writeBuffer, readBuffer, deltaTime, maskActive */ ) {
 
-		array.set( attributes[ i ].array, offset );
-
-		offset += attributes[ i ].array.length;
+		console.error( 'THREE.Pass: .render() must be implemented in derived pass.' );
 
 	}
-
-	return new BufferAttribute( array, itemSize, normalized );
 
 }
 
-/**
- * @param {Array<BufferAttribute>} attributes
- * @return {Array<InterleavedBufferAttribute>}
- */
-function interleaveAttributes( attributes ) {
+// Helper for passes that need to fill the viewport with a single quad.
 
-	// Interleaves the provided attributes into an InterleavedBuffer and returns
-	// a set of InterleavedBufferAttributes for each attribute
-	let TypedArray;
-	let arrayLength = 0;
-	let stride = 0;
+const _camera$1 = new OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
 
-	// calculate the the length and type of the interleavedBuffer
-	for ( let i = 0, l = attributes.length; i < l; ++ i ) {
+// https://github.com/mrdoob/three.js/pull/21358
 
-		const attribute = attributes[ i ];
+const _geometry$1 = new BufferGeometry();
+_geometry$1.setAttribute( 'position', new Float32BufferAttribute( [ - 1, 3, 0, - 1, - 1, 0, 3, - 1, 0 ], 3 ) );
+_geometry$1.setAttribute( 'uv', new Float32BufferAttribute( [ 0, 2, 0, 0, 2, 0 ], 2 ) );
 
-		if ( TypedArray === undefined ) TypedArray = attribute.array.constructor;
-		if ( TypedArray !== attribute.array.constructor ) {
+class FullScreenQuad$1 {
 
-			console.error( 'AttributeBuffers of different types cannot be interleaved' );
-			return null;
+	constructor( material ) {
 
-		}
-
-		arrayLength += attribute.array.length;
-		stride += attribute.itemSize;
+		this._mesh = new Mesh( _geometry$1, material );
 
 	}
 
-	// Create the set of buffer attributes
-	const interleavedBuffer = new InterleavedBuffer( new TypedArray( arrayLength ), stride );
-	let offset = 0;
-	const res = [];
-	const getters = [ 'getX', 'getY', 'getZ', 'getW' ];
-	const setters = [ 'setX', 'setY', 'setZ', 'setW' ];
+	dispose() {
 
-	for ( let j = 0, l = attributes.length; j < l; j ++ ) {
-
-		const attribute = attributes[ j ];
-		const itemSize = attribute.itemSize;
-		const count = attribute.count;
-		const iba = new InterleavedBufferAttribute( interleavedBuffer, itemSize, offset, attribute.normalized );
-		res.push( iba );
-
-		offset += itemSize;
-
-		// Move the data for each attribute into the new interleavedBuffer
-		// at the appropriate offset
-		for ( let c = 0; c < count; c ++ ) {
-
-			for ( let k = 0; k < itemSize; k ++ ) {
-
-				iba[ setters[ k ] ]( c, attribute[ getters[ k ] ]( c ) );
-
-			}
-
-		}
+		this._mesh.geometry.dispose();
 
 	}
 
-	return res;
+	render( renderer ) {
+
+		renderer.render( this._mesh, _camera$1 );
+
+	}
+
+	get material() {
+
+		return this._mesh.material;
+
+	}
+
+	set material( value ) {
+
+		this._mesh.material = value;
+
+	}
 
 }
 
-/**
- * @param {Array<BufferGeometry>} geometry
- * @return {number}
- */
-function estimateBytesUsed( geometry ) {
+class ShaderPass extends Pass$1 {
 
-	// Return the estimated memory used by this geometry in bytes
-	// Calculate using itemSize, count, and BYTES_PER_ELEMENT to account
-	// for InterleavedBufferAttributes.
-	let mem = 0;
-	for ( const name in geometry.attributes ) {
+	constructor( shader, textureID ) {
 
-		const attr = geometry.getAttribute( name );
-		mem += attr.count * attr.itemSize * attr.array.BYTES_PER_ELEMENT;
+		super();
 
-	}
+		this.textureID = ( textureID !== undefined ) ? textureID : 'tDiffuse';
 
-	const indices = geometry.getIndex();
-	mem += indices ? indices.count * indices.itemSize * indices.array.BYTES_PER_ELEMENT : 0;
-	return mem;
+		if ( shader instanceof ShaderMaterial ) {
 
-}
+			this.uniforms = shader.uniforms;
 
-/**
- * @param {BufferGeometry} geometry
- * @param {number} tolerance
- * @return {BufferGeometry>}
- */
-function mergeVertices( geometry, tolerance = 1e-4 ) {
+			this.material = shader;
 
-	tolerance = Math.max( tolerance, Number.EPSILON );
+		} else if ( shader ) {
 
-	// Generate an index buffer if the geometry doesn't have one, or optimize it
-	// if it's already available.
-	const hashToIndex = {};
-	const indices = geometry.getIndex();
-	const positions = geometry.getAttribute( 'position' );
-	const vertexCount = indices ? indices.count : positions.count;
+			this.uniforms = UniformsUtils.clone( shader.uniforms );
 
-	// next value for triangle indices
-	let nextIndex = 0;
+			this.material = new ShaderMaterial( {
 
-	// attributes and new attribute arrays
-	const attributeNames = Object.keys( geometry.attributes );
-	const attrArrays = {};
-	const morphAttrsArrays = {};
-	const newIndices = [];
-	const getters = [ 'getX', 'getY', 'getZ', 'getW' ];
+				defines: Object.assign( {}, shader.defines ),
+				uniforms: this.uniforms,
+				vertexShader: shader.vertexShader,
+				fragmentShader: shader.fragmentShader
 
-	// initialize the arrays
-	for ( let i = 0, l = attributeNames.length; i < l; i ++ ) {
-
-		const name = attributeNames[ i ];
-
-		attrArrays[ name ] = [];
-
-		const morphAttr = geometry.morphAttributes[ name ];
-		if ( morphAttr ) {
-
-			morphAttrsArrays[ name ] = new Array( morphAttr.length ).fill().map( () => [] );
+			} );
 
 		}
 
+		this.fsQuad = new FullScreenQuad$1( this.material );
+
 	}
 
-	// convert the error tolerance to an amount of decimal places to truncate to
-	const decimalShift = Math.log10( 1 / tolerance );
-	const shiftMultiplier = Math.pow( 10, decimalShift );
-	for ( let i = 0; i < vertexCount; i ++ ) {
+	render( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
 
-		const index = indices ? indices.getX( i ) : i;
+		if ( this.uniforms[ this.textureID ] ) {
 
-		// Generate a hash for the vertex attributes at the current index 'i'
-		let hash = '';
-		for ( let j = 0, l = attributeNames.length; j < l; j ++ ) {
-
-			const name = attributeNames[ j ];
-			const attribute = geometry.getAttribute( name );
-			const itemSize = attribute.itemSize;
-
-			for ( let k = 0; k < itemSize; k ++ ) {
-
-				// double tilde truncates the decimal value
-				hash += `${ ~ ~ ( attribute[ getters[ k ] ]( index ) * shiftMultiplier ) },`;
-
-			}
+			this.uniforms[ this.textureID ].value = readBuffer.texture;
 
 		}
 
-		// Add another reference to the vertex if it's already
-		// used by another index
-		if ( hash in hashToIndex ) {
+		this.fsQuad.material = this.material;
 
-			newIndices.push( hashToIndex[ hash ] );
+		if ( this.renderToScreen ) {
+
+			renderer.setRenderTarget( null );
+			this.fsQuad.render( renderer );
 
 		} else {
 
-			// copy data to the new index in the attribute arrays
-			for ( let j = 0, l = attributeNames.length; j < l; j ++ ) {
-
-				const name = attributeNames[ j ];
-				const attribute = geometry.getAttribute( name );
-				const morphAttr = geometry.morphAttributes[ name ];
-				const itemSize = attribute.itemSize;
-				const newarray = attrArrays[ name ];
-				const newMorphArrays = morphAttrsArrays[ name ];
-
-				for ( let k = 0; k < itemSize; k ++ ) {
-
-					const getterFunc = getters[ k ];
-					newarray.push( attribute[ getterFunc ]( index ) );
-
-					if ( morphAttr ) {
-
-						for ( let m = 0, ml = morphAttr.length; m < ml; m ++ ) {
-
-							newMorphArrays[ m ].push( morphAttr[ m ][ getterFunc ]( index ) );
-
-						}
-
-					}
-
-				}
-
-			}
-
-			hashToIndex[ hash ] = nextIndex;
-			newIndices.push( nextIndex );
-			nextIndex ++;
+			renderer.setRenderTarget( writeBuffer );
+			// TODO: Avoid using autoClear properties, see https://github.com/mrdoob/three.js/pull/15571#issuecomment-465669600
+			if ( this.clear ) renderer.clear( renderer.autoClearColor, renderer.autoClearDepth, renderer.autoClearStencil );
+			this.fsQuad.render( renderer );
 
 		}
-
-	}
-
-	// Generate typed arrays from new attribute arrays and update
-	// the attributeBuffers
-	const result = geometry.clone();
-	for ( let i = 0, l = attributeNames.length; i < l; i ++ ) {
-
-		const name = attributeNames[ i ];
-		const oldAttribute = geometry.getAttribute( name );
-
-		const buffer = new oldAttribute.array.constructor( attrArrays[ name ] );
-		const attribute = new BufferAttribute( buffer, oldAttribute.itemSize, oldAttribute.normalized );
-
-		result.setAttribute( name, attribute );
-
-		// Update the attribute arrays
-		if ( name in morphAttrsArrays ) {
-
-			for ( let j = 0; j < morphAttrsArrays[ name ].length; j ++ ) {
-
-				const oldMorphAttribute = geometry.morphAttributes[ name ][ j ];
-
-				const buffer = new oldMorphAttribute.array.constructor( morphAttrsArrays[ name ][ j ] );
-				const morphAttribute = new BufferAttribute( buffer, oldMorphAttribute.itemSize, oldMorphAttribute.normalized );
-				result.morphAttributes[ name ][ j ] = morphAttribute;
-
-			}
-
-		}
-
-	}
-
-	// indices
-
-	result.setIndex( newIndices );
-
-	return result;
-
-}
-
-/**
- * @param {BufferGeometry} geometry
- * @param {number} drawMode
- * @return {BufferGeometry>}
- */
-function toTrianglesDrawMode( geometry, drawMode ) {
-
-	if ( drawMode === TrianglesDrawMode ) {
-
-		console.warn( 'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Geometry already defined as triangles.' );
-		return geometry;
-
-	}
-
-	if ( drawMode === TriangleFanDrawMode || drawMode === TriangleStripDrawMode ) {
-
-		let index = geometry.getIndex();
-
-		// generate index if not present
-
-		if ( index === null ) {
-
-			const indices = [];
-
-			const position = geometry.getAttribute( 'position' );
-
-			if ( position !== undefined ) {
-
-				for ( let i = 0; i < position.count; i ++ ) {
-
-					indices.push( i );
-
-				}
-
-				geometry.setIndex( indices );
-				index = geometry.getIndex();
-
-			} else {
-
-				console.error( 'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Undefined position attribute. Processing not possible.' );
-				return geometry;
-
-			}
-
-		}
-
-		//
-
-		const numberOfTriangles = index.count - 2;
-		const newIndices = [];
-
-		if ( drawMode === TriangleFanDrawMode ) {
-
-			// gl.TRIANGLE_FAN
-
-			for ( let i = 1; i <= numberOfTriangles; i ++ ) {
-
-				newIndices.push( index.getX( 0 ) );
-				newIndices.push( index.getX( i ) );
-				newIndices.push( index.getX( i + 1 ) );
-
-			}
-
-		} else {
-
-			// gl.TRIANGLE_STRIP
-
-			for ( let i = 0; i < numberOfTriangles; i ++ ) {
-
-				if ( i % 2 === 0 ) {
-
-					newIndices.push( index.getX( i ) );
-					newIndices.push( index.getX( i + 1 ) );
-					newIndices.push( index.getX( i + 2 ) );
-
-				} else {
-
-					newIndices.push( index.getX( i + 2 ) );
-					newIndices.push( index.getX( i + 1 ) );
-					newIndices.push( index.getX( i ) );
-
-				}
-
-			}
-
-		}
-
-		if ( ( newIndices.length / 3 ) !== numberOfTriangles ) {
-
-			console.error( 'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Unable to generate correct amount of triangles.' );
-
-		}
-
-		// build final geometry
-
-		const newGeometry = geometry.clone();
-		newGeometry.setIndex( newIndices );
-		newGeometry.clearGroups();
-
-		return newGeometry;
-
-	} else {
-
-		console.error( 'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Unknown draw mode:', drawMode );
-		return geometry;
 
 	}
 
 }
 
-/**
- * Calculates the morphed attributes of a morphed/skinned BufferGeometry.
- * Helpful for Raytracing or Decals.
- * @param {Mesh | Line | Points} object An instance of Mesh, Line or Points.
- * @return {Object} An Object with original position/normal attributes and morphed ones.
- */
-function computeMorphedAttributes( object ) {
+class MaskPass extends Pass$1 {
 
-	if ( object.geometry.isBufferGeometry !== true ) {
+	constructor( scene, camera ) {
 
-		console.error( 'THREE.BufferGeometryUtils: Geometry is not of type BufferGeometry.' );
-		return null;
+		super();
 
-	}
+		this.scene = scene;
+		this.camera = camera;
 
-	const _vA = new Vector3();
-	const _vB = new Vector3();
-	const _vC = new Vector3();
+		this.clear = true;
+		this.needsSwap = false;
 
-	const _tempA = new Vector3();
-	const _tempB = new Vector3();
-	const _tempC = new Vector3();
-
-	const _morphA = new Vector3();
-	const _morphB = new Vector3();
-	const _morphC = new Vector3();
-
-	function _calculateMorphedAttributeData(
-		object,
-		material,
-		attribute,
-		morphAttribute,
-		morphTargetsRelative,
-		a,
-		b,
-		c,
-		modifiedAttributeArray
-	) {
-
-		_vA.fromBufferAttribute( attribute, a );
-		_vB.fromBufferAttribute( attribute, b );
-		_vC.fromBufferAttribute( attribute, c );
-
-		const morphInfluences = object.morphTargetInfluences;
-
-		if ( material.morphTargets && morphAttribute && morphInfluences ) {
-
-			_morphA.set( 0, 0, 0 );
-			_morphB.set( 0, 0, 0 );
-			_morphC.set( 0, 0, 0 );
-
-			for ( let i = 0, il = morphAttribute.length; i < il; i ++ ) {
-
-				const influence = morphInfluences[ i ];
-				const morph = morphAttribute[ i ];
-
-				if ( influence === 0 ) continue;
-
-				_tempA.fromBufferAttribute( morph, a );
-				_tempB.fromBufferAttribute( morph, b );
-				_tempC.fromBufferAttribute( morph, c );
-
-				if ( morphTargetsRelative ) {
-
-					_morphA.addScaledVector( _tempA, influence );
-					_morphB.addScaledVector( _tempB, influence );
-					_morphC.addScaledVector( _tempC, influence );
-
-				} else {
-
-					_morphA.addScaledVector( _tempA.sub( _vA ), influence );
-					_morphB.addScaledVector( _tempB.sub( _vB ), influence );
-					_morphC.addScaledVector( _tempC.sub( _vC ), influence );
-
-				}
-
-			}
-
-			_vA.add( _morphA );
-			_vB.add( _morphB );
-			_vC.add( _morphC );
-
-		}
-
-		if ( object.isSkinnedMesh ) {
-
-			object.boneTransform( a, _vA );
-			object.boneTransform( b, _vB );
-			object.boneTransform( c, _vC );
-
-		}
-
-		modifiedAttributeArray[ a * 3 + 0 ] = _vA.x;
-		modifiedAttributeArray[ a * 3 + 1 ] = _vA.y;
-		modifiedAttributeArray[ a * 3 + 2 ] = _vA.z;
-		modifiedAttributeArray[ b * 3 + 0 ] = _vB.x;
-		modifiedAttributeArray[ b * 3 + 1 ] = _vB.y;
-		modifiedAttributeArray[ b * 3 + 2 ] = _vB.z;
-		modifiedAttributeArray[ c * 3 + 0 ] = _vC.x;
-		modifiedAttributeArray[ c * 3 + 1 ] = _vC.y;
-		modifiedAttributeArray[ c * 3 + 2 ] = _vC.z;
+		this.inverse = false;
 
 	}
 
-	const geometry = object.geometry;
-	const material = object.material;
+	render( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
 
-	let a, b, c;
-	const index = geometry.index;
-	const positionAttribute = geometry.attributes.position;
-	const morphPosition = geometry.morphAttributes.position;
-	const morphTargetsRelative = geometry.morphTargetsRelative;
-	const normalAttribute = geometry.attributes.normal;
-	const morphNormal = geometry.morphAttributes.position;
+		const context = renderer.getContext();
+		const state = renderer.state;
 
-	const groups = geometry.groups;
-	const drawRange = geometry.drawRange;
-	let i, j, il, jl;
-	let group, groupMaterial;
-	let start, end;
+		// don't update color or depth
 
-	const modifiedPosition = new Float32Array( positionAttribute.count * positionAttribute.itemSize );
-	const modifiedNormal = new Float32Array( normalAttribute.count * normalAttribute.itemSize );
+		state.buffers.color.setMask( false );
+		state.buffers.depth.setMask( false );
 
-	if ( index !== null ) {
+		// lock buffers
 
-		// indexed buffer geometry
+		state.buffers.color.setLocked( true );
+		state.buffers.depth.setLocked( true );
 
-		if ( Array.isArray( material ) ) {
+		// set up stencil
 
-			for ( i = 0, il = groups.length; i < il; i ++ ) {
+		let writeValue, clearValue;
 
-				group = groups[ i ];
-				groupMaterial = material[ group.materialIndex ];
+		if ( this.inverse ) {
 
-				start = Math.max( group.start, drawRange.start );
-				end = Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) );
-
-				for ( j = start, jl = end; j < jl; j += 3 ) {
-
-					a = index.getX( j );
-					b = index.getX( j + 1 );
-					c = index.getX( j + 2 );
-
-					_calculateMorphedAttributeData(
-						object,
-						groupMaterial,
-						positionAttribute,
-						morphPosition,
-						morphTargetsRelative,
-						a, b, c,
-						modifiedPosition
-					);
-
-					_calculateMorphedAttributeData(
-						object,
-						groupMaterial,
-						normalAttribute,
-						morphNormal,
-						morphTargetsRelative,
-						a, b, c,
-						modifiedNormal
-					);
-
-				}
-
-			}
+			writeValue = 0;
+			clearValue = 1;
 
 		} else {
 
-			start = Math.max( 0, drawRange.start );
-			end = Math.min( index.count, ( drawRange.start + drawRange.count ) );
-
-			for ( i = start, il = end; i < il; i += 3 ) {
-
-				a = index.getX( i );
-				b = index.getX( i + 1 );
-				c = index.getX( i + 2 );
-
-				_calculateMorphedAttributeData(
-					object,
-					material,
-					positionAttribute,
-					morphPosition,
-					morphTargetsRelative,
-					a, b, c,
-					modifiedPosition
-				);
-
-				_calculateMorphedAttributeData(
-					object,
-					material,
-					normalAttribute,
-					morphNormal,
-					morphTargetsRelative,
-					a, b, c,
-					modifiedNormal
-				);
-
-			}
+			writeValue = 1;
+			clearValue = 0;
 
 		}
 
-	} else {
+		state.buffers.stencil.setTest( true );
+		state.buffers.stencil.setOp( context.REPLACE, context.REPLACE, context.REPLACE );
+		state.buffers.stencil.setFunc( context.ALWAYS, writeValue, 0xffffffff );
+		state.buffers.stencil.setClear( clearValue );
+		state.buffers.stencil.setLocked( true );
 
-		// non-indexed buffer geometry
+		// draw into the stencil buffer
 
-		if ( Array.isArray( material ) ) {
+		renderer.setRenderTarget( readBuffer );
+		if ( this.clear ) renderer.clear();
+		renderer.render( this.scene, this.camera );
 
-			for ( i = 0, il = groups.length; i < il; i ++ ) {
+		renderer.setRenderTarget( writeBuffer );
+		if ( this.clear ) renderer.clear();
+		renderer.render( this.scene, this.camera );
 
-				group = groups[ i ];
-				groupMaterial = material[ group.materialIndex ];
+		// unlock color and depth buffer for subsequent rendering
 
-				start = Math.max( group.start, drawRange.start );
-				end = Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) );
+		state.buffers.color.setLocked( false );
+		state.buffers.depth.setLocked( false );
 
-				for ( j = start, jl = end; j < jl; j += 3 ) {
+		// only render where stencil is set to 1
 
-					a = j;
-					b = j + 1;
-					c = j + 2;
-
-					_calculateMorphedAttributeData(
-						object,
-						groupMaterial,
-						positionAttribute,
-						morphPosition,
-						morphTargetsRelative,
-						a, b, c,
-						modifiedPosition
-					);
-
-					_calculateMorphedAttributeData(
-						object,
-						groupMaterial,
-						normalAttribute,
-						morphNormal,
-						morphTargetsRelative,
-						a, b, c,
-						modifiedNormal
-					);
-
-				}
-
-			}
-
-		} else {
-
-			start = Math.max( 0, drawRange.start );
-			end = Math.min( positionAttribute.count, ( drawRange.start + drawRange.count ) );
-
-			for ( i = start, il = end; i < il; i += 3 ) {
-
-				a = i;
-				b = i + 1;
-				c = i + 2;
-
-				_calculateMorphedAttributeData(
-					object,
-					material,
-					positionAttribute,
-					morphPosition,
-					morphTargetsRelative,
-					a, b, c,
-					modifiedPosition
-				);
-
-				_calculateMorphedAttributeData(
-					object,
-					material,
-					normalAttribute,
-					morphNormal,
-					morphTargetsRelative,
-					a, b, c,
-					modifiedNormal
-				);
-
-			}
-
-		}
+		state.buffers.stencil.setLocked( false );
+		state.buffers.stencil.setFunc( context.EQUAL, 1, 0xffffffff ); // draw if == 1
+		state.buffers.stencil.setOp( context.KEEP, context.KEEP, context.KEEP );
+		state.buffers.stencil.setLocked( true );
 
 	}
-
-	const morphedPositionAttribute = new Float32BufferAttribute( modifiedPosition, 3 );
-	const morphedNormalAttribute = new Float32BufferAttribute( modifiedNormal, 3 );
-
-	return {
-
-		positionAttribute: positionAttribute,
-		normalAttribute: normalAttribute,
-		morphedPositionAttribute: morphedPositionAttribute,
-		morphedNormalAttribute: morphedNormalAttribute
-
-	};
 
 }
 
-var BufferGeometryUtils = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	computeTangents: computeTangents,
-	mergeBufferGeometries: mergeBufferGeometries,
-	mergeBufferAttributes: mergeBufferAttributes,
-	interleaveAttributes: interleaveAttributes,
-	estimateBytesUsed: estimateBytesUsed,
-	mergeVertices: mergeVertices,
-	toTrianglesDrawMode: toTrianglesDrawMode,
-	computeMorphedAttributes: computeMorphedAttributes
-});
-
-const _box$1 = new Box3();
-const _vector = new Vector3();
-
-class LineSegmentsGeometry extends InstancedBufferGeometry {
+class ClearMaskPass extends Pass$1 {
 
 	constructor() {
 
 		super();
 
-		this.type = 'LineSegmentsGeometry';
-
-		const positions = [ - 1, 2, 0, 1, 2, 0, - 1, 1, 0, 1, 1, 0, - 1, 0, 0, 1, 0, 0, - 1, - 1, 0, 1, - 1, 0 ];
-		const uvs = [ - 1, 2, 1, 2, - 1, 1, 1, 1, - 1, - 1, 1, - 1, - 1, - 2, 1, - 2 ];
-		const index = [ 0, 2, 1, 2, 3, 1, 2, 4, 3, 4, 5, 3, 4, 6, 5, 6, 7, 5 ];
-
-		this.setIndex( index );
-		this.setAttribute( 'position', new Float32BufferAttribute( positions, 3 ) );
-		this.setAttribute( 'uv', new Float32BufferAttribute( uvs, 2 ) );
+		this.needsSwap = false;
 
 	}
 
-	applyMatrix4( matrix ) {
+	render( renderer /*, writeBuffer, readBuffer, deltaTime, maskActive */ ) {
 
-		const start = this.attributes.instanceStart;
-		const end = this.attributes.instanceEnd;
-
-		if ( start !== undefined ) {
-
-			start.applyMatrix4( matrix );
-
-			end.applyMatrix4( matrix );
-
-			start.needsUpdate = true;
-
-		}
-
-		if ( this.boundingBox !== null ) {
-
-			this.computeBoundingBox();
-
-		}
-
-		if ( this.boundingSphere !== null ) {
-
-			this.computeBoundingSphere();
-
-		}
-
-		return this;
-
-	}
-
-	setPositions( array ) {
-
-		let lineSegments;
-
-		if ( array instanceof Float32Array ) {
-
-			lineSegments = array;
-
-		} else if ( Array.isArray( array ) ) {
-
-			lineSegments = new Float32Array( array );
-
-		}
-
-		const instanceBuffer = new InstancedInterleavedBuffer( lineSegments, 6, 1 ); // xyz, xyz
-
-		this.setAttribute( 'instanceStart', new InterleavedBufferAttribute( instanceBuffer, 3, 0 ) ); // xyz
-		this.setAttribute( 'instanceEnd', new InterleavedBufferAttribute( instanceBuffer, 3, 3 ) ); // xyz
-
-		//
-
-		this.computeBoundingBox();
-		this.computeBoundingSphere();
-
-		return this;
-
-	}
-
-	setColors( array ) {
-
-		let colors;
-
-		if ( array instanceof Float32Array ) {
-
-			colors = array;
-
-		} else if ( Array.isArray( array ) ) {
-
-			colors = new Float32Array( array );
-
-		}
-
-		const instanceColorBuffer = new InstancedInterleavedBuffer( colors, 6, 1 ); // rgb, rgb
-
-		this.setAttribute( 'instanceColorStart', new InterleavedBufferAttribute( instanceColorBuffer, 3, 0 ) ); // rgb
-		this.setAttribute( 'instanceColorEnd', new InterleavedBufferAttribute( instanceColorBuffer, 3, 3 ) ); // rgb
-
-		return this;
-
-	}
-
-	fromWireframeGeometry( geometry ) {
-
-		this.setPositions( geometry.attributes.position.array );
-
-		return this;
-
-	}
-
-	fromEdgesGeometry( geometry ) {
-
-		this.setPositions( geometry.attributes.position.array );
-
-		return this;
-
-	}
-
-	fromMesh( mesh ) {
-
-		this.fromWireframeGeometry( new WireframeGeometry( mesh.geometry ) );
-
-		// set colors, maybe
-
-		return this;
-
-	}
-
-	fromLineSegments( lineSegments ) {
-
-		const geometry = lineSegments.geometry;
-
-		if ( geometry.isGeometry ) {
-
-			console.error( 'THREE.LineSegmentsGeometry no longer supports Geometry. Use THREE.BufferGeometry instead.' );
-			return;
-
-		} else if ( geometry.isBufferGeometry ) {
-
-			this.setPositions( geometry.attributes.position.array ); // assumes non-indexed
-
-		}
-
-		// set colors, maybe
-
-		return this;
-
-	}
-
-	computeBoundingBox() {
-
-		if ( this.boundingBox === null ) {
-
-			this.boundingBox = new Box3();
-
-		}
-
-		const start = this.attributes.instanceStart;
-		const end = this.attributes.instanceEnd;
-
-		if ( start !== undefined && end !== undefined ) {
-
-			this.boundingBox.setFromBufferAttribute( start );
-
-			_box$1.setFromBufferAttribute( end );
-
-			this.boundingBox.union( _box$1 );
-
-		}
-
-	}
-
-	computeBoundingSphere() {
-
-		if ( this.boundingSphere === null ) {
-
-			this.boundingSphere = new Sphere();
-
-		}
-
-		if ( this.boundingBox === null ) {
-
-			this.computeBoundingBox();
-
-		}
-
-		const start = this.attributes.instanceStart;
-		const end = this.attributes.instanceEnd;
-
-		if ( start !== undefined && end !== undefined ) {
-
-			const center = this.boundingSphere.center;
-
-			this.boundingBox.getCenter( center );
-
-			let maxRadiusSq = 0;
-
-			for ( let i = 0, il = start.count; i < il; i ++ ) {
-
-				_vector.fromBufferAttribute( start, i );
-				maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( _vector ) );
-
-				_vector.fromBufferAttribute( end, i );
-				maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( _vector ) );
-
-			}
-
-			this.boundingSphere.radius = Math.sqrt( maxRadiusSq );
-
-			if ( isNaN( this.boundingSphere.radius ) ) {
-
-				console.error( 'THREE.LineSegmentsGeometry.computeBoundingSphere(): Computed radius is NaN. The instanced position data is likely to have NaN values.', this );
-
-			}
-
-		}
-
-	}
-
-	toJSON() {
-
-		// todo
-
-	}
-
-	applyMatrix( matrix ) {
-
-		console.warn( 'THREE.LineSegmentsGeometry: applyMatrix() has been renamed to applyMatrix4().' );
-
-		return this.applyMatrix4( matrix );
+		renderer.state.buffers.stencil.setLocked( false );
+		renderer.state.buffers.stencil.setTest( false );
 
 	}
 
 }
 
-LineSegmentsGeometry.prototype.isLineSegmentsGeometry = true;
+class EffectComposer {
 
-/**
- * parameters = {
- *  color: <hex>,
- *  linewidth: <float>,
- *  dashed: <boolean>,
- *  dashScale: <float>,
- *  dashSize: <float>,
- *  dashOffset: <float>,
- *  gapSize: <float>,
- *  resolution: <Vector2>, // to be set by renderer
- * }
- */
+	constructor( renderer, renderTarget ) {
 
+		this.renderer = renderer;
 
-UniformsLib.line = {
+		if ( renderTarget === undefined ) {
 
-	worldUnits: { value: 1 },
-	linewidth: { value: 1 },
-	resolution: { value: new Vector2( 1, 1 ) },
-	dashOffset: { value: 0 },
-	dashScale: { value: 1 },
-	dashSize: { value: 1 },
-	gapSize: { value: 1 } // todo FIX - maybe change to totalSize
+			const parameters = {
+				minFilter: LinearFilter,
+				magFilter: LinearFilter,
+				format: RGBAFormat
+			};
 
-};
+			const size = renderer.getSize( new Vector2() );
+			this._pixelRatio = renderer.getPixelRatio();
+			this._width = size.width;
+			this._height = size.height;
 
-ShaderLib[ 'line' ] = {
-
-	uniforms: UniformsUtils.merge( [
-		UniformsLib.common,
-		UniformsLib.fog,
-		UniformsLib.line
-	] ),
-
-	vertexShader:
-	/* glsl */`
-		#include <common>
-		#include <color_pars_vertex>
-		#include <fog_pars_vertex>
-		#include <logdepthbuf_pars_vertex>
-		#include <clipping_planes_pars_vertex>
-
-		uniform float linewidth;
-		uniform vec2 resolution;
-
-		attribute vec3 instanceStart;
-		attribute vec3 instanceEnd;
-
-		attribute vec3 instanceColorStart;
-		attribute vec3 instanceColorEnd;
-
-		#ifdef WORLD_UNITS
-
-			varying vec4 worldPos;
-			varying vec3 worldStart;
-			varying vec3 worldEnd;
-
-			#ifdef USE_DASH
-
-				varying vec2 vUv;
-
-			#endif
-
-		#else
-
-			varying vec2 vUv;
-
-		#endif
-
-		#ifdef USE_DASH
-
-			uniform float dashScale;
-			attribute float instanceDistanceStart;
-			attribute float instanceDistanceEnd;
-			varying float vLineDistance;
-
-		#endif
-
-		void trimSegment( const in vec4 start, inout vec4 end ) {
-
-			// trim end segment so it terminates between the camera plane and the near plane
-
-			// conservative estimate of the near plane
-			float a = projectionMatrix[ 2 ][ 2 ]; // 3nd entry in 3th column
-			float b = projectionMatrix[ 3 ][ 2 ]; // 3nd entry in 4th column
-			float nearEstimate = - 0.5 * b / a;
-
-			float alpha = ( nearEstimate - start.z ) / ( end.z - start.z );
-
-			end.xyz = mix( start.xyz, end.xyz, alpha );
-
-		}
-
-		void main() {
-
-			#ifdef USE_COLOR
-
-				vColor.xyz = ( position.y < 0.5 ) ? instanceColorStart : instanceColorEnd;
-
-			#endif
-
-			#ifdef USE_DASH
-
-				vLineDistance = ( position.y < 0.5 ) ? dashScale * instanceDistanceStart : dashScale * instanceDistanceEnd;
-				vUv = uv;
-
-			#endif
-
-			float aspect = resolution.x / resolution.y;
-
-			// camera space
-			vec4 start = modelViewMatrix * vec4( instanceStart, 1.0 );
-			vec4 end = modelViewMatrix * vec4( instanceEnd, 1.0 );
-
-			#ifdef WORLD_UNITS
-
-				worldStart = start.xyz;
-				worldEnd = end.xyz;
-
-			#else
-
-				vUv = uv;
-
-			#endif
-
-			// special case for perspective projection, and segments that terminate either in, or behind, the camera plane
-			// clearly the gpu firmware has a way of addressing this issue when projecting into ndc space
-			// but we need to perform ndc-space calculations in the shader, so we must address this issue directly
-			// perhaps there is a more elegant solution -- WestLangley
-
-			bool perspective = ( projectionMatrix[ 2 ][ 3 ] == - 1.0 ); // 4th entry in the 3rd column
-
-			if ( perspective ) {
-
-				if ( start.z < 0.0 && end.z >= 0.0 ) {
-
-					trimSegment( start, end );
-
-				} else if ( end.z < 0.0 && start.z >= 0.0 ) {
-
-					trimSegment( end, start );
-
-				}
-
-			}
-
-			// clip space
-			vec4 clipStart = projectionMatrix * start;
-			vec4 clipEnd = projectionMatrix * end;
-
-			// ndc space
-			vec3 ndcStart = clipStart.xyz / clipStart.w;
-			vec3 ndcEnd = clipEnd.xyz / clipEnd.w;
-
-			// direction
-			vec2 dir = ndcEnd.xy - ndcStart.xy;
-
-			// account for clip-space aspect ratio
-			dir.x *= aspect;
-			dir = normalize( dir );
-
-			#ifdef WORLD_UNITS
-
-				// get the offset direction as perpendicular to the view vector
-				vec3 worldDir = normalize( end.xyz - start.xyz );
-				vec3 offset;
-				if ( position.y < 0.5 ) {
-
-					offset = normalize( cross( start.xyz, worldDir ) );
-
-				} else {
-
-					offset = normalize( cross( end.xyz, worldDir ) );
-
-				}
-
-				// sign flip
-				if ( position.x < 0.0 ) offset *= - 1.0;
-
-				float forwardOffset = dot( worldDir, vec3( 0.0, 0.0, 1.0 ) );
-
-				// don't extend the line if we're rendering dashes because we
-				// won't be rendering the endcaps
-				#ifndef USE_DASH
-
-					// extend the line bounds to encompass  endcaps
-					start.xyz += - worldDir * linewidth * 0.5;
-					end.xyz += worldDir * linewidth * 0.5;
-
-					// shift the position of the quad so it hugs the forward edge of the line
-					offset.xy -= dir * forwardOffset;
-					offset.z += 0.5;
-
-				#endif
-
-				// endcaps
-				if ( position.y > 1.0 || position.y < 0.0 ) {
-
-					offset.xy += dir * 2.0 * forwardOffset;
-
-				}
-
-				// adjust for linewidth
-				offset *= linewidth * 0.5;
-
-				// set the world position
-				worldPos = ( position.y < 0.5 ) ? start : end;
-				worldPos.xyz += offset;
-
-				// project the worldpos
-				vec4 clip = projectionMatrix * worldPos;
-
-				// shift the depth of the projected points so the line
-				// segements overlap neatly
-				vec3 clipPose = ( position.y < 0.5 ) ? ndcStart : ndcEnd;
-				clip.z = clipPose.z * clip.w;
-
-			#else
-
-				vec2 offset = vec2( dir.y, - dir.x );
-				// undo aspect ratio adjustment
-				dir.x /= aspect;
-				offset.x /= aspect;
-
-				// sign flip
-				if ( position.x < 0.0 ) offset *= - 1.0;
-
-				// endcaps
-				if ( position.y < 0.0 ) {
-
-					offset += - dir;
-
-				} else if ( position.y > 1.0 ) {
-
-					offset += dir;
-
-				}
-
-				// adjust for linewidth
-				offset *= linewidth;
-
-				// adjust for clip-space to screen-space conversion // maybe resolution should be based on viewport ...
-				offset /= resolution.y;
-
-				// select end
-				vec4 clip = ( position.y < 0.5 ) ? clipStart : clipEnd;
-
-				// back to clip space
-				offset *= clip.w;
-
-				clip.xy += offset;
-
-			#endif
-
-			gl_Position = clip;
-
-			vec4 mvPosition = ( position.y < 0.5 ) ? start : end; // this is an approximation
-
-			#include <logdepthbuf_vertex>
-			#include <clipping_planes_vertex>
-			#include <fog_vertex>
-
-		}
-		`,
-
-	fragmentShader:
-	/* glsl */`
-		uniform vec3 diffuse;
-		uniform float opacity;
-		uniform float linewidth;
-
-		#ifdef USE_DASH
-
-			uniform float dashOffset;
-			uniform float dashSize;
-			uniform float gapSize;
-
-		#endif
-
-		varying float vLineDistance;
-
-		#ifdef WORLD_UNITS
-
-			varying vec4 worldPos;
-			varying vec3 worldStart;
-			varying vec3 worldEnd;
-
-			#ifdef USE_DASH
-
-				varying vec2 vUv;
-
-			#endif
-
-		#else
-
-			varying vec2 vUv;
-
-		#endif
-
-		#include <common>
-		#include <color_pars_fragment>
-		#include <fog_pars_fragment>
-		#include <logdepthbuf_pars_fragment>
-		#include <clipping_planes_pars_fragment>
-
-		vec2 closestLineToLine(vec3 p1, vec3 p2, vec3 p3, vec3 p4) {
-
-			float mua;
-			float mub;
-
-			vec3 p13 = p1 - p3;
-			vec3 p43 = p4 - p3;
-
-			vec3 p21 = p2 - p1;
-
-			float d1343 = dot( p13, p43 );
-			float d4321 = dot( p43, p21 );
-			float d1321 = dot( p13, p21 );
-			float d4343 = dot( p43, p43 );
-			float d2121 = dot( p21, p21 );
-
-			float denom = d2121 * d4343 - d4321 * d4321;
-
-			float numer = d1343 * d4321 - d1321 * d4343;
-
-			mua = numer / denom;
-			mua = clamp( mua, 0.0, 1.0 );
-			mub = ( d1343 + d4321 * ( mua ) ) / d4343;
-			mub = clamp( mub, 0.0, 1.0 );
-
-			return vec2( mua, mub );
-
-		}
-
-		void main() {
-
-			#include <clipping_planes_fragment>
-
-			#ifdef USE_DASH
-
-				if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps
-
-				if ( mod( vLineDistance + dashOffset, dashSize + gapSize ) > dashSize ) discard; // todo - FIX
-
-			#endif
-
-			float alpha = opacity;
-
-			#ifdef WORLD_UNITS
-
-				// Find the closest points on the view ray and the line segment
-				vec3 rayEnd = normalize( worldPos.xyz ) * 1e5;
-				vec3 lineDir = worldEnd - worldStart;
-				vec2 params = closestLineToLine( worldStart, worldEnd, vec3( 0.0, 0.0, 0.0 ), rayEnd );
-
-				vec3 p1 = worldStart + lineDir * params.x;
-				vec3 p2 = rayEnd * params.y;
-				vec3 delta = p1 - p2;
-				float len = length( delta );
-				float norm = len / linewidth;
-
-				#ifndef USE_DASH
-
-					#ifdef USE_ALPHA_TO_COVERAGE
-
-						float dnorm = fwidth( norm );
-						alpha = 1.0 - smoothstep( 0.5 - dnorm, 0.5 + dnorm, norm );
-
-					#else
-
-						if ( norm > 0.5 ) {
-
-							discard;
-
-						}
-
-					#endif
-
-				#endif
-
-			#else
-
-				#ifdef USE_ALPHA_TO_COVERAGE
-
-					// artifacts appear on some hardware if a derivative is taken within a conditional
-					float a = vUv.x;
-					float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;
-					float len2 = a * a + b * b;
-					float dlen = fwidth( len2 );
-
-					if ( abs( vUv.y ) > 1.0 ) {
-
-						alpha = 1.0 - smoothstep( 1.0 - dlen, 1.0 + dlen, len2 );
-
-					}
-
-				#else
-
-					if ( abs( vUv.y ) > 1.0 ) {
-
-						float a = vUv.x;
-						float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;
-						float len2 = a * a + b * b;
-
-						if ( len2 > 1.0 ) discard;
-
-					}
-
-				#endif
-
-			#endif
-
-			vec4 diffuseColor = vec4( diffuse, alpha );
-
-			#include <logdepthbuf_fragment>
-			#include <color_fragment>
-
-			gl_FragColor = vec4( diffuseColor.rgb, alpha );
-
-			#include <tonemapping_fragment>
-			#include <encodings_fragment>
-			#include <fog_fragment>
-			#include <premultiplied_alpha_fragment>
-
-		}
-		`
-};
-
-class LineMaterial extends ShaderMaterial {
-
-	constructor( parameters ) {
-
-		super( {
-
-			type: 'LineMaterial',
-
-			uniforms: UniformsUtils.clone( ShaderLib[ 'line' ].uniforms ),
-
-			vertexShader: ShaderLib[ 'line' ].vertexShader,
-			fragmentShader: ShaderLib[ 'line' ].fragmentShader,
-
-			clipping: true // required for clipping support
-
-		} );
-
-		Object.defineProperties( this, {
-
-			color: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.diffuse.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.diffuse.value = value;
-
-				}
-
-			},
-
-			worldUnits: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return 'WORLD_UNITS' in this.defines;
-
-				},
-
-				set: function ( value ) {
-
-					if ( value === true ) {
-
-						this.defines.WORLD_UNITS = '';
-
-					} else {
-
-						delete this.defines.WORLD_UNITS;
-
-					}
-
-				}
-
-			},
-
-			linewidth: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.linewidth.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.linewidth.value = value;
-
-				}
-
-			},
-
-			dashed: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return Boolean( 'USE_DASH' in this.defines );
-
-				},
-
-				set( value ) {
-
-					if ( Boolean( value ) !== Boolean( 'USE_DASH' in this.defines ) ) {
-
-						this.needsUpdate = true;
-
-					}
-
-					if ( value === true ) {
-
-						this.defines.USE_DASH = '';
-
-					} else {
-
-						delete this.defines.USE_DASH;
-
-					}
-
-				}
-
-			},
-
-			dashScale: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.dashScale.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.dashScale.value = value;
-
-				}
-
-			},
-
-			dashSize: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.dashSize.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.dashSize.value = value;
-
-				}
-
-			},
-
-			dashOffset: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.dashOffset.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.dashOffset.value = value;
-
-				}
-
-			},
-
-			gapSize: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.gapSize.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.gapSize.value = value;
-
-				}
-
-			},
-
-			opacity: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.opacity.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.opacity.value = value;
-
-				}
-
-			},
-
-			resolution: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return this.uniforms.resolution.value;
-
-				},
-
-				set: function ( value ) {
-
-					this.uniforms.resolution.value.copy( value );
-
-				}
-
-			},
-
-			alphaToCoverage: {
-
-				enumerable: true,
-
-				get: function () {
-
-					return Boolean( 'USE_ALPHA_TO_COVERAGE' in this.defines );
-
-				},
-
-				set: function ( value ) {
-
-					if ( Boolean( value ) !== Boolean( 'USE_ALPHA_TO_COVERAGE' in this.defines ) ) {
-
-						this.needsUpdate = true;
-
-					}
-
-					if ( value === true ) {
-
-						this.defines.USE_ALPHA_TO_COVERAGE = '';
-						this.extensions.derivatives = true;
-
-					} else {
-
-						delete this.defines.USE_ALPHA_TO_COVERAGE;
-						this.extensions.derivatives = false;
-
-					}
-
-				}
-
-			}
-
-		} );
-
-		this.setValues( parameters );
-
-	}
-
-}
-
-LineMaterial.prototype.isLineMaterial = true;
-
-const _start = new Vector3();
-const _end = new Vector3();
-
-const _start4 = new Vector4();
-const _end4 = new Vector4();
-
-const _ssOrigin = new Vector4();
-const _ssOrigin3 = new Vector3();
-const _mvMatrix = new Matrix4();
-const _line = new Line3();
-const _closestPoint = new Vector3();
-
-const _box = new Box3();
-const _sphere = new Sphere();
-const _clipToWorldVector = new Vector4();
-
-// Returns the margin required to expand by in world space given the distance from the camera,
-// line width, resolution, and camera projection
-function getWorldSpaceHalfWidth( camera, distance, lineWidth, resolution ) {
-
-	// transform into clip space, adjust the x and y values by the pixel width offset, then
-	// transform back into world space to get world offset. Note clip space is [-1, 1] so full
-	// width does not need to be halved.
-	_clipToWorldVector.set( 0, 0, - distance, 1.0 ).applyMatrix4( camera.projectionMatrix );
-	_clipToWorldVector.multiplyScalar( 1.0 / _clipToWorldVector.w );
-	_clipToWorldVector.x = lineWidth / resolution.width;
-	_clipToWorldVector.y = lineWidth / resolution.height;
-	_clipToWorldVector.applyMatrix4( camera.projectionMatrixInverse );
-	_clipToWorldVector.multiplyScalar( 1.0 / _clipToWorldVector.w );
-
-	return Math.abs( Math.max( _clipToWorldVector.x, _clipToWorldVector.y ) );
-
-}
-
-class LineSegments2 extends Mesh {
-
-	constructor( geometry = new LineSegmentsGeometry(), material = new LineMaterial( { color: Math.random() * 0xffffff } ) ) {
-
-		super( geometry, material );
-
-		this.type = 'LineSegments2';
-
-	}
-
-	// for backwards-compatability, but could be a method of LineSegmentsGeometry...
-
-	computeLineDistances() {
-
-		const geometry = this.geometry;
-
-		const instanceStart = geometry.attributes.instanceStart;
-		const instanceEnd = geometry.attributes.instanceEnd;
-		const lineDistances = new Float32Array( 2 * instanceStart.count );
-
-		for ( let i = 0, j = 0, l = instanceStart.count; i < l; i ++, j += 2 ) {
-
-			_start.fromBufferAttribute( instanceStart, i );
-			_end.fromBufferAttribute( instanceEnd, i );
-
-			lineDistances[ j ] = ( j === 0 ) ? 0 : lineDistances[ j - 1 ];
-			lineDistances[ j + 1 ] = lineDistances[ j ] + _start.distanceTo( _end );
-
-		}
-
-		const instanceDistanceBuffer = new InstancedInterleavedBuffer( lineDistances, 2, 1 ); // d0, d1
-
-		geometry.setAttribute( 'instanceDistanceStart', new InterleavedBufferAttribute( instanceDistanceBuffer, 1, 0 ) ); // d0
-		geometry.setAttribute( 'instanceDistanceEnd', new InterleavedBufferAttribute( instanceDistanceBuffer, 1, 1 ) ); // d1
-
-		return this;
-
-	}
-
-	raycast( raycaster, intersects ) {
-
-		if ( raycaster.camera === null ) {
-
-			console.error( 'LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2.' );
-
-		}
-
-		const threshold = ( raycaster.params.Line2 !== undefined ) ? raycaster.params.Line2.threshold || 0 : 0;
-
-		const ray = raycaster.ray;
-		const camera = raycaster.camera;
-		const projectionMatrix = camera.projectionMatrix;
-
-		const matrixWorld = this.matrixWorld;
-		const geometry = this.geometry;
-		const material = this.material;
-		const resolution = material.resolution;
-		const lineWidth = material.linewidth + threshold;
-
-		const instanceStart = geometry.attributes.instanceStart;
-		const instanceEnd = geometry.attributes.instanceEnd;
-
-		// camera forward is negative
-		const near = - camera.near;
-
-		//
-
-		// check if we intersect the sphere bounds
-		if ( geometry.boundingSphere === null ) {
-
-			geometry.computeBoundingSphere();
-
-		}
-
-		_sphere.copy( geometry.boundingSphere ).applyMatrix4( matrixWorld );
-		const distanceToSphere = Math.max( camera.near, _sphere.distanceToPoint( ray.origin ) );
-
-		// increase the sphere bounds by the worst case line screen space width
-		const sphereMargin = getWorldSpaceHalfWidth( camera, distanceToSphere, lineWidth, resolution );
-		_sphere.radius += sphereMargin;
-
-		if ( raycaster.ray.intersectsSphere( _sphere ) === false ) {
-
-			return;
-
-		}
-
-		//
-
-		// check if we intersect the box bounds
-		if ( geometry.boundingBox === null ) {
-
-			geometry.computeBoundingBox();
-
-		}
-
-		_box.copy( geometry.boundingBox ).applyMatrix4( matrixWorld );
-		const distanceToBox = Math.max( camera.near, _box.distanceToPoint( ray.origin ) );
-
-		// increase the box bounds by the worst case line screen space width
-		const boxMargin = getWorldSpaceHalfWidth( camera, distanceToBox, lineWidth, resolution );
-		_box.max.x += boxMargin;
-		_box.max.y += boxMargin;
-		_box.max.z += boxMargin;
-		_box.min.x -= boxMargin;
-		_box.min.y -= boxMargin;
-		_box.min.z -= boxMargin;
-
-		if ( raycaster.ray.intersectsBox( _box ) === false ) {
-
-			return;
-
-		}
-
-		//
-
-		// pick a point 1 unit out along the ray to avoid the ray origin
-		// sitting at the camera origin which will cause "w" to be 0 when
-		// applying the projection matrix.
-		ray.at( 1, _ssOrigin );
-
-		// ndc space [ - 1.0, 1.0 ]
-		_ssOrigin.w = 1;
-		_ssOrigin.applyMatrix4( camera.matrixWorldInverse );
-		_ssOrigin.applyMatrix4( projectionMatrix );
-		_ssOrigin.multiplyScalar( 1 / _ssOrigin.w );
-
-		// screen space
-		_ssOrigin.x *= resolution.x / 2;
-		_ssOrigin.y *= resolution.y / 2;
-		_ssOrigin.z = 0;
-
-		_ssOrigin3.copy( _ssOrigin );
-
-		_mvMatrix.multiplyMatrices( camera.matrixWorldInverse, matrixWorld );
-
-		for ( let i = 0, l = instanceStart.count; i < l; i ++ ) {
-
-			_start4.fromBufferAttribute( instanceStart, i );
-			_end4.fromBufferAttribute( instanceEnd, i );
-
-			_start4.w = 1;
-			_end4.w = 1;
-
-			// camera space
-			_start4.applyMatrix4( _mvMatrix );
-			_end4.applyMatrix4( _mvMatrix );
-
-			// skip the segment if it's entirely behind the camera
-			const isBehindCameraNear = _start4.z > near && _end4.z > near;
-			if ( isBehindCameraNear ) {
-
-				continue;
-
-			}
-
-			// trim the segment if it extends behind camera near
-			if ( _start4.z > near ) {
-
-				const deltaDist = _start4.z - _end4.z;
-				const t = ( _start4.z - near ) / deltaDist;
-				_start4.lerp( _end4, t );
-
-			} else if ( _end4.z > near ) {
-
-				const deltaDist = _end4.z - _start4.z;
-				const t = ( _end4.z - near ) / deltaDist;
-				_end4.lerp( _start4, t );
-
-			}
-
-			// clip space
-			_start4.applyMatrix4( projectionMatrix );
-			_end4.applyMatrix4( projectionMatrix );
-
-			// ndc space [ - 1.0, 1.0 ]
-			_start4.multiplyScalar( 1 / _start4.w );
-			_end4.multiplyScalar( 1 / _end4.w );
-
-			// screen space
-			_start4.x *= resolution.x / 2;
-			_start4.y *= resolution.y / 2;
-
-			_end4.x *= resolution.x / 2;
-			_end4.y *= resolution.y / 2;
-
-			// create 2d segment
-			_line.start.copy( _start4 );
-			_line.start.z = 0;
-
-			_line.end.copy( _end4 );
-			_line.end.z = 0;
-
-			// get closest point on ray to segment
-			const param = _line.closestPointToPointParameter( _ssOrigin3, true );
-			_line.at( param, _closestPoint );
-
-			// check if the intersection point is within clip space
-			const zPos = MathUtils.lerp( _start4.z, _end4.z, param );
-			const isInClipSpace = zPos >= - 1 && zPos <= 1;
-
-			const isInside = _ssOrigin3.distanceTo( _closestPoint ) < lineWidth * 0.5;
-
-			if ( isInClipSpace && isInside ) {
-
-				_line.start.fromBufferAttribute( instanceStart, i );
-				_line.end.fromBufferAttribute( instanceEnd, i );
-
-				_line.start.applyMatrix4( matrixWorld );
-				_line.end.applyMatrix4( matrixWorld );
-
-				const pointOnLine = new Vector3();
-				const point = new Vector3();
-
-				ray.distanceSqToSegment( _line.start, _line.end, point, pointOnLine );
-
-				intersects.push( {
-
-					point: point,
-					pointOnLine: pointOnLine,
-					distance: ray.origin.distanceTo( point ),
-
-					object: this,
-					face: null,
-					faceIndex: i,
-					uv: null,
-					uv2: null,
-
-				} );
-
-			}
-
-		}
-
-	}
-
-}
-
-LineSegments2.prototype.isLineSegments2 = true;
-
-const vec0 = new Vector3();
-const vec1 = new Vector3();
-const vec2 = new Vector3();
-const vec3 = new Vector3();
-const vec4 = new Vector3();
-
-const triangle0 = new Triangle();
-const triangle1 = new Triangle();
-const normal0 = new Vector3();
-const normal1 = new Vector3();
-class ConditionalEdgesGeometry extends BufferGeometry {
-
-	constructor( geometry ) {
-
-		super();
-
-		const edgeInfo = {};
-
-		const position = geometry.attributes.position;
-		let index;
-		if ( geometry.index ) {
-
-			index = geometry.index;
+			renderTarget = new WebGLRenderTarget( this._width * this._pixelRatio, this._height * this._pixelRatio, parameters );
+			renderTarget.texture.name = 'EffectComposer.rt1';
 
 		} else {
 
-			const arr = new Array( position.count / 3 ).fill().map( ( _, i ) => i );
-			index = new BufferAttribute( new Uint32Array( arr ), 1, false );
+			this._pixelRatio = 1;
+			this._width = renderTarget.width;
+			this._height = renderTarget.height;
 
 		}
 
-		for ( let i = 0, l = index.count; i < l; i += 3 ) {
+		this.renderTarget1 = renderTarget;
+		this.renderTarget2 = renderTarget.clone();
+		this.renderTarget2.texture.name = 'EffectComposer.rt2';
 
-			const indices = [
-				index.getX( i + 0 ),
-				index.getX( i + 1 ),
-				index.getX( i + 2 ),
-			];
+		this.writeBuffer = this.renderTarget1;
+		this.readBuffer = this.renderTarget2;
 
-			for ( let j = 0; j < 3; j ++ ) {
+		this.renderToScreen = true;
 
-				const index0 = indices[ j ];
-				const index1 = indices[ ( j + 1 ) % 3 ];
+		this.passes = [];
 
-				const hash = `${ index0 }_${ index1 }`;
-				const reverseHash = `${ index1 }_${ index0 }`;
-				if ( reverseHash in edgeInfo ) {
+		// dependencies
 
-					edgeInfo[ reverseHash ].controlIndex1 = indices[ ( j + 2 ) % 3 ];
-					edgeInfo[ reverseHash ].tri1 = i / 3;
+		if ( CopyShader === undefined ) {
 
-				} else {
+			console.error( 'THREE.EffectComposer relies on CopyShader' );
 
-					edgeInfo[ hash ] = {
-						index0,
-						index1,
+		}
 
-						controlIndex0: indices[ ( j + 2 ) % 3 ],
-						controlIndex1: null,
+		if ( ShaderPass === undefined ) {
 
-						tri0: i / 3,
-						tri1: null,
+			console.error( 'THREE.EffectComposer relies on ShaderPass' );
 
-					};
+		}
+
+		this.copyPass = new ShaderPass( CopyShader );
+
+		this.clock = new Clock();
+
+	}
+
+	swapBuffers() {
+
+		const tmp = this.readBuffer;
+		this.readBuffer = this.writeBuffer;
+		this.writeBuffer = tmp;
+
+	}
+
+	addPass( pass ) {
+
+		this.passes.push( pass );
+		pass.setSize( this._width * this._pixelRatio, this._height * this._pixelRatio );
+
+	}
+
+	insertPass( pass, index ) {
+
+		this.passes.splice( index, 0, pass );
+		pass.setSize( this._width * this._pixelRatio, this._height * this._pixelRatio );
+
+	}
+
+	removePass( pass ) {
+
+		const index = this.passes.indexOf( pass );
+
+		if ( index !== - 1 ) {
+
+			this.passes.splice( index, 1 );
+
+		}
+
+	}
+
+	isLastEnabledPass( passIndex ) {
+
+		for ( let i = passIndex + 1; i < this.passes.length; i ++ ) {
+
+			if ( this.passes[ i ].enabled ) {
+
+				return false;
+
+			}
+
+		}
+
+		return true;
+
+	}
+
+	render( deltaTime ) {
+
+		// deltaTime value is in seconds
+
+		if ( deltaTime === undefined ) {
+
+			deltaTime = this.clock.getDelta();
+
+		}
+
+		const currentRenderTarget = this.renderer.getRenderTarget();
+
+		let maskActive = false;
+
+		for ( let i = 0, il = this.passes.length; i < il; i ++ ) {
+
+			const pass = this.passes[ i ];
+
+			if ( pass.enabled === false ) continue;
+
+			pass.renderToScreen = ( this.renderToScreen && this.isLastEnabledPass( i ) );
+			pass.render( this.renderer, this.writeBuffer, this.readBuffer, deltaTime, maskActive );
+
+			if ( pass.needsSwap ) {
+
+				if ( maskActive ) {
+
+					const context = this.renderer.getContext();
+					const stencil = this.renderer.state.buffers.stencil;
+
+					//context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
+					stencil.setFunc( context.NOTEQUAL, 1, 0xffffffff );
+
+					this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, deltaTime );
+
+					//context.stencilFunc( context.EQUAL, 1, 0xffffffff );
+					stencil.setFunc( context.EQUAL, 1, 0xffffffff );
+
+				}
+
+				this.swapBuffers();
+
+			}
+
+			if ( MaskPass !== undefined ) {
+
+				if ( pass instanceof MaskPass ) {
+
+					maskActive = true;
+
+				} else if ( pass instanceof ClearMaskPass ) {
+
+					maskActive = false;
 
 				}
 
@@ -61551,219 +59788,828 @@ class ConditionalEdgesGeometry extends BufferGeometry {
 
 		}
 
-		const edgePositions = [];
-		const edgeDirections = [];
-		const edgeControl0 = [];
-		const edgeControl1 = [];
-		for ( const key in edgeInfo ) {
+		this.renderer.setRenderTarget( currentRenderTarget );
 
-			const {
-				index0,
-				index1,
-				controlIndex0,
-				controlIndex1,
-				tri0,
-				tri1,
-			} = edgeInfo[ key ];
+	}
 
-			if ( controlIndex1 === null ) {
+	reset( renderTarget ) {
 
-				continue;
+		if ( renderTarget === undefined ) {
 
-			}
+			const size = this.renderer.getSize( new Vector2() );
+			this._pixelRatio = this.renderer.getPixelRatio();
+			this._width = size.width;
+			this._height = size.height;
 
-			triangle0.a.fromBufferAttribute( position, index.getX( tri0 * 3 + 0 ) );
-			triangle0.b.fromBufferAttribute( position, index.getX( tri0 * 3 + 1 ) );
-			triangle0.c.fromBufferAttribute( position, index.getX( tri0 * 3 + 2 ) );
-
-			triangle1.a.fromBufferAttribute( position, index.getX( tri1 * 3 + 0 ) );
-			triangle1.b.fromBufferAttribute( position, index.getX( tri1 * 3 + 1 ) );
-			triangle1.c.fromBufferAttribute( position, index.getX( tri1 * 3 + 2 ) );
-
-			triangle0.getNormal( normal0 ).normalize();
-			triangle1.getNormal( normal1 ).normalize();
-
-
-			if ( normal0.dot( normal1 ) < 0.01 ) {
-
-				continue;
-
-			}
-
-			// positions
-			vec0.fromBufferAttribute( position, index0 );
-			vec1.fromBufferAttribute( position, index1 );
-
-			// direction
-			vec2.subVectors( vec0, vec1 );
-
-			// control positions
-			vec3.fromBufferAttribute( position, controlIndex0 );
-			vec4.fromBufferAttribute( position, controlIndex1 );
-
-			// create arrays
-			edgePositions.push( vec0.x, vec0.y, vec0.z );
-			edgeDirections.push( vec2.x, vec2.y, vec2.z );
-			edgeControl0.push( vec3.x, vec3.y, vec3.z );
-			edgeControl1.push( vec4.x, vec4.y, vec4.z );
-
-			edgePositions.push( vec1.x, vec1.y, vec1.z );
-			edgeDirections.push( vec2.x, vec2.y, vec2.z );
-			edgeControl0.push( vec3.x, vec3.y, vec3.z );
-			edgeControl1.push( vec4.x, vec4.y, vec4.z );
+			renderTarget = this.renderTarget1.clone();
+			renderTarget.setSize( this._width * this._pixelRatio, this._height * this._pixelRatio );
 
 		}
 
-		this.setAttribute( 'position', new BufferAttribute( new Float32Array( edgePositions ), 3, false ) );
-		this.setAttribute( 'direction', new BufferAttribute( new Float32Array( edgeDirections ), 3, false ) );
-		this.setAttribute( 'control0', new BufferAttribute( new Float32Array( edgeControl0 ), 3, false ) );
-		this.setAttribute( 'control1', new BufferAttribute( new Float32Array( edgeControl1 ), 3, false ) );
+		this.renderTarget1.dispose();
+		this.renderTarget2.dispose();
+		this.renderTarget1 = renderTarget;
+		this.renderTarget2 = renderTarget.clone();
+
+		this.writeBuffer = this.renderTarget1;
+		this.readBuffer = this.renderTarget2;
+
+	}
+
+	setSize( width, height ) {
+
+		this._width = width;
+		this._height = height;
+
+		const effectiveWidth = this._width * this._pixelRatio;
+		const effectiveHeight = this._height * this._pixelRatio;
+
+		this.renderTarget1.setSize( effectiveWidth, effectiveHeight );
+		this.renderTarget2.setSize( effectiveWidth, effectiveHeight );
+
+		for ( let i = 0; i < this.passes.length; i ++ ) {
+
+			this.passes[ i ].setSize( effectiveWidth, effectiveHeight );
+
+		}
+
+	}
+
+	setPixelRatio( pixelRatio ) {
+
+		this._pixelRatio = pixelRatio;
+
+		this.setSize( this._width, this._height );
 
 	}
 
 }
 
-const ConditionalEdgesShader = {
 
-	uniforms: {
+class Pass {
 
-		diffuse: {
-			value: new Color()
-		},
+	constructor() {
 
-		opacity: {
-			value: 1.0
-		}
+		// if set to true, the pass is processed by the composer
+		this.enabled = true;
 
-	},
+		// if set to true, the pass indicates to swap read and write buffer after rendering
+		this.needsSwap = true;
 
-	vertexShader: /* glsl */`
-		attribute vec3 control0;
-		attribute vec3 control1;
-		attribute vec3 direction;
+		// if set to true, the pass clears its buffer before rendering
+		this.clear = false;
 
-		#include <common>
-		#include <color_pars_vertex>
-		#include <fog_pars_vertex>
-		#include <logdepthbuf_pars_vertex>
-		#include <clipping_planes_pars_vertex>
-		void main() {
+		// if set to true, the result of the pass is rendered to screen. This is set automatically by EffectComposer.
+		this.renderToScreen = false;
 
-			#include <color_vertex>
+	}
 
-			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-			gl_Position = projectionMatrix * mvPosition;
+	setSize( /* width, height */ ) {}
 
-			// Transform the line segment ends and control points into camera clip space
-			vec4 c0 = projectionMatrix * modelViewMatrix * vec4( control0, 1.0 );
-			vec4 c1 = projectionMatrix * modelViewMatrix * vec4( control1, 1.0 );
-			vec4 p0 = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-			vec4 p1 = projectionMatrix * modelViewMatrix * vec4( position + direction, 1.0 );
+	render( /* renderer, writeBuffer, readBuffer, deltaTime, maskActive */ ) {
 
-			c0 /= c0.w;
-			c1 /= c1.w;
-			p0 /= p0.w;
-			p1 /= p1.w;
-
-			// Get the direction of the segment and an orthogonal vector
-			vec2 dir = p1.xy - p0.xy;
-			vec2 norm = vec2( -dir.y, dir.x );
-
-			// Get control point directions from the line
-			vec2 c0dir = c0.xy - p1.xy;
-			vec2 c1dir = c1.xy - p1.xy;
-
-			// If the vectors to the controls points are pointed in different directions away
-			// from the line segment then the line should not be drawn.
-			float d0 = dot( normalize( norm ), normalize( c0dir ) );
-			float d1 = dot( normalize( norm ), normalize( c1dir ) );
-			float discardFlag = float( sign( d0 ) != sign( d1 ) );
-			gl_Position = discardFlag > 0.5 ? c0 : gl_Position;
-
-			#include <logdepthbuf_vertex>
-			#include <clipping_planes_vertex>
-			#include <fog_vertex>
-
-		}
-	`,
-
-	fragmentShader: /* glsl */`
-		uniform vec3 diffuse;
-		uniform float opacity;
-
-		#include <common>
-		#include <color_pars_fragment>
-		#include <fog_pars_fragment>
-		#include <logdepthbuf_pars_fragment>
-		#include <clipping_planes_pars_fragment>
-		void main() {
-
-			#include <clipping_planes_fragment>
-
-			vec3 outgoingLight = vec3( 0.0 );
-			vec4 diffuseColor = vec4( diffuse, opacity );
-
-			#include <logdepthbuf_fragment>
-			#include <color_fragment>
-
-			outgoingLight = diffuseColor.rgb; // simple shader
-			gl_FragColor = vec4( outgoingLight, diffuseColor.a );
-
-			#include <tonemapping_fragment>
-			#include <encodings_fragment>
-			#include <fog_fragment>
-			#include <premultiplied_alpha_fragment>
-
-		}
-	`,
-
-};
-
-class ConditionalLineSegmentsGeometry extends LineSegmentsGeometry {
-
-	fromConditionalEdgesGeometry( geometry ) {
-
-		super.fromEdgesGeometry( geometry );
-
-		const {
-			direction,
-			control0,
-			control1,
-		} = geometry.attributes;
-
-		this.setAttribute( 'direction',
-			new InterleavedBufferAttribute(
-				new InstancedInterleavedBuffer( direction.array, 6, 1 ),
-				3,
-				0,
-			),
-		);
-
-		this.setAttribute( 'control0',
-			new InterleavedBufferAttribute(
-				new InstancedInterleavedBuffer( control0.array, 6, 1 ),
-				3,
-				0,
-			),
-		);
-
-		this.setAttribute( 'control1',
-			new InterleavedBufferAttribute(
-				new InstancedInterleavedBuffer( control1.array, 6, 1 ),
-				3,
-				0,
-			),
-		);
-
-		return this;
+		console.error( 'THREE.Pass: .render() must be implemented in derived pass.' );
 
 	}
 
 }
 
-// import { ConditionalLineMaterial } from "./modules/conditional-lines/ConditionalLineMaterial.js";
+// Helper for passes that need to fill the viewport with a single quad.
+
+const _camera = new OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
+
+// https://github.com/mrdoob/three.js/pull/21358
+
+const _geometry = new BufferGeometry();
+_geometry.setAttribute( 'position', new Float32BufferAttribute( [ - 1, 3, 0, - 1, - 1, 0, 3, - 1, 0 ], 3 ) );
+_geometry.setAttribute( 'uv', new Float32BufferAttribute( [ 0, 2, 0, 0, 2, 0 ], 2 ) );
+
+class FullScreenQuad {
+
+	constructor( material ) {
+
+		this._mesh = new Mesh( _geometry, material );
+
+	}
+
+	dispose() {
+
+		this._mesh.geometry.dispose();
+
+	}
+
+	render( renderer ) {
+
+		renderer.render( this._mesh, _camera );
+
+	}
+
+	get material() {
+
+		return this._mesh.material;
+
+	}
+
+	set material( value ) {
+
+		this._mesh.material = value;
+
+	}
+
+}
+
+class RenderPass extends Pass$1 {
+
+	constructor( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
+
+		super();
+
+		this.scene = scene;
+		this.camera = camera;
+
+		this.overrideMaterial = overrideMaterial;
+
+		this.clearColor = clearColor;
+		this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
+
+		this.clear = true;
+		this.clearDepth = false;
+		this.needsSwap = false;
+		this._oldClearColor = new Color();
+
+	}
+
+	render( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
+
+		const oldAutoClear = renderer.autoClear;
+		renderer.autoClear = false;
+
+		let oldClearAlpha, oldOverrideMaterial;
+
+		if ( this.overrideMaterial !== undefined ) {
+
+			oldOverrideMaterial = this.scene.overrideMaterial;
+
+			this.scene.overrideMaterial = this.overrideMaterial;
+
+		}
+
+		if ( this.clearColor ) {
+
+			renderer.getClearColor( this._oldClearColor );
+			oldClearAlpha = renderer.getClearAlpha();
+
+			renderer.setClearColor( this.clearColor, this.clearAlpha );
+
+		}
+
+		if ( this.clearDepth ) {
+
+			renderer.clearDepth();
+
+		}
+
+		renderer.setRenderTarget( this.renderToScreen ? null : readBuffer );
+
+		// TODO: Avoid using autoClear properties, see https://github.com/mrdoob/three.js/pull/15571#issuecomment-465669600
+		if ( this.clear ) renderer.clear( renderer.autoClearColor, renderer.autoClearDepth, renderer.autoClearStencil );
+		renderer.render( this.scene, this.camera );
+
+		if ( this.clearColor ) {
+
+			renderer.setClearColor( this._oldClearColor, oldClearAlpha );
+
+		}
+
+		if ( this.overrideMaterial !== undefined ) {
+
+			this.scene.overrideMaterial = oldOverrideMaterial;
+
+		}
+
+		renderer.autoClear = oldAutoClear;
+
+	}
+
+}
+
+class OutlinePass extends Pass$1 {
+
+	constructor( resolution, scene, camera, selectedObjects ) {
+
+		super();
+
+		this.renderScene = scene;
+		this.renderCamera = camera;
+		this.selectedObjects = selectedObjects !== undefined ? selectedObjects : [];
+		this.visibleEdgeColor = new Color( 1, 1, 1 );
+		this.hiddenEdgeColor = new Color( 0.1, 0.04, 0.02 );
+		this.edgeGlow = 0.0;
+		this.usePatternTexture = false;
+		this.edgeThickness = 1.0;
+		this.edgeStrength = 3.0;
+		this.downSampleRatio = 2;
+		this.pulsePeriod = 0;
+
+		this._visibilityCache = new Map();
 
 
+		this.resolution = ( resolution !== undefined ) ? new Vector2( resolution.x, resolution.y ) : new Vector2( 256, 256 );
+
+		const pars = { minFilter: LinearFilter, magFilter: LinearFilter, format: RGBAFormat };
+
+		const resx = Math.round( this.resolution.x / this.downSampleRatio );
+		const resy = Math.round( this.resolution.y / this.downSampleRatio );
+
+		this.renderTargetMaskBuffer = new WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
+		this.renderTargetMaskBuffer.texture.name = 'OutlinePass.mask';
+		this.renderTargetMaskBuffer.texture.generateMipmaps = false;
+
+		this.depthMaterial = new MeshDepthMaterial();
+		this.depthMaterial.side = DoubleSide;
+		this.depthMaterial.depthPacking = RGBADepthPacking;
+		this.depthMaterial.blending = NoBlending;
+
+		this.prepareMaskMaterial = this.getPrepareMaskMaterial();
+		this.prepareMaskMaterial.side = DoubleSide;
+		this.prepareMaskMaterial.fragmentShader = replaceDepthToViewZ( this.prepareMaskMaterial.fragmentShader, this.renderCamera );
+
+		this.renderTargetDepthBuffer = new WebGLRenderTarget( this.resolution.x, this.resolution.y, pars );
+		this.renderTargetDepthBuffer.texture.name = 'OutlinePass.depth';
+		this.renderTargetDepthBuffer.texture.generateMipmaps = false;
+
+		this.renderTargetMaskDownSampleBuffer = new WebGLRenderTarget( resx, resy, pars );
+		this.renderTargetMaskDownSampleBuffer.texture.name = 'OutlinePass.depthDownSample';
+		this.renderTargetMaskDownSampleBuffer.texture.generateMipmaps = false;
+
+		this.renderTargetBlurBuffer1 = new WebGLRenderTarget( resx, resy, pars );
+		this.renderTargetBlurBuffer1.texture.name = 'OutlinePass.blur1';
+		this.renderTargetBlurBuffer1.texture.generateMipmaps = false;
+		this.renderTargetBlurBuffer2 = new WebGLRenderTarget( Math.round( resx / 2 ), Math.round( resy / 2 ), pars );
+		this.renderTargetBlurBuffer2.texture.name = 'OutlinePass.blur2';
+		this.renderTargetBlurBuffer2.texture.generateMipmaps = false;
+
+		this.edgeDetectionMaterial = this.getEdgeDetectionMaterial();
+		this.renderTargetEdgeBuffer1 = new WebGLRenderTarget( resx, resy, pars );
+		this.renderTargetEdgeBuffer1.texture.name = 'OutlinePass.edge1';
+		this.renderTargetEdgeBuffer1.texture.generateMipmaps = false;
+		this.renderTargetEdgeBuffer2 = new WebGLRenderTarget( Math.round( resx / 2 ), Math.round( resy / 2 ), pars );
+		this.renderTargetEdgeBuffer2.texture.name = 'OutlinePass.edge2';
+		this.renderTargetEdgeBuffer2.texture.generateMipmaps = false;
+
+		const MAX_EDGE_THICKNESS = 4;
+		const MAX_EDGE_GLOW = 4;
+
+		this.separableBlurMaterial1 = this.getSeperableBlurMaterial( MAX_EDGE_THICKNESS );
+		this.separableBlurMaterial1.uniforms[ 'texSize' ].value.set( resx, resy );
+		this.separableBlurMaterial1.uniforms[ 'kernelRadius' ].value = 1;
+		this.separableBlurMaterial2 = this.getSeperableBlurMaterial( MAX_EDGE_GLOW );
+		this.separableBlurMaterial2.uniforms[ 'texSize' ].value.set( Math.round( resx / 2 ), Math.round( resy / 2 ) );
+		this.separableBlurMaterial2.uniforms[ 'kernelRadius' ].value = MAX_EDGE_GLOW;
+
+		// Overlay material
+		this.overlayMaterial = this.getOverlayMaterial();
+
+		// copy material
+		if ( CopyShader === undefined ) console.error( 'THREE.OutlinePass relies on CopyShader' );
+
+		const copyShader = CopyShader;
+
+		this.copyUniforms = UniformsUtils.clone( copyShader.uniforms );
+		this.copyUniforms[ 'opacity' ].value = 1.0;
+
+		this.materialCopy = new ShaderMaterial( {
+			uniforms: this.copyUniforms,
+			vertexShader: copyShader.vertexShader,
+			fragmentShader: copyShader.fragmentShader,
+			blending: NoBlending,
+			depthTest: false,
+			depthWrite: false,
+			transparent: true
+		} );
+
+		this.enabled = true;
+		this.needsSwap = false;
+
+		this._oldClearColor = new Color();
+		this.oldClearAlpha = 1;
+
+		this.fsQuad = new FullScreenQuad$1( null );
+
+		this.tempPulseColor1 = new Color();
+		this.tempPulseColor2 = new Color();
+		this.textureMatrix = new Matrix4();
+
+		function replaceDepthToViewZ( string, camera ) {
+
+			const type = camera.isPerspectiveCamera ? 'perspective' : 'orthographic';
+
+			return string.replace( /DEPTH_TO_VIEW_Z/g, type + 'DepthToViewZ' );
+
+		}
+
+	}
+
+	dispose() {
+
+		this.renderTargetMaskBuffer.dispose();
+		this.renderTargetDepthBuffer.dispose();
+		this.renderTargetMaskDownSampleBuffer.dispose();
+		this.renderTargetBlurBuffer1.dispose();
+		this.renderTargetBlurBuffer2.dispose();
+		this.renderTargetEdgeBuffer1.dispose();
+		this.renderTargetEdgeBuffer2.dispose();
+
+	}
+
+	setSize( width, height ) {
+
+		this.renderTargetMaskBuffer.setSize( width, height );
+		this.renderTargetDepthBuffer.setSize( width, height );
+
+		let resx = Math.round( width / this.downSampleRatio );
+		let resy = Math.round( height / this.downSampleRatio );
+		this.renderTargetMaskDownSampleBuffer.setSize( resx, resy );
+		this.renderTargetBlurBuffer1.setSize( resx, resy );
+		this.renderTargetEdgeBuffer1.setSize( resx, resy );
+		this.separableBlurMaterial1.uniforms[ 'texSize' ].value.set( resx, resy );
+
+		resx = Math.round( resx / 2 );
+		resy = Math.round( resy / 2 );
+
+		this.renderTargetBlurBuffer2.setSize( resx, resy );
+		this.renderTargetEdgeBuffer2.setSize( resx, resy );
+
+		this.separableBlurMaterial2.uniforms[ 'texSize' ].value.set( resx, resy );
+
+	}
+
+	changeVisibilityOfSelectedObjects( bVisible ) {
+
+		const cache = this._visibilityCache;
+
+		function gatherSelectedMeshesCallBack( object ) {
+
+			if ( object.isMesh ) {
+
+				if ( bVisible === true ) {
+
+					object.visible = cache.get( object );
+
+				} else {
+
+					cache.set( object, object.visible );
+					object.visible = bVisible;
+
+				}
+
+			}
+
+		}
+
+		for ( let i = 0; i < this.selectedObjects.length; i ++ ) {
+
+			const selectedObject = this.selectedObjects[ i ];
+			selectedObject.traverse( gatherSelectedMeshesCallBack );
+
+		}
+
+	}
+
+	changeVisibilityOfNonSelectedObjects( bVisible ) {
+
+		const cache = this._visibilityCache;
+		const selectedMeshes = [];
+
+		function gatherSelectedMeshesCallBack( object ) {
+
+			if ( object.isMesh ) selectedMeshes.push( object );
+
+		}
+
+		for ( let i = 0; i < this.selectedObjects.length; i ++ ) {
+
+			const selectedObject = this.selectedObjects[ i ];
+			selectedObject.traverse( gatherSelectedMeshesCallBack );
+
+		}
+
+		function VisibilityChangeCallBack( object ) {
+
+			if ( object.isMesh || object.isSprite ) {
+
+				// only meshes and sprites are supported by OutlinePass
+
+				let bFound = false;
+
+				for ( let i = 0; i < selectedMeshes.length; i ++ ) {
+
+					const selectedObjectId = selectedMeshes[ i ].id;
+
+					if ( selectedObjectId === object.id ) {
+
+						bFound = true;
+						break;
+
+					}
+
+				}
+
+				if ( bFound === false ) {
+
+					const visibility = object.visible;
+
+					if ( bVisible === false || cache.get( object ) === true ) {
+
+						object.visible = bVisible;
+
+					}
+
+					cache.set( object, visibility );
+
+				}
+
+			} else if ( object.isPoints || object.isLine ) {
+
+				// the visibilty of points and lines is always set to false in order to
+				// not affect the outline computation
+
+				if ( bVisible === true ) {
+
+					object.visible = cache.get( object ); // restore
+
+				} else {
+
+					cache.set( object, object.visible );
+					object.visible = bVisible;
+
+				}
+
+			}
+
+		}
+
+		this.renderScene.traverse( VisibilityChangeCallBack );
+
+	}
+
+	updateTextureMatrix() {
+
+		this.textureMatrix.set( 0.5, 0.0, 0.0, 0.5,
+			0.0, 0.5, 0.0, 0.5,
+			0.0, 0.0, 0.5, 0.5,
+			0.0, 0.0, 0.0, 1.0 );
+		this.textureMatrix.multiply( this.renderCamera.projectionMatrix );
+		this.textureMatrix.multiply( this.renderCamera.matrixWorldInverse );
+
+	}
+
+	render( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
+
+		if ( this.selectedObjects.length > 0 ) {
+
+			renderer.getClearColor( this._oldClearColor );
+			this.oldClearAlpha = renderer.getClearAlpha();
+			const oldAutoClear = renderer.autoClear;
+
+			renderer.autoClear = false;
+
+			if ( maskActive ) renderer.state.buffers.stencil.setTest( false );
+
+			renderer.setClearColor( 0xffffff, 1 );
+
+			// Make selected objects invisible
+			this.changeVisibilityOfSelectedObjects( false );
+
+			const currentBackground = this.renderScene.background;
+			this.renderScene.background = null;
+
+			// 1. Draw Non Selected objects in the depth buffer
+			this.renderScene.overrideMaterial = this.depthMaterial;
+			renderer.setRenderTarget( this.renderTargetDepthBuffer );
+			renderer.clear();
+			renderer.render( this.renderScene, this.renderCamera );
+
+			// Make selected objects visible
+			this.changeVisibilityOfSelectedObjects( true );
+			this._visibilityCache.clear();
+
+			// Update Texture Matrix for Depth compare
+			this.updateTextureMatrix();
+
+			// Make non selected objects invisible, and draw only the selected objects, by comparing the depth buffer of non selected objects
+			this.changeVisibilityOfNonSelectedObjects( false );
+			this.renderScene.overrideMaterial = this.prepareMaskMaterial;
+			this.prepareMaskMaterial.uniforms[ 'cameraNearFar' ].value.set( this.renderCamera.near, this.renderCamera.far );
+			this.prepareMaskMaterial.uniforms[ 'depthTexture' ].value = this.renderTargetDepthBuffer.texture;
+			this.prepareMaskMaterial.uniforms[ 'textureMatrix' ].value = this.textureMatrix;
+			renderer.setRenderTarget( this.renderTargetMaskBuffer );
+			renderer.clear();
+			renderer.render( this.renderScene, this.renderCamera );
+			this.renderScene.overrideMaterial = null;
+			this.changeVisibilityOfNonSelectedObjects( true );
+			this._visibilityCache.clear();
+
+			this.renderScene.background = currentBackground;
+
+			// 2. Downsample to Half resolution
+			this.fsQuad.material = this.materialCopy;
+			this.copyUniforms[ 'tDiffuse' ].value = this.renderTargetMaskBuffer.texture;
+			renderer.setRenderTarget( this.renderTargetMaskDownSampleBuffer );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+
+			this.tempPulseColor1.copy( this.visibleEdgeColor );
+			this.tempPulseColor2.copy( this.hiddenEdgeColor );
+
+			if ( this.pulsePeriod > 0 ) {
+
+				const scalar = ( 1 + 0.25 ) / 2 + Math.cos( performance.now() * 0.01 / this.pulsePeriod ) * ( 1.0 - 0.25 ) / 2;
+				this.tempPulseColor1.multiplyScalar( scalar );
+				this.tempPulseColor2.multiplyScalar( scalar );
+
+			}
+
+			// 3. Apply Edge Detection Pass
+			this.fsQuad.material = this.edgeDetectionMaterial;
+			this.edgeDetectionMaterial.uniforms[ 'maskTexture' ].value = this.renderTargetMaskDownSampleBuffer.texture;
+			this.edgeDetectionMaterial.uniforms[ 'texSize' ].value.set( this.renderTargetMaskDownSampleBuffer.width, this.renderTargetMaskDownSampleBuffer.height );
+			this.edgeDetectionMaterial.uniforms[ 'visibleEdgeColor' ].value = this.tempPulseColor1;
+			this.edgeDetectionMaterial.uniforms[ 'hiddenEdgeColor' ].value = this.tempPulseColor2;
+			renderer.setRenderTarget( this.renderTargetEdgeBuffer1 );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+
+			// 4. Apply Blur on Half res
+			this.fsQuad.material = this.separableBlurMaterial1;
+			this.separableBlurMaterial1.uniforms[ 'colorTexture' ].value = this.renderTargetEdgeBuffer1.texture;
+			this.separableBlurMaterial1.uniforms[ 'direction' ].value = OutlinePass.BlurDirectionX;
+			this.separableBlurMaterial1.uniforms[ 'kernelRadius' ].value = this.edgeThickness;
+			renderer.setRenderTarget( this.renderTargetBlurBuffer1 );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+			this.separableBlurMaterial1.uniforms[ 'colorTexture' ].value = this.renderTargetBlurBuffer1.texture;
+			this.separableBlurMaterial1.uniforms[ 'direction' ].value = OutlinePass.BlurDirectionY;
+			renderer.setRenderTarget( this.renderTargetEdgeBuffer1 );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+
+			// Apply Blur on quarter res
+			this.fsQuad.material = this.separableBlurMaterial2;
+			this.separableBlurMaterial2.uniforms[ 'colorTexture' ].value = this.renderTargetEdgeBuffer1.texture;
+			this.separableBlurMaterial2.uniforms[ 'direction' ].value = OutlinePass.BlurDirectionX;
+			renderer.setRenderTarget( this.renderTargetBlurBuffer2 );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+			this.separableBlurMaterial2.uniforms[ 'colorTexture' ].value = this.renderTargetBlurBuffer2.texture;
+			this.separableBlurMaterial2.uniforms[ 'direction' ].value = OutlinePass.BlurDirectionY;
+			renderer.setRenderTarget( this.renderTargetEdgeBuffer2 );
+			renderer.clear();
+			this.fsQuad.render( renderer );
+
+			// Blend it additively over the input texture
+			this.fsQuad.material = this.overlayMaterial;
+			this.overlayMaterial.uniforms[ 'maskTexture' ].value = this.renderTargetMaskBuffer.texture;
+			this.overlayMaterial.uniforms[ 'edgeTexture1' ].value = this.renderTargetEdgeBuffer1.texture;
+			this.overlayMaterial.uniforms[ 'edgeTexture2' ].value = this.renderTargetEdgeBuffer2.texture;
+			this.overlayMaterial.uniforms[ 'patternTexture' ].value = this.patternTexture;
+			this.overlayMaterial.uniforms[ 'edgeStrength' ].value = this.edgeStrength;
+			this.overlayMaterial.uniforms[ 'edgeGlow' ].value = this.edgeGlow;
+			this.overlayMaterial.uniforms[ 'usePatternTexture' ].value = this.usePatternTexture;
+
+
+			if ( maskActive ) renderer.state.buffers.stencil.setTest( true );
+
+			renderer.setRenderTarget( readBuffer );
+			this.fsQuad.render( renderer );
+
+			renderer.setClearColor( this._oldClearColor, this.oldClearAlpha );
+			renderer.autoClear = oldAutoClear;
+
+		}
+
+		if ( this.renderToScreen ) {
+
+			this.fsQuad.material = this.materialCopy;
+			this.copyUniforms[ 'tDiffuse' ].value = readBuffer.texture;
+			renderer.setRenderTarget( null );
+			this.fsQuad.render( renderer );
+
+		}
+
+	}
+
+	getPrepareMaskMaterial() {
+
+		return new ShaderMaterial( {
+
+			uniforms: {
+				'depthTexture': { value: null },
+				'cameraNearFar': { value: new Vector2( 0.5, 0.5 ) },
+				'textureMatrix': { value: null }
+			},
+
+			vertexShader:
+				`#include <morphtarget_pars_vertex>
+				#include <skinning_pars_vertex>
+
+				varying vec4 projTexCoord;
+				varying vec4 vPosition;
+				uniform mat4 textureMatrix;
+
+				void main() {
+
+					#include <skinbase_vertex>
+					#include <begin_vertex>
+					#include <morphtarget_vertex>
+					#include <skinning_vertex>
+					#include <project_vertex>
+
+					vPosition = mvPosition;
+					vec4 worldPosition = modelMatrix * vec4( transformed, 1.0 );
+					projTexCoord = textureMatrix * worldPosition;
+
+				}`,
+
+			fragmentShader:
+				`#include <packing>
+				varying vec4 vPosition;
+				varying vec4 projTexCoord;
+				uniform sampler2D depthTexture;
+				uniform vec2 cameraNearFar;
+
+				void main() {
+
+					float depth = unpackRGBAToDepth(texture2DProj( depthTexture, projTexCoord ));
+					float viewZ = - DEPTH_TO_VIEW_Z( depth, cameraNearFar.x, cameraNearFar.y );
+					float depthTest = (-vPosition.z > viewZ) ? 1.0 : 0.0;
+					gl_FragColor = vec4(0.0, depthTest, 1.0, 1.0);
+
+				}`
+
+		} );
+
+	}
+
+	getEdgeDetectionMaterial() {
+
+		return new ShaderMaterial( {
+
+			uniforms: {
+				'maskTexture': { value: null },
+				'texSize': { value: new Vector2( 0.5, 0.5 ) },
+				'visibleEdgeColor': { value: new Vector3( 1.0, 1.0, 1.0 ) },
+				'hiddenEdgeColor': { value: new Vector3( 1.0, 1.0, 1.0 ) },
+			},
+
+			vertexShader:
+				`varying vec2 vUv;
+
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+				}`,
+
+			fragmentShader:
+				`varying vec2 vUv;
+
+				uniform sampler2D maskTexture;
+				uniform vec2 texSize;
+				uniform vec3 visibleEdgeColor;
+				uniform vec3 hiddenEdgeColor;
+
+				void main() {
+					vec2 invSize = 1.0 / texSize;
+					vec4 uvOffset = vec4(1.0, 0.0, 0.0, 1.0) * vec4(invSize, invSize);
+					vec4 c1 = texture2D( maskTexture, vUv + uvOffset.xy);
+					vec4 c2 = texture2D( maskTexture, vUv - uvOffset.xy);
+					vec4 c3 = texture2D( maskTexture, vUv + uvOffset.yw);
+					vec4 c4 = texture2D( maskTexture, vUv - uvOffset.yw);
+					float diff1 = (c1.r - c2.r)*0.5;
+					float diff2 = (c3.r - c4.r)*0.5;
+					float d = length( vec2(diff1, diff2) );
+					float a1 = min(c1.g, c2.g);
+					float a2 = min(c3.g, c4.g);
+					float visibilityFactor = min(a1, a2);
+					vec3 edgeColor = 1.0 - visibilityFactor > 0.001 ? visibleEdgeColor : hiddenEdgeColor;
+					gl_FragColor = vec4(edgeColor, 1.0) * vec4(d);
+				}`
+		} );
+
+	}
+
+	getSeperableBlurMaterial( maxRadius ) {
+
+		return new ShaderMaterial( {
+
+			defines: {
+				'MAX_RADIUS': maxRadius,
+			},
+
+			uniforms: {
+				'colorTexture': { value: null },
+				'texSize': { value: new Vector2( 0.5, 0.5 ) },
+				'direction': { value: new Vector2( 0.5, 0.5 ) },
+				'kernelRadius': { value: 1.0 }
+			},
+
+			vertexShader:
+				`varying vec2 vUv;
+
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+				}`,
+
+			fragmentShader:
+				`#include <common>
+				varying vec2 vUv;
+				uniform sampler2D colorTexture;
+				uniform vec2 texSize;
+				uniform vec2 direction;
+				uniform float kernelRadius;
+
+				float gaussianPdf(in float x, in float sigma) {
+					return 0.39894 * exp( -0.5 * x * x/( sigma * sigma))/sigma;
+				}
+
+				void main() {
+					vec2 invSize = 1.0 / texSize;
+					float weightSum = gaussianPdf(0.0, kernelRadius);
+					vec4 diffuseSum = texture2D( colorTexture, vUv) * weightSum;
+					vec2 delta = direction * invSize * kernelRadius/float(MAX_RADIUS);
+					vec2 uvOffset = delta;
+					for( int i = 1; i <= MAX_RADIUS; i ++ ) {
+						float w = gaussianPdf(uvOffset.x, kernelRadius);
+						vec4 sample1 = texture2D( colorTexture, vUv + uvOffset);
+						vec4 sample2 = texture2D( colorTexture, vUv - uvOffset);
+						diffuseSum += ((sample1 + sample2) * w);
+						weightSum += (2.0 * w);
+						uvOffset += delta;
+					}
+					gl_FragColor = diffuseSum/weightSum;
+				}`
+		} );
+
+	}
+
+	getOverlayMaterial() {
+
+		return new ShaderMaterial( {
+
+			uniforms: {
+				'maskTexture': { value: null },
+				'edgeTexture1': { value: null },
+				'edgeTexture2': { value: null },
+				'patternTexture': { value: null },
+				'edgeStrength': { value: 1.0 },
+				'edgeGlow': { value: 1.0 },
+				'usePatternTexture': { value: 0.0 }
+			},
+
+			vertexShader:
+				`varying vec2 vUv;
+
+				void main() {
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+				}`,
+
+			fragmentShader:
+				`varying vec2 vUv;
+
+				uniform sampler2D maskTexture;
+				uniform sampler2D edgeTexture1;
+				uniform sampler2D edgeTexture2;
+				uniform sampler2D patternTexture;
+				uniform float edgeStrength;
+				uniform float edgeGlow;
+				uniform bool usePatternTexture;
+
+				void main() {
+					vec4 edgeValue1 = texture2D(edgeTexture1, vUv);
+					vec4 edgeValue2 = texture2D(edgeTexture2, vUv);
+					vec4 maskColor = texture2D(maskTexture, vUv);
+					vec4 patternColor = texture2D(patternTexture, 6.0 * vUv);
+					float visibilityFactor = 1.0 - maskColor.g > 0.0 ? 1.0 : 0.5;
+					vec4 edgeValue = edgeValue1 + edgeValue2 * edgeGlow;
+					vec4 finalColor = edgeStrength * maskColor.r * edgeValue;
+					if(usePatternTexture)
+						finalColor += + visibilityFactor * (1.0 - maskColor.r) * (1.0 - patternColor.r);
+					gl_FragColor = finalColor;
+				}`,
+			blending: AdditiveBlending,
+			depthTest: false,
+			depthWrite: false,
+			transparent: true
+		} );
+
+	}
+
+}
+
+OutlinePass.BlurDirectionX = new Vector2( 1.0, 0.0 );
+OutlinePass.BlurDirectionY = new Vector2( 0.0, 1.0 );
 
 // custom THREE.js "dispose"
 THREE_dispose = () => {
@@ -61790,14 +60636,9 @@ module.exports = {
 	ViewportInfo,
 	RoomEnvironment,
 
-	BufferGeometryUtils,
-	LineSegmentsGeometry,
-	LineSegments2,
-	LineMaterial,
-	
-	ConditionalEdgesGeometry,
-	ConditionalEdgesShader,
-	ConditionalLineSegmentsGeometry,
-	// ConditionalLineMaterial,
+	EffectComposer,
+	RenderPass,
+	ShaderPass,
+	OutlinePass,
 };
 

@@ -48,7 +48,7 @@ class TransformControls extends Object3D {
 
 		this.visible = false;
 		this.domElement = domElement;
-		this.domElement.style.touchAction = 'none'; // disable touch scroll
+		// this.domElement.style.touchAction = 'none'; // disable touch scroll
 
 		const _gizmo = new TransformControlsGizmo();
 		this._gizmo = _gizmo;

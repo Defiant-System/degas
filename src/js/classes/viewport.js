@@ -33,7 +33,6 @@ class Viewport {
 		grid2.material.vertexColors = false;
 		grid.add( grid2 );
 
-		const selection = new Selection();
 		const viewHelper = new ViewHelper( camera, container );
 		const vr = new VR( editor );
 		const box = new THREE.Box3();
@@ -219,7 +218,29 @@ class Viewport {
 		//
 		let startTime = 0;
 		let endTime = 0;
+
+		let width = container.dom.offsetWidth,
+			height = container.dom.offsetHeight;
+		// postprocessing
+		let composer = new EffectComposer( renderer );
+		let renderPass = new RenderPass( scene, camera );
+		composer.addPass( renderPass );
+		let outlinePass = new OutlinePass( new THREE.Vector2( width, height ), scene, camera );
+		composer.addPass( outlinePass );
+
+		function render2() {
+			grid1.material.color.setHex( 0x0d0d0d );
+			grid2.material.color.setHex( 0x171717 );
+			console.log( grid1.material );
+			
+			scene.add( grid );
+			composer.render();
+			scene.remove( grid );
+		}
+
 		function render() {
+			console.log( grid1.material );
+
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -243,10 +264,11 @@ class Viewport {
 		}
 
 		function resize() {
-			let width = container.dom.offsetWidth,
-				height = container.dom.offsetHeight;
+			width = container.dom.offsetWidth;
+			height = container.dom.offsetHeight;
 			updateAspectRatio();
 			renderer.setSize( width, height );
+			composer.setSize( width, height );
 			render();
 		}
 
@@ -268,17 +290,13 @@ class Viewport {
 			selectionBox.visible = false;
 			transformControls.detach();
 
-			selection.clear();
-
 			if ( object !== null && object !== scene && object !== camera ) {
 				box.setFromObject( object, true );
 				if ( box.isEmpty() === false ) {
 					// TODO: replace with OUTLINE
-					// selectionBox.visible = true;
+					selectionBox.visible = true;
 				}
 				transformControls.attach( object );
-				
-				selection.add(object);
 			}
 
 			render();
