@@ -13,6 +13,7 @@ class Editor {
 		this.scene = new THREE.Scene();
 		this.scene.name = 'Scene';
 		this.sceneHelpers = new THREE.Scene();
+		this.resetSceneBgColor();
 
 		this.object = {};
 		this.geometries = {};
@@ -29,6 +30,10 @@ class Editor {
 		this.viewportCamera = this.camera;
 
 		this.addCamera( this.camera );
+	}
+
+	resetSceneBgColor() {
+		this.scene.background = new THREE.Color( 0x333333 );
 	}
 
 	setScene( scene ) {

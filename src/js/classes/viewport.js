@@ -23,12 +23,13 @@ class Viewport {
 		const grid1 = new THREE.GridHelper( 30, 30, 0x0d0d0d );
 		grid1.material.color.setHex( 0x0d0d0d );
 		grid1.material.vertexColors = false;
-		grid1.material.depthTest = THREE.NeverDepth;
+		// grid1.material.depthTest = THREE.NeverDepth;
 		grid.add( grid1 );
 
 		const grid2 = new THREE.GridHelper( 30, 6, 0x171717 );
 		grid2.material.color.setHex( 0x171717 );
-		grid2.material.depthTest = THREE.NeverDepth;
+		// grid2.material.depthTest = THREE.NeverDepth;
+		grid2.material.depthFunc = THREE.AlwaysDepth;
 		grid2.material.vertexColors = false;
 		grid.add( grid2 );
 
@@ -222,16 +223,13 @@ class Viewport {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
-			selection.scene.add( grid );
+			scene.add( grid );
 
-			renderer.autoClear = false;
 			renderer.setViewport( 0, 0, container.dom.offsetWidth, container.dom.offsetHeight );
-			renderer.render( selection.scene, editor.viewportCamera );
-			renderer.clearDepth();
 			renderer.render( scene, editor.viewportCamera );
 			
-			selection.scene.remove( grid );
-			
+			scene.remove( grid );
+
 			if ( camera === editor.viewportCamera ) {
 				renderer.autoClear = false;
 				if ( showSceneHelpers === true ) renderer.render( sceneHelpers, camera );

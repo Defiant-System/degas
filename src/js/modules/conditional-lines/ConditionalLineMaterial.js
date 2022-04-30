@@ -1,22 +1,17 @@
 
-
-const conditionalUniforms = {
-
-	linewidth: { value: 1 },
-	resolution: { value: new THREE.Vector2( 1, 1 ) },
-	dashScale: { value: 1 },
-	dashSize: { value: 1 },
-	gapSize: { value: 1 }, // todo FIX - maybe change to totalSize
-	opacity: { value: 1 }
-
-};
-
 const conditionalShader = {
 
 	uniforms: THREE.UniformsUtils.merge( [
 		THREE.UniformsLib.common,
 		THREE.UniformsLib.fog,
-		conditionalUniforms
+		{
+			linewidth: { value: 1 },
+			resolution: { value: new THREE.Vector2( 1, 1 ) },
+			dashScale: { value: 1 },
+			dashSize: { value: 1 },
+			gapSize: { value: 1 }, // todo FIX - maybe change to totalSize
+			opacity: { value: 1 }
+		}
 	] ),
 
 	vertexShader:
@@ -33,10 +28,8 @@ const conditionalShader = {
 		attribute vec3 control0;
 		attribute vec3 control1;
 		attribute vec3 direction;
-
 		attribute vec3 instanceStart;
 		attribute vec3 instanceEnd;
-
 		attribute vec3 instanceColorStart;
 		attribute vec3 instanceColorEnd;
 
@@ -221,25 +214,18 @@ const conditionalShader = {
 		varying vec2 vUv;
 
 		void main() {
-
 			#include <clipping_planes_fragment>
 
 			#ifdef USE_DASH
-
 				if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps
-
 				if ( mod( vLineDistance, dashSize + gapSize ) > dashSize ) discard; // todo - FIX
-
 			#endif
 
 			if ( abs( vUv.y ) > 1.0 ) {
-
 				float a = vUv.x;
 				float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;
 				float len2 = a * a + b * b;
-
 				if ( len2 > 1.0 ) discard;
-
 			}
 
 			vec4 diffuseColor = vec4( diffuse, opacity );
@@ -253,7 +239,6 @@ const conditionalShader = {
 			#include <encodings_fragment>
 			#include <fog_fragment>
 			#include <premultiplied_alpha_fragment>
-
 		}
 		`
 };

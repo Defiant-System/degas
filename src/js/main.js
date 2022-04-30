@@ -31,19 +31,19 @@ const degas = {
 		// 	this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
 		// }, 300);
 		
-		/**/
+		/*
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .5 });
 
-		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
+		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
 		this.dispatch({ type: "add-mesh", arg: "cylinder", position: [0, 0, 0] });
 
 		// this.workspace.dispatch({ type: "deselect" });
 		this.dispatch({ type: "set-view-shade", arg: "flat" });
 		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
 		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);
-		
+		*/
 	},
 	dispatch(event) {
 		let Self = degas,
