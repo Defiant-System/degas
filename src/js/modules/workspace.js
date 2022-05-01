@@ -123,9 +123,8 @@
 				viewport.render();
 				break;
 			case "add-light":
-				object = Self.getLight(event.arg);
+				object = Self.getLight(event.arg, event.color, event.intensity);
 				// apply argument value
-				if (event.intensity) object.intensity = event.intensity;
 				editor.addObject( object );
 				// editor.select( object );
 				viewport.viewInfo.update();
@@ -230,15 +229,12 @@
 		}
 		return mesh;
 	},
-	getLight(type) {
-		let intensity = 1,
-			distance = 0,
-			color = 0xffffff,
+	getLight(type, color=0xffffff, intensity=1) {
+		let distance = 0,
 			light;
 		switch (type) {
 			case "ambientlight":
-				color = 0x222222;
-				light = new THREE.AmbientLight( color );
+				light = new THREE.AmbientLight( color, intensity );
 				light.name = 'AmbientLight';
 				break;
 			case "directionallight":

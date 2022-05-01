@@ -216,10 +216,9 @@ class Viewport {
 		}
 
 		//
-		let startTime = 0;
-		let endTime = 0;
-
-		let width = container.dom.offsetWidth,
+		let startTime = 0,
+			endTime = 0,
+			width = container.dom.offsetWidth,
 			height = container.dom.offsetHeight;
 		// postprocessing
 		let composer = new EffectComposer( renderer );
@@ -228,19 +227,32 @@ class Viewport {
 		let outlinePass = new OutlinePass( new THREE.Vector2( width, height ), scene, camera );
 		composer.addPass( outlinePass );
 
-		function render2() {
-			grid1.material.color.setHex( 0x0d0d0d );
-			grid2.material.color.setHex( 0x171717 );
-			console.log( grid1.material );
-			
+		let effectFXAA = new ShaderPass( FXAAShader );
+		composer.addPass( effectFXAA );
+
+
+		function render() {
+			startTime = performance.now();
+			// Adding/removing grid to scene so materials with depthWrite false
+			// don't render under the grid.
+
 			scene.add( grid );
 			composer.render();
 			scene.remove( grid );
+
+			if ( camera === editor.viewportCamera ) {
+				renderer.autoClear = false;
+				if ( showSceneHelpers === true ) renderer.render( sceneHelpers, camera );
+				if ( vr.currentSession === null ) viewHelper.render( renderer );
+				renderer.autoClear = true;
+			}
+
+			endTime = performance.now();
+
+			Self.viewInfo.updateFrametime( endTime - startTime );
 		}
 
-		function render() {
-			console.log( grid1.material );
-
+		function render2() {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -269,6 +281,8 @@ class Viewport {
 			updateAspectRatio();
 			renderer.setSize( width, height );
 			composer.setSize( width, height );
+			// effect pass resolution
+			effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
 			render();
 		}
 
@@ -295,6 +309,8 @@ class Viewport {
 				if ( box.isEmpty() === false ) {
 					// TODO: replace with OUTLINE
 					selectionBox.visible = true;
+					console.log(123);
+					// selectedObjects = [object];
 				}
 				transformControls.attach( object );
 			}

@@ -19,6 +19,7 @@ import { EffectComposer } from './modules/threejs/examples/jsm/postprocessing/Ef
 import { RenderPass } from './modules/threejs/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from './modules/threejs/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/OutlinePass.js';
+import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js';
 
 
 // custom THREE.js "dispose"
@@ -50,4 +51,5 @@ module.exports = {
 	RenderPass,
 	ShaderPass,
 	OutlinePass,
+	FXAAShader,
 };

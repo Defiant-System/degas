@@ -22,6 +22,7 @@ const {
 	RenderPass,
 	ShaderPass,
 	OutlinePass,
+	FXAAShader,
 } = await window.fetch("~/js/bundle.js");
 
 

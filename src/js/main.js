@@ -34,6 +34,8 @@ const degas = {
 		/**/
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
+		// soft white light
+		this.dispatch({ type: "add-light", arg: "ambientlight", color: 0x404040, intensity: .75 });
 
 		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
 		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
