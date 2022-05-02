@@ -296,8 +296,8 @@ class Viewport {
 		}
 
 		function resize() {
-			width = container.dom.offsetWidth;
-			height = container.dom.offsetHeight;
+			width = container.dom.offsetWidth || 1;
+			height = container.dom.offsetHeight || 1;
 			updateAspectRatio();
 			renderer.setSize( width, height );
 			composer.setSize( width, height );
@@ -321,6 +321,7 @@ class Viewport {
 		this.grid = grid;
 
 		this.selectObject = function(object) {
+			outlinePass.selectedObjects = [];
 			selectionBox.visible = false;
 			transformControls.detach();
 
