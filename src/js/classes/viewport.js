@@ -215,6 +215,18 @@ class Viewport {
 			}
 		}
 
+
+		// const material = new THREE.LineBasicMaterial({ color: 0x229922, linewidth: 5 });
+		// const points = [
+		// 	new THREE.Vector3( - 3, 0, 0 ),
+		// 	new THREE.Vector3( 0, 3, 0 ),
+		// 	new THREE.Vector3( 3, 0, 0 ),
+		// ];
+		// const geometry = new THREE.BufferGeometry().setFromPoints( points );
+		// const line = new THREE.Line( geometry, material );
+		// editor.scene.add( line );
+
+
 		//
 		let startTime = 0,
 			endTime = 0,
@@ -224,14 +236,14 @@ class Viewport {
 		let composer = new EffectComposer( renderer );
 		let renderPass = new RenderPass( scene, camera );
 		composer.addPass( renderPass );
+
 		let outlinePass = new OutlinePass( new THREE.Vector2( width, height ), scene, camera );
 		composer.addPass( outlinePass );
+		// let effectFXAA = new ShaderPass( FXAAShader );
+		// composer.addPass( effectFXAA );
 
-		let effectFXAA = new ShaderPass( FXAAShader );
-		composer.addPass( effectFXAA );
 
-
-		function render() {
+		function render2() {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -252,7 +264,7 @@ class Viewport {
 			Self.viewInfo.updateFrametime( endTime - startTime );
 		}
 
-		function render2() {
+		function render() {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -282,7 +294,7 @@ class Viewport {
 			renderer.setSize( width, height );
 			composer.setSize( width, height );
 			// effect pass resolution
-			effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
+			// effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
 			render();
 		}
 

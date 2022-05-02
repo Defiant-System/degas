@@ -1,5 +1,5 @@
 
-const Color = {
+let Color = {
 	clamp: (num, min, max) => Math.min(Math.max(num, min), max),
 	intToHex: i => i.toString(16).padStart(2, '0'),
 	hexToHsv(hex) {

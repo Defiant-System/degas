@@ -1,12 +1,6 @@
 
 @import "./main.threee.js";
 
-const Settings = {
-	wireframe: {
-		default: 0x010101,
-		highlight: 0xff6600,
-	},
-};
 
 const degas = {
 	Loaders: {},
@@ -35,10 +29,10 @@ const degas = {
 		this.dispatch({ type: "new-file" });
 		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
 		// soft white light
-		this.dispatch({ type: "add-light", arg: "ambientlight", color: 0x404040, intensity: .75 });
+		this.dispatch({ type: "add-light", arg: "ambientlight", color: 0x404040, intensity: .5 });
 
-		// this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
-		// this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
+		this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
 		this.dispatch({ type: "add-mesh", arg: "cylinder", position: [0, 0, 0] });
 
 		// this.workspace.dispatch({ type: "deselect" });

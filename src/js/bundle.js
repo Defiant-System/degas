@@ -22,6 +22,18 @@ import { OutlinePass } from './modules/threejs/examples/jsm/postprocessing/Outli
 import { FXAAShader } from './modules/threejs/examples/jsm/shaders/FXAAShader.js';
 
 
+@import "./classes/Editor.js";
+@import "./classes/EditorControls.js";
+@import "./classes/TransformControls.js";
+@import "./classes/Viewport.js";
+@import "./classes/Viewport.ViewHelper.js";
+@import "./classes/Selection.js";
+
+@import "./classes/File.js";
+@import "./modules/color.js";
+
+
+
 // custom THREE.js "dispose"
 THREE_dispose = () => {
 	delete window.__THREE__;
@@ -52,4 +64,13 @@ module.exports = {
 	ShaderPass,
 	OutlinePass,
 	FXAAShader,
+
+	Editor,
+	EditorControls,
+	TransformControls,
+	Viewport,
+	ViewHelper,
+	Selection,
+	Color,
+	File,
 };

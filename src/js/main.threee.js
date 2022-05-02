@@ -1,6 +1,6 @@
 
 // import libs
-const {
+let {
 	THREE,
 	History,
 	Loader,
@@ -23,6 +23,10 @@ const {
 	ShaderPass,
 	OutlinePass,
 	FXAAShader,
+
+
+	Color,
+	File,
 } = await window.fetch("~/js/bundle.js");
 
 
@@ -31,11 +35,19 @@ const {
 @import "./classes/TransformControls.js";
 @import "./classes/Viewport.js";
 @import "./classes/Viewport.ViewHelper.js";
-@import "./classes/Selection.js";
+// @impor1t "./classes/Selection.js";
 
-@import "./classes/File.js";
-@import "./modules/color.js";
+// @impor1t "./classes/File.js";
+// @impor1t "./modules/color.js";
 
+
+
+let Settings = {
+		wireframe: {
+			default: 0x010101,
+			highlight: 0xff6600,
+		},
+	};
 
 let editor,
 	viewport,
