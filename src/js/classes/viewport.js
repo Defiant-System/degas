@@ -20,14 +20,14 @@ class Viewport {
 		// helpers
 		const grid = new THREE.Group();
 		
-		const grid1 = new THREE.GridHelper( 30, 30, 0x0d0d0d );
-		grid1.material.color.setHex( 0x0d0d0d );
+		const grid1 = new THREE.GridHelper( 30, 30 );
+		grid1.material.color.setHex( 0x3d3d3d );
 		grid1.material.vertexColors = false;
 		// grid1.material.depthTest = THREE.NeverDepth;
 		grid.add( grid1 );
 
-		const grid2 = new THREE.GridHelper( 30, 6, 0x171717 );
-		grid2.material.color.setHex( 0x171717 );
+		const grid2 = new THREE.GridHelper( 30, 6 );
+		grid2.material.color.setHex( 0x575757 );
 		// grid2.material.depthTest = THREE.NeverDepth;
 		grid2.material.depthFunc = THREE.AlwaysDepth;
 		grid2.material.vertexColors = false;
@@ -239,11 +239,18 @@ class Viewport {
 
 		let outlinePass = new OutlinePass( new THREE.Vector2( width, height ), scene, camera );
 		composer.addPass( outlinePass );
-		// let effectFXAA = new ShaderPass( FXAAShader );
-		// composer.addPass( effectFXAA );
+
+		outlinePass.edgeStrength = 5.0,
+		outlinePass.edgeThickness = 1.0;
+		// outlinePass.edgeGlow = 0.0,
+		outlinePass.visibleEdgeColor.set('#cc3300');
+		outlinePass.hiddenEdgeColor.set('#002200');
+
+		let effectFXAA = new ShaderPass( FXAAShader );
+		composer.addPass( effectFXAA );
 
 
-		function render2() {
+		function render() {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -264,7 +271,7 @@ class Viewport {
 			Self.viewInfo.updateFrametime( endTime - startTime );
 		}
 
-		function render() {
+		function render2() {
 			startTime = performance.now();
 			// Adding/removing grid to scene so materials with depthWrite false
 			// don't render under the grid.
@@ -294,7 +301,7 @@ class Viewport {
 			renderer.setSize( width, height );
 			composer.setSize( width, height );
 			// effect pass resolution
-			// effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
+			effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
 			render();
 		}
 
@@ -321,8 +328,9 @@ class Viewport {
 				if ( box.isEmpty() === false ) {
 					// TODO: replace with OUTLINE
 					selectionBox.visible = true;
-					console.log(123);
+					
 					// selectedObjects = [object];
+					outlinePass.selectedObjects = [object];
 				}
 				transformControls.attach( object );
 			}
