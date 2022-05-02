@@ -215,25 +215,23 @@ class Viewport {
 			}
 		}
 
-
-		// const material = new THREE.LineBasicMaterial({ color: 0x229922, linewidth: 5 });
-		// const points = [
-		// 	new THREE.Vector3( - 3, 0, 0 ),
-		// 	new THREE.Vector3( 0, 3, 0 ),
-		// 	new THREE.Vector3( 3, 0, 0 ),
-		// ];
-		// const geometry = new THREE.BufferGeometry().setFromPoints( points );
-		// const line = new THREE.Line( geometry, material );
-		// editor.scene.add( line );
-
-
 		//
 		let startTime = 0,
 			endTime = 0,
 			width = container.dom.offsetWidth,
 			height = container.dom.offsetHeight;
+
+		var parameters = { 
+				minFilter: THREE.LinearFilter,
+				magFilter: THREE.LinearFilter,
+				format: THREE.RGBAFormat,
+				type: THREE.HalfFloatType,
+				stencilBuffer: false,
+				samples: 4,
+			};
 		// postprocessing
-		let composer = new EffectComposer( renderer );
+		var renderTarget = new THREE.WebGLRenderTarget(  width , height, parameters );
+		let composer = new EffectComposer( renderer, renderTarget );
 		let renderPass = new RenderPass( scene, camera );
 		composer.addPass( renderPass );
 
@@ -241,13 +239,16 @@ class Viewport {
 		composer.addPass( outlinePass );
 
 		outlinePass.edgeStrength = 5.0,
-		outlinePass.edgeThickness = 1.0;
+		outlinePass.edgeThickness = 0.5;
 		// outlinePass.edgeGlow = 0.0,
-		outlinePass.visibleEdgeColor.set('#cc3300');
-		outlinePass.hiddenEdgeColor.set('#002200');
+		outlinePass.visibleEdgeColor.set('#ff3300');
+		outlinePass.hiddenEdgeColor.set('#002255');
 
 		let effectFXAA = new ShaderPass( FXAAShader );
 		composer.addPass( effectFXAA );
+
+		// var effect = new ShaderPass(THREE.GammaCorrectionShader);
+  //   	composer.addPass(effect);
 
 
 		function render() {

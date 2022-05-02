@@ -118,7 +118,7 @@
 				// apply argument value
 				if (event.position) object.position.set(...event.position);
 				editor.addObject( object );
-				// editor.select( object );
+				editor.select( object );
 				viewport.viewInfo.update();
 				viewport.render();
 				break;

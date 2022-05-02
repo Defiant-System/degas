@@ -24,9 +24,7 @@ let {
 	OutlinePass,
 	FXAAShader,
 
-
 	Color,
-	File,
 } = await window.fetch("~/js/bundle.js");
 
 
@@ -37,7 +35,7 @@ let {
 @import "./classes/Viewport.ViewHelper.js";
 // @impor1t "./classes/Selection.js";
 
-// @impor1t "./classes/File.js";
+@import "./classes/File.js";
 // @impor1t "./modules/color.js";
 
 
@@ -51,7 +49,11 @@ let Settings = {
 
 let editor,
 	viewport,
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: true,
+		// preserveDrawingBuffer: true,
+	});
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.outputEncoding = THREE.sRGBEncoding;
 
