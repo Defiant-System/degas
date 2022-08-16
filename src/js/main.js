@@ -92,7 +92,7 @@ const degas = {
 			case "new-file":
 				if (editor !== undefined) editor.clear();
 				// create new empty file
-				file = new defiant.File({ kind: "obj" });
+				file = new karaqu.File({ kind: "obj" });
 				Self.dispatch({ type: "setup-workspace", file });
 				break;
 			case "open-file":
@@ -112,7 +112,7 @@ const degas = {
 				Self.file.dispatch(event);
 				break;
 			case "open-help":
-				defiant.shell("fs -u '~/help/index.md'");
+				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 			// proxy event
 			case "toggle-sidebar":

@@ -16,7 +16,7 @@
 
 		Promise.all(this.xRecent.selectNodes("./*").map(async xItem => {
 				let filepath = xItem.getAttribute("filepath"),
-					check = await defiant.shell(`fs -f '${filepath}'`);
+					check = await karaqu.shell(`fs -f '${filepath}'`);
 				if (!check.result) {
 					xItem.parentNode.removeChild(xItem)
 				}
@@ -51,7 +51,7 @@
 				let url = el.data("url"),
 					parts = url.slice(url.lastIndexOf("/") + 1),
 					[ name, kind ] = parts.split("."),
-					file = new defiant.File({ name, kind });
+					file = new karaqu.File({ name, kind });
 				// fetch file
 				fetch(url, { responseType: "text" })
 					.then(f => f.blob())
