@@ -1,7 +1,7 @@
 
 let Color = {
 	clamp: (num, min, max) => Math.min(Math.max(num, min), max),
-	intToHex: i => i.toString(16).padStart(2, '0'),
+	intToHex: i => i.toString(16).padStart(2, "0"),
 	hexToHsv(hex) {
 		let rgb = this.hexToRgb(hex);
 		return this.rgbToHsv(rgb);
