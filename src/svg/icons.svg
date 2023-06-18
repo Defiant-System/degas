@@ -193,8 +193,8 @@
 			.st0{fill:#333;}
 			.st1{fill:#ffffff39;}
 		</style>
-		<polyline class="st0" points="0,2.2 10.3,10 0,16.8"/>
-		<path class="st1" d="M2,17.8l0-2.4l8.3-5.5L2,3.7l0-2.5l10.6,8C12.9,9.4,13,9.7,13,10c0,0.3-0.2,0.6-0.4,0.8L2,17.8z"/>
+		<polyline class="st0" points="0,2.2 10.3,9.9 0,16.7 "/>
+		<path class="st1" d="M2,17.8v-2.4l8.3-5.5L2,3.7V1.2l10.6,8C12.9,9.4,13,9.7,13,10s-0.2,0.6-0.4,0.8L2,17.8z"/>
 	</svg>
 
 	<svg id="icon-eye-on" viewBox="0 0 15 15">

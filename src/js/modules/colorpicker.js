@@ -365,7 +365,8 @@
 				break;
 		}
 	},
-	doRange(event) {let Self = degas.colorpicker,
+	doRange(event) {
+		let Self = degas.colorpicker,
 			Drag = Self.drag;
 		switch(event.type) {
 			case "mousedown":
