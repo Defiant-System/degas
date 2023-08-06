@@ -42,10 +42,15 @@ content {
 
 		.workspace {
 			right: var( --sidebar-width );
+
+			canvas {
+				border-radius: 5px 0 0 5px;
+			}
 		}
 
 		.sidebar {
 			width: var( --sidebar-width );
+			border-left-width: 1px;
 		}
 	}
 
@@ -106,7 +111,7 @@ content {
 	transition: right @sidebar_speed;
 
 	> canvas {
-		border-radius: 0 0 0 5px;
+		border-radius: 5px;
 	}
     
 	#viewport {
