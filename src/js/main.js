@@ -1,5 +1,6 @@
 
 @import "./main.threee.js";
+@import "./modules/test.js";
 
 
 const degas = {
@@ -16,30 +17,10 @@ const degas = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
-		
-		// temp
-		// setTimeout(() => this.els.content.find(".sample:nth(0)").trigger("click"), 100);
-		// setTimeout(() => {
-		// 	this.workspace.dispatch({ type: "deselect" });
-		// 	this.els.toolbar.sidebar.trigger("click");
-		// 	this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
-		// }, 300);
-		
-		/**/
-		this.dispatch({ type: "new-file" });
-		this.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
-		// soft white light
-		this.dispatch({ type: "add-light", arg: "ambientlight", color: 0x404040, intensity: .5 });
 
-		this.dispatch({ type: "add-mesh", arg: "torusknot", position: [-4, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "sphere", position: [3, 0, 0] });
-		this.dispatch({ type: "add-mesh", arg: "cylinder", position: [0, 0, 0] });
-
-		// this.workspace.dispatch({ type: "deselect" });
-		this.dispatch({ type: "set-view-shade", arg: "flat" });
-		// this.workspace.dispatch({ type: "set-editor-control-state", arg: "rotate" });
-		setTimeout(() => this.els.toolbar.sidebar.trigger("click"), 300);
-		
+		// DEV-ONLY-START
+		Test.init();
+		// DEV-ONLY-END
 	},
 	dispatch(event) {
 		let Self = degas,
