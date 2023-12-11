@@ -50,6 +50,8 @@ class File {
 			str;
 		switch (event.type) {
 			case "close-file":
+				// enable toolbar
+				APP.toolbar.dispatch({ type: "toggle-toolbar", enabled: false });
 				break;
 		}
 	}
