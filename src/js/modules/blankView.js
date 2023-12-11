@@ -49,16 +49,8 @@
 				if (!el.hasClass("sample")) return;
 
 				let url = el.data("url"),
-					parts = url.slice(url.lastIndexOf("/") + 1),
-					[ name, kind ] = parts.split("."),
-					file = new karaqu.File({ name, kind });
-				// fetch file
-				fetch(url, { responseType: "text" })
-					.then(f => f.blob())
-					.then(blob => {
-						file.blob = blob;
-						APP.dispatch({ type: "prepare-file", isSample: true, file });
-					});
+					names = [url.slice(url.lastIndexOf("/") + 1)];
+				APP.dispatch({ type: "load-samples", names });
 				break;
 			case "select-recent-file":
 				break;

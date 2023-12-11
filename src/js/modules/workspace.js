@@ -13,6 +13,9 @@
 				material: window.find(`.toolbar-tool_[data-click="set-view-shade"][data-arg="material"]`),
 			}
 		};
+		// for matcaps
+		this.textureLoader = new THREE.TextureLoader();
+		this.matcaps = { none: null };
 	},
 	dispatch(event) {
 		let APP = degas,
@@ -98,6 +101,19 @@
 								// delete potential line segments
 								mesh.children.map(c => mesh.remove(c));
 								
+								// mesh.material = new THREE.MeshMatcapMaterial({ matcap: Self.matcaps.none });
+
+								mesh.material.visible = true;
+								mesh.material.flatShading = false;
+								mesh.material.needsUpdate = true;
+							});
+						break;
+					case "material":
+						editor.scene.children
+							.filter(mesh => mesh.type === "Mesh")
+							.map(mesh => {
+								// mesh.material = new THREE.MeshMatcapMaterial({ matcap: Self.matcaps.test });
+
 								mesh.material.visible = true;
 								mesh.material.flatShading = false;
 								mesh.material.needsUpdate = true;
@@ -113,6 +129,18 @@
 			case "set-transform-control-mode":
 				viewport.transformControlsSetMode(event.arg);
 				return true;
+			case "apply-material-selected-mesh":
+				Self.textureLoader.load(`~/matcaps/${event.matcap}`, matcap => {
+					let material = new THREE.MeshMatcapMaterial({ matcap });
+					editor.selected.material = material;
+
+					editor.selected.material.visible = true;
+					editor.selected.material.flatShading = false;
+					editor.selected.material.needsUpdate = true;
+					// render
+					viewport.render();
+				});
+				break;
 			case "add-mesh":
 				object = event.object || Self.getMesh(event.arg);
 				// apply argument value

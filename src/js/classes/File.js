@@ -35,6 +35,9 @@ class File {
 					object.name = this._file.name;
 					// pass along imported object to workspace
 					APP.workspace.dispatch({ type: "add-mesh", object });
+
+					// enable toolbar
+					APP.toolbar.dispatch({ type: "toggle-toolbar", enabled: true });
 					
 				}, false);
 				reader.readAsText(this._file.blob);

@@ -1,21 +1,21 @@
 <CaptionToolBar>
 	<Group width="37%" class="tools-left">
 		<Options>
-			<Tool symbol="icon-tool-move" click="set-transform-control-mode" arg="translate" state="active"/>
-			<Tool symbol="icon-tool-rotate" click="set-transform-control-mode" arg="rotate"/>
-			<Tool symbol="icon-tool-scale" click="set-transform-control-mode" arg="scale"/>
+			<Tool symbol="icon-tool-move" click="set-transform-control-mode" arg="translate" state="disabled"/>
+			<Tool symbol="icon-tool-rotate" click="set-transform-control-mode" arg="rotate" state="disabled"/>
+			<Tool symbol="icon-tool-scale" click="set-transform-control-mode" arg="scale" state="disabled"/>
 		</Options>
 
 		<Options>
-			<Tool symbol="icon-rotate" click="set-editor-control-state" arg="rotate" state="active"/>
-			<Tool symbol="icon-zoom" click="set-editor-control-state" arg="zoom"/>
-			<Tool symbol="icon-pan" click="set-editor-control-state" arg="pan"/>
+			<Tool symbol="icon-rotate" click="set-editor-control-state" arg="rotate" state="disabled"/>
+			<Tool symbol="icon-zoom" click="set-editor-control-state" arg="zoom" state="disabled"/>
+			<Tool symbol="icon-pan" click="set-editor-control-state" arg="pan" state="disabled"/>
 		</Options>
 
 		<Options>
-			<Tool symbol="icon-select-vertex" />
-			<Tool symbol="icon-select-line" />
-			<Tool symbol="icon-select-face" />
+			<Tool symbol="icon-select-vertex" state="disabled"/>
+			<Tool symbol="icon-select-line" state="disabled"/>
+			<Tool symbol="icon-select-face" state="disabled"/>
 		</Options>
 		
 		<!-- <Tool symbol="icon-cog" state="disabled"/> -->
@@ -25,11 +25,11 @@
 	</Group>
 	<Group width="41%" class="tools-right">
 		<Options>
-			<Tool symbol="icon-view-wireframe" click="set-view-shade" arg="wireframe"/>
-			<Tool symbol="icon-view-flat" click="set-view-shade" arg="flat"/>
-			<Tool symbol="icon-view-solid" click="set-view-shade" arg="solid"/>
-			<Tool symbol="icon-view-material" click="set-view-shade" arg="material"/>
+			<Tool symbol="icon-view-wireframe" click="set-view-shade" arg="wireframe" state="disabled"/>
+			<Tool symbol="icon-view-flat" click="set-view-shade" arg="flat" state="disabled"/>
+			<Tool symbol="icon-view-solid" click="set-view-shade" arg="solid" state="disabled"/>
+			<Tool symbol="icon-view-material" click="set-view-shade" arg="material" state="disabled"/>
 		</Options>
-		<Tool symbol="icon-sidebar" click="toggle-sidebar"/>
+		<Tool symbol="icon-sidebar" click="toggle-sidebar" state="disabled"/>
 	</Group>
 </CaptionToolBar>

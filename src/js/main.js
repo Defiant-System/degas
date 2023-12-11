@@ -53,7 +53,26 @@ const degas = {
 				event.open({ responseType: "blob" })
 					.then(file => Self.dispatch({ type: "prepare-file", file }));
 				break;
+
 			// custom events
+			case "load-samples":
+				// opening image file from application package
+				event.names.map(entry => {
+					let url = `~/sample/${entry}`,
+						[ name, kind ] = entry.split("."),
+						file = new karaqu.File({ name, kind });
+					// fetch file
+					fetch(url, { responseType: "text" })
+						.then(f => f.blob())
+						.then(blob => {
+							file.blob = blob;
+							Self.dispatch({ type: "prepare-file", isSample: true, file });
+							// auto insert directional light (temporary)
+							Self.dispatch({ type: "add-light", arg: "directionallight", intensity: .75 });
+						});
+
+				});
+				break;
 			case "prepare-file":
 				if (!event.isSample) {
 					// add file to "recent" list
@@ -92,6 +111,11 @@ const degas = {
 				// call close method of file - will check for "is-dirty"
 				Self.file.dispatch(event);
 				break;
+			case "show-blank-view":
+				if (Self.els.content.hasClass("show-blank-view")) return;
+				// show blank view
+				Self.els.content.addClass("show-blank-view");
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
@@ -119,6 +143,7 @@ const degas = {
 				}
 		}
 	},
+	toolbar: @import "modules/toolbar.js",
 	sidebar: @import "sidebar/index.js",
 	blankView: @import "modules/blankView.js",
 	workspace: @import "modules/workspace.js",
