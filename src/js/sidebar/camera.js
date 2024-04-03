@@ -1,12 +1,12 @@
 
-// degas.sidebar.camera
+// doob.sidebar.camera
 
 {
 	init() {
 
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.camera,
 			el;
 		// console.log(event);

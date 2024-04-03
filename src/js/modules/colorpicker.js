@@ -1,5 +1,5 @@
 
-// degas.colorpicker
+// doob.colorpicker
 
 {
 	init() {
@@ -41,7 +41,7 @@
 		this.els.el.on("mousedown", this.dispatch);
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.colorpicker,
 			opacity,
 			rgb, hsv,
@@ -237,7 +237,7 @@
 		return Math.sqrt(Math.pow(left - this.radius, 2) + Math.pow(top - this.radius, 2));
 	},
 	doField(event) {
-		let Self = degas.colorpicker,
+		let Self = doob.colorpicker,
 			Drag = Self.drag;
 		switch(event.type) {
 			case "mousedown":
@@ -282,7 +282,7 @@
 		}
 	},
 	doWrapper(event) {
-		let Self = degas.colorpicker,
+		let Self = doob.colorpicker,
 			Drag = Self.drag;
 		switch(event.type) {
 			case "mousedown":
@@ -366,7 +366,7 @@
 		}
 	},
 	doRange(event) {
-		let Self = degas.colorpicker,
+		let Self = doob.colorpicker,
 			Drag = Self.drag;
 		switch(event.type) {
 			case "mousedown":

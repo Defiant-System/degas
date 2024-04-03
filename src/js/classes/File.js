@@ -25,12 +25,12 @@ class File {
 
 					}));
 
-					let filepath = this._file.xNode ? `${this._file.dir + this._file.name}.mtl` : `~/sample/${this._file.name}.mtl`;
+					let filepath = this._file.xNode ? `${this._file.dir + this._file.name}.mtl` : `/cdn/samples/3d/${this._file.name}.mtl`;
 					let materials = await new APP.Loaders.MTLLoader().loadAsync(filepath),
 						object = await new APP.Loaders.OBJLoader()
 								    .setMaterials(materials)
 								    .parse(reader.result);
-								    // .loadAsync(`~/sample/${this._file.name}.obj`);
+								    // .loadAsync(`/cdn/samples/3d/${this._file.name}.obj`);
 					// set object name as file name
 					object.name = this._file.name;
 					// pass along imported object to workspace
@@ -46,7 +46,7 @@ class File {
 	}
 
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			str;
 		switch (event.type) {
 			case "close-file":

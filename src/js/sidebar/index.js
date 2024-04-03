@@ -1,5 +1,5 @@
 
-// degas.sidebar
+// doob.sidebar
 
 {
 	init() {
@@ -22,7 +22,7 @@
 		this.els.sidebar.find(".properties .tabs > div:nth(0)").trigger("click");
 	},
 	resizeSidebar(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar,
 			Drag = Self.drag;
 		switch (event.type) {
@@ -63,7 +63,7 @@
 		}
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar,
 			name,
 			value,
@@ -107,7 +107,7 @@
 		}
 	},
 	resizeTree(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar,
 			Drag = Self.drag;
 		switch (event.type) {

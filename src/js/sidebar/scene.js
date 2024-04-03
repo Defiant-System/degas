@@ -1,5 +1,5 @@
 
-// degas.sidebar.scene
+// doob.sidebar.scene
 
 {
 	init() {
@@ -11,7 +11,7 @@
 		// setTimeout(() => this.dispatch({ type: "select-scene-bg" }), 1000);
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.scene,
 			func,
 			type,

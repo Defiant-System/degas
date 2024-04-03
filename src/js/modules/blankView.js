@@ -1,5 +1,5 @@
 
-// degas.blankView
+// doob.blankView
 
 {
 	init() {
@@ -33,7 +33,7 @@
 			});
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.blankView,
 			el;
 		// console.log(event);

@@ -4,11 +4,11 @@
 		<task action="skip" source="src/js/bundle.js" destination="public/js/bundle.js"/>
 	</Build>
 	<Head>
-		<meta name="id" value="degas"/>
-		<meta name="title" value="Degas" version="1.23"/>
+		<meta name="id" value="doob"/>
+		<meta name="title" value="Doob" version="1.23"/>
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0"/>
-		<meta name="repository" value="https://github.com/Defiant-System/degas"/>
+		<meta name="repository" value="https://github.com/Defiant-System/doob"/>
 		<meta name="width" value="1200"/>
 		<meta name="height" value="820"/>
 		<meta name="top" value="100"/>

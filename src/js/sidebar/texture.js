@@ -1,12 +1,12 @@
 
-// degas.sidebar.texture
+// doob.sidebar.texture
 
 {
 	init() {
 
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.texture,
 			el;
 		// console.log(event);

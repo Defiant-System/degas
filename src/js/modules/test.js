@@ -1,7 +1,7 @@
 
 let Test = {
 	init() {
-		let APP = degas;
+		let APP = doob;
 
 		return;
 		// setTimeout(() => APP.dispatch({ type: "show-blank-view" }), 1000);

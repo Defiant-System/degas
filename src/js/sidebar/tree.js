@@ -1,5 +1,5 @@
 
-// degas.sidebar.tree
+// doob.sidebar.tree
 
 {
 	init() {
@@ -49,7 +49,7 @@
 		*/
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.tree,
 			xInsert,
 			xAnchorId,

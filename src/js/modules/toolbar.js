@@ -1,5 +1,5 @@
 
-// degas.toolbar
+// doob.toolbar
 
 {
 	init() {
@@ -24,7 +24,7 @@
 		};
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.toolbar,
 			el;
 		// console.log(event);

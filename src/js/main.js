@@ -3,7 +3,7 @@
 @import "./modules/test.js";
 
 
-const degas = {
+const doob = {
 	Loaders: {},
 	init() {
 		// fast references
@@ -23,7 +23,7 @@ const degas = {
 		// DEV-ONLY-END
 	},
 	dispatch(event) {
-		let Self = degas,
+		let Self = doob,
 			file,
 			el;
 		// console.log(event);
@@ -150,6 +150,6 @@ const degas = {
 	colorpicker: @import "modules/colorpicker.js",
 };
 
-const APP = degas;
+const APP = doob;
 
-window.exports = degas;
+window.exports = doob;

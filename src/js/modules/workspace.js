@@ -1,5 +1,5 @@
 
-// degas.workspace
+// doob.workspace
 
 {
 	init() {
@@ -18,7 +18,7 @@
 		this.matcaps = { none: null };
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.workspace,
 			object,
 			name,

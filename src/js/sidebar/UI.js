@@ -1,5 +1,5 @@
 
-// degas.sidebar.UI
+// doob.sidebar.UI
 
 {
 	init() {
@@ -10,7 +10,7 @@
 		// setTimeout(() => this.dispatch({ type: "mousedown", target: el[0], el }), 1500);
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.UI,
 			name,
 			value,
@@ -55,7 +55,7 @@
 		}
 	},
 	numberInput(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.UI,
 			Drag = Self.drag;
 		switch (event.type) {
@@ -129,7 +129,7 @@
 		}
 	},
 	resizeImagePreview(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.UI,
 			Drag = Self.drag;
 		switch (event.type) {

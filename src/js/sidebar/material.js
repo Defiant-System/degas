@@ -1,12 +1,12 @@
 
-// degas.sidebar.material
+// doob.sidebar.material
 
 {
 	init() {
 
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.material,
 			el;
 		// console.log(event);

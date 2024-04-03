@@ -1,12 +1,12 @@
 
-// degas.sidebar.object
+// doob.sidebar.object
 
 {
 	init() {
 
 	},
 	dispatch(event) {
-		let APP = degas,
+		let APP = doob,
 			Self = APP.sidebar.object,
 			el;
 		// console.log(event);
