@@ -1,8 +1,8 @@
 <MenuBar>
-	<Menu name="Doob">
-		<Menu name="About Doob" shell="win -a"/>
+	<Menu name="DooB">
+		<Menu name="About DooB" shell="win -a"/>
 		<Menu type="divider"/>
-		<Menu name="Quit Doob" shell="win -c"/>
+		<Menu name="Quit DooB" shell="win -c"/>
 	</Menu>
 	<Menu name="File">
 		<Menu name="New" click="new-file" hotkey="alt+n"/>
