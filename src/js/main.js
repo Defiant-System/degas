@@ -58,7 +58,7 @@ const degas = {
 			case "load-samples":
 				// opening image file from application package
 				event.names.map(entry => {
-					let url = `~/sample/${entry}`,
+					let url = `/cdn/samples/3d/${entry}`,
 						[ name, kind ] = entry.split("."),
 						file = new karaqu.File({ name, kind });
 					// fetch file
