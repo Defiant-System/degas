@@ -1,5 +1,5 @@
 
-@import "./main.threee.js";
+@import "./main.three.js";
 @import "./modules/test.js";
 
 
